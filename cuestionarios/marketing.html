@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario de Marketing · Diagnóstico</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#0b0d14; --card:#161923; --card-2:#1e2130; --border:#2a2f3f;
+    --text:#eceef4; --muted:#47544A; --accent:#2F6B4F; --accent-soft:#191d33;
+    --ok:#2F6B4F; --req:#2F6B4F; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.5;}
+  h1,h2,.card-title h2{font-family:'Manrope','Inter',sans-serif}
+  .wrap{max-width:840px; margin:0 auto; padding:22px 18px 90px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 26px; flex-wrap:wrap}
+  .logo-slot{display:flex; align-items:center; gap:10px}
+  .logo-ph{border:1px dashed var(--border); color:var(--muted); font-size:11px; letter-spacing:1px; padding:9px 14px; border-radius:10px; font-weight:700;}
+  .header-right{display:flex; align-items:center; gap:10px}
+  .tag{font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--card)}
+  .lang-toggle button{border:none; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; cursor:pointer}
+  .lang-toggle button.active{background:var(--accent); color:#fff}
+  .hero-badge{display:inline-block; font-size:12px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:6px 12px; border-radius:999px; margin-bottom:14px}
+  h1{font-size:30px; margin:0 0 10px; font-weight:800; letter-spacing:-.5px}
+  .subtitle{color:var(--muted); margin:0 0 22px; font-size:16px}
+  .intro-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px}
+  .intro-box h3{margin:0 0 8px; font-size:16px; font-family:'Manrope',sans-serif}
+  .intro-box p{margin:0 0 12px; color:var(--muted); font-size:14px}
+  .intro-list{display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; margin:0; padding:0; list-style:none}
+  .intro-list li{color:var(--muted); font-size:13px; padding-left:16px; position:relative}
+  .intro-list li::before{content:"›"; position:absolute; left:0; color:var(--accent); font-weight:700}
+  @media(max-width:560px){.intro-list{grid-template-columns:1fr}}
+  .progress-wrapper{margin:6px 0 24px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5}
+  .progress-info{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:6px}
+  .progress-track{height:8px; background:var(--card-2); border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+  .form-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:16px}
+  .card-header{display:flex; gap:14px; align-items:flex-start; margin-bottom:6px}
+  .card-number{min-width:42px; height:42px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; font-weight:800; font-size:15px}
+  .card-title h2{margin:0; font-size:19px; font-weight:700}
+  .card-title p{margin:3px 0 0; color:var(--muted); font-size:14px}
+  .field{margin-top:18px}
+  .field-label{display:block; font-weight:600; margin-bottom:4px}
+  .required{color:var(--req)}
+  .field-hint{display:block; color:var(--muted); font-size:13px; margin-bottom:8px}
+  .input,.textarea,.select{width:100%; background:var(--card-2); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:12px 13px; font-size:15px; font-family:inherit}
+  .textarea{min-height:96px; resize:vertical}
+  .input:focus,.textarea:focus,.select:focus{outline:2px solid var(--accent); border-color:var(--accent)}
+  .input.readonly{opacity:.65; cursor:not-allowed}
+  .radio-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .radio-grid-2{grid-template-columns:1fr 1fr}
+  .radio-grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:560px){.radio-grid,.radio-grid-2,.radio-grid-3{grid-template-columns:1fr 1fr}}
+  .radio-box{display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:14px 10px; cursor:pointer; transition:.15s}
+  .radio-box:hover{border-color:var(--accent)}
+  .radio-box input{display:none}
+  .radio-box:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .radio-label-text{font-weight:600; font-size:14px}
+  .radio-desc{font-size:12px; color:var(--muted)}
+  .checkbox-list{display:grid; gap:10px}
+  .checkbox-option{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:13px 14px; cursor:pointer; transition:.15s}
+  .checkbox-option:hover{border-color:var(--accent)}
+  .checkbox-option:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .checkbox-option input{margin-top:2px; width:18px; height:18px; accent-color:var(--accent); flex:none}
+  .checkbox-text{font-weight:600; display:block}
+  .checkbox-desc{font-size:12px; color:var(--muted); display:block; margin-top:2px}
+  .info-callout{display:flex; gap:12px; align-items:flex-start; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:16px; color:var(--muted); font-size:14px}
+  .input-grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  @media(max-width:560px){.input-grid-3{grid-template-columns:1fr}}
+  .input-group-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+  .icon-input{display:flex; align-items:center; background:var(--card-2); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+  .icon-input:focus-within{outline:2px solid var(--accent); border-color:var(--accent)}
+  .cur-symbol{padding:0 12px; color:var(--muted); font-weight:700}
+  .icon-input .input{border:none; background:transparent; outline:none}
+  .toolbar{display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:16px}
+  .toolbar label{font-weight:600; font-size:14px}
+  .toolbar .select{max-width:230px}
+  .conditional{display:none; border-left:2px solid var(--accent); padding-left:14px; margin-top:10px}
+  .conditional.show{display:block}
+  .conditional-title{font-size:13px; font-weight:700; color:var(--accent); margin-top:8px}
+  .submit-section{margin-top:12px}
+  .submit-btn{width:100%; border:none; cursor:pointer; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:16px; border-radius:12px; font-family:inherit}
+  .submit-btn:hover{opacity:.93}
+  .result{display:none; text-align:center; padding:10px 0}
+  .result.show{display:block}
+  .result .check{width:66px; height:66px; margin:0 auto 14px; border-radius:50%; background:var(--ok); display:grid; place-items:center; color:#fff; font-size:34px}
+  .result h2{margin:0 0 6px}
+  .result p{color:var(--muted); max-width:520px; margin:0 auto 18px}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:18px}
+  .btn{border:1px solid var(--border); background:var(--card-2); color:var(--text); padding:12px 18px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; font-family:inherit}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn:hover{opacity:.9}
+  .preview{text-align:left; background:var(--card-2); border:1px solid var(--border); border-radius:10px; padding:14px; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:13px; max-height:320px; overflow:auto; color:var(--muted)}
+</style>
+<style>
+/* ===== Branding Arraviva (sobrescribe colores + tipografía, sin tocar contenido) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+:root{
+  --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+  --text:#17201b; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+  --ok:#2F6B4F; --req:#2F6B4F; --tierra:#2F6B4F; --savia:#2F6B4F; --luz:#e6b15a;
+}
+h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-weight:600;}
+.hero-badge{color:var(--tierra); background:#EAF0EB;}
+</style>
+<style>
+#q-gate{position:fixed;inset:0;z-index:99999;background:#f6f1e8;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif}
+#q-gate.q-unlocked{display:none}
+.q-gate__card{width:100%;max-width:380px;background:#fff;border:1px solid #e2dccf;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 1px 2px rgba(23,32,27,.04),0 12px 28px -16px rgba(23,32,27,.2)}
+.q-gate__logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px}
+.q-gate__logo .brand-name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#1e3a31}
+.q-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1e3a31;margin:0 0 8px}
+.q-gate__sub{font-size:14.5px;line-height:1.5;color:#47544A;margin:0 0 22px}
+#q-gate__input{width:100%;box-sizing:border-box;background:#fbf8f1;border:1px solid #e2dccf;border-radius:10px;padding:13px 15px;font-size:15px;font-family:inherit;color:#17201b;text-align:center}
+#q-gate__input:focus{outline:none;border-color:#2F6B4F}
+#q-gate__btn{width:100%;margin-top:12px;border:none;cursor:pointer;background:#1e3a31;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:10px;font-family:inherit}
+#q-gate__btn:hover{background:#2F6B4F}
+#q-gate__error{margin:14px 0 0;font-size:13px;color:#2F6B4F;font-weight:600}
+.viva{color:#2F6B4F}
+</style>
+</head>
+<body>
+<div id="q-gate">
+  <div class="q-gate__card">
+    <div class="q-gate__logo"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name">Arra<span class="viva">viva</span></span></div>
+    <h1 class="q-gate__title">Cuestionario privado</h1>
+    <p class="q-gate__sub">Introduce la clave de acceso que te compartimos para continuar.</p>
+    <form id="q-gate__form" autocomplete="off">
+      <input id="q-gate__input" type="password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+      <button id="q-gate__btn" type="submit">Entrar &rarr;</button>
+      <p id="q-gate__error" hidden>Clave incorrecta. Vuelve a intentarlo.</p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-slot" style="display:flex;align-items:center;gap:9px"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#1e3a31">Arra<span class="viva">viva</span></span></div>
+    <div class="header-right">
+      <span class="tag" data-es="Fase de Incorporación" data-en="Onboarding Phase">Fase de Incorporación</span>
+      <div class="lang-toggle">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <span class="hero-badge" data-es="Diagnóstico" data-en="Audit">Diagnóstico</span>
+  <h1 data-es="Diagnóstico del Área de Marketing" data-en="Marketing Area Audit">Diagnóstico del Área de Marketing</h1>
+  <p class="subtitle" data-es="Este cuestionario nos permite entender cómo funciona tu estrategia de marketing para detectar fricciones en la captación, errores de atribución y oportunidades de automatización e IA." data-en="This questionnaire helps us understand how your marketing strategy works, to spot acquisition friction, attribution errors and opportunities for automation and AI.">Este cuestionario nos permite entender cómo funciona tu estrategia de marketing para detectar fricciones en la captación, errores de atribución y oportunidades de automatización e IA.</p>
+
+  <div class="intro-box">
+    <h3 data-es="¿Qué información necesitamos?" data-en="What information do we need?">¿Qué información necesitamos?</h3>
+    <p data-es="Este diagnóstico cubre todos los aspectos del proceso de marketing para identificar cuellos de botella, tareas repetitivas y oportunidades de mejora." data-en="This audit covers every aspect of your marketing process to identify bottlenecks, repetitive tasks and improvement opportunities.">Este diagnóstico cubre todos los aspectos del proceso de marketing para identificar cuellos de botella, tareas repetitivas y oportunidades de mejora.</p>
+    <ul class="intro-list">
+      <li data-es="Estructura y responsables" data-en="Structure and owners">Estructura y responsables</li>
+      <li data-es="Herramientas y software" data-en="Tools and software">Herramientas y software</li>
+      <li data-es="Creación de contenido" data-en="Content creation">Creación de contenido</li>
+      <li data-es="Publicación y distribución" data-en="Publishing and distribution">Publicación y distribución</li>
+      <li data-es="Campañas y segmentación" data-en="Campaigns and segmentation">Campañas y segmentación</li>
+      <li data-es="Conexión con CRM y ventas" data-en="CRM and sales connection">Conexión con CRM y ventas</li>
+      <li data-es="Uso de IA actual" data-en="Current AI usage">Uso de IA actual</li>
+      <li data-es="Automatizaciones activas" data-en="Active automations">Automatizaciones activas</li>
+      <li data-es="Tareas manuales y repetitivas" data-en="Manual and repetitive tasks">Tareas manuales y repetitivas</li>
+      <li data-es="Escalabilidad y métricas" data-en="Scalability and metrics">Escalabilidad y métricas</li>
+    </ul>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 12</span></div>
+    <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+  </div>
+
+  <form id="form">
+
+    <div class="toolbar">
+      <label for="currency" data-es="Moneda con la que trabajas:" data-en="Currency you work with:">Moneda con la que trabajas:</label>
+      <select class="select" id="currency" name="Moneda">
+        <option value="USD" data-es="USD — Dólar ($)" data-en="USD — Dollar ($)">USD — Dólar ($)</option>
+        <option value="COP" data-es="COP — Peso colombiano ($)" data-en="COP — Colombian Peso ($)">COP — Peso colombiano ($)</option>
+        <option value="EUR" data-es="EUR — Euro (€)" data-en="EUR — Euro (€)">EUR — Euro (€)</option>
+      </select>
+    </div>
+
+    <!-- ===== 01 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">01</span>
+        <div class="card-title">
+          <h2 data-es="Datos de la Empresa y Estructura de Marketing" data-en="Company Details and Marketing Structure">Datos de la Empresa y Estructura de Marketing</h2>
+          <p data-es="Información básica y organización del área" data-en="Basic information and area organization">Información básica y organización del área</p></div></div>
+
+      <div class="field"><label class="field-label"><span data-es="Nombre de la empresa" data-en="Company name">Nombre de la empresa</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Nombre de la empresa" required data-es-ph="Ej: Acme Solutions S.A.S." data-en-ph="e.g. Acme Solutions LLC" placeholder="Ej: Acme Solutions S.A.S."></div>
+
+      <div class="field"><label class="field-label" data-es="Área a auditar" data-en="Area being audited">Área a auditar</label>
+        <input class="input readonly" type="text" name="Área a auditar" value="Marketing" readonly></div>
+
+      <div class="field"><label class="field-label" data-es="Tu rol en la empresa" data-en="Your role in the company">Tu rol en la empresa</label>
+        <select class="select" name="Rol">
+          <option value="" disabled selected data-es="Selecciona tu rol" data-en="Select your role">Selecciona tu rol</option>
+          <option value="CEO" data-es="CEO / Fundador" data-en="CEO / Founder">CEO / Fundador</option>
+          <option value="CMO" data-es="CMO / Director de Marketing" data-en="CMO / Marketing Director">CMO / Director de Marketing</option>
+          <option value="Gerente de Marketing" data-es="Gerente de Marketing" data-en="Marketing Manager">Gerente de Marketing</option>
+          <option value="Crecimiento" data-es="Responsable de Crecimiento / Publicidad" data-en="Growth / Performance">Responsable de Crecimiento / Publicidad</option>
+          <option value="Contenido" data-es="Responsable de Contenido" data-en="Content Manager">Responsable de Contenido</option>
+          <option value="Redes" data-es="Responsable de Redes Sociales" data-en="Social Media Manager">Responsable de Redes Sociales</option>
+          <option value="Otro" data-es="Otro" data-en="Other">Otro</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas personas trabajan en marketing?" data-en="How many people work in marketing?">¿Cuántas personas trabajan en marketing?</label>
+        <input class="input" type="number" name="Tamaño equipo marketing" placeholder="Ej: 3"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué hace cada persona?" data-en="What does each person do?">¿Qué hace cada persona?</label>
+        <textarea class="textarea" name="Roles de marketing" data-es-ph="Ej: María (CMO): estrategia y campañas. Carlos: contenido y redes. Ana: email y CRM..." data-en-ph="e.g. María (CMO): strategy and campaigns. Carlos: content and social. Ana: email and CRM..." placeholder="Ej: María (CMO): estrategia y campañas. Carlos: contenido y redes. Ana: email y CRM..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas dependen de UNA SOLA persona?" data-en="Which tasks depend on a SINGLE person?">¿Qué tareas dependen de UNA SOLA persona?</label>
+        <span class="field-hint" data-es="Puntos críticos: si esa persona falta, ¿qué se detiene?" data-en="Critical points: if that person is away, what stops?">Puntos críticos: si esa persona falta, ¿qué se detiene?</span>
+        <textarea class="textarea" name="Dependencia de una persona" data-es-ph="Ej: Solo María tiene acceso a las campañas de pago. Solo Carlos edita videos..." data-en-ph="e.g. Only María has access to paid campaigns. Only Carlos edits videos..." placeholder="Ej: Solo María tiene acceso a las campañas de pago. Solo Carlos edita videos..."></textarea></div>
+    </div>
+
+    <!-- ===== 02 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">02</span>
+        <div class="card-title">
+          <h2 data-es="Gestión del Marketing" data-en="Marketing Management">Gestión del Marketing</h2>
+          <p data-es="¿Quién ejecuta el marketing?" data-en="Who executes the marketing?">¿Quién ejecuta el marketing?</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen agencia o proveedor externo de marketing?" data-en="Do you have an external marketing agency or provider?">¿Tienen agencia o proveedor externo de marketing?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Tiene agencia" value="Sí externa"><span class="radio-label-text" data-es="Sí, agencia externa" data-en="Yes, external agency">Sí, agencia externa</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene agencia" value="Mixto"><span class="radio-label-text" data-es="Mixto" data-en="Mixed">Mixto</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene agencia" value="Todo interno"><span class="radio-label-text" data-es="Todo interno" data-en="All in-house">Todo interno</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene agencia=Sí externa|Mixto">
+        <div class="conditional-title" data-es="Detalles del proveedor externo" data-en="External provider details">Detalles del proveedor externo</div>
+        <div class="info-callout"><p data-es="Podemos enviar un formulario específico a tu agencia/proveedor para auditar también su trabajo." data-en="We can send a specific form to your agency/provider to audit their work too.">Podemos enviar un formulario específico a tu agencia/proveedor para auditar también su trabajo.</p></div>
+
+        <div class="field"><label class="field-label" data-es="Nombre de la agencia/proveedor" data-en="Agency/provider name">Nombre de la agencia/proveedor</label>
+          <input class="input" type="text" name="Nombre de la agencia" data-es-ph="Ej: Marketing Pro Agency" data-en-ph="e.g. Marketing Pro Agency" placeholder="Ej: Marketing Pro Agency"></div>
+
+        <div class="field"><label class="field-label" data-es="Email de contacto de la agencia" data-en="Agency contact email">Email de contacto de la agencia</label>
+          <input class="input" type="email" name="Email de la agencia" data-es-ph="Ej: contacto@agencia.com" data-en-ph="e.g. contact@agency.com" placeholder="Ej: contacto@agencia.com"></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué gestiona la agencia?" data-en="What does the agency manage?">¿Qué gestiona la agencia?</label>
+          <div class="checkbox-list">
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Ads"><span class="checkbox-text" data-es="Publicidad de pago (Google/Meta Ads)" data-en="Paid ads (Google/Meta Ads)">Publicidad de pago (Google/Meta Ads)</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="SEO"><span class="checkbox-text" data-es="SEO / Posicionamiento" data-en="SEO / Search ranking">SEO / Posicionamiento</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Redes"><span class="checkbox-text" data-es="Gestión de redes sociales" data-en="Social media management">Gestión de redes sociales</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Contenido"><span class="checkbox-text" data-es="Creación de contenido" data-en="Content creation">Creación de contenido</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Email"><span class="checkbox-text" data-es="Email marketing" data-en="Email marketing">Email marketing</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Web"><span class="checkbox-text" data-es="Web / Landing pages" data-en="Web / Landing pages">Web / Landing pages</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Servicios de la agencia" value="Estrategia"><span class="checkbox-text" data-es="Estrategia general" data-en="Overall strategy">Estrategia general</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="Costo mensual aproximado de la agencia" data-en="Approx. monthly cost of the agency">Costo mensual aproximado de la agencia</label>
+          <span class="field-hint" data-es="En la moneda que seleccionaste arriba" data-en="In the currency selected above">En la moneda que seleccionaste arriba</span>
+          <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual agencia" placeholder="Ej: 2000"></div></div>
+      </div>
+    </div>
+
+    <!-- ===== 03 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">03</span>
+        <div class="card-title">
+          <h2 data-es="Herramientas y Software de Marketing" data-en="Marketing Tools and Software">Herramientas y Software de Marketing</h2>
+          <p data-es="Tecnología que usan para gestionar el marketing" data-en="Technology you use to manage marketing">Tecnología que usan para gestionar el marketing</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas usan?" data-en="Which tools do you use?">¿Qué herramientas usan?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Google Ads"><span class="checkbox-text" data-es="Google Ads" data-en="Google Ads">Google Ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Meta Ads"><span class="checkbox-text" data-es="Meta Ads (Facebook/Instagram)" data-en="Meta Ads (Facebook/Instagram)">Meta Ads (Facebook/Instagram)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="LinkedIn Ads"><span class="checkbox-text" data-es="LinkedIn Ads" data-en="LinkedIn Ads">LinkedIn Ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="TikTok Ads"><span class="checkbox-text" data-es="TikTok Ads" data-en="TikTok Ads">TikTok Ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Google Analytics"><span class="checkbox-text" data-es="Google Analytics" data-en="Google Analytics">Google Analytics</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Search Console"><span class="checkbox-text" data-es="Google Search Console" data-en="Google Search Console">Google Search Console</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="SEMrush/Ahrefs"><span class="checkbox-text" data-es="SEMrush / Ahrefs / Similar" data-en="SEMrush / Ahrefs / Similar">SEMrush / Ahrefs / Similar</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Mailchimp"><span class="checkbox-text" data-es="Mailchimp" data-en="Mailchimp">Mailchimp</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Brevo"><span class="checkbox-text" data-es="Brevo (Sendinblue)" data-en="Brevo (Sendinblue)">Brevo (Sendinblue)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="ActiveCampaign"><span class="checkbox-text" data-es="ActiveCampaign" data-en="ActiveCampaign">ActiveCampaign</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="HubSpot"><span class="checkbox-text" data-es="HubSpot" data-en="HubSpot">HubSpot</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Hootsuite/Buffer"><span class="checkbox-text" data-es="Hootsuite / Buffer / Metricool" data-en="Hootsuite / Buffer / Metricool">Hootsuite / Buffer / Metricool</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Canva"><span class="checkbox-text" data-es="Canva" data-en="Canva">Canva</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Adobe"><span class="checkbox-text" data-es="Adobe Creative Suite" data-en="Adobe Creative Suite">Adobe Creative Suite</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="WordPress"><span class="checkbox-text" data-es="WordPress" data-en="WordPress">WordPress</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="CRM"><span class="checkbox-text" data-es="CRM (Salesforce, Pipedrive, Zoho...)" data-en="CRM (Salesforce, Pipedrive, Zoho...)">CRM (Salesforce, Pipedrive, Zoho...)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de marketing" value="Excel"><span class="checkbox-text" data-es="Excel / Google Sheets" data-en="Excel / Google Sheets">Excel / Google Sheets</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Otras herramientas que usen" data-en="Other tools you use">Otras herramientas que usen</label>
+        <input class="input" type="text" name="Otras herramientas" data-es-ph="Ej: Klaviyo, Notion, Zapier, Make..." data-en-ph="e.g. Klaviyo, Notion, Zapier, Make..." placeholder="Ej: Klaviyo, Notion, Zapier, Make..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Las herramientas están conectadas entre sí?" data-en="Are the tools connected to each other?">¿Las herramientas están conectadas entre sí?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Integradas"><span class="radio-label-text" data-es="Bien integradas" data-en="Well integrated">Bien integradas</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Algunas"><span class="radio-label-text" data-es="Algunas" data-en="Some">Algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Islas"><span class="radio-label-text" data-es="Son islas" data-en="They're islands">Son islas</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 04 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">04</span>
+        <div class="card-title">
+          <h2 data-es="Creación de Contenido" data-en="Content Creation">Creación de Contenido</h2>
+          <p data-es="Cómo generan el contenido de marketing" data-en="How you produce marketing content">Cómo generan el contenido de marketing</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién crea el contenido?" data-en="Who creates the content?">¿Quién crea el contenido?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Quién crea contenido" value="Interno"><span class="checkbox-text" data-es="Equipo interno" data-en="In-house team">Equipo interno</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Quién crea contenido" value="Agencia"><span class="checkbox-text" data-es="Agencia externa" data-en="External agency">Agencia externa</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Quién crea contenido" value="Freelancers"><span class="checkbox-text" data-es="Freelancers" data-en="Freelancers">Freelancers</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Quién crea contenido" value="IA"><span class="checkbox-text" data-es="IA (ChatGPT, Jasper...)" data-en="AI (ChatGPT, Jasper...)">IA (ChatGPT, Jasper...)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Quién crea contenido" value="CEO"><span class="checkbox-text" data-es="El CEO / Fundador" data-en="The CEO / Founder">El CEO / Fundador</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tipo de contenido crean?" data-en="What type of content do you create?">¿Qué tipo de contenido crean?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Posts"><span class="checkbox-text" data-es="Posts para redes sociales" data-en="Social media posts">Posts para redes sociales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Reels"><span class="checkbox-text" data-es="Stories / Reels / TikToks" data-en="Stories / Reels / TikToks">Stories / Reels / TikToks</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Blog"><span class="checkbox-text" data-es="Artículos de blog / SEO" data-en="Blog articles / SEO">Artículos de blog / SEO</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Email"><span class="checkbox-text" data-es="Emails / Newsletters" data-en="Emails / Newsletters">Emails / Newsletters</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Video"><span class="checkbox-text" data-es="Videos (YouTube, webinars...)" data-en="Videos (YouTube, webinars...)">Videos (YouTube, webinars...)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Podcast"><span class="checkbox-text" data-es="Podcast" data-en="Podcast">Podcast</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Ads"><span class="checkbox-text" data-es="Creatividades para ads" data-en="Ad creatives">Creatividades para ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de contenido" value="Lead magnets"><span class="checkbox-text" data-es="Lead magnets (ebooks, guías...)" data-en="Lead magnets (ebooks, guides...)">Lead magnets (ebooks, guías...)</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="La creación de contenido es..." data-en="Content creation is...">La creación de contenido es...</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Proceso de contenido" value="Manual"><span class="radio-label-text" data-es="100% Manual" data-en="100% Manual">100% Manual</span></label>
+          <label class="radio-box"><input type="radio" name="Proceso de contenido" value="Asistida IA"><span class="radio-label-text" data-es="Asistida con IA" data-en="AI-assisted">Asistida con IA</span></label>
+          <label class="radio-box"><input type="radio" name="Proceso de contenido" value="Automatizada"><span class="radio-label-text" data-es="Muy automatizada" data-en="Highly automated">Muy automatizada</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Con qué frecuencia publican contenido?" data-en="How often do you publish content?">¿Con qué frecuencia publican contenido?</label>
+        <input class="input" type="text" name="Frecuencia de contenido" data-es-ph="Ej: 3 posts/semana, 1 blog/mes, newsletter semanal..." data-en-ph="e.g. 3 posts/week, 1 blog/month, weekly newsletter..." placeholder="Ej: 3 posts/semana, 1 blog/mes, newsletter semanal..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde se atasca la creación de contenido?" data-en="Where does content creation get stuck?">¿Dónde se atasca la creación de contenido?</label>
+        <textarea class="textarea" name="Cuello de botella de contenido" data-es-ph="Ej: Falta tiempo, el CEO aprueba todo, edición de video lenta..." data-en-ph="e.g. Not enough time, the CEO approves everything, slow video editing..." placeholder="Ej: Falta tiempo, el CEO aprueba todo, edición de video lenta..."></textarea></div>
+    </div>
+
+    <!-- ===== 05 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">05</span>
+        <div class="card-title">
+          <h2 data-es="Publicación y Distribución" data-en="Publishing and Distribution">Publicación y Distribución</h2>
+          <p data-es="Cómo publican y distribuyen el contenido" data-en="How you publish and distribute content">Cómo publican y distribuyen el contenido</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen flujos automáticos de publicación?" data-en="Do you have automated publishing flows?">¿Tienen flujos automáticos de publicación?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Publicación automática" value="Programado"><span class="radio-label-text" data-es="Sí, programado" data-en="Yes, scheduled">Sí, programado</span></label>
+          <label class="radio-box"><input type="radio" name="Publicación automática" value="Algo"><span class="radio-label-text" data-es="Algo programado" data-en="Somewhat scheduled">Algo programado</span></label>
+          <label class="radio-box"><input type="radio" name="Publicación automática" value="Manual"><span class="radio-label-text" data-es="Todo manual" data-en="All manual">Todo manual</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué canales publican?" data-en="On which channels do you publish?">¿En qué canales publican?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="Instagram"><span class="checkbox-text" data-es="Instagram" data-en="Instagram">Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="Facebook"><span class="checkbox-text" data-es="Facebook" data-en="Facebook">Facebook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="LinkedIn"><span class="checkbox-text" data-es="LinkedIn" data-en="LinkedIn">LinkedIn</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="TikTok"><span class="checkbox-text" data-es="TikTok" data-en="TikTok">TikTok</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="YouTube"><span class="checkbox-text" data-es="YouTube" data-en="YouTube">YouTube</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="X"><span class="checkbox-text" data-es="X (Twitter)" data-en="X (Twitter)">X (Twitter)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="Blog"><span class="checkbox-text" data-es="Blog / Web" data-en="Blog / Web">Blog / Web</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="Email"><span class="checkbox-text" data-es="Email / Newsletter" data-en="Email / Newsletter">Email / Newsletter</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de publicación" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp / Telegram" data-en="WhatsApp / Telegram">WhatsApp / Telegram</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo es el proceso de publicación?" data-en="What is the publishing process?">¿Cómo es el proceso de publicación?</label>
+        <textarea class="textarea" name="Proceso de publicación" data-es-ph="Ej: Creamos el contenido, lo aprueba el CEO, lo programamos en Metricool..." data-en-ph="e.g. We create the content, the CEO approves it, we schedule it in Metricool..." placeholder="Ej: Creamos el contenido, lo aprueba el CEO, lo programamos en Metricool..."></textarea></div>
+    </div>
+
+    <!-- ===== 06 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">06</span>
+        <div class="card-title">
+          <h2 data-es="Campañas, Segmentación y CRM" data-en="Campaigns, Segmentation and CRM">Campañas, Segmentación y CRM</h2>
+          <p data-es="Conexión entre marketing y ventas" data-en="Connection between marketing and sales">Conexión entre marketing y ventas</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Las campañas de marketing están conectadas con el CRM?" data-en="Are marketing campaigns connected to the CRM?">¿Las campañas de marketing están conectadas con el CRM?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Campañas y CRM" value="Conectadas"><span class="radio-label-text" data-es="Sí, conectadas" data-en="Yes, connected">Sí, conectadas</span></label>
+          <label class="radio-box"><input type="radio" name="Campañas y CRM" value="Parcialmente"><span class="radio-label-text" data-es="Parcialmente" data-en="Partially">Parcialmente</span></label>
+          <label class="radio-box"><input type="radio" name="Campañas y CRM" value="No"><span class="radio-label-text" data-es="No conectadas" data-en="Not connected">No conectadas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo son las segmentaciones de audiencia?" data-en="How are your audience segmentations?">¿Cómo son las segmentaciones de audiencia?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Segmentación" value="Avanzada"><span class="radio-label-text" data-es="Segmentación avanzada" data-en="Advanced segmentation">Segmentación avanzada</span></label>
+          <label class="radio-box"><input type="radio" name="Segmentación" value="Básica"><span class="radio-label-text" data-es="Segmentación básica" data-en="Basic segmentation">Segmentación básica</span></label>
+          <label class="radio-box"><input type="radio" name="Segmentación" value="Masivo"><span class="radio-label-text" data-es="Disparo masivo" data-en="Mass blast">Disparo masivo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Pueden medir qué campañas generan ventas reales?" data-en="Can you measure which campaigns generate real sales?">¿Pueden medir qué campañas generan ventas reales?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Atribución" value="Bien medido"><span class="radio-label-text" data-es="Sí, bien medido" data-en="Yes, well measured">Sí, bien medido</span></label>
+          <label class="radio-box"><input type="radio" name="Atribución" value="Más o menos"><span class="radio-label-text" data-es="Más o menos" data-en="More or less">Más o menos</span></label>
+          <label class="radio-box"><input type="radio" name="Atribución" value="No sabemos"><span class="radio-label-text" data-es="No sabemos" data-en="We don't know">No sabemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué problemas tienen con la atribución?" data-en="What problems do you have with attribution?">¿Qué problemas tienen con la atribución?</label>
+        <textarea class="textarea" name="Problemas de atribución" data-es-ph="Ej: No sabemos de dónde vienen los leads, cada herramienta da datos distintos..." data-en-ph="e.g. We don't know where leads come from, each tool gives different data..." placeholder="Ej: No sabemos de dónde vienen los leads, cada herramienta da datos distintos..."></textarea></div>
+    </div>
+
+    <!-- ===== 07 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">07</span>
+        <div class="card-title">
+          <h2 data-es="Captación y Volumen" data-en="Acquisition and Volume">Captación y Volumen</h2>
+          <p data-es="Resultados y escalabilidad del marketing" data-en="Marketing results and scalability">Resultados y escalabilidad del marketing</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas peticiones/leads generan?" data-en="How many inquiries/leads do you generate?">¿Cuántas peticiones/leads generan?</label>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Por día" data-en="Per day">Por día</span><input class="input" type="number" name="Leads por día" placeholder="Ej: 5"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Por semana" data-en="Per week">Por semana</span><input class="input" type="number" name="Leads por semana" placeholder="Ej: 30"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Por mes" data-en="Per month">Por mes</span><input class="input" type="number" name="Leads por mes" placeholder="Ej: 120"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay días/horas pico de captación?" data-en="Are there peak days/hours for acquisition?">¿Hay días/horas pico de captación?</label>
+        <input class="input" type="text" name="Picos de captación" data-es-ph="Ej: Lunes por la mañana tras el email, después de publicar en redes..." data-en-ph="e.g. Monday mornings after the email, after posting on social..." placeholder="Ej: Lunes por la mañana tras el email, después de publicar en redes..."></div>
+
+      <div class="field"><label class="field-label" data-es="La captación actual, ¿es escalable?" data-en="Is your current acquisition scalable?">La captación actual, ¿es escalable?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Escalabilidad" value="Sí"><span class="radio-label-text" data-es="Sí, podemos crecer" data-en="Yes, we can grow">Sí, podemos crecer</span></label>
+          <label class="radio-box"><input type="radio" name="Escalabilidad" value="Limitada"><span class="radio-label-text" data-es="Limitada" data-en="Limited">Limitada</span></label>
+          <label class="radio-box"><input type="radio" name="Escalabilidad" value="No"><span class="radio-label-text" data-es="No, tope humano" data-en="No, human ceiling">No, tope humano</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Si tuvieran que duplicar leads, ¿qué se rompería?" data-en="If you had to double leads, what would break?">Si tuvieran que duplicar leads, ¿qué se rompería?</label>
+        <textarea class="textarea" name="Límite de escalado" data-es-ph="Ej: No podríamos crear más contenido, el equipo no da abasto..." data-en-ph="e.g. We couldn't create more content, the team is maxed out..." placeholder="Ej: No podríamos crear más contenido, el equipo no da abasto..."></textarea></div>
+    </div>
+
+    <!-- ===== 08 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">08</span>
+        <div class="card-title">
+          <h2 data-es="Uso de IA en Marketing" data-en="Use of AI in Marketing">Uso de IA en Marketing</h2>
+          <p data-es="Inteligencia artificial aplicada al marketing" data-en="Artificial intelligence applied to marketing">Inteligencia artificial aplicada al marketing</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Usan IA en marketing?" data-en="Do you use AI in marketing?">¿Usan IA en marketing?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Usa IA" value="Sí mucho"><span class="radio-label-text" data-es="Sí, mucho" data-en="Yes, a lot">Sí, mucho</span></label>
+          <label class="radio-box"><input type="radio" name="Usa IA" value="Algo"><span class="radio-label-text" data-es="Algo" data-en="Somewhat">Algo</span></label>
+          <label class="radio-box"><input type="radio" name="Usa IA" value="No"><span class="radio-label-text" data-es="No usamos" data-en="We don't use it">No usamos</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Usa IA=Sí mucho|Algo">
+        <div class="conditional-title" data-es="¿Para qué usan IA?" data-en="What do you use AI for?">¿Para qué usan IA?</div>
+        <div class="field"><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Textos"><span class="checkbox-text" data-es="Generación de textos (anuncios, correos, publicaciones)" data-en="Text generation (copy, emails, posts)">Generación de textos (anuncios, correos, publicaciones)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Imágenes"><span class="checkbox-text" data-es="Generación de imágenes (DALL-E, Midjourney)" data-en="Image generation (DALL-E, Midjourney)">Generación de imágenes (DALL-E, Midjourney)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Video"><span class="checkbox-text" data-es="Edición o generación de video" data-en="Video editing or generation">Edición o generación de video</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="SEO"><span class="checkbox-text" data-es="Optimización SEO" data-en="SEO optimization">Optimización SEO</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Emails"><span class="checkbox-text" data-es="Personalización de emails" data-en="Email personalization">Personalización de emails</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Ads"><span class="checkbox-text" data-es="Optimización de anuncios" data-en="Ad optimization">Optimización de anuncios</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Chatbot"><span class="checkbox-text" data-es="Chatbot / Atención automatizada" data-en="Chatbot / Automated support">Chatbot / Atención automatizada</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Análisis"><span class="checkbox-text" data-es="Análisis de datos / Reportes" data-en="Data analysis / Reports">Análisis de datos / Reportes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Usos de IA" value="Testing"><span class="checkbox-text" data-es="A/B Testing automatizado" data-en="Automated A/B testing">A/B Testing automatizado</span></label>
+        </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué herramientas de IA usan?" data-en="Which AI tools do you use?">¿Qué herramientas de IA usan?</label>
+          <input class="input" type="text" name="Herramientas de IA" data-es-ph="Ej: ChatGPT, Claude, Jasper, Midjourney, Copy.ai..." data-en-ph="e.g. ChatGPT, Claude, Jasper, Midjourney, Copy.ai..." placeholder="Ej: ChatGPT, Claude, Jasper, Midjourney, Copy.ai..."></div>
+      </div>
+    </div>
+
+    <!-- ===== 09 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">09</span>
+        <div class="card-title">
+          <h2 data-es="Automatizaciones Actuales" data-en="Current Automations">Automatizaciones Actuales</h2>
+          <p data-es="Procesos automatizados en marketing" data-en="Automated processes in marketing">Procesos automatizados en marketing</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen automatizaciones activas en marketing?" data-en="Do you have active automations in marketing?">¿Tienen automatizaciones activas en marketing?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="Sí"><span class="radio-label-text" data-es="Sí, tenemos" data-en="Yes, we have">Sí, tenemos</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="No"><span class="radio-label-text" data-es="No, todo manual" data-en="No, all manual">No, todo manual</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene automatización=Sí">
+        <div class="conditional-title" data-es="Detalles de automatizaciones" data-en="Automation details">Detalles de automatizaciones</div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué tienen automatizado?" data-en="What is automated?">¿Qué tienen automatizado?</label>
+          <div class="checkbox-list">
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Bienvenida"><span class="checkbox-text" data-es="Email de bienvenida" data-en="Welcome email">Email de bienvenida</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Maduración"><span class="checkbox-text" data-es="Secuencias de maduración de contactos" data-en="Nurturing sequences">Secuencias de maduración de contactos</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Carrito"><span class="checkbox-text" data-es="Carrito abandonado" data-en="Abandoned cart">Carrito abandonado</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Lead scoring"><span class="checkbox-text" data-es="Lead scoring" data-en="Lead scoring">Lead scoring</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Publicación"><span class="checkbox-text" data-es="Publicación en redes" data-en="Social media publishing">Publicación en redes</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Reportes"><span class="checkbox-text" data-es="Reportes automáticos" data-en="Automatic reports">Reportes automáticos</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="CRM sync"><span class="checkbox-text" data-es="Sincronización con CRM" data-en="CRM synchronization">Sincronización con CRM</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Retargeting"><span class="checkbox-text" data-es="Retargeting automático" data-en="Automatic retargeting">Retargeting automático</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué infraestructura/herramientas usan para automatizar?" data-en="What infrastructure/tools do you use to automate?">¿Qué infraestructura/herramientas usan para automatizar?</label>
+          <input class="input" type="text" name="Infraestructura de automatización" data-es-ph="Ej: Zapier, Make, n8n, HubSpot workflows, ActiveCampaign..." data-en-ph="e.g. Zapier, Make, n8n, HubSpot workflows, ActiveCampaign..." placeholder="Ej: Zapier, Make, n8n, HubSpot workflows, ActiveCampaign..."></div>
+
+        <div class="field"><label class="field-label" data-es="¿Hay supervisión humana en las automatizaciones?" data-en="Is there human supervision (human in the loop)?">¿Hay supervisión humana en las automatizaciones?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="Siempre"><span class="radio-label-text" data-es="Siempre revisamos" data-en="We always review">Siempre revisamos</span></label>
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="100% auto"><span class="radio-label-text" data-es="100% automático" data-en="100% automatic">100% automático</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Están optimizadas al 100%?" data-en="Are they 100% optimized?">¿Están optimizadas al 100%?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Automatizaciones optimizadas" value="Optimizadas"><span class="radio-label-text" data-es="Sí, optimizadas" data-en="Yes, optimized">Sí, optimizadas</span></label>
+            <label class="radio-box"><input type="radio" name="Automatizaciones optimizadas" value="Mejorables"><span class="radio-label-text" data-es="Mejorables" data-en="Could improve">Mejorables</span></label>
+            <label class="radio-box"><input type="radio" name="Automatizaciones optimizadas" value="Necesitan trabajo"><span class="radio-label-text" data-es="Necesitan trabajo" data-en="Need work">Necesitan trabajo</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="Costo operativo mensual de las automatizaciones" data-en="Monthly operating cost of automations">Costo operativo mensual de las automatizaciones</label>
+          <span class="field-hint" data-es="En la moneda que seleccionaste arriba" data-en="In the currency selected above">En la moneda que seleccionaste arriba</span>
+          <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual automatización" placeholder="Ej: 200"></div></div>
+      </div>
+
+      <div class="conditional" data-show-when="Tiene automatización=No">
+        <div class="conditional-title" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</div>
+        <div class="field"><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Tiempo"><span class="checkbox-text" data-es="Falta de tiempo" data-en="Lack of time">Falta de tiempo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Conocimiento"><span class="checkbox-text" data-es="No sabemos cómo" data-en="We don't know how">No sabemos cómo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Presupuesto"><span class="checkbox-text" data-es="Limitación de presupuesto" data-en="Budget limitation">Limitación de presupuesto</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No prioridad"><span class="checkbox-text" data-es="No era prioridad" data-en="Not a priority">No era prioridad</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Herramientas"><span class="checkbox-text" data-es="Las herramientas no lo permiten" data-en="The tools don't allow it">Las herramientas no lo permiten</span></label>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ===== 10 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">10</span>
+        <div class="card-title">
+          <h2 data-es="Tareas Manuales y Repetitivas" data-en="Manual and Repetitive Tasks">Tareas Manuales y Repetitivas</h2>
+          <p data-es="Identificar oportunidades de automatización" data-en="Identify automation opportunities">Identificar oportunidades de automatización</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas se hacen manualmente?" data-en="Which tasks are done manually?">¿Qué tareas se hacen manualmente?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Crear posts"><span class="checkbox-text" data-es="Crear posts para redes" data-en="Create social posts">Crear posts para redes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Programar"><span class="checkbox-text" data-es="Programar publicaciones" data-en="Schedule posts">Programar publicaciones</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Responder"><span class="checkbox-text" data-es="Responder comentarios/DMs" data-en="Reply to comments/DMs">Responder comentarios/DMs</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Emails"><span class="checkbox-text" data-es="Crear y enviar emails" data-en="Create and send emails">Crear y enviar emails</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Ads"><span class="checkbox-text" data-es="Gestionar campañas de ads" data-en="Manage ad campaigns">Gestionar campañas de ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Reportes"><span class="checkbox-text" data-es="Crear reportes/dashboards" data-en="Create reports/dashboards">Crear reportes/dashboards</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Subir leads"><span class="checkbox-text" data-es="Subir leads al CRM" data-en="Upload leads to the CRM">Subir leads al CRM</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Buscar ideas"><span class="checkbox-text" data-es="Buscar ideas/contenido" data-en="Search for ideas/content">Buscar ideas/contenido</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Editar"><span class="checkbox-text" data-es="Editar imágenes/videos" data-en="Edit images/videos">Editar imágenes/videos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Web"><span class="checkbox-text" data-es="Actualizar la web" data-en="Update the website">Actualizar la web</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay acciones que se repiten cada semana/mes?" data-en="Any actions that repeat each week/month?">¿Hay acciones que se repiten cada semana/mes?</label>
+        <textarea class="textarea" name="Tareas recurrentes" data-es-ph="Ej: Todos los lunes preparamos el contenido, cada mes el reporte de ads..." data-en-ph="e.g. Every Monday we prep content, every month the ad report..." placeholder="Ej: Todos los lunes preparamos el contenido, cada mes el reporte de ads..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué es lo que MÁS frustra al equipo?" data-en="What frustrates the team MOST?">¿Qué es lo que MÁS frustra al equipo?</label>
+        <textarea class="textarea" name="Frustraciones" data-es-ph="Ej: Perder tiempo en reportes, no saber qué funciona, depender de aprobaciones..." data-en-ph="e.g. Wasting time on reports, not knowing what works, depending on approvals..." placeholder="Ej: Perder tiempo en reportes, no saber qué funciona, depender de aprobaciones..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué se pierde más tiempo?" data-en="Where is the most time lost?">¿En qué se pierde más tiempo?</label>
+        <textarea class="textarea" name="Pérdida de tiempo" data-es-ph="Ej: Reuniones de aprobación, buscar assets, copiar datos entre herramientas..." data-en-ph="e.g. Approval meetings, finding assets, copying data between tools..." placeholder="Ej: Reuniones de aprobación, buscar assets, copiar datos entre herramientas..."></textarea></div>
+    </div>
+
+    <!-- ===== 11 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">11</span>
+        <div class="card-title">
+          <h2 data-es="Expectativas y Criterios de Éxito" data-en="Expectations and Success Criteria">Expectativas y Criterios de Éxito</h2>
+          <p data-es="Qué esperan conseguir con este diagnóstico" data-en="What you expect to achieve with this audit">Qué esperan conseguir con este diagnóstico</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieran clonar a alguien para hacer UNA tarea 24/7, ¿cuál?" data-en="If you could clone someone to do ONE task 24/7, which one?">Si pudieran clonar a alguien para hacer UNA tarea 24/7, ¿cuál?</label>
+        <textarea class="textarea" name="Tarea a clonar" data-es-ph="Ej: Crear contenido constantemente, responder comentarios, optimizar campañas..." data-en-ph="e.g. Constantly create content, reply to comments, optimize campaigns..." placeholder="Ej: Crear contenido constantemente, responder comentarios, optimizar campañas..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si tuvieran 2 horas extra al día, ¿en qué las usarían?" data-en="If you had 2 extra hours a day, how would you use them?">Si tuvieran 2 horas extra al día, ¿en qué las usarían?</label>
+        <textarea class="textarea" name="Uso de tiempo extra" data-es-ph="Ej: Pensar estrategia, probar nuevos canales, crear mejor contenido..." data-en-ph="e.g. Think strategy, test new channels, create better content..." placeholder="Ej: Pensar estrategia, probar nuevos canales, crear mejor contenido..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define the success of this audit?">¿Cómo definirían el éxito de este diagnóstico?</label>
+        <textarea class="textarea" name="Criterios de éxito" data-es-ph="Ej: Reducir tiempo en tareas manuales 50%, mejorar atribución, automatizar reportes..." data-en-ph="e.g. Cut manual task time by 50%, improve attribution, automate reports..." placeholder="Ej: Reducir tiempo en tareas manuales 50%, mejorar atribución, automatizar reportes..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Presupuesto mensual aproximado para mejoras tecnológicas" data-en="Approx. monthly budget for tech improvements">Presupuesto mensual aproximado para mejoras tecnológicas</label>
+        <span class="field-hint" data-es="En la moneda que seleccionaste arriba" data-en="In the currency selected above">En la moneda que seleccionaste arriba</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Presupuesto mensual" placeholder="Ej: 500"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay resistencia al cambio en el equipo?" data-en="Is there resistance to change in the team?">¿Hay resistencia al cambio en el equipo?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Muy abiertos"><span class="radio-label-text" data-es="Muy abiertos" data-en="Very open">Muy abiertos</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Se adaptan"><span class="radio-label-text" data-es="Se adaptan" data-en="They adapt">Se adaptan</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Hay resistencia"><span class="radio-label-text" data-es="Hay resistencia" data-en="There's resistance">Hay resistencia</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="No lo sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 12 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">12</span>
+        <div class="card-title">
+          <h2 data-es="Comentarios Adicionales" data-en="Additional Comments">Comentarios Adicionales</h2>
+          <p data-es="Cualquier información extra relevante" data-en="Any extra relevant information">Cualquier información extra relevante</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="Principales dolores del área de marketing" data-en="Main pains of the marketing area">Principales dolores del área de marketing</label>
+        <textarea class="textarea" name="Prioridades / Dolores" data-es-ph="Ej: No sabemos qué funciona, dependemos de la agencia, el contenido no convierte..." data-en-ph="e.g. We don't know what works, we depend on the agency, content doesn't convert..." placeholder="Ej: No sabemos qué funciona, dependemos de la agencia, el contenido no convierte..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Algo más que debamos saber?" data-en="Anything else we should know?">¿Algo más que debamos saber?</label>
+        <textarea class="textarea" name="Comentarios adicionales" data-es-ph="Contexto adicional, lanzamientos previstos, cambios de estrategia..." data-en-ph="Extra context, planned launches, strategy changes..." placeholder="Contexto adicional, lanzamientos previstos, cambios de estrategia..."></textarea></div>
+    </div>
+
+    <div class="submit-section">
+      <button type="submit" class="submit-btn" data-es="Enviar cuestionario →" data-en="Submit questionnaire →">Enviar cuestionario →</button>
+    </div>
+  </form>
+
+  <div class="result" id="result">
+    <div class="check">✓</div>
+    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <p data-es="Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico." data-en="Thank you. Now send them to us with any of these buttons so we can prepare your diagnosis.">Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico.</p>
+    <div class="actions">
+      <button class="btn primary" id="btnEmail" data-es="✉ Enviar por email" data-en="✉ Send by email">✉ Enviar por email</button>
+      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+  const EMAIL_DESTINO = "tucorreo@ejemplo.com";
+  const TITULO = {es:"Diagnóstico del Área de Marketing", en:"Marketing Area Audit"};
+
+  const form = document.getElementById('form');
+  const sections = document.querySelectorAll('[data-section]');
+  const bar = document.getElementById('bar');
+  const progressCount = document.getElementById('progressCount');
+  const currency = document.getElementById('currency');
+  const slider = document.getElementById('slider');
+  const sliderValue = document.getElementById('sliderValue');
+  let lang = 'es';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langEs').classList.toggle('active', l==='es');
+    document.getElementById('langEn').classList.toggle('active', l==='en');
+    document.querySelectorAll('[data-es]').forEach(el=>{ const v=el.getAttribute('data-'+l); if(v!=null) el.textContent=v; });
+    document.querySelectorAll('[data-es-ph]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-ph'); if(v!=null) el.placeholder=v; });
+    document.querySelectorAll('[data-es-val]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-val'); if(v!=null) el.value=v; });
+  }
+  window.setLang = setLang;
+
+  function updateCurrency(){
+    const map = {USD:'$', COP:'$', EUR:'€'};
+    const sym = map[currency.value] || '$';
+    document.querySelectorAll('.cur-symbol').forEach(s => s.textContent = sym);
+  }
+  currency.addEventListener('change', updateCurrency);
+  if(slider) slider.addEventListener('input', ()=> sliderValue.textContent = slider.value+'%');
+
+  document.querySelectorAll('[data-show-when]').forEach(cond=>{
+    const [name, valuesStr] = cond.dataset.showWhen.split('=');
+    const values = valuesStr.split('|');
+    const inputs = form.querySelectorAll('input[name="'+name+'"]');
+    function check(){ const sel=[...inputs].find(i=>i.checked); cond.classList.toggle('show', !!(sel && values.includes(sel.value))); }
+    inputs.forEach(i=> i.addEventListener('change', check));
+    check();
+  });
+
+  function updateProgress(){
+    let done = 0;
+    sections.forEach(sec=>{
+      let filled=false;
+      sec.querySelectorAll('input,textarea,select').forEach(f=>{
+        if(f.type==='range') return;
+        if(f.closest('.conditional') && !f.closest('.conditional').classList.contains('show')) return;
+        if(f.type==='checkbox'||f.type==='radio'){ if(f.checked) filled=true; }
+        else if(f.value && f.value.trim() && !f.readOnly) filled=true;
+      });
+      if(filled) done++;
+    });
+    bar.style.width = (done/sections.length*100)+'%';
+    progressCount.textContent = done+' / '+sections.length;
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
+  function labelOf(input){
+    const box = input.closest('label');
+    const t = box && box.querySelector('.radio-label-text, .checkbox-text');
+    return t ? t.textContent.trim() : input.value;
+  }
+  function recogerRespuestas(){
+    const datos = [];
+    const curOpt = currency.options[currency.selectedIndex];
+    datos.push([lang==='es'?'Moneda':'Currency', curOpt.textContent.trim()]);
+
+    document.querySelectorAll('.form-card .field').forEach(field=>{
+      const cond = field.closest('.conditional');
+      if(cond && !cond.classList.contains('show')) return;
+      const labelEl = field.querySelector('.field-label');
+      const question = labelEl ? labelEl.textContent.replace(/\*/g,'').trim() : '';
+
+      const radios = field.querySelectorAll('input[type=radio]:checked');
+      const checks = field.querySelectorAll('input[type=checkbox]:checked');
+      const groups = field.querySelectorAll('.input-group');
+      let answer = '';
+
+      if(radios.length){ answer = [...radios].map(labelOf).join(', '); }
+      else if(checks.length){ answer = [...checks].map(labelOf).join(', '); }
+      else if(groups.length){
+        const parts=[];
+        groups.forEach(g=>{ const inp=g.querySelector('input'); if(inp && inp.value.trim()){ const gl=g.querySelector('.input-group-label'); parts.push((gl?gl.textContent.trim():'')+': '+inp.value.trim()); } });
+        answer = parts.join(' | ');
+      } else {
+        const parts=[];
+        field.querySelectorAll('input[type=text],input[type=number],input[type=email],input[type=range],textarea,select').forEach(t=>{
+          if(t.readOnly) return;
+          if(t.type!=='range' && (!t.value || !t.value.trim())) return;
+          let v = t.tagName==='SELECT' ? t.options[t.selectedIndex].textContent.trim() : (t.type==='range' ? t.value+'%' : t.value.trim());
+          if(t.closest('.icon-input')){ const s=t.closest('.icon-input').querySelector('.cur-symbol'); v=(s?s.textContent:'')+v; }
+          parts.push(v);
+        });
+        answer = parts.join(' | ');
+      }
+      if(answer) datos.push([question, answer]);
+    });
+
+    let t = TITULO[lang]+"\n";
+    t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-419':'en-US')+"\n";
+    t += "----------------------------------------\n\n";
+    datos.forEach(([k,v])=>{ t += k+":\n"+v+"\n\n"; });
+    return t;
+  }
+
+  let RESPUESTAS = "";
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    RESPUESTAS = recogerRespuestas();
+    document.getElementById('preview').textContent = RESPUESTAS;
+    form.style.display='none';
+    document.getElementById('result').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
+  document.getElementById('btnDownload').addEventListener('click', function(){
+    const blob = new Blob([RESPUESTAS], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=(lang==='es'?'Respuestas-Marketing':'Answers-Marketing')+'.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(RESPUESTAS);
+  });
+</script>
+<script>
+(function(){
+  var HASH="a816ebde8084f1838ea70889deccff2c3dabbbd45f39af1aecca435fa4fbe215";
+  function sha256(ascii){function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount));}var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';var words=[],asciiBitLength=ascii[lengthProperty]*8;var hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],primeCounter=k[lengthProperty];var isComposite={};for(var candidate=2;primeCounter<64;candidate++){if(!isComposite[candidate]){for(i=0;i<313;i+=candidate){isComposite[i]=candidate;}hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;}}ascii+='\x80';while(ascii[lengthProperty]%64-56)ascii+='\x00';for(i=0;i<ascii[lengthProperty];i++){j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);words[words[lengthProperty]]=(asciiBitLength);for(j=0;j<words[lengthProperty];){var w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2];var a=hash[0],e=hash[4];var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));hash=[(temp1+temp2)|0].concat(hash);hash[4]=(hash[4]+temp1)|0;}for(i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16);}}return result;}
+  var gate=document.getElementById('q-gate');
+  var form=document.getElementById('q-gate__form');
+  var input=document.getElementById('q-gate__input');
+  var err=document.getElementById('q-gate__error');
+  function unlock(){ gate.classList.add('q-unlocked'); try{sessionStorage.setItem('arraviva-q','1');}catch(e){} }
+  try{ if(sessionStorage.getItem('arraviva-q')==='1'){ unlock(); } }catch(e){}
+  if(input){ try{input.focus();}catch(e){} }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(input.value||'').trim();
+    var utf8=unescape(encodeURIComponent(v));
+    if(sha256(utf8)===HASH){ unlock(); }
+    else{ err.hidden=false; input.value=''; input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario de Operaciones · Diagnóstico</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+    --text:#eceef4; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+    --ok:#2F6B4F; --req:#2F6B4F; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.5;}
+  h1,h2,.card-title h2{font-family:'Manrope','Inter',sans-serif}
+  .wrap{max-width:840px; margin:0 auto; padding:22px 18px 90px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 26px; flex-wrap:wrap}
+  .logo-slot{display:flex; align-items:center; gap:10px}
+  .logo-ph{border:1px dashed var(--border); color:var(--muted); font-size:11px; letter-spacing:1px; padding:9px 14px; border-radius:10px; font-weight:700;}
+  .header-right{display:flex; align-items:center; gap:10px}
+  .tag{font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--card)}
+  .lang-toggle button{border:none; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; cursor:pointer}
+  .lang-toggle button.active{background:var(--accent); color:#fff}
+  .hero-badge{display:inline-block; font-size:12px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:6px 12px; border-radius:999px; margin-bottom:14px}
+  h1{font-size:30px; margin:0 0 10px; font-weight:800; letter-spacing:-.5px}
+  .subtitle{color:var(--muted); margin:0 0 22px; font-size:16px}
+  .intro-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px}
+  .intro-box h3{margin:0 0 8px; font-size:16px; font-family:'Manrope',sans-serif}
+  .intro-box p{margin:0 0 12px; color:var(--muted); font-size:14px}
+  .intro-list{display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; margin:0; padding:0; list-style:none}
+  .intro-list li{color:var(--muted); font-size:13px; padding-left:16px; position:relative}
+  .intro-list li::before{content:"›"; position:absolute; left:0; color:var(--accent); font-weight:700}
+  @media(max-width:560px){.intro-list{grid-template-columns:1fr}}
+  .progress-wrapper{margin:6px 0 24px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5}
+  .progress-info{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:6px}
+  .progress-track{height:8px; background:var(--card-2); border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+  .form-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:16px}
+  .card-header{display:flex; gap:14px; align-items:flex-start; margin-bottom:6px}
+  .card-number{min-width:42px; height:42px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; font-weight:800; font-size:15px}
+  .card-title h2{margin:0; font-size:19px; font-weight:700}
+  .card-title p{margin:3px 0 0; color:var(--muted); font-size:14px}
+  .field{margin-top:18px}
+  .field-label{display:block; font-weight:600; margin-bottom:4px}
+  .required{color:var(--req)}
+  .field-hint{display:block; color:var(--muted); font-size:13px; margin-bottom:8px}
+  .input,.textarea,.select{width:100%; background:var(--card-2); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:12px 13px; font-size:15px; font-family:inherit}
+  .textarea{min-height:96px; resize:vertical}
+  .input:focus,.textarea:focus,.select:focus{outline:2px solid var(--accent); border-color:var(--accent)}
+  .input.readonly{opacity:.65; cursor:not-allowed}
+  .radio-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .radio-grid-2{grid-template-columns:1fr 1fr}
+  .radio-grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:560px){.radio-grid,.radio-grid-2,.radio-grid-3{grid-template-columns:1fr 1fr}}
+  .radio-box{display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:14px 10px; cursor:pointer; transition:.15s}
+  .radio-box:hover{border-color:var(--accent)}
+  .radio-box input{display:none}
+  .radio-box:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .radio-label-text{font-weight:600; font-size:14px}
+  .radio-desc{font-size:12px; color:var(--muted)}
+  .checkbox-list{display:grid; gap:10px}
+  .checkbox-option{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:13px 14px; cursor:pointer; transition:.15s}
+  .checkbox-option:hover{border-color:var(--accent)}
+  .checkbox-option:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .checkbox-option input{margin-top:2px; width:18px; height:18px; accent-color:var(--accent); flex:none}
+  .checkbox-text{font-weight:600; display:block}
+  .checkbox-desc{font-size:12px; color:var(--muted); display:block; margin-top:2px}
+  .info-callout{display:flex; gap:12px; align-items:flex-start; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:14px; margin:14px 0 4px; color:var(--muted); font-size:14px}
+  .info-callout p{margin:0}
+  .input-grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  @media(max-width:560px){.input-grid-3{grid-template-columns:1fr}}
+  .input-group-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+  .icon-input{display:flex; align-items:center; background:var(--card-2); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+  .icon-input:focus-within{outline:2px solid var(--accent); border-color:var(--accent)}
+  .cur-symbol{padding:0 12px; color:var(--muted); font-weight:700}
+  .icon-input .input{border:none; background:transparent; outline:none}
+  input[type=range]{width:100%; accent-color:var(--accent); margin-top:6px}
+  .slider-display{font-weight:700; font-size:20px; text-align:center; color:var(--accent)}
+  .slider-labels{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px}
+  .toolbar{display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:16px}
+  .toolbar label{font-weight:600; font-size:14px}
+  .toolbar .select{max-width:230px}
+  .conditional{display:none; border-left:2px solid var(--accent); padding-left:14px; margin-top:10px}
+  .conditional.show{display:block}
+  .conditional-title{font-size:13px; font-weight:700; color:var(--accent); margin-top:8px}
+  .submit-section{margin-top:12px}
+  .submit-btn{width:100%; border:none; cursor:pointer; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:16px; border-radius:12px; font-family:inherit}
+  .submit-btn:hover{opacity:.93}
+  .result{display:none; text-align:center; padding:10px 0}
+  .result.show{display:block}
+  .result .check{width:66px; height:66px; margin:0 auto 14px; border-radius:50%; background:var(--ok); display:grid; place-items:center; color:#fff; font-size:34px}
+  .result h2{margin:0 0 6px}
+  .result p{color:var(--muted); max-width:520px; margin:0 auto 18px}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:18px}
+  .btn{border:1px solid var(--border); background:var(--card-2); color:var(--text); padding:12px 18px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; font-family:inherit}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn:hover{opacity:.9}
+  .preview{text-align:left; background:var(--card-2); border:1px solid var(--border); border-radius:10px; padding:14px; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:13px; max-height:320px; overflow:auto; color:var(--muted)}
+</style>
+<style>
+/* ===== Branding Arraviva (sobrescribe colores + tipografía, sin tocar contenido) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+:root{
+  --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+  --text:#17201b; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+  --ok:#2F6B4F; --req:#2F6B4F; --tierra:#2F6B4F; --savia:#2F6B4F; --luz:#e6b15a;
+}
+h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-weight:600;}
+.hero-badge{color:var(--tierra); background:#EAF0EB;}
+</style>
+<style>
+#q-gate{position:fixed;inset:0;z-index:99999;background:#f6f1e8;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif}
+#q-gate.q-unlocked{display:none}
+.q-gate__card{width:100%;max-width:380px;background:#fff;border:1px solid #e2dccf;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 1px 2px rgba(23,32,27,.04),0 12px 28px -16px rgba(23,32,27,.2)}
+.q-gate__logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px}
+.q-gate__logo .brand-name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#1e3a31}
+.q-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1e3a31;margin:0 0 8px}
+.q-gate__sub{font-size:14.5px;line-height:1.5;color:#47544A;margin:0 0 22px}
+#q-gate__input{width:100%;box-sizing:border-box;background:#fbf8f1;border:1px solid #e2dccf;border-radius:10px;padding:13px 15px;font-size:15px;font-family:inherit;color:#17201b;text-align:center}
+#q-gate__input:focus{outline:none;border-color:#2F6B4F}
+#q-gate__btn{width:100%;margin-top:12px;border:none;cursor:pointer;background:#1e3a31;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:10px;font-family:inherit}
+#q-gate__btn:hover{background:#2F6B4F}
+#q-gate__error{margin:14px 0 0;font-size:13px;color:#2F6B4F;font-weight:600}
+.viva{color:#2F6B4F}
+</style>
+</head>
+<body>
+<div id="q-gate">
+  <div class="q-gate__card">
+    <div class="q-gate__logo"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name">Arra<span class="viva">viva</span></span></div>
+    <h1 class="q-gate__title">Cuestionario privado</h1>
+    <p class="q-gate__sub">Introduce la clave de acceso que te compartimos para continuar.</p>
+    <form id="q-gate__form" autocomplete="off">
+      <input id="q-gate__input" type="password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+      <button id="q-gate__btn" type="submit">Entrar &rarr;</button>
+      <p id="q-gate__error" hidden>Clave incorrecta. Vuelve a intentarlo.</p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-slot" style="display:flex;align-items:center;gap:9px"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#1e3a31">Arra<span class="viva">viva</span></span></div>
+    <div class="header-right">
+      <span class="tag" data-es="Fase de Incorporación" data-en="Onboarding Phase">Fase de Incorporación</span>
+      <div class="lang-toggle">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <span class="hero-badge" data-es="Diagnóstico" data-en="Audit">Diagnóstico</span>
+  <h1 data-es="Diagnóstico de Administración y Documentación" data-en="Administration & Documentation Audit">Diagnóstico de Administración y Documentación</h1>
+  <p class="subtitle" data-es="Este cuestionario nos permite entender cómo gestionas la documentación, archivos, contratos, facturación y procesos administrativos para identificar oportunidades de digitalización, automatización y mejora." data-en="This questionnaire helps us understand how you manage documentation, files, contracts, invoicing and administrative processes to identify opportunities for digitization, automation and improvement.">Este cuestionario nos permite entender cómo gestionas la documentación, archivos, contratos, facturación y procesos administrativos para identificar oportunidades de digitalización, automatización y mejora.</p>
+
+  <div class="intro-box">
+    <h3 data-es="¿Qué información necesitamos?" data-en="What information do we need?">¿Qué información necesitamos?</h3>
+    <p data-es="Este diagnóstico cubre todos los aspectos de la administración y la documentación para identificar cuellos de botella y oportunidades de mejora." data-en="This audit covers every aspect of administration and documentation to identify bottlenecks and improvement opportunities.">Este diagnóstico cubre todos los aspectos de la administración y la documentación para identificar cuellos de botella y oportunidades de mejora.</p>
+    <ul class="intro-list">
+      <li data-es="Estructura del equipo administrativo" data-en="Administrative team structure">Estructura del equipo administrativo</li>
+      <li data-es="Gestión documental y archivo" data-en="Document management and filing">Gestión documental y archivo</li>
+      <li data-es="Flujos de facturación y contratos" data-en="Invoicing and contract flows">Flujos de facturación y contratos</li>
+      <li data-es="Herramientas de gestión actuales" data-en="Current management tools">Herramientas de gestión actuales</li>
+      <li data-es="Procesos de aprobación y firmas" data-en="Approval and signature processes">Procesos de aprobación y firmas</li>
+      <li data-es="Volumen de documentos y trámites" data-en="Document and paperwork volume">Volumen de documentos y trámites</li>
+      <li data-es="Cumplimiento normativo" data-en="Regulatory compliance">Cumplimiento normativo</li>
+      <li data-es="Criterios de éxito y seguridad" data-en="Success criteria and security">Criterios de éxito y seguridad</li>
+    </ul>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 8</span></div>
+    <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+  </div>
+
+  <form id="form">
+
+    <div class="toolbar">
+      <label for="currency" data-es="Moneda con la que trabajas:" data-en="Currency you work with:">Moneda con la que trabajas:</label>
+      <select class="select" id="currency" name="Moneda">
+        <option value="USD" data-es="USD — Dólar ($)" data-en="USD — Dollar ($)">USD — Dólar ($)</option>
+        <option value="COP" data-es="COP — Peso colombiano ($)" data-en="COP — Colombian Peso ($)">COP — Peso colombiano ($)</option>
+        <option value="EUR" data-es="EUR — Euro (€)" data-en="EUR — Euro (€)">EUR — Euro (€)</option>
+      </select>
+    </div>
+
+    <!-- ===== 01 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">01</span>
+        <div class="card-title">
+          <h2 data-es="Datos de la Empresa y Estructura Administrativa" data-en="Company Details and Administrative Structure">Datos de la Empresa y Estructura Administrativa</h2>
+          <p data-es="Información básica y organización del equipo de administración" data-en="Basic information and administrative team organization">Información básica y organización del equipo de administración</p></div></div>
+
+      <div class="field"><label class="field-label"><span data-es="Nombre de la empresa" data-en="Company name">Nombre de la empresa</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Indica el nombre legal o comercial de tu empresa" data-en="Enter your company's legal or trade name">Indica el nombre legal o comercial de tu empresa</span>
+        <input class="input" type="text" name="Nombre de la empresa" required data-es-ph="Ej: Acme Solutions S.A.S." data-en-ph="e.g. Acme Solutions LLC" placeholder="Ej: Acme Solutions S.A.S."></div>
+
+      <div class="field"><label class="field-label" data-es="Área a auditar" data-en="Area being audited">Área a auditar</label>
+        <span class="field-hint" data-es="Este cuestionario está diseñado específicamente para auditar el área de operaciones" data-en="This questionnaire is designed specifically to audit the operations area">Este cuestionario está diseñado específicamente para auditar el área de operaciones</span>
+        <input class="input readonly" type="text" name="Área a auditar" value="Operaciones" data-es-val="Operaciones" data-en-val="Operations" readonly></div>
+
+      <div class="field"><label class="field-label" data-es="Tu rol en la empresa" data-en="Your role in the company">Tu rol en la empresa</label>
+        <select class="select" name="Rol">
+          <option value="" disabled selected data-es="Selecciona tu rol" data-en="Select your role">Selecciona tu rol</option>
+          <option value="CEO" data-es="CEO / Fundador" data-en="CEO / Founder">CEO / Fundador</option>
+          <option value="CFO" data-es="CFO / Director Financiero" data-en="CFO / Finance Director">CFO / Director Financiero</option>
+          <option value="Director Admin" data-es="Director de Administración" data-en="Administration Director">Director de Administración</option>
+          <option value="Gerente Oficina" data-es="Gerente de Oficina" data-en="Office Manager">Gerente de Oficina</option>
+          <option value="Contador" data-es="Contador / Responsable Contable" data-en="Accountant / Bookkeeper">Contador / Responsable Contable</option>
+          <option value="Legal" data-es="Responsable Legal / Cumplimiento" data-en="Legal / Compliance">Responsable Legal / Cumplimiento</option>
+          <option value="RRHH" data-es="RR.HH. / Administración de Personal" data-en="HR / People Admin">RR.HH. / Administración de Personal</option>
+          <option value="Otro" data-es="Otro" data-en="Other">Otro</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="Tamaño del equipo" data-en="Team size">Tamaño del equipo</label>
+        <span class="field-hint" data-es="Número aproximado de personas en tu organización" data-en="Approximate number of people in your organization">Número aproximado de personas en tu organización</span>
+        <select class="select" name="Tamaño del equipo">
+          <option value="" disabled selected data-es="Selecciona el tamaño" data-en="Select size">Selecciona el tamaño</option>
+          <option value="1-5" data-es="1 - 5 empleados" data-en="1 - 5 employees">1 - 5 empleados</option>
+          <option value="6-15" data-es="6 - 15 empleados" data-en="6 - 15 employees">6 - 15 empleados</option>
+          <option value="16-50" data-es="16 - 50 empleados" data-en="16 - 50 employees">16 - 50 empleados</option>
+          <option value="51-100" data-es="51 - 100 empleados" data-en="51 - 100 employees">51 - 100 empleados</option>
+          <option value="100+" data-es="Más de 100 empleados" data-en="More than 100 employees">Más de 100 empleados</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="Organigrama / Estructura del equipo administrativo" data-en="Org chart / Administrative team structure">Organigrama / Estructura del equipo administrativo</label>
+        <span class="field-hint" data-es="Quién reporta a quién, funciones principales, etc." data-en="Who reports to whom, main functions, etc.">Quién reporta a quién, funciones principales, etc.</span>
+        <textarea class="textarea" name="Organigrama administración" data-es-ph="Ej:
+• CEO → CFO → Contador
+• Contador: supervisa contabilidad y facturación (2 personas)
+• Gerente de Oficina: gestión documental, archivo y recepción (1 persona)
+• Asistente administrativo: soporte general, contratos, proveedores
+• Todos reportan mensualmente al CFO" data-en-ph="e.g.:
+• CEO → CFO → Controller
+• Controller: oversees accounting and invoicing (2 people)
+• Office Manager: document management, filing and reception (1 person)
+• Administrative assistant: general support, contracts, vendors
+• Everyone reports monthly to the CFO"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Roles involucrados en la gestión administrativa y documental diaria" data-en="Roles involved in daily administrative and document management">Roles involucrados en la gestión administrativa y documental diaria</label>
+        <span class="field-hint" data-es="Lista todos los roles/personas que participan en procesos administrativos, facturación, archivo y documentación" data-en="List all roles/people involved in administrative processes, invoicing, filing and documentation">Lista todos los roles/personas que participan en procesos administrativos, facturación, archivo y documentación</span>
+        <textarea class="textarea" name="Roles involucrados" data-es-ph="Ej:
+• María (CFO) - Aprobación de pagos y contratos
+• Carlos (Contador) - Contabilidad, cierre mensual, reportes
+• Laura (Admin) - Facturación, cobros y gestión de proveedores
+• Pedro (Gerente de Oficina) - Archivo, documentación, contratos
+• Ana (Asistente) - Soporte administrativo, escaneo, clasificación
+• CEO - Firma de contratos importantes" data-en-ph="e.g.:
+• María (CFO) - Payment and contract approvals
+• Carlos (Accountant) - Bookkeeping, monthly close, reporting
+• Laura (Admin) - Invoicing, collections and vendor management
+• Pedro (Office Manager) - Filing, documentation, contracts
+• Ana (Assistant) - Administrative support, scanning, classification
+• CEO - Signing important contracts"></textarea></div>
+    </div>
+
+    <!-- ===== 02 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">02</span>
+        <div class="card-title">
+          <h2 data-es="Herramientas y Gestión Documental" data-en="Tools and Document Management">Herramientas y Gestión Documental</h2>
+          <p data-es="Herramientas para administración, archivo y documentación" data-en="Tools for administration, filing and documentation">Herramientas para administración, archivo y documentación</p></div></div>
+
+      <div class="info-callout"><p data-es="Necesitamos conocer las herramientas que usan para gestionar documentos, facturas, contratos y archivos, y verificar que podrán darnos acceso de lectura para analizar los flujos actuales." data-en="We need to know the tools you use to manage documents, invoices, contracts and files, and confirm you can give us read access to analyze the current flows.">Necesitamos conocer las herramientas que usan para gestionar documentos, facturas, contratos y archivos, y verificar que podrán darnos acceso de lectura para analizar los flujos actuales.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas usan para gestión administrativa y documental?" data-en="Which tools do you use for administration and document management?">¿Qué herramientas usan para gestión administrativa y documental?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Drive"><div class="checkbox-content"><span class="checkbox-text" data-es="Google Drive / OneDrive / Dropbox" data-en="Google Drive / OneDrive / Dropbox">Google Drive / OneDrive / Dropbox</span><span class="checkbox-desc" data-es="Almacenamiento de documentos, contratos, archivos" data-en="Storage of documents, contracts, files">Almacenamiento de documentos, contratos, archivos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="ERP"><div class="checkbox-content"><span class="checkbox-text" data-es="ERP / Software de gestión (Siigo, World Office, SAP...)" data-en="ERP / Management software (NetSuite, SAP, Siigo...)">ERP / Software de gestión (Siigo, World Office, SAP...)</span><span class="checkbox-desc" data-es="Facturación, contabilidad, gestión integrada" data-en="Invoicing, accounting, integrated management">Facturación, contabilidad, gestión integrada</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Facturación"><div class="checkbox-content"><span class="checkbox-text" data-es="Software de facturación (Alegra, Loggro, QuickBooks...)" data-en="Invoicing software (QuickBooks, Alegra, FreshBooks...)">Software de facturación (Alegra, Loggro, QuickBooks...)</span><span class="checkbox-desc" data-es="Emisión de facturas, cotizaciones, remisiones" data-en="Issuing invoices, quotes, delivery notes">Emisión de facturas, cotizaciones, remisiones</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Firma digital"><div class="checkbox-content"><span class="checkbox-text" data-es="Firma digital (DocuSign, Adobe Sign...)" data-en="Digital signature (DocuSign, Adobe Sign...)">Firma digital (DocuSign, Adobe Sign...)</span><span class="checkbox-desc" data-es="Firma electrónica de contratos y documentos" data-en="Electronic signature of contracts and documents">Firma electrónica de contratos y documentos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Gestor documental"><div class="checkbox-content"><span class="checkbox-text" data-es="Gestor documental (M-Files, DocuWare...)" data-en="Document manager (M-Files, DocuWare...)">Gestor documental (M-Files, DocuWare...)</span><span class="checkbox-desc" data-es="Sistema especializado de gestión documental" data-en="Specialized document management system">Sistema especializado de gestión documental</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Hojas de cálculo"><div class="checkbox-content"><span class="checkbox-text" data-es="Hojas de cálculo (Excel / Google Sheets)" data-en="Spreadsheets (Excel / Google Sheets)">Hojas de cálculo (Excel / Google Sheets)</span><span class="checkbox-desc" data-es="Control de facturas, seguimiento de pagos" data-en="Invoice control, payment tracking">Control de facturas, seguimiento de pagos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Email"><div class="checkbox-content"><span class="checkbox-text" data-es="Email (Gmail, Outlook)" data-en="Email (Gmail, Outlook)">Email (Gmail, Outlook)</span><span class="checkbox-desc" data-es="Recepción de facturas, comunicación con proveedores" data-en="Receiving invoices, communicating with vendors">Recepción de facturas, comunicación con proveedores</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Archivo físico"><div class="checkbox-content"><span class="checkbox-text" data-es="Archivo físico / Documentación en papel" data-en="Physical filing / Paper documents">Archivo físico / Documentación en papel</span><span class="checkbox-desc" data-es="Archivadores, carpetas físicas, originales" data-en="Filing cabinets, physical folders, originals">Archivadores, carpetas físicas, originales</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas documentales" value="Otras"><span class="checkbox-text" data-es="Otras herramientas" data-en="Other tools">Otras herramientas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Otras herramientas utilizadas" data-en="Other tools used">Otras herramientas utilizadas</label>
+        <input class="input" type="text" name="Otras herramientas" data-es-ph="Ej: Notion para procedimientos, Trello para seguimiento..." data-en-ph="e.g. Notion for procedures, Trello for tracking..." placeholder="Ej: Notion para procedimientos, Trello para seguimiento..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Podrán darnos acceso de lectura a las herramientas relevantes?" data-en="Can you give us read access to the relevant tools?">¿Podrán darnos acceso de lectura a las herramientas relevantes?</label>
+        <span class="field-hint" data-es="Acceso temporal para analizar flujos, no modificaremos nada" data-en="Temporary access to analyze flows, we won't change anything">Acceso temporal para analizar flujos, no modificaremos nada</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Sí"><span class="radio-label-text" data-es="Sí, sin problema" data-en="Yes, no problem">Sí, sin problema</span></label>
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Algunas"><span class="radio-label-text" data-es="Solo algunas" data-en="Only some">Solo algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Consultar"><span class="radio-label-text" data-es="Necesito consultar" data-en="I need to check">Necesito consultar</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Existe una fuente de verdad única para la documentación?" data-en="Is there a single source of truth for documentation?">¿Existe una fuente de verdad única para la documentación?</label>
+        <span class="field-hint" data-es="¿Un sistema central donde se consolida todo, o está disperso?" data-en="A central system where everything is consolidated, or is it scattered?">¿Un sistema central donde se consolida todo, o está disperso?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Centralizado"><span class="radio-label-text" data-es="Sí, centralizado" data-en="Yes, centralized">Sí, centralizado</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Parcialmente"><span class="radio-label-text" data-es="Parcialmente" data-en="Partially">Parcialmente</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Dispersa"><span class="radio-label-text" data-es="No, dispersa" data-en="No, scattered">No, dispersa</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje de su documentación está digitalizado?" data-en="What percentage of your documentation is digitized?">¿Qué porcentaje de su documentación está digitalizado?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Documentación digitalizada" value="0-25%"><span class="radio-label-text" data-es="0-25% digital" data-en="0-25% digital">0-25% digital</span></label>
+          <label class="radio-box"><input type="radio" name="Documentación digitalizada" value="26-50%"><span class="radio-label-text" data-es="26-50% digital" data-en="26-50% digital">26-50% digital</span></label>
+          <label class="radio-box"><input type="radio" name="Documentación digitalizada" value="51-75%"><span class="radio-label-text" data-es="51-75% digital" data-en="51-75% digital">51-75% digital</span></label>
+          <label class="radio-box"><input type="radio" name="Documentación digitalizada" value="76-100%"><span class="radio-label-text" data-es="76-100% digital" data-en="76-100% digital">76-100% digital</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 03 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">03</span>
+        <div class="card-title">
+          <h2 data-es="Flujos Documentales y Procesos Administrativos" data-en="Document Flows and Administrative Processes">Flujos Documentales y Procesos Administrativos</h2>
+          <p data-es="Cómo gestionan facturas, contratos, archivo y aprobaciones" data-en="How you handle invoices, contracts, filing and approvals">Cómo gestionan facturas, contratos, archivo y aprobaciones</p></div></div>
+
+      <div class="info-callout"><p data-es="Necesitamos entender cómo fluye la documentación: desde que llega una factura hasta que se archiva, desde que se genera un contrato hasta que se firma." data-en="We need to understand how documentation flows: from when an invoice arrives until it's filed, from when a contract is created until it's signed.">Necesitamos entender cómo fluye la documentación: desde que llega una factura hasta que se archiva, desde que se genera un contrato hasta que se firma.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen procedimientos documentados para la gestión administrativa?" data-en="Do you have documented procedures for administrative management?">¿Tienen procedimientos documentados para la gestión administrativa?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Procedimientos documentados" value="Bien documentados"><span class="radio-label-text" data-es="Sí, bien documentados" data-en="Yes, well documented">Sí, bien documentados</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos documentados" value="Algunos"><span class="radio-label-text" data-es="Algunos procesos" data-en="Some processes">Algunos procesos</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos documentados" value="Informales"><span class="radio-label-text" data-es="Solo informales" data-en="Only informal">Solo informales</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos documentados" value="No existen"><span class="radio-label-text" data-es="No existen" data-en="They don't exist">No existen</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Describe los principales flujos de trabajo administrativos" data-en="Describe your main administrative workflows">Describe los principales flujos de trabajo administrativos</label>
+        <textarea class="textarea" name="Flujos principales" data-es-ph="Ej:
+FLUJO 1 - Factura de proveedor:
+1. Llega por email → 2. Se descarga y renombra → 3. Se registra en Excel/ERP → 4. Se envía a aprobar al responsable → 5. Se programa pago → 6. Se archiva en la carpeta del proveedor
+FLUJO 2 - Emisión de factura a cliente:
+1. Se recibe pedido/remisión → 2. Se crea factura en el software → 3. Se envía por email → 4. Se registra en contabilidad → 5. Se hace seguimiento de cobro → 6. Se archiva
+FLUJO 3 - Gestión de contrato:
+1. Se solicita → 2. Se redacta borrador → 3. Revisión legal → 4. Aprobación de dirección → 5. Firma (física o digital) → 6. Archivo y seguimiento de vencimientos" data-en-ph="e.g.:
+FLOW 1 - Vendor invoice:
+1. Arrives by email → 2. Downloaded and renamed → 3. Logged in Excel/ERP → 4. Sent to the manager for approval → 5. Payment scheduled → 6. Filed in the vendor's folder
+FLOW 2 - Issuing a client invoice:
+1. Order/delivery note received → 2. Invoice created in the software → 3. Sent by email → 4. Logged in accounting → 5. Collection follow-up → 6. Filed
+FLOW 3 - Contract management:
+1. Requested → 2. Draft written → 3. Legal review → 4. Management approval → 5. Signature (physical or digital) → 6. Filing and expiry tracking"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo gestionan las aprobaciones y firmas?" data-en="How do you manage approvals and signatures?">¿Cómo gestionan las aprobaciones y firmas?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Aprobaciones y firmas" value="Digital automatizado"><span class="radio-label-text" data-es="Digital automatizado" data-en="Automated digital">Digital automatizado</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones y firmas" value="Digital manual"><span class="radio-label-text" data-es="Digital pero manual" data-en="Digital but manual">Digital pero manual</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones y firmas" value="Mixto"><span class="radio-label-text" data-es="Mixto (digital + papel)" data-en="Mixed (digital + paper)">Mixto (digital + papel)</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones y firmas" value="Papel"><span class="radio-label-text" data-es="Principalmente en papel" data-en="Mostly on paper">Principalmente en papel</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay dependencia crítica de personas clave en administración?" data-en="Is there critical dependency on key people in administration?">¿Hay dependencia crítica de personas clave en administración?</label>
+        <span class="field-hint" data-es="Si esa persona no está 2 semanas, ¿qué impacto tendría en facturas, pagos, contratos?" data-en="If that person is away 2 weeks, what impact on invoices, payments, contracts?">Si esa persona no está 2 semanas, ¿qué impacto tendría en facturas, pagos, contratos?</span>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Parálisis total"><span class="radio-label-text" data-es="Parálisis total" data-en="Total paralysis">Parálisis total</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Impacto alto"><span class="radio-label-text" data-es="Impacto alto" data-en="High impact">Impacto alto</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Impacto moderado"><span class="radio-label-text" data-es="Impacto moderado" data-en="Moderate impact">Impacto moderado</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Mínimo impacto"><span class="radio-label-text" data-es="Mínimo impacto" data-en="Minimal impact">Mínimo impacto</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué conocimiento crítico está concentrado en pocas personas?" data-en="What critical knowledge is concentrated in few people?">¿Qué conocimiento crítico está concentrado en pocas personas?</label>
+        <textarea class="textarea" name="Conocimiento crítico concentrado" data-es-ph="Ej: Solo María conoce las claves del banco y el proceso de transferencias. El CEO es el único que puede firmar contratos importantes. Laura es la única que sabe dónde está toda la documentación histórica..." data-en-ph="e.g. Only María knows the bank credentials and the transfer process. The CEO is the only one who can sign important contracts. Laura is the only one who knows where all the historical documentation is..."></textarea></div>
+    </div>
+
+    <!-- ===== 04 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">04</span>
+        <div class="card-title">
+          <h2 data-es="Tareas Administrativas a Mejorar" data-en="Administrative Tasks to Improve">Tareas Administrativas a Mejorar</h2>
+          <p data-es="Ejemplos de procesos documentales que quieren optimizar" data-en="Examples of document processes you want to optimize">Ejemplos de procesos documentales que quieren optimizar</p></div></div>
+
+      <div class="info-callout"><p data-es="Cuanto más específicos sean los ejemplos de tareas administrativas repetitivas, mejor podremos identificar oportunidades de automatización y digitalización." data-en="The more specific the examples of repetitive administrative tasks, the better we can identify opportunities for automation and digitization.">Cuanto más específicos sean los ejemplos de tareas administrativas repetitivas, mejor podremos identificar oportunidades de automatización y digitalización.</p></div>
+
+      <div class="field"><label class="field-label" data-es="Ejemplos concretos de tareas administrativas que quieren mejorar" data-en="Concrete examples of administrative tasks you want to improve">Ejemplos concretos de tareas administrativas que quieren mejorar</label>
+        <textarea class="textarea" name="Tareas a mejorar" data-es-ph="Ej:
+1. TAREA: Procesar facturas de proveedores
+   PROBLEMA: Llegan por email, hay que descargarlas, renombrarlas, registrarlas en Excel y archivarlas manualmente
+   IDEAL: Que se extraigan los datos automáticamente y se archiven solas
+2. TAREA: Seguimiento de facturas pendientes de cobro
+   PROBLEMA: Revisamos Excel manualmente cada semana, se nos escapan algunas
+   IDEAL: Alertas automáticas y envío de recordatorios a clientes
+3. TAREA: Buscar documentos antiguos
+   PROBLEMA: Tardamos mucho en encontrar contratos o facturas de hace meses/años
+   IDEAL: Un buscador que encuentre cualquier documento en segundos" data-en-ph="e.g.:
+1. TASK: Process vendor invoices
+   PROBLEM: They arrive by email; we must download, rename, log them in Excel and file them manually
+   IDEAL: Data extracted automatically and filed on its own
+2. TASK: Track receivables
+   PROBLEM: We review Excel manually every week and some slip through
+   IDEAL: Automatic alerts and reminders sent to clients
+3. TASK: Find old documents
+   PROBLEM: It takes a long time to find contracts or invoices from months/years ago
+   IDEAL: A search tool that finds any document in seconds"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas documentales se hacen manualmente de forma repetitiva?" data-en="Which document tasks are done manually and repetitively?">¿Qué tareas documentales se hacen manualmente de forma repetitiva?</label>
+        <textarea class="textarea" name="Tareas manuales repetitivas" data-es-ph="Ejemplos:
+• Descargar facturas del email y renombrarlas con formato estándar
+• Copiar datos de facturas a hojas de cálculo o al ERP
+• Escanear documentos físicos y archivarlos
+• Enviar recordatorios de pago a clientes morosos
+• Buscar y recuperar documentos antiguos cuando se necesitan
+• Preparar documentación para el contador cada mes
+• Actualizar el registro de contratos y sus vencimientos" data-en-ph="Examples:
+• Download invoices from email and rename them with a standard format
+• Copy invoice data into spreadsheets or the ERP
+• Scan physical documents and file them
+• Send payment reminders to overdue clients
+• Find and retrieve old documents when needed
+• Prepare documentation for the accountant every month
+• Update the contract register and their expiry dates"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde se producen los principales cuellos de botella documentales?" data-en="Where do the main document bottlenecks occur?">¿Dónde se producen los principales cuellos de botella documentales?</label>
+        <textarea class="textarea" name="Cuellos de botella documentales" data-es-ph="Ejemplos:
+• Las facturas se acumulan porque solo una persona puede aprobar pagos
+• Los contratos esperan días para firmarse porque el CEO viaja mucho
+• El cierre mensual se retrasa porque falta documentación
+• Los proveedores reclaman porque los pagos se procesan tarde
+• Se pierden documentos porque no hay un sistema de archivo claro" data-en-ph="Examples:
+• Invoices pile up because only one person can approve payments
+• Contracts wait days to be signed because the CEO travels a lot
+• The monthly close is delayed because documentation is missing
+• Vendors complain because payments are processed late
+• Documents get lost because there's no clear filing system"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Estimación de tiempo dedicado a tareas administrativas manuales" data-en="Estimated time spent on manual administrative tasks">Estimación de tiempo dedicado a tareas administrativas manuales</label>
+        <select class="select" name="Horas semanales en tareas manuales">
+          <option value="" disabled selected data-es="Selecciona un rango" data-en="Select a range">Selecciona un rango</option>
+          <option value="1-5" data-es="1 - 5 horas/semana" data-en="1 - 5 hours/week">1 - 5 horas/semana</option>
+          <option value="6-15" data-es="6 - 15 horas/semana" data-en="6 - 15 hours/week">6 - 15 horas/semana</option>
+          <option value="16-30" data-es="16 - 30 horas/semana" data-en="16 - 30 hours/week">16 - 30 horas/semana</option>
+          <option value="31-50" data-es="31 - 50 horas/semana" data-en="31 - 50 hours/week">31 - 50 horas/semana</option>
+          <option value="50+" data-es="Más de 50 horas/semana" data-en="More than 50 hours/week">Más de 50 horas/semana</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas administrativas crees que podría realizar una IA?" data-en="Which administrative tasks do you think an AI could handle?">¿Qué tareas administrativas crees que podría realizar una IA?</label>
+        <textarea class="textarea" name="Tareas para IA" data-es-ph="Ejemplos:
+• Leer facturas PDF y extraer datos automáticamente (proveedor, importe, fecha, concepto)
+• Clasificar y archivar documentos según su tipo
+• Generar recordatorios de pago personalizados
+• Responder consultas sobre el estado de facturas o contratos
+• Detectar facturas duplicadas o con errores
+• Crear resúmenes mensuales de gastos por categoría
+• Alertar sobre contratos próximos a vencer" data-en-ph="Examples:
+• Read PDF invoices and extract data automatically (vendor, amount, date, concept)
+• Classify and file documents by type
+• Generate personalized payment reminders
+• Answer questions about invoice or contract status
+• Detect duplicate or erroneous invoices
+• Create monthly expense summaries by category
+• Alert about contracts nearing expiry"></textarea></div>
+    </div>
+
+    <!-- ===== 05 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">05</span>
+        <div class="card-title">
+          <h2 data-es="Volumen Documental y KPIs" data-en="Document Volume and KPIs">Volumen Documental y KPIs</h2>
+          <p data-es="Métricas para dimensionar y medir el impacto de las mejoras" data-en="Metrics to size and measure the impact of improvements">Métricas para dimensionar y medir el impacto de las mejoras</p></div></div>
+
+      <div class="info-callout"><p data-es="Conocer el volumen de documentos y los KPIs actuales nos permite dimensionar las soluciones y calcular el ROI potencial de cada mejora." data-en="Knowing the document volume and current KPIs lets us size the solutions and estimate the potential ROI of each improvement.">Conocer el volumen de documentos y los KPIs actuales nos permite dimensionar las soluciones y calcular el ROI potencial de cada mejora.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas facturas y documentos gestionan?" data-en="How many invoices and documents do you handle?">¿Cuántas facturas y documentos gestionan?</label>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Facturas emitidas / mes" data-en="Invoices issued / month">Facturas emitidas / mes</span><input class="input" type="number" name="Facturas emitidas mes" placeholder="Ej: 50"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Facturas recibidas / mes" data-en="Invoices received / month">Facturas recibidas / mes</span><input class="input" type="number" name="Facturas recibidas mes" placeholder="Ej: 80"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Contratos activos" data-en="Active contracts">Contratos activos</span><input class="input" type="number" name="Contratos activos" placeholder="Ej: 25"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué KPIs o métricas miden actualmente en administración?" data-en="Which KPIs or metrics do you currently track in administration?">¿Qué KPIs o métricas miden actualmente en administración?</label>
+        <textarea class="textarea" name="KPIs actuales" data-es-ph="Ej:
+• Tiempo medio de procesamiento de factura: actualmente 2 días
+• DSO (días de cobro pendiente): 45 días
+• % de facturas pagadas a tiempo: 85%
+• Tiempo en localizar un documento: 10-15 minutos
+• Errores en facturación: 2% mensual
+• Tiempo de cierre mensual: 5 días laborables" data-en-ph="e.g.:
+• Average invoice processing time: currently 2 days
+• DSO (days sales outstanding): 45 days
+• % of invoices paid on time: 85%
+• Time to locate a document: 10-15 minutes
+• Invoicing errors: 2% monthly
+• Monthly close time: 5 business days"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es el tiempo medio de procesamiento de una factura?" data-en="What is the average time to process an invoice?">¿Cuál es el tiempo medio de procesamiento de una factura?</label>
+        <select class="select" name="Tiempo procesamiento factura">
+          <option value="" disabled selected data-es="Selecciona el tiempo promedio" data-en="Select average time">Selecciona el tiempo promedio</option>
+          <option value="Mismo día" data-es="Mismo día" data-en="Same day">Mismo día</option>
+          <option value="1-2 días" data-es="1 - 2 días" data-en="1 - 2 days">1 - 2 días</option>
+          <option value="3-5 días" data-es="3 - 5 días" data-en="3 - 5 days">3 - 5 días</option>
+          <option value="Más de una semana" data-es="Más de una semana" data-en="More than a week">Más de una semana</option>
+          <option value="Muy variable" data-es="Muy variable" data-en="Very variable">Muy variable</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién gestiona cada tipo de documentación?" data-en="Who manages each type of documentation?">¿Quién gestiona cada tipo de documentación?</label>
+        <textarea class="textarea" name="Responsables de documentación" data-es-ph="Ejemplos:
+• Facturas de proveedores: Laura (registro) + CFO (aprobación de pago)
+• Facturas emitidas: Carlos (emisión) + Laura (seguimiento de cobro)
+• Contratos: Gerente de Oficina (archivo) + CEO (firma)
+• Documentación laboral: RR.HH. + contador externo
+• Declaraciones fiscales: Contador + asesoría" data-en-ph="Examples:
+• Vendor invoices: Laura (logging) + CFO (payment approval)
+• Issued invoices: Carlos (issuing) + Laura (collection follow-up)
+• Contracts: Office Manager (filing) + CEO (signature)
+• Labor documentation: HR + external accountant
+• Tax filings: Accountant + advisor"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen picos de trabajo administrativo?" data-en="Do you have peaks in administrative workload?">¿Tienen picos de trabajo administrativo?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Picos de trabajo" value="Sí"><span class="radio-label-text" data-es="Sí, hay picos" data-en="Yes, there are peaks">Sí, hay picos</span></label>
+          <label class="radio-box"><input type="radio" name="Picos de trabajo" value="No"><span class="radio-label-text" data-es="No, bastante estable" data-en="No, fairly stable">No, bastante estable</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Picos de trabajo=Sí">
+        <div class="field"><label class="field-label" data-es="¿Cuándo son los picos de trabajo administrativo?" data-en="When are the administrative workload peaks?">¿Cuándo son los picos de trabajo administrativo?</label>
+          <input class="input" type="text" name="Cuándo son los picos" data-es-ph="Ej: Cierre mensual (días 1-5), cierre de año fiscal, temporada de impuestos..." data-en-ph="e.g. Monthly close (days 1-5), fiscal year-end, tax season..." placeholder="Ej: Cierre mensual (días 1-5), cierre de año fiscal, temporada de impuestos..."></div>
+      </div>
+    </div>
+
+    <!-- ===== 06 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">06</span>
+        <div class="card-title">
+          <h2 data-es="Automatizaciones e IA Actuales" data-en="Current Automation and AI">Automatizaciones e IA Actuales</h2>
+          <p data-es="Estado actual de automatización en procesos administrativos" data-en="Current state of automation in administrative processes">Estado actual de automatización en procesos administrativos</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen automatizaciones en procesos administrativos actualmente?" data-en="Do you currently have automation in administrative processes?">¿Tienen automatizaciones en procesos administrativos actualmente?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="Sí"><span class="radio-label-text" data-es="Sí, tenemos algunas" data-en="Yes, we have some">Sí, tenemos algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="No"><span class="radio-label-text" data-es="No, aún no" data-en="No, not yet">No, aún no</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene automatización=Sí">
+        <div class="conditional-title" data-es="Detalles de tus automatizaciones" data-en="Details of your automation">Detalles de tus automatizaciones</div>
+
+        <div class="field"><label class="field-label" data-es="¿Cuáles son tus automatizaciones actuales en administración?" data-en="What are your current administrative automations?">¿Cuáles son tus automatizaciones actuales en administración?</label>
+          <textarea class="textarea" name="Automatizaciones actuales" data-es-ph="Ejemplos:
+• OCR del ERP para leer facturas de proveedores
+• Envío automático de facturas a clientes desde el software
+• Recordatorios automáticos de cobro a clientes morosos
+• Alertas de vencimiento de contratos
+• Copia de seguridad automática de la documentación en la nube
+• Firma digital integrada con el gestor documental" data-en-ph="Examples:
+• ERP OCR to read vendor invoices
+• Automatic sending of invoices to clients from the software
+• Automatic collection reminders to overdue clients
+• Contract expiry alerts
+• Automatic backup of documentation in the cloud
+• Digital signature integrated with the document manager"></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué herramientas usan para automatizar?" data-en="Which tools do you use to automate?">¿Qué herramientas usan para automatizar?</label>
+          <input class="input" type="text" name="Herramientas de automatización" data-es-ph="Ej: Siigo (OCR facturas), DocuSign, Zapier, Make..." data-en-ph="e.g. QuickBooks (invoice OCR), DocuSign, Zapier, Make..." placeholder="Ej: Siigo (OCR facturas), DocuSign, Zapier, Make..."></div>
+
+        <div class="field"><label class="field-label" data-es="¿Hay revisión humana en los procesos automatizados críticos?" data-en="Is there human review in critical automated processes?">¿Hay revisión humana en los procesos automatizados críticos?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="Siempre"><span class="radio-label-text" data-es="Siempre revisión" data-en="Always review">Siempre revisión</span></label>
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="Solo críticos"><span class="radio-label-text" data-es="Solo en críticos" data-en="Only critical ones">Solo en críticos</span></label>
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="100% automático"><span class="radio-label-text" data-es="100% automático" data-en="100% automatic">100% automático</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Funcionan bien las automatizaciones actuales?" data-en="Do your current automations work well?">¿Funcionan bien las automatizaciones actuales?</label>
+          <div class="slider-display" id="sliderValue">50%</div>
+          <input type="range" id="slider" name="Nivel de optimización (%)" min="0" max="100" value="50">
+          <div class="slider-labels"><span data-es="Muchos errores" data-en="Many errors">Muchos errores</span><span data-es="Funcionan perfectamente" data-en="Work perfectly">Funcionan perfectamente</span></div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué problemas tienen con las automatizaciones actuales?" data-en="What problems do you have with current automations?">¿Qué problemas tienen con las automatizaciones actuales?</label>
+          <textarea class="textarea" name="Problemas con automatizaciones" data-es-ph="Ej: El OCR falla con facturas escaneadas, no detecta bien todos los campos, hay que corregir datos manualmente, las integraciones se desconectan..." data-en-ph="e.g. The OCR fails with scanned invoices, it doesn't detect all fields well, we have to fix data manually, the integrations disconnect..."></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Cuál es el costo mensual de las herramientas de automatización?" data-en="What is the monthly cost of the automation tools?">¿Cuál es el costo mensual de las herramientas de automatización?</label>
+          <span class="field-hint" data-es="En la moneda que seleccionaste arriba" data-en="In the currency selected above">En la moneda que seleccionaste arriba</span>
+          <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual automatización" placeholder="Ej: 200"></div></div>
+      </div>
+
+      <div class="conditional" data-show-when="Tiene automatización=No">
+        <div class="conditional-title" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</div>
+        <div class="field"><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Tiempo"><span class="checkbox-text" data-es="Falta de tiempo" data-en="Lack of time">Falta de tiempo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Conocimiento"><span class="checkbox-text" data-es="Falta de conocimiento" data-en="Lack of know-how">Falta de conocimiento</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Presupuesto"><span class="checkbox-text" data-es="Limitación de presupuesto" data-en="Budget limitation">Limitación de presupuesto</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No funcionó"><span class="checkbox-text" data-es="Lo intentamos pero no funcionó" data-en="We tried but it didn't work">Lo intentamos pero no funcionó</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No prioridad"><span class="checkbox-text" data-es="No era prioridad hasta ahora" data-en="Not a priority until now">No era prioridad hasta ahora</span></label>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ===== 07 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">07</span>
+        <div class="card-title">
+          <h2 data-es="Criterios de Éxito, Cumplimiento y Seguridad" data-en="Success Criteria, Compliance and Security">Criterios de Éxito, Cumplimiento y Seguridad</h2>
+          <p data-es="Expectativas, normativa aplicable y seguridad documental" data-en="Expectations, applicable regulations and document security">Expectativas, normativa aplicable y seguridad documental</p></div></div>
+
+      <div class="info-callout"><p data-es="Definir criterios de éxito claros y entender los requisitos de cumplimiento normativo nos ayuda a proponer soluciones que se ajusten a tus necesidades legales." data-en="Defining clear success criteria and understanding compliance requirements helps us propose solutions that fit your legal needs.">Definir criterios de éxito claros y entender los requisitos de cumplimiento normativo nos ayuda a proponer soluciones que se ajusten a tus necesidades legales.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define the success of this audit?">¿Cómo definirían el éxito de este diagnóstico?</label>
+        <textarea class="textarea" name="Criterios de éxito" data-es-ph="Ej:
+• Reducir el tiempo de procesamiento de facturas de 2 días a 2 horas
+• Poder encontrar cualquier documento en menos de 30 segundos
+• Eliminar la entrada manual de datos de facturas
+• Tener visibilidad en tiempo real de facturas pendientes de pago/cobro
+• Digitalizar el 100% de la documentación
+• Reducir errores de contabilización a menos del 0.5%" data-en-ph="e.g.:
+• Reduce invoice processing time from 2 days to 2 hours
+• Be able to find any document in under 30 seconds
+• Eliminate manual data entry from invoices
+• Have real-time visibility of payables/receivables
+• Digitize 100% of documentation
+• Reduce bookkeeping errors to under 0.5%"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay requisitos imprescindibles o restricciones?" data-en="Any essential requirements or restrictions?">¿Hay requisitos imprescindibles o restricciones?</label>
+        <textarea class="textarea" name="Requisitos imprescindibles" data-es-ph="Ej:
+• Debemos conservar facturas originales durante 5 años por normativa fiscal
+• Necesitamos que sea compatible con nuestro ERP actual (Siigo, SAP, etc.)
+• Los datos no pueden salir de servidores de nuestra región
+• Necesitamos trazabilidad completa para auditorías
+• El presupuesto máximo de implementación es X" data-en-ph="e.g.:
+• We must keep original invoices for 5 years due to tax regulations
+• It must be compatible with our current ERP (Siigo, SAP, etc.)
+• Data can't leave servers in our region
+• We need full traceability for audits
+• The maximum implementation budget is X"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué normativas de cumplimiento les aplican?" data-en="Which compliance regulations apply to you?">¿Qué normativas de cumplimiento les aplican?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Protección de datos"><div class="checkbox-content"><span class="checkbox-text" data-es="Protección de datos (Habeas Data / GDPR)" data-en="Data protection (GDPR / CCPA / Habeas Data)">Protección de datos (Habeas Data / GDPR)</span><span class="checkbox-desc" data-es="Protección de datos personales" data-en="Personal data protection">Protección de datos personales</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Factura electrónica"><div class="checkbox-content"><span class="checkbox-text" data-es="Facturación electrónica obligatoria (DIAN / SAT / IRS)" data-en="Mandatory e-invoicing (IRS / SAT / DIAN)">Facturación electrónica obligatoria (DIAN / SAT / IRS)</span><span class="checkbox-desc" data-es="Facturación electrónica ante la autoridad fiscal" data-en="E-invoicing before the tax authority">Facturación electrónica ante la autoridad fiscal</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Conservación fiscal"><div class="checkbox-content"><span class="checkbox-text" data-es="Conservación fiscal de documentos" data-en="Fiscal document retention">Conservación fiscal de documentos</span><span class="checkbox-desc" data-es="Obligación de guardar facturas y documentación contable" data-en="Obligation to keep invoices and accounting records">Obligación de guardar facturas y documentación contable</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Auditoría externa"><div class="checkbox-content"><span class="checkbox-text" data-es="Auditoría externa / Revisoría fiscal" data-en="External audit / SOC">Auditoría externa / Revisoría fiscal</span><span class="checkbox-desc" data-es="Requisitos de auditores externos, controles internos" data-en="External auditor requirements, internal controls">Requisitos de auditores externos, controles internos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Sectorial"><div class="checkbox-content"><span class="checkbox-text" data-es="Normativa sectorial específica" data-en="Industry-specific regulation">Normativa sectorial específica</span><span class="checkbox-desc" data-es="Salud, finanzas, seguros, sector público, etc." data-en="Health, finance, insurance, public sector, etc.">Salud, finanzas, seguros, sector público, etc.</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="No seguro"><div class="checkbox-content"><span class="checkbox-text" data-es="No estoy seguro" data-en="I'm not sure">No estoy seguro</span><span class="checkbox-desc" data-es="Necesito asesoría sobre qué normativas aplican" data-en="I need guidance on which regulations apply">Necesito asesoría sobre qué normativas aplican</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen políticas de seguridad documental?" data-en="Do you have document security policies?">¿Tienen políticas de seguridad documental?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Políticas de seguridad" value="Formalizadas"><span class="radio-label-text" data-es="Sí, formalizadas" data-en="Yes, formalized">Sí, formalizadas</span></label>
+          <label class="radio-box"><input type="radio" name="Políticas de seguridad" value="Básicas"><span class="radio-label-text" data-es="Básicas / informales" data-en="Basic / informal">Básicas / informales</span></label>
+          <label class="radio-box"><input type="radio" name="Políticas de seguridad" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have any">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Detalle de políticas de seguridad documental (si aplica)" data-en="Details of document security policies (if any)">Detalle de políticas de seguridad documental (si aplica)</label>
+        <textarea class="textarea" name="Detalle seguridad documental" data-es-ph="Ej:
+• Solo el CFO y el CEO tienen acceso a contratos confidenciales
+• Copia de seguridad diaria de toda la documentación en la nube
+• Los documentos con datos personales están en carpetas restringidas
+• Necesitamos firmar un NDA antes de dar accesos
+• Tenemos política de retención: facturas 5 años, contratos 10 años" data-en-ph="e.g.:
+• Only the CFO and CEO can access confidential contracts
+• Daily backup of all documentation in the cloud
+• Documents with personal data are in restricted folders
+• We need to sign an NDA before granting access
+• We have a retention policy: invoices 5 years, contracts 10 years"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién autoriza el acceso a documentación sensible?" data-en="Who authorizes access to sensitive documentation?">¿Quién autoriza el acceso a documentación sensible?</label>
+        <input class="input" type="text" name="Autoriza accesos" data-es-ph="Ej: CFO, CEO, Director de Administración..." data-en-ph="e.g. CFO, CEO, Administration Director..." placeholder="Ej: CFO, CEO, Director de Administración..."></div>
+    </div>
+
+    <!-- ===== EXTRA ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">+</span>
+        <div class="card-title">
+          <h2 data-es="Comentarios Adicionales" data-en="Additional Comments">Comentarios Adicionales</h2>
+          <p data-es="Cualquier información extra relevante" data-en="Any extra relevant information">Cualquier información extra relevante</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son tus principales dolores en gestión documental?" data-en="What are your main pains in document management?">¿Cuáles son tus principales dolores en gestión documental?</label>
+        <textarea class="textarea" name="Dolores en gestión documental" data-es-ph="Ej: No encontrar documentos cuando los necesito, perder tiempo copiando datos de facturas, errores en la contabilización, retrasos en cobros, documentación desorganizada..." data-en-ph="e.g. Not finding documents when I need them, wasting time copying invoice data, bookkeeping errors, collection delays, disorganized documentation..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué esperas conseguir con este diagnóstico?" data-en="What do you hope to achieve with this audit?">¿Qué esperas conseguir con este diagnóstico?</label>
+        <textarea class="textarea" name="Expectativas de la auditoría" data-es-ph="Ej: Una hoja de ruta para digitalizar toda la documentación, identificar qué automatizar primero, entender el ROI de un gestor documental con IA, cumplir con la normativa de factura electrónica..." data-en-ph="e.g. A roadmap to digitize all documentation, identify what to automate first, understand the ROI of an AI document manager, comply with e-invoicing regulations..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Algo más que debamos saber?" data-en="Anything else we should know?">¿Algo más que debamos saber?</label>
+        <textarea class="textarea" name="Comentarios adicionales" data-es-ph="Cualquier contexto adicional: cambio de contador previsto, migración de ERP en curso, auditoría externa próxima, expansión internacional..." data-en-ph="Any extra context: planned change of accountant, ERP migration underway, upcoming external audit, international expansion..."></textarea></div>
+    </div>
+
+    <div class="submit-section">
+      <button type="submit" class="submit-btn" data-es="Enviar cuestionario →" data-en="Submit questionnaire →">Enviar cuestionario →</button>
+    </div>
+  </form>
+
+  <div class="result" id="result">
+    <div class="check">✓</div>
+    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <p data-es="Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico." data-en="Thank you. Now send them to us with any of these buttons so we can prepare your diagnosis.">Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico.</p>
+    <div class="actions">
+      <button class="btn primary" id="btnEmail" data-es="✉ Enviar por email" data-en="✉ Send by email">✉ Enviar por email</button>
+      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+  const EMAIL_DESTINO = "tucorreo@ejemplo.com";
+  const TITULO = {es:"Diagnóstico de Administración y Documentación (Ops)", en:"Administration & Documentation Audit (Ops)"};
+
+  const form = document.getElementById('form');
+  const sections = document.querySelectorAll('[data-section]');
+  const bar = document.getElementById('bar');
+  const progressCount = document.getElementById('progressCount');
+  const currency = document.getElementById('currency');
+  const slider = document.getElementById('slider');
+  const sliderValue = document.getElementById('sliderValue');
+  let lang = 'es';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langEs').classList.toggle('active', l==='es');
+    document.getElementById('langEn').classList.toggle('active', l==='en');
+    document.querySelectorAll('[data-es]').forEach(el=>{ const v=el.getAttribute('data-'+l); if(v!=null) el.textContent=v; });
+    document.querySelectorAll('[data-es-ph]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-ph'); if(v!=null) el.placeholder=v; });
+    document.querySelectorAll('[data-es-val]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-val'); if(v!=null) el.value=v; });
+  }
+  window.setLang = setLang;
+
+  function updateCurrency(){
+    const map = {USD:'$', COP:'$', EUR:'€'};
+    const sym = map[currency.value] || '$';
+    document.querySelectorAll('.cur-symbol').forEach(s => s.textContent = sym);
+  }
+  currency.addEventListener('change', updateCurrency);
+  if(slider) slider.addEventListener('input', ()=> sliderValue.textContent = slider.value+'%');
+
+  document.querySelectorAll('[data-show-when]').forEach(cond=>{
+    const [name, valuesStr] = cond.dataset.showWhen.split('=');
+    const values = valuesStr.split('|');
+    const inputs = form.querySelectorAll('input[name="'+name+'"]');
+    function check(){ const sel=[...inputs].find(i=>i.checked); cond.classList.toggle('show', !!(sel && values.includes(sel.value))); }
+    inputs.forEach(i=> i.addEventListener('change', check));
+    check();
+  });
+
+  function updateProgress(){
+    let done = 0;
+    sections.forEach(sec=>{
+      let filled=false;
+      sec.querySelectorAll('input,textarea,select').forEach(f=>{
+        if(f.type==='range') return;
+        if(f.closest('.conditional') && !f.closest('.conditional').classList.contains('show')) return;
+        if(f.type==='checkbox'||f.type==='radio'){ if(f.checked) filled=true; }
+        else if(f.value && f.value.trim() && !f.readOnly) filled=true;
+      });
+      if(filled) done++;
+    });
+    bar.style.width = (done/sections.length*100)+'%';
+    progressCount.textContent = done+' / '+sections.length;
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
+  function labelOf(input){
+    const box = input.closest('label');
+    const t = box && box.querySelector('.radio-label-text, .checkbox-text');
+    return t ? t.textContent.trim() : input.value;
+  }
+  function recogerRespuestas(){
+    const datos = [];
+    const curOpt = currency.options[currency.selectedIndex];
+    datos.push([lang==='es'?'Moneda':'Currency', curOpt.textContent.trim()]);
+
+    document.querySelectorAll('.form-card .field').forEach(field=>{
+      const cond = field.closest('.conditional');
+      if(cond && !cond.classList.contains('show')) return;
+      const labelEl = field.querySelector('.field-label');
+      const question = labelEl ? labelEl.textContent.replace(/\*/g,'').trim() : '';
+
+      const radios = field.querySelectorAll('input[type=radio]:checked');
+      const checks = field.querySelectorAll('input[type=checkbox]:checked');
+      const groups = field.querySelectorAll('.input-group');
+      let answer = '';
+
+      if(radios.length){ answer = [...radios].map(labelOf).join(', '); }
+      else if(checks.length){ answer = [...checks].map(labelOf).join(', '); }
+      else if(groups.length){
+        const parts=[];
+        groups.forEach(g=>{ const inp=g.querySelector('input'); if(inp && inp.value.trim()){ const gl=g.querySelector('.input-group-label'); parts.push((gl?gl.textContent.trim():'')+': '+inp.value.trim()); } });
+        answer = parts.join(' | ');
+      } else {
+        const parts=[];
+        field.querySelectorAll('input[type=text],input[type=number],input[type=email],input[type=range],textarea,select').forEach(t=>{
+          if(t.readOnly) return;
+          if(t.type!=='range' && (!t.value || !t.value.trim())) return;
+          let v = t.tagName==='SELECT' ? t.options[t.selectedIndex].textContent.trim() : (t.type==='range' ? t.value+'%' : t.value.trim());
+          if(t.closest('.icon-input')){ const s=t.closest('.icon-input').querySelector('.cur-symbol'); v=(s?s.textContent:'')+v; }
+          parts.push(v);
+        });
+        answer = parts.join(' | ');
+      }
+      if(answer) datos.push([question, answer]);
+    });
+
+    let t = TITULO[lang]+"\n";
+    t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-419':'en-US')+"\n";
+    t += "----------------------------------------\n\n";
+    datos.forEach(([k,v])=>{ t += k+":\n"+v+"\n\n"; });
+    return t;
+  }
+
+  let RESPUESTAS = "";
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    RESPUESTAS = recogerRespuestas();
+    document.getElementById('preview').textContent = RESPUESTAS;
+    form.style.display='none';
+    document.getElementById('result').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
+  document.getElementById('btnDownload').addEventListener('click', function(){
+    const blob = new Blob([RESPUESTAS], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=(lang==='es'?'Respuestas-Ops':'Answers-Ops')+'.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(RESPUESTAS);
+  });
+
+  setLang('es');
+</script>
+<script>
+(function(){
+  var HASH="a816ebde8084f1838ea70889deccff2c3dabbbd45f39af1aecca435fa4fbe215";
+  function sha256(ascii){function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount));}var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';var words=[],asciiBitLength=ascii[lengthProperty]*8;var hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],primeCounter=k[lengthProperty];var isComposite={};for(var candidate=2;primeCounter<64;candidate++){if(!isComposite[candidate]){for(i=0;i<313;i+=candidate){isComposite[i]=candidate;}hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;}}ascii+='\x80';while(ascii[lengthProperty]%64-56)ascii+='\x00';for(i=0;i<ascii[lengthProperty];i++){j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);words[words[lengthProperty]]=(asciiBitLength);for(j=0;j<words[lengthProperty];){var w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2];var a=hash[0],e=hash[4];var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));hash=[(temp1+temp2)|0].concat(hash);hash[4]=(hash[4]+temp1)|0;}for(i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16);}}return result;}
+  var gate=document.getElementById('q-gate');
+  var form=document.getElementById('q-gate__form');
+  var input=document.getElementById('q-gate__input');
+  var err=document.getElementById('q-gate__error');
+  function unlock(){ gate.classList.add('q-unlocked'); try{sessionStorage.setItem('arraviva-q','1');}catch(e){} }
+  try{ if(sessionStorage.getItem('arraviva-q')==='1'){ unlock(); } }catch(e){}
+  if(input){ try{input.focus();}catch(e){} }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(input.value||'').trim();
+    var utf8=unescape(encodeURIComponent(v));
+    if(sha256(utf8)===HASH){ unlock(); }
+    else{ err.hidden=false; input.value=''; input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>

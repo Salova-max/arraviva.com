@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario de Entrega del Servicio · Diagnóstico</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#0b0d14; --card:#161923; --card-2:#1e2130; --border:#2a2f3f;
+    --text:#eceef4; --muted:#47544A; --accent:#2F6B4F; --accent-soft:#191d33;
+    --ok:#2F6B4F; --req:#2F6B4F; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.5;}
+  h1,h2,.card-title h2{font-family:'Manrope','Inter',sans-serif}
+  .wrap{max-width:840px; margin:0 auto; padding:22px 18px 90px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 26px; flex-wrap:wrap}
+  .logo-slot{display:flex; align-items:center; gap:10px}
+  .logo-ph{border:1px dashed var(--border); color:var(--muted); font-size:11px; letter-spacing:1px; padding:9px 14px; border-radius:10px; font-weight:700;}
+  .header-right{display:flex; align-items:center; gap:10px}
+  .tag{font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--card)}
+  .lang-toggle button{border:none; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; cursor:pointer}
+  .lang-toggle button.active{background:var(--accent); color:#fff}
+  .hero-badge{display:inline-block; font-size:12px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:6px 12px; border-radius:999px; margin-bottom:14px}
+  h1{font-size:30px; margin:0 0 10px; font-weight:800; letter-spacing:-.5px}
+  .subtitle{color:var(--muted); margin:0 0 22px; font-size:16px}
+  .intro-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px}
+  .intro-box h3{margin:0 0 8px; font-size:16px; font-family:'Manrope',sans-serif}
+  .intro-box p{margin:0 0 12px; color:var(--muted); font-size:14px}
+  .intro-list{display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; margin:0; padding:0; list-style:none}
+  .intro-list li{color:var(--muted); font-size:13px; padding-left:16px; position:relative}
+  .intro-list li::before{content:"›"; position:absolute; left:0; color:var(--accent); font-weight:700}
+  @media(max-width:560px){.intro-list{grid-template-columns:1fr}}
+  .progress-wrapper{margin:6px 0 24px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5}
+  .progress-info{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:6px}
+  .progress-track{height:8px; background:var(--card-2); border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+  .form-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:16px}
+  .card-header{display:flex; gap:14px; align-items:flex-start; margin-bottom:6px}
+  .card-number{min-width:42px; height:42px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; font-weight:800; font-size:15px}
+  .card-title h2{margin:0; font-size:19px; font-weight:700}
+  .card-title p{margin:3px 0 0; color:var(--muted); font-size:14px}
+  .field{margin-top:18px}
+  .field-label{display:block; font-weight:600; margin-bottom:4px}
+  .required{color:var(--req)}
+  .field-hint{display:block; color:var(--muted); font-size:13px; margin-bottom:8px}
+  .input,.textarea,.select{width:100%; background:var(--card-2); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:12px 13px; font-size:15px; font-family:inherit}
+  .textarea{min-height:96px; resize:vertical}
+  .textarea-large{min-height:140px}
+  .input:focus,.textarea:focus,.select:focus{outline:2px solid var(--accent); border-color:var(--accent)}
+  .input.readonly{opacity:.65; cursor:not-allowed}
+  .radio-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .radio-grid-2{grid-template-columns:1fr 1fr}
+  .radio-grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:560px){.radio-grid,.radio-grid-2,.radio-grid-3{grid-template-columns:1fr 1fr}}
+  .radio-box{display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:14px 10px; cursor:pointer; transition:.15s}
+  .radio-box:hover{border-color:var(--accent)}
+  .radio-box input{display:none}
+  .radio-box:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .radio-label-text{font-weight:600; font-size:14px}
+  .radio-desc{font-size:12px; color:var(--muted)}
+  .checkbox-list{display:grid; gap:10px}
+  .checkbox-option{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:13px 14px; cursor:pointer; transition:.15s}
+  .checkbox-option:hover{border-color:var(--accent)}
+  .checkbox-option:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .checkbox-option input{margin-top:2px; width:18px; height:18px; accent-color:var(--accent); flex:none}
+  .checkbox-text{font-weight:600; display:block}
+  .checkbox-desc{font-size:12px; color:var(--muted); display:block; margin-top:2px}
+  .info-callout{display:flex; gap:12px; align-items:flex-start; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:14px; margin:14px 0 4px; color:var(--muted); font-size:14px}
+  .info-callout p{margin:0}
+  .note-box{display:flex; gap:10px; align-items:flex-start; border:1px dashed var(--border); border-radius:10px; padding:12px 14px; margin-bottom:10px; color:var(--muted); font-size:13px}
+  .note-box p{margin:0}
+  .input-grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  @media(max-width:560px){.input-grid-3{grid-template-columns:1fr}}
+  .input-group-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+  .icon-input{display:flex; align-items:center; background:var(--card-2); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+  .icon-input:focus-within{outline:2px solid var(--accent); border-color:var(--accent)}
+  .cur-symbol{padding:0 12px; color:var(--muted); font-weight:700}
+  .icon-input .input{border:none; background:transparent; outline:none}
+  input[type=range]{width:100%; accent-color:var(--accent); margin-top:6px}
+  .slider-display{font-weight:700; font-size:20px; text-align:center; color:var(--accent)}
+  .slider-labels{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px}
+  .toolbar{display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:16px}
+  .toolbar label{font-weight:600; font-size:14px}
+  .toolbar .select{max-width:230px}
+  .conditional{display:none; border-left:2px solid var(--accent); padding-left:14px; margin-top:10px}
+  .conditional.show{display:block}
+  .conditional-title{font-size:13px; font-weight:700; color:var(--accent); margin-top:8px}
+  .submit-section{margin-top:12px}
+  .submit-btn{width:100%; border:none; cursor:pointer; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:16px; border-radius:12px; font-family:inherit}
+  .submit-btn:hover{opacity:.93}
+  .result{display:none; text-align:center; padding:10px 0}
+  .result.show{display:block}
+  .result .check{width:66px; height:66px; margin:0 auto 14px; border-radius:50%; background:var(--ok); display:grid; place-items:center; color:#fff; font-size:34px}
+  .result h2{margin:0 0 6px}
+  .result p{color:var(--muted); max-width:520px; margin:0 auto 18px}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:18px}
+  .btn{border:1px solid var(--border); background:var(--card-2); color:var(--text); padding:12px 18px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; font-family:inherit}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn:hover{opacity:.9}
+  .preview{text-align:left; background:var(--card-2); border:1px solid var(--border); border-radius:10px; padding:14px; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:13px; max-height:320px; overflow:auto; color:var(--muted)}
+</style>
+<style>
+/* ===== Branding Arraviva (sobrescribe colores + tipografía, sin tocar contenido) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+:root{
+  --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+  --text:#17201b; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+  --ok:#2F6B4F; --req:#2F6B4F; --tierra:#2F6B4F; --savia:#2F6B4F; --luz:#e6b15a;
+}
+h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-weight:600;}
+.hero-badge{color:var(--tierra); background:#EAF0EB;}
+</style>
+<style>
+#q-gate{position:fixed;inset:0;z-index:99999;background:#f6f1e8;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif}
+#q-gate.q-unlocked{display:none}
+.q-gate__card{width:100%;max-width:380px;background:#fff;border:1px solid #e2dccf;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 1px 2px rgba(23,32,27,.04),0 12px 28px -16px rgba(23,32,27,.2)}
+.q-gate__logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px}
+.q-gate__logo .brand-name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#1e3a31}
+.q-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1e3a31;margin:0 0 8px}
+.q-gate__sub{font-size:14.5px;line-height:1.5;color:#47544A;margin:0 0 22px}
+#q-gate__input{width:100%;box-sizing:border-box;background:#fbf8f1;border:1px solid #e2dccf;border-radius:10px;padding:13px 15px;font-size:15px;font-family:inherit;color:#17201b;text-align:center}
+#q-gate__input:focus{outline:none;border-color:#2F6B4F}
+#q-gate__btn{width:100%;margin-top:12px;border:none;cursor:pointer;background:#1e3a31;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:10px;font-family:inherit}
+#q-gate__btn:hover{background:#2F6B4F}
+#q-gate__error{margin:14px 0 0;font-size:13px;color:#2F6B4F;font-weight:600}
+.viva{color:#2F6B4F}
+</style>
+</head>
+<body>
+<div id="q-gate">
+  <div class="q-gate__card">
+    <div class="q-gate__logo"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name">Arra<span class="viva">viva</span></span></div>
+    <h1 class="q-gate__title">Cuestionario privado</h1>
+    <p class="q-gate__sub">Introduce la clave de acceso que te compartimos para continuar.</p>
+    <form id="q-gate__form" autocomplete="off">
+      <input id="q-gate__input" type="password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+      <button id="q-gate__btn" type="submit">Entrar &rarr;</button>
+      <p id="q-gate__error" hidden>Clave incorrecta. Vuelve a intentarlo.</p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-slot" style="display:flex;align-items:center;gap:9px"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#1e3a31">Arra<span class="viva">viva</span></span></div>
+    <div class="header-right">
+      <span class="tag" data-es="Fase de Incorporación" data-en="Onboarding Phase">Fase de Incorporación</span>
+      <div class="lang-toggle">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <span class="hero-badge" data-es="Diagnóstico" data-en="Audit">Diagnóstico</span>
+  <h1 data-es="Diagnóstico del Área de Entrega del Servicio" data-en="Service Delivery Area Audit">Diagnóstico del Área de Entrega del Servicio</h1>
+  <p class="subtitle" data-es="Este cuestionario nos permite entender cómo entregan su producto o servicio para optimizar los procesos de entrega, crecer sin perder calidad ni control y sin sobrecargar al equipo." data-en="This questionnaire helps us understand how you deliver your product or service, to optimize delivery processes, scale without losing quality or control and without overloading the team.">Este cuestionario nos permite entender cómo entregan su producto o servicio para optimizar los procesos de entrega, crecer sin perder calidad ni control y sin sobrecargar al equipo.</p>
+
+  <div class="intro-box">
+    <h3 data-es="¿Qué información necesitamos?" data-en="What information do we need?">¿Qué información necesitamos?</h3>
+    <p data-es="Este diagnóstico profundo cubre todos los aspectos del proceso de entrega para identificar oportunidades de mejora, automatización y crecimiento." data-en="This deep audit covers every aspect of the delivery process to identify opportunities for improvement, automation and scalability.">Este diagnóstico profundo cubre todos los aspectos del proceso de entrega para identificar oportunidades de mejora, automatización y crecimiento.</p>
+    <ul class="intro-list">
+      <li data-es="Estructura del equipo y herramientas" data-en="Team structure and tools">Estructura del equipo y herramientas</li>
+      <li data-es="Proceso de entrega y recorrido del cliente" data-en="Delivery process and customer journey">Proceso de entrega y recorrido del cliente</li>
+      <li data-es="Comunicación con el cliente y canales" data-en="Client communication and channels">Comunicación con el cliente y canales</li>
+      <li data-es="Volumen, indicadores y satisfacción" data-en="Volume, KPIs and satisfaction">Volumen, indicadores y satisfacción</li>
+      <li data-es="Validación del proceso real vs. teórico" data-en="Real vs. theoretical process validation">Validación del proceso real vs. teórico</li>
+      <li data-es="Excepciones y casos especiales" data-en="Exceptions and special cases">Excepciones y casos especiales</li>
+      <li data-es="Puntos de fricción y mejoras rápidas" data-en="Friction points and quick wins">Puntos de fricción y mejoras rápidas</li>
+      <li data-es="Seguimiento, visibilidad y tableros" data-en="Tracking, visibility and dashboards">Seguimiento, visibilidad y tableros</li>
+      <li data-es="Capacidad del equipo y delegación" data-en="Team capacity and delegation">Capacidad del equipo y delegación</li>
+      <li data-es="Visión del proceso ideal" data-en="Ideal process vision">Visión del proceso ideal</li>
+      <li data-es="Tecnología y frustraciones" data-en="Technology and frustrations">Tecnología y frustraciones</li>
+      <li data-es="Opiniones de los clientes" data-en="Client feedback">Opiniones de los clientes</li>
+    </ul>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 16</span></div>
+    <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+  </div>
+
+  <form id="form">
+
+    <div class="toolbar">
+      <label for="currency" data-es="Moneda con la que trabajas:" data-en="Currency you work with:">Moneda con la que trabajas:</label>
+      <select class="select" id="currency" name="Moneda">
+        <option value="USD" data-es="USD — Dólar ($)" data-en="USD — Dollar ($)">USD — Dólar ($)</option>
+        <option value="COP" data-es="COP — Peso colombiano ($)" data-en="COP — Colombian Peso ($)">COP — Peso colombiano ($)</option>
+        <option value="EUR" data-es="EUR — Euro (€)" data-en="EUR — Euro (€)">EUR — Euro (€)</option>
+      </select>
+    </div>
+
+    <!-- ===== 01 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">01</span>
+        <div class="card-title">
+          <h2 data-es="Datos de la Empresa y Estructura" data-en="Company Details and Structure">Datos de la Empresa y Estructura</h2>
+          <p data-es="Información básica y organización del equipo de entrega" data-en="Basic information and delivery team organization">Información básica y organización del equipo de entrega</p></div></div>
+
+      <div class="field"><label class="field-label"><span data-es="Nombre de la empresa" data-en="Company name">Nombre de la empresa</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Indica el nombre legal o comercial de tu empresa" data-en="Enter your company's legal or trade name">Indica el nombre legal o comercial de tu empresa</span>
+        <input class="input" type="text" name="Nombre de la empresa" required data-es-ph="Ej: Acme Solutions S.A.S." data-en-ph="e.g. Acme Solutions LLC"></div>
+
+      <div class="field"><label class="field-label" data-es="Área a auditar" data-en="Area being audited">Área a auditar</label>
+        <span class="field-hint" data-es="Este cuestionario está diseñado específicamente para auditar el área de entrega del servicio" data-en="This questionnaire is designed specifically to audit the service delivery area">Este cuestionario está diseñado específicamente para auditar el área de entrega del servicio</span>
+        <input class="input readonly" type="text" name="Área a auditar" value="Entrega del Servicio" data-es-val="Entrega del Servicio" data-en-val="Delivery" readonly></div>
+
+      <div class="field"><label class="field-label" data-es="Tu rol en la empresa" data-en="Your role in the company">Tu rol en la empresa</label>
+        <select class="select" name="Rol">
+          <option value="" disabled selected data-es="Selecciona tu rol" data-en="Select your role">Selecciona tu rol</option>
+          <option value="CEO" data-es="CEO / Fundador" data-en="CEO / Founder">CEO / Fundador</option>
+          <option value="Director Operaciones" data-es="Director de Operaciones" data-en="COO / Operations Director">Director de Operaciones</option>
+          <option value="Responsable Entregas" data-es="Responsable de Entregas" data-en="Delivery Manager">Responsable de Entregas</option>
+          <option value="Responsable Fidelización" data-es="Responsable de Fidelización de Clientes" data-en="Customer Success Manager">Responsable de Fidelización de Clientes</option>
+          <option value="Jefe de Proyectos" data-es="Jefe de Proyectos" data-en="Project Manager">Jefe de Proyectos</option>
+          <option value="Ejecutivo de Cuenta" data-es="Ejecutivo de Cuenta" data-en="Account Manager">Ejecutivo de Cuenta</option>
+          <option value="Otro" data-es="Otro" data-en="Other">Otro</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="Tamaño del equipo" data-en="Team size">Tamaño del equipo</label>
+        <span class="field-hint" data-es="Número aproximado de personas en tu organización" data-en="Approximate number of people in your organization">Número aproximado de personas en tu organización</span>
+        <select class="select" name="Tamaño del equipo">
+          <option value="" disabled selected data-es="Selecciona el tamaño" data-en="Select size">Selecciona el tamaño</option>
+          <option value="1-5" data-es="1 - 5 empleados" data-en="1 - 5 employees">1 - 5 empleados</option>
+          <option value="6-15" data-es="6 - 15 empleados" data-en="6 - 15 employees">6 - 15 empleados</option>
+          <option value="16-50" data-es="16 - 50 empleados" data-en="16 - 50 employees">16 - 50 empleados</option>
+          <option value="51-100" data-es="51 - 100 empleados" data-en="51 - 100 employees">51 - 100 empleados</option>
+          <option value="100+" data-es="Más de 100 empleados" data-en="More than 100 employees">Más de 100 empleados</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué producto o servicio entregan?" data-en="What product or service do you deliver?">¿Qué producto o servicio entregan?</label>
+        <span class="field-hint" data-es="Describe brevemente qué es lo que entregan a sus clientes" data-en="Briefly describe what you deliver to your clients">Describe brevemente qué es lo que entregan a sus clientes</span>
+        <textarea class="textarea" name="Producto/servicio que entregan" data-es-ph="Ej:
+• Servicio de consultoría estratégica (proyectos de 3 meses)
+• Software con puesta en marcha personalizada
+• Formación en línea con tutorías individuales" data-en-ph="e.g.:
+• Strategic consulting service (3-month projects)
+• SaaS software with personalized onboarding
+• Online training with one-on-one tutoring"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Organigrama / Estructura del equipo de entrega" data-en="Org chart / Delivery team structure">Organigrama / Estructura del equipo de entrega</label>
+        <span class="field-hint" data-es="Describe la estructura jerárquica del área: quién reporta a quién, departamentos, etc." data-en="Describe the hierarchy of the area: who reports to whom, departments, etc.">Describe la estructura jerárquica del área: quién reporta a quién, departamentos, etc.</span>
+        <textarea class="textarea" name="Organigrama de entrega" data-es-ph="Ej:
+• CEO → Responsable de Entregas → 3 Ejecutivos de Cuenta
+• Ejecutivo de Cuenta 1: atiende clientes grandes (5 cuentas)
+• Ejecutivo de Cuenta 2: atiende pymes (15 cuentas)
+• Todos reportan al Responsable de Entregas" data-en-ph="e.g.:
+• CEO → Delivery Manager → 3 Account Managers
+• Account Manager 1: manages enterprise clients (5 accounts)
+• Account Manager 2: manages SMB clients (15 accounts)
+• Everyone reports to the Delivery Manager"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Roles involucrados en el proceso de entrega" data-en="Roles involved in the delivery process">Roles involucrados en el proceso de entrega</label>
+        <span class="field-hint" data-es="Lista todos los roles/personas que participan en la entrega del producto o servicio" data-en="List all roles/people involved in delivering the product or service">Lista todos los roles/personas que participan en la entrega del producto o servicio</span>
+        <textarea class="textarea" name="Roles involucrados" data-es-ph="Ej:
+• María (Responsable de Entregas) - Coordinación general y casos escalados
+• Carlos (Ejecutivo de Cuenta) - Gestión de cuentas y seguimiento
+• Laura (Fidelización) - Incorporación del cliente y capacitación" data-en-ph="e.g.:
+• María (Delivery Manager) - Overall coordination and escalations
+• Carlos (Account Manager) - Account management and follow-up
+• Laura (Customer Success) - Onboarding and training"></textarea></div>
+    </div>
+
+    <!-- ===== 02 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">02</span>
+        <div class="card-title">
+          <h2 data-es="Herramientas de Control de la Entrega" data-en="Delivery Control Tools">Herramientas de Control de la Entrega</h2>
+          <p data-es="Herramientas para gestionar la entrega y la relación con los clientes" data-en="Tools to manage delivery and the client relationship">Herramientas para gestionar la entrega y la relación con los clientes</p></div></div>
+
+      <div class="info-callout"><p data-es="Necesitamos conocer las herramientas que usan para gestionar la entrega y la comunicación con los clientes." data-en="We need to know the tools you use to manage delivery and client communication.">Necesitamos conocer las herramientas que usan para gestionar la entrega y la comunicación con los clientes.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas utilizan para el control de la entrega?" data-en="Which tools do you use for delivery control?">¿Qué herramientas utilizan para el control de la entrega?</label>
+        <span class="field-hint" data-es="Selecciona todas las herramientas donde gestionan proyectos, clientes y entregas" data-en="Select all the tools where you manage projects, clients and deliveries">Selecciona todas las herramientas donde gestionan proyectos, clientes y entregas</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="ClickUp"><div class="checkbox-content"><span class="checkbox-text" data-es="ClickUp" data-en="ClickUp">ClickUp</span><span class="checkbox-desc" data-es="Gestión de proyectos, tareas y seguimiento de entregas" data-en="Project, task and delivery tracking">Gestión de proyectos, tareas y seguimiento de entregas</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Asana"><div class="checkbox-content"><span class="checkbox-text" data-es="Asana" data-en="Asana">Asana</span><span class="checkbox-desc" data-es="Coordinación de equipos y proyectos de clientes" data-en="Team and client project coordination">Coordinación de equipos y proyectos de clientes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Trello"><div class="checkbox-content"><span class="checkbox-text" data-es="Trello" data-en="Trello">Trello</span><span class="checkbox-desc" data-es="Tableros visuales para seguimiento" data-en="Kanban boards for visual tracking">Tableros visuales para seguimiento</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Monday"><div class="checkbox-content"><span class="checkbox-text" data-es="Monday.com" data-en="Monday.com">Monday.com</span><span class="checkbox-desc" data-es="Gestión del trabajo y automatizaciones" data-en="Work OS and automations">Gestión del trabajo y automatizaciones</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Notion"><div class="checkbox-content"><span class="checkbox-text" data-es="Notion" data-en="Notion">Notion</span><span class="checkbox-desc" data-es="Documentación y bases de datos de clientes" data-en="Documentation, wikis and client databases">Documentación y bases de datos de clientes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="HubSpot/CRM"><div class="checkbox-content"><span class="checkbox-text" data-es="HubSpot / CRM" data-en="HubSpot / CRM">HubSpot / CRM</span><span class="checkbox-desc" data-es="Relación con clientes y comunicaciones" data-en="Client relationship and communications">Relación con clientes y comunicaciones</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Intercom/Zendesk"><div class="checkbox-content"><span class="checkbox-text" data-es="Intercom / Zendesk / Freshdesk" data-en="Intercom / Zendesk / Freshdesk">Intercom / Zendesk / Freshdesk</span><span class="checkbox-desc" data-es="Soporte al cliente y solicitudes" data-en="Customer support and tickets">Soporte al cliente y solicitudes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Hojas de cálculo"><div class="checkbox-content"><span class="checkbox-text" data-es="Hojas de cálculo (Excel / Google Sheets)" data-en="Spreadsheets (Excel / Google Sheets)">Hojas de cálculo (Excel / Google Sheets)</span><span class="checkbox-desc" data-es="Seguimiento manual, reportes de clientes" data-en="Manual tracking, client reports">Seguimiento manual, reportes de clientes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas de entrega" value="Otras"><div class="checkbox-content"><span class="checkbox-text" data-es="Otras herramientas" data-en="Other tools">Otras herramientas</span><span class="checkbox-desc" data-es="Especifica cualquier otra herramienta relevante abajo" data-en="Specify any other relevant tool below">Especifica cualquier otra herramienta relevante abajo</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Otras herramientas utilizadas" data-en="Other tools used">Otras herramientas utilizadas</label>
+        <span class="field-hint" data-es="Si usan herramientas adicionales que no están en la lista, indícalas aquí" data-en="If you use additional tools not listed, add them here">Si usan herramientas adicionales que no están en la lista, indícalas aquí</span>
+        <input class="input" type="text" name="Otras herramientas" data-es-ph="Ej: Basecamp, Teamwork, herramientas propias, portal de clientes..." data-en-ph="e.g. Basecamp, Teamwork, custom tools, client portal..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Podrán darnos acceso de lectura a las herramientas relevantes?" data-en="Can you give us read access to the relevant tools?">¿Podrán darnos acceso de lectura a las herramientas relevantes?</label>
+        <span class="field-hint" data-es="Necesitamos acceso temporal para analizar los flujos, no modificaremos nada" data-en="We need temporary access to analyze flows, we won't change anything">Necesitamos acceso temporal para analizar los flujos, no modificaremos nada</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Sí"><span class="radio-label-text" data-es="Sí, sin problema" data-en="Yes, no problem">Sí, sin problema</span></label>
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Algunas"><span class="radio-label-text" data-es="Solo algunas" data-en="Only some">Solo algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Acceso a herramientas" value="Consultar"><span class="radio-label-text" data-es="Necesito consultar" data-en="I need to check">Necesito consultar</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Escenario tecnológico actual" data-en="Current technology setup">Escenario tecnológico actual</label>
+        <span class="field-hint" data-es="Describe brevemente su infraestructura técnica: alojamiento web, bases de datos, integraciones, APIs, etc." data-en="Briefly describe your technical infrastructure: hosting, databases, integrations, APIs, etc.">Describe brevemente su infraestructura técnica: alojamiento web, bases de datos, integraciones, APIs, etc.</span>
+        <textarea class="textarea" name="Escenario tecnológico" data-es-ph="Ej:
+• Página web en WordPress con alojamiento en SiteGround
+• Base de datos MySQL para el CRM interno
+• API de Stripe para los pagos" data-en-ph="e.g.:
+• WordPress site hosted on SiteGround
+• MySQL database for the internal CRM
+• Stripe API for payments"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Existe una base de datos del sistema actual?" data-en="Is there a database in the current system?">¿Existe una base de datos del sistema actual?</label>
+        <span class="field-hint" data-es="Si tienen una base de datos interna, ¿podrían exportar su estructura sin datos sensibles?" data-en="If you have an internal database, could you export its structure without sensitive data?">Si tienen una base de datos interna, ¿podrían exportar su estructura sin datos sensibles?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Base de datos disponible" value="Exportar"><span class="radio-label-text" data-es="Sí, podemos exportar" data-en="Yes, we can export">Sí, podemos exportar</span></label>
+          <label class="radio-box"><input type="radio" name="Base de datos disponible" value="No propia"><span class="radio-label-text" data-es="No tenemos base de datos propia" data-en="We don't have our own DB">No tenemos base de datos propia</span></label>
+          <label class="radio-box"><input type="radio" name="Base de datos disponible" value="Verificar"><span class="radio-label-text" data-es="Tengo que verificar" data-en="I need to check">Tengo que verificar</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Existe una fuente de verdad única?" data-en="Is there a single source of truth?">¿Existe una fuente de verdad única?</label>
+        <span class="field-hint" data-es="¿Hay un sistema central donde se consolida toda la información importante o está dispersa en varios lugares?" data-en="Is there a central system where all important information is consolidated, or is it scattered across several places?">¿Hay un sistema central donde se consolida toda la información importante o está dispersa en varios lugares?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Centralizado"><span class="radio-label-text" data-es="Sí, centralizado" data-en="Yes, centralized">Sí, centralizado</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Parcialmente"><span class="radio-label-text" data-es="Parcialmente" data-en="Partially">Parcialmente</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Dispersa"><span class="radio-label-text" data-es="No, dispersa" data-en="No, scattered">No, dispersa</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 03 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">03</span>
+        <div class="card-title">
+          <h2 data-es="Proceso de Entrega y Recorrido del Cliente" data-en="Delivery Process and Customer Journey">Proceso de Entrega y Recorrido del Cliente</h2>
+          <p data-es="Cómo entregan el producto/servicio y la experiencia completa del cliente" data-en="How you deliver the product/service and the full client experience">Cómo entregan el producto/servicio y la experiencia completa del cliente</p></div></div>
+
+      <div class="info-callout"><p data-es="Necesitamos mapear toda la experiencia del cliente: desde la incorporación hasta el uso, el soporte y la fidelización." data-en="We need to map the entire client experience: from onboarding through usage, support and loyalty.">Necesitamos mapear toda la experiencia del cliente: desde la incorporación hasta el uso, el soporte y la fidelización.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo entregan su producto o servicio?" data-en="How do you deliver your product/service?">¿Cómo entregan su producto o servicio?</label>
+        <span class="field-hint" data-es="Describe el proceso completo desde que el cliente compra hasta que recibe el valor" data-en="Describe the full process from when the client buys until they receive the value">Describe el proceso completo desde que el cliente compra hasta que recibe el valor</span>
+        <textarea class="textarea" name="Proceso de entrega" data-es-ph="Ej:
+1. El cliente firma el contrato → 2. Correo de bienvenida automático → 3. Reunión de inicio (30 min) → 4. Acceso a la plataforma → 5. Sesión de capacitación inicial → 6. Entrega de la primera fase → 7. Revisión y comentarios" data-en-ph="e.g.:
+1. Client signs contract → 2. Automatic welcome email → 3. Kickoff call (30 min) → 4. Platform access → 5. Initial training session → 6. First phase delivery → 7. Review and feedback"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son los tiempos de entrega del servicio?" data-en="What are the service delivery times?">¿Cuáles son los tiempos de entrega del servicio?</label>
+        <span class="field-hint" data-es="Duración típica desde el inicio hasta la entrega completa" data-en="Typical duration from start to full delivery">Duración típica desde el inicio hasta la entrega completa</span>
+        <textarea class="textarea" name="Tiempos de entrega" data-es-ph="Ej:
+• Incorporación inicial: 1 semana
+• Primera entrega / hito: 2 semanas
+• Proyecto completo: 2-3 meses" data-en-ph="e.g.:
+• Initial onboarding: 1 week
+• First delivery / milestone: 2 weeks
+• Full project: 2-3 months"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Mapeo de la experiencia del cliente (recorrido del cliente)" data-en="Customer journey mapping">Mapeo de la experiencia del cliente (recorrido del cliente)</label>
+        <span class="field-hint" data-es="Describe las fases: Incorporación → Uso → Soporte → Fidelización" data-en="Describe the phases: Onboarding → Usage → Support → Loyalty">Describe las fases: Incorporación → Uso → Soporte → Fidelización</span>
+        <textarea class="textarea" name="Recorrido del cliente" data-es-ph="Ej:
+INCORPORACIÓN: Llamada de bienvenida, acceso al portal, capacitación inicial
+USO / ENTREGA: Entregas semanales, reuniones de seguimiento quincenales
+SOPORTE: Solicitud por correo o chat, preguntas frecuentes en el portal
+FIDELIZACIÓN: Encuesta de satisfacción trimestral, propuesta de venta adicional" data-en-ph="e.g.:
+ONBOARDING: Welcome call, portal access, initial training
+USAGE / DELIVERY: Weekly deliveries, biweekly check-ins
+SUPPORT: Ticket by email or chat, FAQ in the portal
+LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienes algún diagrama o esquema del proceso de entrega actual?" data-en="Do you have a diagram of the current delivery process?">¿Tienes algún diagrama o esquema del proceso de entrega actual?</label>
+        <span class="field-hint" data-es="Un documento, imagen o captura que represente cómo funciona actualmente la entrega" data-en="A document, image or screenshot showing how delivery currently works">Un documento, imagen o captura que represente cómo funciona actualmente la entrega</span>
+        <div class="note-box"><p data-es="Si tienes un diagrama, envíalo por correo indicando el nombre de tu empresa." data-en="If you have a diagram, send it by email referencing your company name.">Si tienes un diagrama, envíalo por correo indicando el nombre de tu empresa.</p></div>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Diagrama del proceso" value="Enviaré"><span class="radio-label-text" data-es="Sí, lo enviaré" data-en="Yes, I'll send it">Sí, lo enviaré</span></label>
+          <label class="radio-box"><input type="radio" name="Diagrama del proceso" value="Puedo crear"><span class="radio-label-text" data-es="No tengo, pero puedo crear uno" data-en="I don't have one, but I can create one">No tengo, pero puedo crear uno</span></label>
+          <label class="radio-box"><input type="radio" name="Diagrama del proceso" value="No existe"><span class="radio-label-text" data-es="No existe ninguno" data-en="None exists">No existe ninguno</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué parte del proceso suelen aparecer más problemas, retrasos o errores?" data-en="Where in the process do most problems, delays or errors appear?">¿En qué parte del proceso suelen aparecer más problemas, retrasos o errores?</label>
+        <span class="field-hint" data-es="Selecciona una o varias opciones donde identifican cuellos de botella" data-en="Select one or more options where you identify bottlenecks">Selecciona una o varias opciones donde identifican cuellos de botella</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Incorporación"><div class="checkbox-content"><span class="checkbox-text" data-es="Inicio de la incorporación" data-en="Onboarding start">Inicio de la incorporación</span><span class="checkbox-desc" data-es="Retrasos en arrancar con nuevos clientes" data-en="Delays starting with new clients">Retrasos en arrancar con nuevos clientes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Comunicación equipos"><div class="checkbox-content"><span class="checkbox-text" data-es="Comunicación entre equipos" data-en="Communication between teams">Comunicación entre equipos</span><span class="checkbox-desc" data-es="Información que se pierde o se malinterpreta entre áreas" data-en="Information lost or misread between areas">Información que se pierde o se malinterpreta entre áreas</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Producción"><div class="checkbox-content"><span class="checkbox-text" data-es="Fase de producción / ejecución" data-en="Production/execution phase">Fase de producción / ejecución</span><span class="checkbox-desc" data-es="Retrasos en la entrega del trabajo principal" data-en="Delays delivering the main work">Retrasos en la entrega del trabajo principal</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Aprobación cliente"><div class="checkbox-content"><span class="checkbox-text" data-es="Aprobación del cliente" data-en="Client validation">Aprobación del cliente</span><span class="checkbox-desc" data-es="El cliente tarda en revisar o aprobar los entregables" data-en="The client is slow to review or approve deliverables">El cliente tarda en revisar o aprobar los entregables</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Soporte post"><div class="checkbox-content"><span class="checkbox-text" data-es="Soporte después de la entrega" data-en="Post-delivery support">Soporte después de la entrega</span><span class="checkbox-desc" data-es="Problemas o dudas que surgen después de entregar" data-en="Problems or questions after delivery">Problemas o dudas que surgen después de entregar</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuellos de botella" value="Otro"><div class="checkbox-content"><span class="checkbox-text" data-es="Otro" data-en="Other">Otro</span><span class="checkbox-desc" data-es="Especifica en el campo de abajo" data-en="Specify in the field below">Especifica en el campo de abajo</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Detalle de los cuellos de botella identificados" data-en="Details of the identified bottlenecks">Detalle de los cuellos de botella identificados</label>
+        <span class="field-hint" data-es="Describe con más detalle dónde y por qué se producen estos problemas" data-en="Describe in more detail where and why these problems occur">Describe con más detalle dónde y por qué se producen estos problemas</span>
+        <textarea class="textarea" name="Detalle cuellos de botella" data-es-ph="Ej: El principal cuello de botella es la aprobación del cliente. Enviamos entregables y pueden pasar 2 semanas sin respuesta..." data-en-ph="e.g. The main bottleneck is client validation. We send deliverables and 2 weeks can pass with no feedback..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué nivel de estandarización tiene su proceso de entrega?" data-en="How standardized is your delivery process?">¿Qué nivel de estandarización tiene su proceso de entrega?</label>
+        <span class="field-hint" data-es="Nos ayuda a priorizar qué automatizaciones son viables" data-en="It helps us prioritize which automations are viable">Nos ayuda a priorizar qué automatizaciones son viables</span>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Estandarización" value="Muy"><span class="radio-label-text" data-es="Muy estandarizado" data-en="Very standardized">Muy estandarizado</span><span class="radio-desc" data-es="Seguimos siempre los mismos pasos" data-en="We always follow the same steps">Seguimos siempre los mismos pasos</span></label>
+          <label class="radio-box"><input type="radio" name="Estandarización" value="Parcial"><span class="radio-label-text" data-es="Parcialmente" data-en="Partially">Parcialmente</span><span class="radio-desc" data-es="Hay excepciones frecuentes" data-en="There are frequent exceptions">Hay excepciones frecuentes</span></label>
+          <label class="radio-box"><input type="radio" name="Estandarización" value="Poco"><span class="radio-label-text" data-es="Poco estandarizado" data-en="Not very standardized">Poco estandarizado</span><span class="radio-desc" data-es="Cada caso es diferente" data-en="Each case is different">Cada caso es diferente</span></label>
+          <label class="radio-box"><input type="radio" name="Estandarización" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span><span class="radio-desc" data-es="No está documentado" data-en="It's not documented">No está documentado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo definirías el nivel de madurez digital del área de entrega?" data-en="How would you define the digital maturity of the delivery area?">¿Cómo definirías el nivel de madurez digital del área de entrega?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Madurez digital" value="Básico"><span class="radio-label-text" data-es="Básico" data-en="Basic">Básico</span><span class="radio-desc" data-es="Hojas de cálculo y gestión manual" data-en="Spreadsheets and manual management">Hojas de cálculo y gestión manual</span></label>
+          <label class="radio-box"><input type="radio" name="Madurez digital" value="Intermedio"><span class="radio-label-text" data-es="Intermedio" data-en="Intermediate">Intermedio</span><span class="radio-desc" data-es="Herramientas sin integraciones" data-en="Tools without integrations">Herramientas sin integraciones</span></label>
+          <label class="radio-box"><input type="radio" name="Madurez digital" value="Avanzado"><span class="radio-label-text" data-es="Avanzado" data-en="Advanced">Avanzado</span><span class="radio-desc" data-es="Herramientas integradas con automatizaciones" data-en="Integrated tools with automations">Herramientas integradas con automatizaciones</span></label>
+          <label class="radio-box"><input type="radio" name="Madurez digital" value="Experto"><span class="radio-label-text" data-es="Experto" data-en="Expert">Experto</span><span class="radio-desc" data-es="Todo automatizado e integrado" data-en="Everything automated and integrated">Todo automatizado e integrado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen el proceso de entrega documentado?" data-en="Is your delivery process documented?">¿Tienen el proceso de entrega documentado?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Proceso documentado" value="Bien"><span class="radio-label-text" data-es="Sí, bien documentado" data-en="Yes, well documented">Sí, bien documentado</span></label>
+          <label class="radio-box"><input type="radio" name="Proceso documentado" value="Algunos"><span class="radio-label-text" data-es="Algunos flujos" data-en="Some flows">Algunos flujos</span></label>
+          <label class="radio-box"><input type="radio" name="Proceso documentado" value="Informales"><span class="radio-label-text" data-es="Solo informales" data-en="Only informal">Solo informales</span></label>
+          <label class="radio-box"><input type="radio" name="Proceso documentado" value="No existen"><span class="radio-label-text" data-es="No existen" data-en="They don't exist">No existen</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay dependencia crítica de personas clave en la entrega?" data-en="Is there critical dependency on key people in delivery?">¿Hay dependencia crítica de personas clave en la entrega?</label>
+        <span class="field-hint" data-es="Si el responsable de entregas o el ejecutivo de cuenta no está disponible 2 semanas, ¿qué impacto tendría?" data-en="If the delivery manager or account manager is unavailable for 2 weeks, what impact would it have?">Si el responsable de entregas o el ejecutivo de cuenta no está disponible 2 semanas, ¿qué impacto tendría?</span>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Parálisis total"><span class="radio-label-text" data-es="Parálisis total" data-en="Total paralysis">Parálisis total</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Impacto alto"><span class="radio-label-text" data-es="Impacto alto" data-en="High impact">Impacto alto</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Impacto moderado"><span class="radio-label-text" data-es="Impacto moderado" data-en="Moderate impact">Impacto moderado</span></label>
+          <label class="radio-box"><input type="radio" name="Dependencia personas clave" value="Mínimo impacto"><span class="radio-label-text" data-es="Mínimo impacto" data-en="Minimal impact">Mínimo impacto</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué roles o personas concentran más conocimiento crítico?" data-en="Which roles or people concentrate the most critical knowledge?">¿Qué roles o personas concentran más conocimiento crítico?</label>
+        <textarea class="textarea" name="Roles con conocimiento crítico" data-es-ph="Ej: El CEO es el único que conoce los acuerdos con los proveedores clave..." data-en-ph="e.g. The CEO is the only one who knows the key vendor agreements..."></textarea></div>
+    </div>
+
+    <!-- ===== 04 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">04</span>
+        <div class="card-title">
+          <h2 data-es="Atención al Cliente y Comunicación" data-en="Customer Support and Communication">Atención al Cliente y Comunicación</h2>
+          <p data-es="Canales, soporte, dudas frecuentes y automatizaciones de comunicación" data-en="Channels, support, FAQs and communication automations">Canales, soporte, dudas frecuentes y automatizaciones de comunicación</p></div></div>
+
+      <div class="info-callout"><p data-es="Buscamos identificar canales de comunicación, tareas repetitivas y oportunidades de automatización." data-en="We aim to identify communication channels, repetitive tasks and automation opportunities.">Buscamos identificar canales de comunicación, tareas repetitivas y oportunidades de automatización.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué canales usan para comunicarse con los clientes durante la entrega?" data-en="Which channels do you use to communicate with clients during delivery?">¿Qué canales usan para comunicarse con los clientes durante la entrega?</label>
+        <span class="field-hint" data-es="Selecciona todos los canales que utilizan habitualmente" data-en="Select all the channels you regularly use">Selecciona todos los canales que utilizan habitualmente</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Correo"><div class="checkbox-content"><span class="checkbox-text" data-es="Correo electrónico" data-en="Email">Correo electrónico</span><span class="checkbox-desc" data-es="Comunicación principal por correo" data-en="Main communication by email">Comunicación principal por correo</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Teléfono"><div class="checkbox-content"><span class="checkbox-text" data-es="Teléfono" data-en="Phone">Teléfono</span><span class="checkbox-desc" data-es="Llamadas de voz para seguimiento o soporte" data-en="Voice calls for follow-up or support">Llamadas de voz para seguimiento o soporte</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="WhatsApp"><div class="checkbox-content"><span class="checkbox-text" data-es="WhatsApp / Telegram" data-en="WhatsApp / Telegram">WhatsApp / Telegram</span><span class="checkbox-desc" data-es="Mensajería instantánea con clientes" data-en="Instant messaging with clients">Mensajería instantánea con clientes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Slack"><div class="checkbox-content"><span class="checkbox-text" data-es="Slack / Discord" data-en="Slack / Discord">Slack / Discord</span><span class="checkbox-desc" data-es="Canales compartidos con el cliente" data-en="Channels shared with the client">Canales compartidos con el cliente</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Portal"><div class="checkbox-content"><span class="checkbox-text" data-es="Portal de clientes" data-en="Client portal">Portal de clientes</span><span class="checkbox-desc" data-es="Área privada donde el cliente ve su proyecto" data-en="Private area where the client sees their project">Área privada donde el cliente ve su proyecto</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Videollamadas"><div class="checkbox-content"><span class="checkbox-text" data-es="Videollamadas (Zoom, Meet, Teams)" data-en="Video calls (Zoom, Meet, Teams)">Videollamadas (Zoom, Meet, Teams)</span><span class="checkbox-desc" data-es="Reuniones virtuales periódicas" data-en="Regular virtual meetings">Reuniones virtuales periódicas</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de comunicación" value="Otro"><div class="checkbox-content"><span class="checkbox-text" data-es="Otro" data-en="Other">Otro</span><span class="checkbox-desc" data-es="Especifica en el campo siguiente" data-en="Specify in the next field">Especifica en el campo siguiente</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Otros canales de comunicación" data-en="Other communication channels">Otros canales de comunicación</label>
+        <input class="input" type="text" name="Otros canales" data-es-ph="Ej: Basecamp, Loom para videos, formularios web..." data-en-ph="e.g. Basecamp, Loom for videos, web forms..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay tareas repetitivas en la atención al cliente?" data-en="Are there repetitive tasks in customer support?">¿Hay tareas repetitivas en la atención al cliente?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tareas repetitivas atención" value="Sí"><span class="radio-label-text" data-es="Sí, muchas repetitivas" data-en="Yes, many repetitive">Sí, muchas repetitivas</span></label>
+          <label class="radio-box"><input type="radio" name="Tareas repetitivas atención" value="No"><span class="radio-label-text" data-es="No, cada caso es único" data-en="No, each case is unique">No, cada caso es único</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las tareas o preguntas más repetitivas?" data-en="What are the most repetitive tasks or questions?">¿Cuáles son las tareas o preguntas más repetitivas?</label>
+        <textarea class="textarea" name="Tareas/preguntas repetitivas" data-es-ph="Ej:
+• ¿Cómo accedo a mi área de cliente?
+• ¿Cuándo estará lista mi entrega?
+• Solicitudes de cambio de fecha de reunión" data-en-ph="e.g.:
+• How do I access my client area?
+• When will my delivery be ready?
+• Requests to reschedule meetings"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Se repiten siempre las mismas dudas? ¿Podrían resolverse automáticamente?" data-en="Do the same questions repeat? Could they be resolved automatically?">¿Se repiten siempre las mismas dudas? ¿Podrían resolverse automáticamente?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Dudas automatizables" value="Ya automatizadas"><span class="radio-label-text" data-es="Sí, ya automatizadas" data-en="Yes, already automated">Sí, ya automatizadas</span></label>
+          <label class="radio-box"><input type="radio" name="Dudas automatizables" value="Podrían serlo"><span class="radio-label-text" data-es="Sí, podrían serlo" data-en="Yes, they could be">Sí, podrían serlo</span></label>
+          <label class="radio-box"><input type="radio" name="Dudas automatizables" value="Algunas"><span class="radio-label-text" data-es="Algunas sí, otras no" data-en="Some yes, some no">Algunas sí, otras no</span></label>
+          <label class="radio-box"><input type="radio" name="Dudas automatizables" value="Humano"><span class="radio-label-text" data-es="Requieren atención humana" data-en="Require a human">Requieren atención humana</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿El cliente recibe comunicaciones automatizadas?" data-en="Does the client receive automated communications?">¿El cliente recibe comunicaciones automatizadas?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Comunicaciones automáticas" value="Sí"><span class="radio-label-text" data-es="Sí, tenemos automatizaciones" data-en="Yes, we have automations">Sí, tenemos automatizaciones</span></label>
+          <label class="radio-box"><input type="radio" name="Comunicaciones automáticas" value="No"><span class="radio-label-text" data-es="No, todo es manual" data-en="No, all manual">No, todo es manual</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué correos o documentos automatizados envían actualmente?" data-en="Which automated emails/documents do you currently send?">¿Qué correos o documentos automatizados envían actualmente?</label>
+        <textarea class="textarea" name="Correos automáticos" data-es-ph="Ej:
+• Correo de bienvenida tras la compra
+• Confirmación de pago
+• Recordatorio de reunión (24 horas antes)" data-en-ph="e.g.:
+• Welcome email after purchase
+• Payment confirmation
+• Meeting reminder (24h before)"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Existen secuencias de bienvenida o de acompañamiento para el cliente?" data-en="Are there welcome or progression sequences for the client?">¿Existen secuencias de bienvenida o de acompañamiento para el cliente?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Secuencias de bienvenida" value="Completas"><span class="radio-label-text" data-es="Sí, completas" data-en="Yes, complete">Sí, completas</span></label>
+          <label class="radio-box"><input type="radio" name="Secuencias de bienvenida" value="Básicas"><span class="radio-label-text" data-es="Sí, básicas" data-en="Yes, basic">Sí, básicas</span></label>
+          <label class="radio-box"><input type="radio" name="Secuencias de bienvenida" value="Queremos"><span class="radio-label-text" data-es="No, pero queremos" data-en="No, but we want to">No, pero queremos</span></label>
+          <label class="radio-box"><input type="radio" name="Secuencias de bienvenida" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have any">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Ejemplos de tareas de entrega que quieren mejorar" data-en="Examples of delivery tasks you want to improve">Ejemplos de tareas de entrega que quieren mejorar</label>
+        <textarea class="textarea" name="Tareas de entrega a mejorar" data-es-ph="Ej:
+1. TAREA: Incorporación de nuevos clientes
+   PROBLEMA: Son 12 pasos manuales y a veces olvidamos alguno
+   IDEAL: Lista de verificación automatizada con recordatorios
+2. TAREA: Actualizaciones de estado al cliente
+   PROBLEMA: Las enviamos a mano y no siempre a tiempo
+   IDEAL: Envío automático semanal del estado del proyecto" data-en-ph="e.g.:
+1. TASK: Onboarding new clients
+   PROBLEM: It's 12 manual steps and sometimes we forget one
+   IDEAL: Automated checklist with reminders
+2. TASK: Status updates to the client
+   PROBLEM: We send them by hand and not always on time
+   IDEAL: Automatic weekly project status updates"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas de entrega se realizan de forma manual y repetitiva?" data-en="Which delivery tasks are done manually and repetitively?">¿Qué tareas de entrega se realizan de forma manual y repetitiva?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales por categoría" value="Administración"><div class="checkbox-content"><span class="checkbox-text" data-es="Administración / Documentación" data-en="Administration / Documentation">Administración / Documentación</span><span class="checkbox-desc" data-es="Crear contratos, llenar datos, generar documentos" data-en="Create contracts, fill in data, generate documents">Crear contratos, llenar datos, generar documentos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales por categoría" value="Comunicación"><div class="checkbox-content"><span class="checkbox-text" data-es="Comunicación con el cliente" data-en="Client communication">Comunicación con el cliente</span><span class="checkbox-desc" data-es="Correos de seguimiento, actualizaciones de estado, recordatorios" data-en="Follow-up emails, status updates, reminders">Correos de seguimiento, actualizaciones de estado, recordatorios</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales por categoría" value="Gestión tareas"><div class="checkbox-content"><span class="checkbox-text" data-es="Gestión de tareas / proyectos" data-en="Task / project management">Gestión de tareas / proyectos</span><span class="checkbox-desc" data-es="Crear tareas, asignar responsables, actualizar estados" data-en="Create tasks, assign owners, update statuses">Crear tareas, asignar responsables, actualizar estados</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales por categoría" value="Informes"><div class="checkbox-content"><span class="checkbox-text" data-es="Generación de informes" data-en="Report generation">Generación de informes</span><span class="checkbox-desc" data-es="Reportes de avance, tableros, indicadores" data-en="Progress reports, dashboards, metrics">Reportes de avance, tableros, indicadores</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales por categoría" value="Otra"><div class="checkbox-content"><span class="checkbox-text" data-es="Otra categoría" data-en="Other category">Otra categoría</span><span class="checkbox-desc" data-es="Especifica en el campo siguiente" data-en="Specify in the next field">Especifica en el campo siguiente</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Detalle de otras tareas manuales" data-en="Details of other manual tasks">Detalle de otras tareas manuales</label>
+        <textarea class="textarea" name="Detalle otras tareas manuales" data-es-ph="Ej: Sincronizar datos entre el CRM y la herramienta de gestión de proyectos..." data-en-ph="e.g. Sync data between the CRM and the project management tool..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si fueras un cliente, ¿qué parte del proceso te parecería más confusa o lenta?" data-en="If you were a client, which part of the process would feel most confusing or slow?">Si fueras un cliente, ¿qué parte del proceso te parecería más confusa o lenta?</label>
+        <textarea class="textarea" name="Perspectiva del cliente" data-es-ph="Ej: Creo que a veces el cliente no sabe en qué estado está su proyecto..." data-en-ph="e.g. I think sometimes the client doesn't know the status of their project..."></textarea></div>
+    </div>
+
+    <!-- ===== 05 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">05</span>
+        <div class="card-title">
+          <h2 data-es="Volumen, Indicadores y Satisfacción" data-en="Volume, KPIs and Satisfaction">Volumen, Indicadores y Satisfacción</h2>
+          <p data-es="Indicadores de entrega, satisfacción del cliente y reputación en línea" data-en="Delivery metrics, client satisfaction and online reputation">Indicadores de entrega, satisfacción del cliente y reputación en línea</p></div></div>
+
+      <div class="info-callout"><p data-es="Conocer el volumen de trabajo, los indicadores y el nivel de satisfacción actual nos permite medir el impacto de las mejoras." data-en="Knowing the workload volume, KPIs and current satisfaction lets us measure the impact of the improvements.">Conocer el volumen de trabajo, los indicadores y el nivel de satisfacción actual nos permite medir el impacto de las mejoras.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas peticiones o solicitudes de clientes gestionan?" data-en="How many client requests do you handle?">¿Cuántas peticiones o solicitudes de clientes gestionan?</label>
+        <span class="field-hint" data-es="Incluye correos, solicitudes de soporte, llamadas y mensajes de clientes" data-en="Include emails, support tickets, calls and client messages">Incluye correos, solicitudes de soporte, llamadas y mensajes de clientes</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Por semana" data-en="Per week">Por semana</span><input class="input" type="number" name="Peticiones por semana" placeholder="Ej: 150"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Por día (promedio)" data-en="Per day (avg)">Por día (promedio)</span><input class="input" type="number" name="Peticiones por día" placeholder="Ej: 25"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Por hora (pico)" data-en="Per hour (peak)">Por hora (pico)</span><input class="input" type="number" name="Peticiones por hora pico" placeholder="Ej: 10"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué indicadores de entrega miden actualmente?" data-en="Which delivery KPIs do you currently measure?">¿Qué indicadores de entrega miden actualmente?</label>
+        <textarea class="textarea" name="Indicadores de entrega" data-es-ph="Ej:
+• Tiempo medio de entrega: actualmente 15 días, objetivo 10 días
+• Tasa de entregas a tiempo: 85%
+• Satisfacción del cliente: 4.2 / 5" data-en-ph="e.g.:
+• Average delivery time: currently 15 days, target 10 days
+• On-time delivery rate: 85%
+• NPS: 45, CSAT: 4.2/5"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen encuestas o medición de satisfacción del cliente?" data-en="Do you have surveys or client satisfaction measurement?">¿Tienen encuestas o medición de satisfacción del cliente?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Encuestas de satisfacción" value="Automatizadas"><span class="radio-label-text" data-es="Sí, automatizadas" data-en="Yes, automated">Sí, automatizadas</span></label>
+          <label class="radio-box"><input type="radio" name="Encuestas de satisfacción" value="Manuales"><span class="radio-label-text" data-es="Sí, manuales" data-en="Yes, manual">Sí, manuales</span></label>
+          <label class="radio-box"><input type="radio" name="Encuestas de satisfacción" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Encuestas de satisfacción" value="No"><span class="radio-label-text" data-es="No medimos" data-en="We don't measure">No medimos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Estado de las reseñas en Google" data-en="Google reviews status">Estado de las reseñas en Google</label>
+        <textarea class="textarea" name="Reseñas de Google" data-es-ph="Ej: Puntuación actual: 4.5 estrellas, 45 reseñas..." data-en-ph="e.g. Current rating: 4.5 stars, 45 reviews..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es el tiempo de respuesta actual a las solicitudes de clientes?" data-en="What is the current response time to client requests?">¿Cuál es el tiempo de respuesta actual a las solicitudes de clientes?</label>
+        <select class="select" name="Tiempo de respuesta actual">
+          <option value="" disabled selected data-es="Selecciona el tiempo promedio" data-en="Select average time">Selecciona el tiempo promedio</option>
+          <option value="<1h" data-es="Menos de 1 hora" data-en="Under 1 hour">Menos de 1 hora</option>
+          <option value="1-4h" data-es="1 - 4 horas" data-en="1 - 4 hours">1 - 4 horas</option>
+          <option value="Mismo día" data-es="Mismo día" data-en="Same day">Mismo día</option>
+          <option value="Siguiente día" data-es="Siguiente día hábil" data-en="Next business day">Siguiente día hábil</option>
+          <option value="2-5 días" data-es="2 - 5 días" data-en="2 - 5 days">2 - 5 días</option>
+          <option value="Más de una semana" data-es="Más de una semana" data-en="More than a week">Más de una semana</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién recibe las notificaciones en cada área?" data-en="Who receives notifications in each area?">¿Quién recibe las notificaciones en cada área?</label>
+        <textarea class="textarea" name="Quién recibe notificaciones" data-es-ph="Ej: Ventas: las notificaciones del CRM le llegan a Juan; Soporte: a María..." data-en-ph="e.g. Sales: CRM notifications go to Juan; Support: to María..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen picos de demanda por temporada?" data-en="Do you have seasonal demand peaks?">¿Tienen picos de demanda por temporada?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Picos estacionales" value="Sí"><span class="radio-label-text" data-es="Sí, hay temporadas" data-en="Yes, there's seasonality">Sí, hay temporadas</span></label>
+          <label class="radio-box"><input type="radio" name="Picos estacionales" value="No"><span class="radio-label-text" data-es="No, bastante estable" data-en="No, fairly stable">No, bastante estable</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Picos estacionales=Sí">
+        <div class="conditional-title" data-es="Detalle de las temporadas" data-en="Seasonality details">Detalle de las temporadas</div>
+        <div class="field"><label class="field-label" data-es="¿Cuándo son los picos de demanda?" data-en="When are the demand peaks?">¿Cuándo son los picos de demanda?</label>
+          <input class="input" type="text" name="Cuándo son los picos" data-es-ph="Ej: Black Friday, Navidad, fin de trimestre..." data-en-ph="e.g. Black Friday, Christmas, end of quarter..."></div>
+      </div>
+    </div>
+
+    <!-- ===== 06 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">06</span>
+        <div class="card-title">
+          <h2 data-es="Automatizaciones e IA Actuales" data-en="Current Automation and AI">Automatizaciones e IA Actuales</h2>
+          <p data-es="Estado actual de su infraestructura de automatización" data-en="Current state of your automation infrastructure">Estado actual de su infraestructura de automatización</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen automatizaciones o IA integrada actualmente?" data-en="Do you currently have automation or integrated AI?">¿Tienen automatizaciones o IA integrada actualmente?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="Sí"><span class="radio-label-text" data-es="Sí, tenemos algunas" data-en="Yes, we have some">Sí, tenemos algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="No"><span class="radio-label-text" data-es="No, aún no" data-en="No, not yet">No, aún no</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene automatización=Sí">
+        <div class="conditional-title" data-es="Detalles de sus automatizaciones actuales" data-en="Details of your current automation">Detalles de sus automatizaciones actuales</div>
+
+        <div class="field"><label class="field-label" data-es="¿Cuáles son sus automatizaciones actuales?" data-en="What are your current automations?">¿Cuáles son sus automatizaciones actuales?</label>
+          <textarea class="textarea" name="Automatizaciones actuales" data-es-ph="Ej: Zapier sincroniza los contactos, chatbot de preguntas frecuentes, flujo automático en ClickUp..." data-en-ph="e.g. Zapier syncs leads, FAQ chatbot, ClickUp workflow..."></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué infraestructura o herramientas utilizan para automatizar?" data-en="What infrastructure or tools do you use to automate?">¿Qué infraestructura o herramientas utilizan para automatizar?</label>
+          <input class="input" type="text" name="Infraestructura de automatización" data-es-ph="Ej: Make, Zapier, n8n, AWS Lambda, APIs propias..." data-en-ph="e.g. Make, Zapier, n8n, AWS Lambda, custom APIs..."></div>
+
+        <div class="field"><label class="field-label" data-es="¿Hay supervisión humana en las automatizaciones críticas?" data-en="Is there human supervision in critical automations?">¿Hay supervisión humana en las automatizaciones críticas?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="Siempre"><span class="radio-label-text" data-es="Siempre hay supervisión" data-en="Always supervised">Siempre hay supervisión</span></label>
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="Solo críticas"><span class="radio-label-text" data-es="Solo en las críticas" data-en="Only critical ones">Solo en las críticas</span></label>
+            <label class="radio-box"><input type="radio" name="Supervisión humana" value="100% auto"><span class="radio-label-text" data-es="100% automático" data-en="100% automatic">100% automático</span></label>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Están todas las automatizaciones funcionando de forma óptima?" data-en="Are all automations working optimally?">¿Están todas las automatizaciones funcionando de forma óptima?</label>
+          <div class="slider-display" id="sliderValue">50%</div>
+          <input type="range" id="slider" name="Nivel de optimización (%)" min="0" max="100" value="50">
+          <div class="slider-labels"><span data-es="Necesitan mejoras" data-en="Need improvement">Necesitan mejoras</span><span data-es="Totalmente optimizadas" data-en="Fully optimized">Totalmente optimizadas</span></div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Qué problemas o limitaciones tienen con las automatizaciones actuales?" data-en="What problems or limitations do you have with current automations?">¿Qué problemas o limitaciones tienen con las automatizaciones actuales?</label>
+          <textarea class="textarea" name="Problemas con automatizaciones" data-es-ph="Ej: Se dañan con frecuencia, no crecen bien con el volumen..." data-en-ph="e.g. They break often, they don't scale well..."></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Cuál es el costo mensual de las herramientas de automatización?" data-en="What is the monthly cost of the automation tools?">¿Cuál es el costo mensual de las herramientas de automatización?</label>
+          <span class="field-hint" data-es="En la moneda que seleccionaste arriba" data-en="In the currency selected above">En la moneda que seleccionaste arriba</span>
+          <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual automatización" placeholder="Ej: 500"></div></div>
+      </div>
+
+      <div class="conditional" data-show-when="Tiene automatización=No">
+        <div class="conditional-title" data-es="¿Por qué no han implementado automatizaciones?" data-en="Why haven't you implemented automations?">¿Por qué no han implementado automatizaciones?</div>
+        <div class="field"><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Tiempo"><span class="checkbox-text" data-es="Falta de tiempo" data-en="Lack of time">Falta de tiempo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Conocimiento"><span class="checkbox-text" data-es="Falta de conocimiento técnico" data-en="Lack of technical know-how">Falta de conocimiento técnico</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Presupuesto"><span class="checkbox-text" data-es="Limitación de presupuesto" data-en="Budget limitation">Limitación de presupuesto</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No funcionó"><span class="checkbox-text" data-es="Lo intentamos pero no funcionó" data-en="We tried but it didn't work">Lo intentamos pero no funcionó</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No prioridad"><span class="checkbox-text" data-es="No era prioridad hasta ahora" data-en="Not a priority until now">No era prioridad hasta ahora</span></label>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ===== 07 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">07</span>
+        <div class="card-title">
+          <h2 data-es="Equipos, Preferencias y Criterios de Éxito" data-en="Teams, Preferences and Success Criteria">Equipos, Preferencias y Criterios de Éxito</h2>
+          <p data-es="Interacciones entre áreas, preferencias tecnológicas y expectativas" data-en="Cross-area interactions, tech preferences and expectations">Interacciones entre áreas, preferencias tecnológicas y expectativas</p></div></div>
+
+      <div class="info-callout"><p data-es="Entender cómo interactúa el área de entrega con las demás áreas y las preferencias del equipo nos ayuda a diseñar soluciones viables." data-en="Understanding how delivery interacts with other areas and the team's preferences helps us design viable solutions.">Entender cómo interactúa el área de entrega con las demás áreas y las preferencias del equipo nos ayuda a diseñar soluciones viables.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué otras áreas interactúan directamente con el área de entrega?" data-en="Which other departments interact directly with delivery?">¿Qué otras áreas interactúan directamente con el área de entrega?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Ventas"><div class="checkbox-content"><span class="checkbox-text" data-es="Ventas / Comercial" data-en="Sales / Commercial">Ventas / Comercial</span><span class="checkbox-desc" data-es="Traspaso de clientes, información de la venta" data-en="Client handoff, sales info">Traspaso de clientes, información de la venta</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Soporte"><div class="checkbox-content"><span class="checkbox-text" data-es="Soporte / Atención al cliente" data-en="Support / Customer service">Soporte / Atención al cliente</span><span class="checkbox-desc" data-es="Incidencias, casos escalados, opiniones" data-en="Incidents, escalations, feedback">Incidencias, casos escalados, opiniones</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Finanzas"><div class="checkbox-content"><span class="checkbox-text" data-es="Finanzas / Administración" data-en="Finance / Administration">Finanzas / Administración</span><span class="checkbox-desc" data-es="Facturación, cobros, presupuestos" data-en="Invoicing, collections, budgets">Facturación, cobros, presupuestos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Marketing"><div class="checkbox-content"><span class="checkbox-text" data-es="Marketing" data-en="Marketing">Marketing</span><span class="checkbox-desc" data-es="Casos de éxito, testimonios, comunicación" data-en="Success stories, testimonials, communication">Casos de éxito, testimonios, comunicación</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Producto"><div class="checkbox-content"><span class="checkbox-text" data-es="Producto / Desarrollo" data-en="Product / Development">Producto / Desarrollo</span><span class="checkbox-desc" data-es="Opiniones de clientes, fallas, mejoras" data-en="Client feedback, bugs, improvements">Opiniones de clientes, fallas, mejoras</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Áreas que interactúan" value="Sistemas"><div class="checkbox-content"><span class="checkbox-text" data-es="Sistemas / TI" data-en="IT / Systems">Sistemas / TI</span><span class="checkbox-desc" data-es="Configuraciones, integraciones técnicas" data-en="Configurations, technical integrations">Configuraciones, integraciones técnicas</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay fricciones o pérdidas de información entre áreas?" data-en="Are there frictions or information losses between areas?">¿Hay fricciones o pérdidas de información entre áreas?</label>
+        <textarea class="textarea" name="Fricciones entre áreas" data-es-ph="Ej: Ventas no siempre pasa toda la información del cliente al cerrar la venta..." data-en-ph="e.g. Sales doesn't always pass all the client info when closing..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay herramientas o tecnologías que prefieren usar o evitar?" data-en="Are there tools or technologies you prefer to use or avoid?">¿Hay herramientas o tecnologías que prefieren usar o evitar?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Preferencias tecnológicas" value="Sin programación"><span class="checkbox-text" data-es="Preferimos herramientas sin programación (no-code)" data-en="We prefer no-code / low-code tools">Preferimos herramientas sin programación (no-code)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Preferencias tecnológicas" value="Español"><span class="checkbox-text" data-es="Preferimos herramientas en español" data-en="We prefer tools in our language">Preferimos herramientas en español</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Preferencias tecnológicas" value="Región"><span class="checkbox-text" data-es="Solo herramientas con datos en nuestra región" data-en="Only tools with data in our region">Solo herramientas con datos en nuestra región</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Preferencias tecnológicas" value="Integración"><span class="checkbox-text" data-es="Debe integrarse con nuestras herramientas actuales" data-en="It must integrate with our current tools">Debe integrarse con nuestras herramientas actuales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Preferencias tecnológicas" value="Bajo costo"><span class="checkbox-text" data-es="Priorizamos soluciones de bajo costo" data-en="We prioritize low-cost solutions">Priorizamos soluciones de bajo costo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Detalle de preferencias o restricciones tecnológicas" data-en="Details of tech preferences or restrictions">Detalle de preferencias o restricciones tecnológicas</label>
+        <input class="input" type="text" name="Detalle preferencias tecnológicas" data-es-ph="Ej: Ya usamos Zapier y queremos mantenerlo..." data-en-ph="e.g. We already use Zapier and want to keep it..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo reacciona el equipo ante nuevas herramientas o procesos?" data-en="How does the team react to new tools or processes?">¿Cómo reacciona el equipo ante nuevas herramientas o procesos?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Capacidad de cambio" value="Muy abiertos"><span class="radio-label-text" data-es="Muy abiertos al cambio" data-en="Very open to change">Muy abiertos al cambio</span></label>
+          <label class="radio-box"><input type="radio" name="Capacidad de cambio" value="Se adaptan"><span class="radio-label-text" data-es="Les cuesta pero se adaptan" data-en="It's hard but they adapt">Les cuesta pero se adaptan</span></label>
+          <label class="radio-box"><input type="radio" name="Capacidad de cambio" value="Resistencia"><span class="radio-label-text" data-es="Hay resistencia o falta tiempo" data-en="There's resistance or no time">Hay resistencia o falta tiempo</span></label>
+          <label class="radio-box"><input type="radio" name="Capacidad de cambio" value="No intentado"><span class="radio-label-text" data-es="No lo hemos intentado aún" data-en="We haven't tried yet">No lo hemos intentado aún</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define the success of this audit?">¿Cómo definirían el éxito de este diagnóstico?</label>
+        <textarea class="textarea" name="Criterios de éxito" data-es-ph="Ej: Reducir el tiempo de respuesta, eliminar 10 horas semanales de tareas manuales..." data-en-ph="e.g. Reduce response time, eliminate 10h/week of manual tasks..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay algún requisito innegociable?" data-en="Any essential requirement or deal breaker?">¿Hay algún requisito innegociable?</label>
+        <textarea class="textarea" name="Requisitos innegociables" data-es-ph="Ej: No podemos usar herramientas que almacenen datos fuera de nuestra región..." data-en-ph="e.g. We can't use tools that store data outside our region..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen políticas de seguridad informática que debamos conocer?" data-en="Do you have cybersecurity policies we should know about?">¿Tienen políticas de seguridad informática que debamos conocer?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Seguridad informática" value="Estrictas"><span class="radio-label-text" data-es="Sí, políticas estrictas" data-en="Yes, strict policies">Sí, políticas estrictas</span></label>
+          <label class="radio-box"><input type="radio" name="Seguridad informática" value="Básicas"><span class="radio-label-text" data-es="Básicas / estándar" data-en="Basic / standard">Básicas / estándar</span></label>
+          <label class="radio-box"><input type="radio" name="Seguridad informática" value="No"><span class="radio-label-text" data-es="No formalizadas" data-en="Not formalized">No formalizadas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Detalle de políticas de seguridad (si aplica)" data-en="Details of security policies (if any)">Detalle de políticas de seguridad (si aplica)</label>
+        <textarea class="textarea" name="Detalle de seguridad" data-es-ph="Ej: Cumplimiento de protección de datos obligatorio, firma de acuerdo de confidencialidad antes de dar accesos..." data-en-ph="e.g. Mandatory data protection compliance, NDA before granting access..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién aprueba los accesos y permisos en su empresa?" data-en="Who approves access and permissions in your company?">¿Quién aprueba los accesos y permisos en su empresa?</label>
+        <input class="input" type="text" name="Aprueba accesos" data-es-ph="Ej: El director de tecnología, el área de sistemas, el propio CEO..." data-en-ph="e.g. CTO, IT department, the CEO..."></div>
+    </div>
+
+    <!-- ===== 08 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">08</span>
+        <div class="card-title">
+          <h2 data-es="Validación del Proceso Actual" data-en="Validation of the Current Process">Validación del Proceso Actual</h2>
+          <p data-es="El proceso real vs. el teórico, pasos informales y manejo de errores" data-en="The real vs. theoretical process, informal steps and error handling">El proceso real vs. el teórico, pasos informales y manejo de errores</p></div></div>
+
+      <div class="info-callout"><p data-es="Queremos entender cómo funciona el proceso en la práctica real, no solo en la teoría." data-en="We want to understand how the process actually works in practice, not just in theory.">Queremos entender cómo funciona el proceso en la práctica real, no solo en la teoría.</p></div>
+
+      <div class="field"><label class="field-label" data-es="Cuéntanos el proceso de entrega desde cero, como si fueras tú el cliente" data-en="Tell us the delivery process from scratch, as if you were the client">Cuéntanos el proceso de entrega desde cero, como si fueras tú el cliente</label>
+        <textarea class="textarea textarea-large" name="Proceso desde el cliente" data-es-ph="Ej: El cliente nos contacta por el formulario de la página web. Recibe un correo automático de bienvenida..." data-en-ph="e.g. The client contacts us via the web form. They receive an automatic welcome email..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay pasos que no están escritos pero se hacen siempre?" data-en="Are there steps that aren't written down but always happen?">¿Hay pasos que no están escritos pero se hacen siempre?</label>
+        <textarea class="textarea" name="Pasos no documentados" data-es-ph="Ej: Antes de enviar el entregable, siempre lo revisamos con María..." data-en-ph="e.g. Before sending the deliverable, we always review it with María..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué suele pasar cuando algo sale mal?" data-en="What usually happens when something goes wrong?">¿Qué suele pasar cuando algo sale mal?</label>
+        <textarea class="textarea" name="Qué pasa cuando sale mal" data-es-ph="Ej: Si hay un error, normalmente el primero que lo ve le avisa al responsable de entregas por Slack..." data-en-ph="e.g. If there's an error, whoever spots it first pings the delivery manager on Slack..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay roles ocultos o fuera del radar que participan en la entrega?" data-en="Are there hidden or off-radar roles involved in delivery?">¿Hay roles ocultos o fuera del radar que participan en la entrega?</label>
+        <textarea class="textarea" name="Roles ocultos" data-es-ph="Ej: El practicante a veces ayuda con las entregas cuando hay mucho trabajo..." data-en-ph="e.g. The intern sometimes helps with deliveries during peak workload..."></textarea></div>
+    </div>
+
+    <!-- ===== 09 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">09</span>
+        <div class="card-title">
+          <h2 data-es="Excepciones y Casos Especiales" data-en="Exceptions and Special Cases">Excepciones y Casos Especiales</h2>
+          <p data-es="Procesos diferentes según el tipo de cliente, urgencias y situaciones improvisadas" data-en="Different processes by client type, urgencies and ad-hoc situations">Procesos diferentes según el tipo de cliente, urgencias y situaciones improvisadas</p></div></div>
+
+      <div class="info-callout"><p data-es="Las excepciones suelen ser donde más tiempo se pierde y donde más automatizaciones específicas se necesitan." data-en="Exceptions are usually where the most time is lost and where the most specific automations are needed.">Las excepciones suelen ser donde más tiempo se pierde y donde más automatizaciones específicas se necesitan.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen procesos diferentes para ciertos tipos de clientes o servicios?" data-en="Do you have different processes for certain client types or services?">¿Tienen procesos diferentes para ciertos tipos de clientes o servicios?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Procesos diferenciados" value="Sí"><span class="radio-label-text" data-es="Sí, tenemos variantes" data-en="Yes, we have variants">Sí, tenemos variantes</span></label>
+          <label class="radio-box"><input type="radio" name="Procesos diferenciados" value="No"><span class="radio-label-text" data-es="No, el mismo proceso para todos" data-en="No, same process for all">No, el mismo proceso para todos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Describe las variaciones del proceso según el tipo de cliente o servicio" data-en="Describe process variations by client/service type">Describe las variaciones del proceso según el tipo de cliente o servicio</label>
+        <textarea class="textarea" name="Variaciones del proceso" data-es-ph="Ej: Clientes grandes: incorporación de 4 semanas vs. 1 semana para pymes..." data-en-ph="e.g. Enterprise clients: 4-week onboarding vs. 1 week for SMBs..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué hacen si el cliente no responde?" data-en="What do you do if the client doesn't respond?">¿Qué hacen si el cliente no responde?</label>
+        <textarea class="textarea" name="Protocolo cliente no responde" data-es-ph="Ej: Primer intento: correo a las 48 horas; segundo: llamada a los 5 días..." data-en-ph="e.g. First attempt: email at 48h; second: call at 5 days..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo se manejan las entregas urgentes o fuera del proceso?" data-en="How are urgent or off-process deliveries handled?">¿Cómo se manejan las entregas urgentes o fuera del proceso?</label>
+        <textarea class="textarea" name="Gestión de urgencias" data-es-ph="Ej: Las urgencias las decide el CEO directamente..." data-en-ph="e.g. Urgencies are decided directly by the CEO..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay decisiones que se toman sobre la marcha sin criterios claros?" data-en="Are there decisions made on the fly without clear criteria?">¿Hay decisiones que se toman sobre la marcha sin criterios claros?</label>
+        <textarea class="textarea" name="Decisiones improvisadas" data-es-ph="Ej: Cuándo ofrecer un descuento o una compensación al cliente..." data-en-ph="e.g. When to offer a discount or compensation to the client..."></textarea></div>
+    </div>
+
+    <!-- ===== 10 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">10</span>
+        <div class="card-title">
+          <h2 data-es="Puntos de Fricción y Retraso" data-en="Friction and Delay Points">Puntos de Fricción y Retraso</h2>
+          <p data-es="Dónde se producen retrasos, malentendidos y tareas que nadie quiere hacer" data-en="Where delays, misunderstandings and avoided tasks occur">Dónde se producen retrasos, malentendidos y tareas que nadie quiere hacer</p></div></div>
+
+      <div class="info-callout"><p data-es="Identificar las fricciones nos ayuda a encontrar mejoras rápidas y oportunidades de mejora inmediata." data-en="Identifying friction helps us find quick wins and immediate improvement opportunities.">Identificar las fricciones nos ayuda a encontrar mejoras rápidas y oportunidades de mejora inmediata.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué parte del proceso suelen aparecer más retrasos?" data-en="Where in the process do most delays appear?">¿En qué parte del proceso suelen aparecer más retrasos?</label>
+        <textarea class="textarea" name="Dónde aparecen retrasos" data-es-ph="Ej: En la aprobación del cliente: pueden tardar semanas en aprobar..." data-en-ph="e.g. In client validation: they can take weeks to approve..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde se pierden tareas o se generan malentendidos?" data-en="Where do tasks get lost or misunderstandings arise?">¿Dónde se pierden tareas o se generan malentendidos?</label>
+        <textarea class="textarea" name="Dónde se pierden tareas" data-es-ph="Ej: Entre el correo y el gestor de proyectos: a veces no pasamos la información..." data-en-ph="e.g. Between email and the project manager: sometimes we don't pass the info..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay pasos que nadie quiere hacer o que suelen saltarse?" data-en="Are there steps no one wants to do or that get skipped?">¿Hay pasos que nadie quiere hacer o que suelen saltarse?</label>
+        <textarea class="textarea" name="Tareas evitadas" data-es-ph="Ej: Actualizar el CRM después de cada interacción..." data-en-ph="e.g. Updating the CRM after every interaction..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las causas más comunes de errores?" data-en="What are the most common causes of errors?">¿Cuáles son las causas más comunes de errores?</label>
+        <textarea class="textarea" name="Causas comunes de errores" data-es-ph="Ej: Falta de información del cliente desde el inicio..." data-en-ph="e.g. Missing client information from the start..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué mejoras rápidas crees que podrían implementarse ya?" data-en="What quick wins do you think could be implemented right now?">¿Qué mejoras rápidas crees que podrían implementarse ya?</label>
+        <textarea class="textarea" name="Mejoras rápidas" data-es-ph="Ej: Una lista de verificación de incorporación automática, recordatorios automáticos..." data-en-ph="e.g. An automatic onboarding checklist, automatic reminders..."></textarea></div>
+    </div>
+
+    <!-- ===== 11 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">11</span>
+        <div class="card-title">
+          <h2 data-es="Seguimiento y Visibilidad" data-en="Tracking and Visibility">Seguimiento y Visibilidad</h2>
+          <p data-es="Cómo saben el estado de las entregas y qué visibilidad tiene el cliente" data-en="How you know delivery status and what the client sees">Cómo saben el estado de las entregas y qué visibilidad tiene el cliente</p></div></div>
+
+      <div class="info-callout"><p data-es="La visibilidad del estado es clave para evitar preguntas repetitivas y mejorar la experiencia del cliente." data-en="Status visibility is key to avoiding repetitive questions and improving the client experience.">La visibilidad del estado es clave para evitar preguntas repetitivas y mejorar la experiencia del cliente.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo saben internamente en qué estado está cada entrega?" data-en="How do you internally know the status of each delivery?">¿Cómo saben internamente en qué estado está cada entrega?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Visibilidad interna" value="Centralizado"><span class="radio-label-text" data-es="Sistema centralizado" data-en="Centralized system">Sistema centralizado</span><span class="radio-desc" data-es="Todo en una herramienta" data-en="Everything in one tool">Todo en una herramienta</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad interna" value="Varias"><span class="radio-label-text" data-es="Varias herramientas" data-en="Several tools">Varias herramientas</span><span class="radio-desc" data-es="Hay que mirar en varios sitios" data-en="You have to look in several places">Hay que mirar en varios sitios</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad interna" value="Personas"><span class="radio-label-text" data-es="Depende de las personas" data-en="Depends on people">Depende de las personas</span><span class="radio-desc" data-es="Hay que preguntarle a quien lleva el proyecto" data-en="You have to ask whoever owns the project">Hay que preguntarle a quien lleva el proyecto</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad interna" value="No clara"><span class="radio-label-text" data-es="No tenemos visibilidad clara" data-en="No clear visibility">No tenemos visibilidad clara</span><span class="radio-desc" data-es="Cuesta saber el estado real" data-en="It's hard to know the real status">Cuesta saber el estado real</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas usan para el seguimiento interno?" data-en="Which tools do you use for internal tracking?">¿Qué herramientas usan para el seguimiento interno?</label>
+        <textarea class="textarea" name="Herramientas de seguimiento" data-es-ph="Ej: ClickUp para las tareas, Excel para el embudo de ventas, Slack para comunicación rápida..." data-en-ph="e.g. ClickUp for tasks, Excel for pipeline, Slack for quick communication..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿El cliente tiene visibilidad del estado de su proyecto?" data-en="Does the client have visibility of their project status?">¿El cliente tiene visibilidad del estado de su proyecto?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Visibilidad del cliente" value="Portal"><span class="radio-label-text" data-es="Sí, portal o tablero" data-en="Yes, portal/dashboard">Sí, portal o tablero</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad del cliente" value="Correos"><span class="radio-label-text" data-es="Solo por los correos que enviamos" data-en="Only via emails we send">Solo por los correos que enviamos</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad del cliente" value="Preguntar"><span class="radio-label-text" data-es="Tiene que preguntar" data-en="They have to ask">Tiene que preguntar</span></label>
+          <label class="radio-box"><input type="radio" name="Visibilidad del cliente" value="Compartida"><span class="radio-label-text" data-es="Acceso a herramienta compartida" data-en="Access to a shared tool">Acceso a herramienta compartida</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Se documenta cada paso o depende de las personas?" data-en="Is each step documented or does it depend on people?">¿Se documenta cada paso o depende de las personas?</label>
+        <textarea class="textarea" name="Documentación de pasos" data-es-ph="Ej: Las reuniones quedan grabadas pero nadie las revisa..." data-en-ph="e.g. Meetings are recorded but no one reviews them..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué información te gustaría ver en un tablero ideal?" data-en="What information would you like to see in an ideal dashboard?">¿Qué información te gustaría ver en un tablero ideal?</label>
+        <textarea class="textarea" name="Tablero ideal" data-es-ph="Ej: Estado de todos los proyectos activos, alertas de riesgo, próximas entregas..." data-en-ph="e.g. Status of all active projects, risk alerts, upcoming deliveries..."></textarea></div>
+    </div>
+
+    <!-- ===== 12 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">12</span>
+        <div class="card-title">
+          <h2 data-es="Capacidad del Equipo y Delegación" data-en="Team Capacity and Delegation">Capacidad del Equipo y Delegación</h2>
+          <p data-es="Riesgos de dependencia, documentación interna y oportunidades de delegación" data-en="Dependency risks, internal documentation and delegation">Riesgos de dependencia, documentación interna y oportunidades de delegación</p></div></div>
+
+      <div class="info-callout"><p data-es="Entender la capacidad y las dependencias del equipo nos ayuda a diseñar soluciones sostenibles." data-en="Understanding the team's capacity and dependencies helps us design sustainable solutions.">Entender la capacidad y las dependencias del equipo nos ayuda a diseñar soluciones sostenibles.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué pasa si alguien clave del equipo se va o se enferma?" data-en="What happens if a key team member leaves or gets sick?">¿Qué pasa si alguien clave del equipo se va o se enferma?</label>
+        <textarea class="textarea" name="Impacto ausencia clave" data-es-ph="Ej: Si el responsable de entregas falta, todo se detiene..." data-en-ph="e.g. If the delivery manager is out, everything stops..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen procedimientos escritos o documentación interna por cada flujo?" data-en="Do you have SOPs or internal documentation for each flow?">¿Tienen procedimientos escritos o documentación interna por cada flujo?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Nivel de procedimientos" value="Bien"><span class="radio-label-text" data-es="Sí, bien documentados" data-en="Yes, well documented">Sí, bien documentados</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de procedimientos" value="Algunos"><span class="radio-label-text" data-es="Algunos flujos" data-en="Some flows">Algunos flujos</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de procedimientos" value="Desactualizados"><span class="radio-label-text" data-es="Existen pero desactualizados" data-en="They exist but outdated">Existen pero desactualizados</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de procedimientos" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have any">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas podrías delegar hoy si estuvieran mejor estructuradas?" data-en="Which tasks could you delegate today if they were better structured?">¿Qué tareas podrías delegar hoy si estuvieran mejor estructuradas?</label>
+        <textarea class="textarea" name="Tareas delegables" data-es-ph="Ej: Responder dudas frecuentes de clientes, enviar actualizaciones semanales..." data-en-ph="e.g. Answer frequent client questions, send weekly updates..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay vacíos de capacitación interna que afecten la entrega?" data-en="Are there internal training gaps affecting delivery?">¿Hay vacíos de capacitación interna que afecten la entrega?</label>
+        <textarea class="textarea" name="Vacíos de capacitación" data-es-ph="Ej: No todos saben usar bien la herramienta de gestión de proyectos..." data-en-ph="e.g. Not everyone knows how to use the project management tool well..."></textarea></div>
+    </div>
+
+    <!-- ===== 13 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">13</span>
+        <div class="card-title">
+          <h2 data-es="Proceso Ideal y Visión" data-en="Ideal Process and Vision">Proceso Ideal y Visión</h2>
+          <p data-es="Cómo sería el proceso perfecto y dónde ves más potencial de mejora" data-en="What the perfect process would look like and where you see the most potential">Cómo sería el proceso perfecto y dónde ves más potencial de mejora</p></div></div>
+
+      <div class="info-callout"><p data-es="Entender tu visión ideal nos ayuda a diseñar soluciones alineadas con tus objetivos a largo plazo." data-en="Understanding your ideal vision helps us design solutions aligned with your long-term goals.">Entender tu visión ideal nos ayuda a diseñar soluciones alineadas con tus objetivos a largo plazo.</p></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieras rediseñar el proceso desde cero, ¿qué cambiarías?" data-en="If you could redesign the process from scratch, what would you change?">Si pudieras rediseñar el proceso desde cero, ¿qué cambiarías?</label>
+        <textarea class="textarea textarea-large" name="Proceso ideal" data-es-ph="Ej: El cliente tendría un portal donde ver todo: estado, documentos, comunicaciones..." data-en-ph="e.g. The client would have a portal to see everything: status, documents, communications..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde ves más potencial de mejora o ahorro de tiempo?" data-en="Where do you see the most potential for improvement or time savings?">¿Dónde ves más potencial de mejora o ahorro de tiempo?</label>
+        <textarea class="textarea" name="Mayor potencial de mejora" data-es-ph="Ej: La comunicación con el cliente: demasiados correos manuales..." data-en-ph="e.g. Client communication: too many manual emails..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué parte te gustaría que fuera completamente automática?" data-en="Which part would you like to be fully automatic?">¿Qué parte te gustaría que fuera completamente automática?</label>
+        <textarea class="textarea" name="Qué automatizar completamente" data-es-ph="Ej: Los recordatorios de seguimiento al cliente, la creación de tareas..." data-en-ph="e.g. Client follow-up reminders, task creation..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen alguna hoja de ruta tecnológica o cambios previstos?" data-en="Do you have a tech roadmap or planned changes?">¿Tienen alguna hoja de ruta tecnológica o cambios previstos?</label>
+        <textarea class="textarea" name="Hoja de ruta tecnológica" data-es-ph="Ej: Estamos pensando en cambiar de CRM, queremos implementar un portal de clientes..." data-en-ph="e.g. We're thinking of changing CRM, we want to implement a client portal..."></textarea></div>
+    </div>
+
+    <!-- ===== 14 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">14</span>
+        <div class="card-title">
+          <h2 data-es="Tecnología y Facilidad de Uso" data-en="Technology and Usability">Tecnología y Facilidad de Uso</h2>
+          <p data-es="Herramientas del día a día, frustraciones tecnológicas y oportunidades" data-en="Day-to-day tools, tech frustrations and opportunities">Herramientas del día a día, frustraciones tecnológicas y oportunidades</p></div></div>
+
+      <div class="info-callout"><p data-es="Conocer tus herramientas actuales y tus frustraciones nos ayuda a identificar integraciones y mejoras." data-en="Knowing your current tools and frustrations helps us identify integrations and improvements.">Conocer tus herramientas actuales y tus frustraciones nos ayuda a identificar integraciones y mejoras.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramienta usas más a diario? ¿Cuál te resulta más difícil?" data-en="Which tool do you use most daily? Which is hardest?">¿Qué herramienta usas más a diario? ¿Cuál te resulta más difícil?</label>
+        <textarea class="textarea" name="Herramienta más usada" data-es-ph="Ej: Más usada: Slack, 3-4 horas al día. Más difícil: el CRM, la interfaz es confusa..." data-en-ph="e.g. Most used: Slack 3-4h/day. Hardest: the CRM, confusing interface..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde sienten que hacen doble trabajo entre herramientas?" data-en="Where do you feel you do double work between tools?">¿Dónde sienten que hacen doble trabajo entre herramientas?</label>
+        <textarea class="textarea" name="Doble trabajo" data-es-ph="Ej: Los datos del cliente están en 3 sitios diferentes y nunca coinciden..." data-en-ph="e.g. Client data in 3 different places and it never matches..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramienta te gustaría reemplazar o mejorar?" data-en="Which tool would you like to replace or improve?">¿Qué herramienta te gustaría reemplazar o mejorar?</label>
+        <textarea class="textarea" name="Herramienta a reemplazar" data-es-ph="Ej: Excel para el seguimiento de proyectos, necesitamos algo mejor..." data-en-ph="e.g. Excel/Sheets for project tracking, we need something better..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué integraciones entre herramientas te gustaría tener?" data-en="Which integrations between tools would you like to have?">¿Qué integraciones entre herramientas te gustaría tener?</label>
+        <textarea class="textarea" name="Integraciones deseadas" data-es-ph="Ej: Que cuando se cierre una venta en el CRM se cree automáticamente el proyecto..." data-en-ph="e.g. When a sale closes in the CRM, the project is created automatically..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las principales frustraciones tecnológicas del equipo?" data-en="What are the team's main tech frustrations?">¿Cuáles son las principales frustraciones tecnológicas del equipo?</label>
+        <textarea class="textarea" name="Frustraciones tecnológicas" data-es-ph="Ej: Demasiadas herramientas y no se comunican entre sí..." data-en-ph="e.g. Too many tools, they don't talk to each other..."></textarea></div>
+    </div>
+
+    <!-- ===== 15 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">15</span>
+        <div class="card-title">
+          <h2 data-es="Comunicación con el Cliente y Opiniones" data-en="Client Communication and Feedback">Comunicación con el Cliente y Opiniones</h2>
+          <p data-es="Qué dicen los clientes, cómo se sienten y qué oportunidades hay" data-en="What clients say, how they feel and what opportunities exist">Qué dicen los clientes, cómo se sienten y qué oportunidades hay</p></div></div>
+
+      <div class="info-callout"><p data-es="La opinión del cliente es oro puro para identificar mejoras de alto impacto." data-en="Client feedback is pure gold for identifying high-impact improvements.">La opinión del cliente es oro puro para identificar mejoras de alto impacto.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué opiniones te suelen dar los clientes sobre el proceso de entrega?" data-en="What feedback do clients usually give about the delivery process?">¿Qué opiniones te suelen dar los clientes sobre el proceso de entrega?</label>
+        <textarea class="textarea" name="Opiniones de clientes" data-es-ph="Ej: POSITIVO: les gusta la cercanía. NEGATIVO: a veces no saben en qué punto está su proyecto..." data-en-ph="e.g. POSITIVE: they like the closeness. NEGATIVE: sometimes they don't know their project status..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Los clientes se sienten informados y acompañados?" data-en="Do clients feel informed and supported?">¿Los clientes se sienten informados y acompañados?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Clientes acompañados" value="Muy satisfechos"><span class="radio-label-text" data-es="Muy satisfechos" data-en="Very satisfied">Muy satisfechos</span></label>
+          <label class="radio-box"><input type="radio" name="Clientes acompañados" value="Satisfechos"><span class="radio-label-text" data-es="Satisfechos en general" data-en="Generally satisfied">Satisfechos en general</span></label>
+          <label class="radio-box"><input type="radio" name="Clientes acompañados" value="Mejorable"><span class="radio-label-text" data-es="Hay margen de mejora" data-en="Room for improvement">Hay margen de mejora</span></label>
+          <label class="radio-box"><input type="radio" name="Clientes acompañados" value="Quejas"><span class="radio-label-text" data-es="Quejas frecuentes" data-en="Frequent complaints">Quejas frecuentes</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay quejas frecuentes o preguntas que se repiten?" data-en="Are there frequent complaints or recurring questions?">¿Hay quejas frecuentes o preguntas que se repiten?</label>
+        <textarea class="textarea" name="Preguntas repetidas de clientes" data-es-ph="Ej: ¿Cuándo estará listo mi proyecto? ¿Quién es mi contacto para esto?" data-en-ph="e.g. When will my project be ready? Who is my contact for this?"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué oportunidades ves para mejorar la comunicación con el cliente?" data-en="What opportunities do you see to improve client communication?">¿Qué oportunidades ves para mejorar la comunicación con el cliente?</label>
+        <textarea class="textarea" name="Oportunidades de comunicación" data-es-ph="Ej: Enviar actualizaciones automáticas semanales, crear un portal de clientes..." data-en-ph="e.g. Send automatic weekly updates, create a client portal..."></textarea></div>
+    </div>
+
+    <!-- ===== EXTRA ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">+</span>
+        <div class="card-title">
+          <h2 data-es="Comentarios Adicionales" data-en="Additional Comments">Comentarios Adicionales</h2>
+          <p data-es="Cualquier información extra que consideres relevante para el diagnóstico" data-en="Any extra information relevant to the audit">Cualquier información extra que consideres relevante para el diagnóstico</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son tus principales prioridades o dolores operativos?" data-en="What are your main priorities or operational pains?">¿Cuáles son tus principales prioridades o dolores operativos?</label>
+        <textarea class="textarea" name="Prioridades / Dolores operativos" data-es-ph="Ej: Reducir el tiempo que dedico a tareas administrativas..." data-en-ph="e.g. Reduce the time I spend on administrative tasks..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué esperas conseguir con este diagnóstico?" data-en="What do you hope to achieve with this audit?">¿Qué esperas conseguir con este diagnóstico?</label>
+        <textarea class="textarea" name="Expectativas de la auditoría" data-es-ph="Ej: Tener una hoja de ruta clara de qué automatizar primero..." data-en-ph="e.g. Have a clear roadmap of what to automate first..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Algo más que debamos saber?" data-en="Anything else we should know?">¿Algo más que debamos saber?</label>
+        <textarea class="textarea" name="Comentarios adicionales" data-es-ph="Cualquier contexto adicional, restricciones, proyectos en curso..." data-en-ph="Any extra context, restrictions, ongoing projects..."></textarea></div>
+    </div>
+
+    <div class="submit-section">
+      <button type="submit" class="submit-btn" data-es="Enviar cuestionario →" data-en="Submit questionnaire →">Enviar cuestionario →</button>
+    </div>
+  </form>
+
+  <div class="result" id="result">
+    <div class="check">✓</div>
+    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <p data-es="Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico." data-en="Thank you. Now send them to us with any of these buttons so we can prepare your diagnosis.">Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico.</p>
+    <div class="actions">
+      <button class="btn primary" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
+      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+  const EMAIL_DESTINO = "tucorreo@ejemplo.com";
+  const TITULO = {es:"Diagnóstico del Área de Entrega del Servicio", en:"Service Delivery Area Audit"};
+
+  const form = document.getElementById('form');
+  const sections = document.querySelectorAll('[data-section]');
+  const bar = document.getElementById('bar');
+  const progressCount = document.getElementById('progressCount');
+  const currency = document.getElementById('currency');
+  const slider = document.getElementById('slider');
+  const sliderValue = document.getElementById('sliderValue');
+  let lang = 'es';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langEs').classList.toggle('active', l==='es');
+    document.getElementById('langEn').classList.toggle('active', l==='en');
+    document.querySelectorAll('[data-es]').forEach(el=>{ const v=el.getAttribute('data-'+l); if(v!=null) el.textContent=v; });
+    document.querySelectorAll('[data-es-ph]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-ph'); if(v!=null) el.placeholder=v; });
+    document.querySelectorAll('[data-es-val]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-val'); if(v!=null) el.value=v; });
+  }
+  window.setLang = setLang;
+
+  function updateCurrency(){
+    const map = {USD:'$', COP:'$', EUR:'€'};
+    const sym = map[currency.value] || '$';
+    document.querySelectorAll('.cur-symbol').forEach(s => s.textContent = sym);
+  }
+  currency.addEventListener('change', updateCurrency);
+  if(slider) slider.addEventListener('input', ()=> sliderValue.textContent = slider.value+'%');
+
+  document.querySelectorAll('[data-show-when]').forEach(cond=>{
+    const [name, valuesStr] = cond.dataset.showWhen.split('=');
+    const values = valuesStr.split('|');
+    const inputs = form.querySelectorAll('input[name="'+name+'"]');
+    function check(){ const sel=[...inputs].find(i=>i.checked); cond.classList.toggle('show', !!(sel && values.includes(sel.value))); }
+    inputs.forEach(i=> i.addEventListener('change', check));
+    check();
+  });
+
+  function updateProgress(){
+    let done = 0;
+    sections.forEach(sec=>{
+      let filled=false;
+      sec.querySelectorAll('input,textarea,select').forEach(f=>{
+        if(f.type==='range') return;
+        if(f.closest('.conditional') && !f.closest('.conditional').classList.contains('show')) return;
+        if(f.type==='checkbox'||f.type==='radio'){ if(f.checked) filled=true; }
+        else if(f.value && f.value.trim() && !f.readOnly) filled=true;
+      });
+      if(filled) done++;
+    });
+    bar.style.width = (done/sections.length*100)+'%';
+    progressCount.textContent = done+' / '+sections.length;
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
+  function labelOf(input){
+    const box = input.closest('label');
+    const t = box && box.querySelector('.radio-label-text, .checkbox-text');
+    return t ? t.textContent.trim() : input.value;
+  }
+  function recogerRespuestas(){
+    const datos = [];
+    const curOpt = currency.options[currency.selectedIndex];
+    datos.push([lang==='es'?'Moneda':'Currency', curOpt.textContent.trim()]);
+
+    document.querySelectorAll('.form-card .field').forEach(field=>{
+      const cond = field.closest('.conditional');
+      if(cond && !cond.classList.contains('show')) return;
+      const labelEl = field.querySelector('.field-label');
+      const question = labelEl ? labelEl.textContent.replace(/\*/g,'').trim() : '';
+
+      const radios = field.querySelectorAll('input[type=radio]:checked');
+      const checks = field.querySelectorAll('input[type=checkbox]:checked');
+      const groups = field.querySelectorAll('.input-group');
+      let answer = '';
+
+      if(radios.length){ answer = [...radios].map(labelOf).join(', '); }
+      else if(checks.length){ answer = [...checks].map(labelOf).join(', '); }
+      else if(groups.length){
+        const parts=[];
+        groups.forEach(g=>{ const inp=g.querySelector('input'); if(inp && inp.value.trim()){ const gl=g.querySelector('.input-group-label'); parts.push((gl?gl.textContent.trim():'')+': '+inp.value.trim()); } });
+        answer = parts.join(' | ');
+      } else {
+        const parts=[];
+        field.querySelectorAll('input[type=text],input[type=number],input[type=email],input[type=range],textarea,select').forEach(t=>{
+          if(t.readOnly) return;
+          if(t.type!=='range' && (!t.value || !t.value.trim())) return;
+          let v = t.tagName==='SELECT' ? t.options[t.selectedIndex].textContent.trim() : (t.type==='range' ? t.value+'%' : t.value.trim());
+          if(t.closest('.icon-input')){ const s=t.closest('.icon-input').querySelector('.cur-symbol'); v=(s?s.textContent:'')+v; }
+          parts.push(v);
+        });
+        answer = parts.join(' | ');
+      }
+      if(answer) datos.push([question, answer]);
+    });
+
+    let t = TITULO[lang]+"\n";
+    t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-419':'en-US')+"\n";
+    t += "----------------------------------------\n\n";
+    datos.forEach(([k,v])=>{ t += k+":\n"+v+"\n\n"; });
+    return t;
+  }
+
+  let RESPUESTAS = "";
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    RESPUESTAS = recogerRespuestas();
+    document.getElementById('preview').textContent = RESPUESTAS;
+    form.style.display='none';
+    document.getElementById('result').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
+  document.getElementById('btnDownload').addEventListener('click', function(){
+    const blob = new Blob([RESPUESTAS], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=(lang==='es'?'Respuestas-Entrega':'Answers-Delivery')+'.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(RESPUESTAS);
+  });
+
+  setLang('es');
+</script>
+<script>
+(function(){
+  var HASH="a816ebde8084f1838ea70889deccff2c3dabbbd45f39af1aecca435fa4fbe215";
+  function sha256(ascii){function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount));}var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';var words=[],asciiBitLength=ascii[lengthProperty]*8;var hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],primeCounter=k[lengthProperty];var isComposite={};for(var candidate=2;primeCounter<64;candidate++){if(!isComposite[candidate]){for(i=0;i<313;i+=candidate){isComposite[i]=candidate;}hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;}}ascii+='\x80';while(ascii[lengthProperty]%64-56)ascii+='\x00';for(i=0;i<ascii[lengthProperty];i++){j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);words[words[lengthProperty]]=(asciiBitLength);for(j=0;j<words[lengthProperty];){var w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2];var a=hash[0],e=hash[4];var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));hash=[(temp1+temp2)|0].concat(hash);hash[4]=(hash[4]+temp1)|0;}for(i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16);}}return result;}
+  var gate=document.getElementById('q-gate');
+  var form=document.getElementById('q-gate__form');
+  var input=document.getElementById('q-gate__input');
+  var err=document.getElementById('q-gate__error');
+  function unlock(){ gate.classList.add('q-unlocked'); try{sessionStorage.setItem('arraviva-q','1');}catch(e){} }
+  try{ if(sessionStorage.getItem('arraviva-q')==='1'){ unlock(); } }catch(e){}
+  if(input){ try{input.focus();}catch(e){} }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(input.value||'').trim();
+    var utf8=unescape(encodeURIComponent(v));
+    if(sha256(utf8)===HASH){ unlock(); }
+    else{ err.hidden=false; input.value=''; input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>
