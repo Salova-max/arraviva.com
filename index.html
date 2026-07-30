@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- SEO básico ------------------------------------------------------------
+       El título y la descripción se actualizan también por JS al cambiar de
+       idioma (ver script.js). Estos son los valores por defecto (español). -->
+  <title>Arraviva — Partner tecnológico de crecimiento</title>
+  <meta name="description" content="Arraviva ayuda a tu empresa a echar raíz, con orden, procesos y datos firmes, y desde ahí crecer con marketing, automatización e IA. No somos una agencia de IA: somos tu partner de crecimiento.">
+  <meta name="theme-color" content="#1E3A31">
+
+  <!-- Open Graph (previsualización al compartir en redes) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Arraviva — Partner tecnológico de crecimiento">
+  <meta property="og:description" content="Echa raíz y crece: orden, procesos, automatización e IA sobre una base firme.">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Tipografías (Fraunces para títulos, Inter para cuerpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =====================================================================
+       NAVEGACIÓN
+       El logo es un componente sencillo (wordmark + brote) fácil de
+       reemplazar más adelante por el logo definitivo.
+       ===================================================================== -->
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Arraviva — inicio">
+      <!-- Símbolo: raíz que brota; la punta ámbar es la "chispa" de crecimiento -->
+      <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/>
+      </svg>
+      <span class="brand__name">Arra<span class="viva">viva</span></span>
+    </a>
+
+    <nav class="nav__links" id="navLinks">
+      <a class="nav__link" href="#metodo" data-en="Method">Método</a>
+      <a class="nav__link" href="#servicios" data-en="Services">Servicios</a>
+      <a class="nav__link" href="#historia" data-en="Story">Historia</a>
+      <a class="btn btn--primary btn--sm" href="#cta" data-en="Let's start with a call">Empecemos por una llamada</a>
+
+      <!-- Selector de idioma: dos botones que activan ES o EN -->
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang__btn is-active" data-lang="es">ES</button>
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+      </div>
+    </nav>
+
+    <!-- Botón hamburguesa (solo visible en móvil) -->
+    <button type="button" class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main id="top">
+
+    <!-- =====================================================================
+         HERO
+         ===================================================================== -->
+    <section class="hero section--dark">
+      <div class="hero__grid">
+        <div class="hero__copy reveal">
+          <p class="kicker" data-en="Growth technology partner">Partner tecnológico de crecimiento</p>
+          <h1 class="hero__title" data-en="Put your operation in order and grow with technology<span class='hero__accent'>.</span>">Ordena tu operación y crece con tecnología<span class="hero__accent">.</span></h1>
+          <p class="hero__sub" data-en="We bring order, automate what eats your hours, and add AI where it truly multiplies, so your business grows on a firm foundation.">Ponemos orden, automatizamos lo que te quita horas y sumamos IA donde de verdad multiplica, para que tu negocio crezca sobre una base firme.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#cta" data-en="Let's start with a call">Empecemos por una llamada</a>
+            <a class="btn--ghost" href="#metodo" data-en="How we work <span class='arrow'>&rarr;</span>">Cómo trabajamos <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CINTA ANIMADA (marquee): beneficios que se deslizan en loop.
+         Dos grupos idénticos para un bucle continuo; se pausa al pasar el mouse.
+         ===================================================================== -->
+    <div class="marquee" aria-hidden="true">
+      <!-- 4 copias idénticas: cada mitad de la pista (2 copias) es más ancha
+           que el viewport, así el loop translateX(0→-50%) nunca deja huecos. -->
+      <div class="marquee__track">
+        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         EL PROBLEMA
+         ===================================================================== -->
+    <section class="section section--white">
+      <div class="container">
+        <div class="problema__grid">
+          <div class="reveal">
+            <p class="kicker" data-en="The challenge">El problema</p>
+            <h2 class="section-title" data-en="Growth without roots doesn't hold.">El crecimiento sin raíz no se sostiene.</h2>
+            <p class="lead" style="margin-top:20px;max-width:36ch" data-en="It's not a lack of talent or drive. Your operation just grew faster than its order, and that's a huge opportunity.">No es falta de talento ni de ganas. Es que la operación creció más rápido que el orden, y ahí hay una oportunidad enorme.</p>
+          </div>
+
+          <div class="problema__list reveal">
+            <div class="problema__item">
+              <span class="dot dot--tierra"></span>
+              <div>
+                <h3 data-en="Processes that live in someone's head">Procesos que viven en la cabeza de alguien</h3>
+                <p data-en="When that person isn't around, the business stalls. Documenting them turns them into an asset.">Cuando esa persona no está, el negocio se frena. Documentarlos los convierte en un activo.</p>
+              </div>
+            </div>
+            <div class="problema__item">
+              <span class="dot dot--luz"></span>
+              <div>
+                <h3 data-en="Tasks repeated by hand, every day">Tareas repetidas a mano, todos los días</h3>
+                <p data-en="Hours of valuable work trapped in copy, paste and forward. Every one of them can be automated.">Horas de trabajo valioso atrapadas en copiar, pegar y reenviar. Cada una es automatizable.</p>
+              </div>
+            </div>
+            <div class="problema__item">
+              <span class="dot dot--savia"></span>
+              <div>
+                <h3 data-en="Mistakes that cost time and money">Errores que cuestan tiempo y dinero</h3>
+                <p data-en="They're not carelessness: they're signs the system is asking for more order.">No son descuidos: son señales de que el sistema pide más orden.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini-escena ilustrativa (ejemplo, no testimonio) -->
+        <div class="problema__example reveal">
+          <span class="problema__example-label" data-en="Example">Ejemplo</span>
+          <p data-en="Every Monday someone spends two hours building the sales report: copy, paste, reconcile. With your operation in order and connected, that report is waiting for you, done, Monday at 8 a.m.">Cada lunes alguien dedica dos horas a armar el reporte de ventas: copiar, pegar, cuadrar. Con la operación ordenada y conectada, ese reporte te está esperando hecho el lunes a las 8 de la mañana.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         QUÉ ES ARRAVIVA (frase-manifiesto)
+         ===================================================================== -->
+    <section class="quote section--dark wipe">
+      <div class="container">
+        <p class="kicker" data-en="What Arraviva is">Qué es Arraviva</p>
+        <!-- data-en-html porque la frase incluye cursiva (<em>) y el resalte de "viva" -->
+        <p class="quote__big reveal"
+           data-en-html="&laquo;They install tools; <em>Arra<span class='viva'>viva</span> grows roots</em>.&raquo;">&laquo;Ellos instalan herramientas; <em>Arra<span class="viva">viva</span> echa raíces</em>.&raquo;</p>
+        <div class="quote__cols reveal">
+          <div class="quote__col">
+            <h3 data-en="We're not an AI agency">No somos una agencia de IA</h3>
+            <p data-en="AI is a means, not the end. Nobody hires technology: they hire business results.">La IA es un medio, no el fin. Nadie contrata tecnología: contrata resultados de negocio.</p>
+          </div>
+          <div class="quote__col quote__col--savia">
+            <h3 data-en="We're your growth partner">Somos tu partner de crecimiento</h3>
+            <p data-en="Order first, grow after: marketing, automation and AI on a well-run operation.">Ordenamos primero, crecemos después: marketing, automatización e IA sobre una operación ordenada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         MÉTODO — Raíz → Arraigar → Crecer
+         ===================================================================== -->
+    <section class="section section--cream" id="metodo">
+      <div class="container">
+        <div class="metodo__head reveal">
+          <div>
+            <p class="kicker" data-en="The method">El método</p>
+            <h2 class="section-title" data-en="From root to branch.">De la raíz a la rama.</h2>
+          </div>
+          <p data-en="Three stages, one logic: nothing truly grows without a root to hold it.">Tres etapas, una sola lógica: nada crece de verdad sin una raíz que lo sostenga.</p>
+        </div>
+
+        <div class="metodo__steps reveal">
+          <div class="step step--1">
+            <span class="step__ghost" aria-hidden="true">01</span>
+            <!-- Raíz: una lente que examina (diagnóstico / análisis del negocio) -->
+            <svg class="step__icon" width="28" height="28" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="12.5" cy="12.5" r="6.5" stroke="#1E3A31" stroke-width="1.5"/><path d="M17.3 17.3 L23 23" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round"/><circle cx="12.5" cy="12.5" r="2.1" fill="#1E3A31"/></svg>
+            <p class="step__num">01</p>
+            <h3 class="step__name" data-en="Raíz">Raíz</h3>
+            <p class="step__tag step__tag--tierra" data-en="Audit">Diagnóstico</p>
+            <p data-en="Before touching anything, we understand how your business works today and where the biggest opportunity is. From there comes your plan: built for your operation.">Antes de tocar nada, entendemos cómo funciona tu negocio hoy y dónde está la oportunidad más grande. De ahí sale tu plan: hecho para tu operación.</p>
+          </div>
+          <div class="step step--2">
+            <span class="step__ghost" aria-hidden="true">02</span>
+            <!-- Arraigar: pasos ordenados y documentados (orden y procesos / SOPs) -->
+            <svg class="step__icon" width="28" height="28" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="7.4" cy="8.4" r="2" fill="#1E3A31"/><path d="M11.5 8.4 H22.5" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><circle cx="7.4" cy="15" r="1.7" stroke="#1E3A31" stroke-width="1.4"/><path d="M11.5 15 H22.5" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><circle cx="7.4" cy="21.6" r="1.7" stroke="#1E3A31" stroke-width="1.4"/><path d="M11.5 21.6 H19" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <p class="step__num">02</p>
+            <h3 class="step__name" data-en="Arraigar">Arraigar</h3>
+            <p class="step__tag step__tag--luz" data-en="Order &amp; processes">Orden y procesos</p>
+            <p data-en="We order and document how your team works, so knowledge belongs to the business and not just one person's head.">Ordenamos y documentamos cómo trabaja tu equipo, para que el conocimiento sea del negocio y no viva en la cabeza de una sola persona.</p>
+          </div>
+          <div class="step step--3">
+            <span class="step__ghost" aria-hidden="true">03</span>
+            <!-- Crecer: un nodo base que se ramifica y escala (automatización + IA) -->
+            <svg class="step__icon" width="28" height="28" viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M9 21.5 C9 17.5 11 15 13 13" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><path d="M13 13 C14.6 11 15.2 8.8 15.6 6.6" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><path d="M13 13 C16 12.2 19 11.6 22 9.8" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><circle cx="8.8" cy="22.4" r="2" stroke="#1E3A31" stroke-width="1.5"/><circle cx="13" cy="13" r="1.5" fill="#1E3A31"/><circle cx="22.6" cy="9.4" r="1.7" stroke="#1E3A31" stroke-width="1.4"/><circle cx="15.9" cy="6" r="2.3" fill="#1E3A31"/></svg>
+            <p class="step__num">03</p>
+            <h3 class="step__name" data-en="Crecer">Crecer</h3>
+            <p class="step__tag step__tag--savia" data-en="Automation + AI">Automatización + IA</p>
+            <p data-en="We automate the repetitive and add AI agents where they multiply, on what's already in order.">Automatizamos lo repetitivo y sumamos agentes de IA donde multiplican, sobre lo ya ordenado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SERVICIOS
+         ===================================================================== -->
+    <section class="section section--white" id="servicios">
+      <div class="container">
+        <p class="kicker reveal" data-en="What we do for you">Qué hacemos por ti</p>
+        <h2 class="section-title reveal" style="max-width:22ch" data-en="Results, not tools.">Resultados, no herramientas.</h2>
+
+        <div class="servicios__grid">
+          <div class="card reveal">
+            <!-- Automatización: flecha circular (ciclo que se repite solo) con un nodo
+                 girando en el aro y la chispa ámbar como núcleo del proceso -->
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M15 6 A9 9 0 1 1 6.8 11.2" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><path d="M12.6 5.3 L15 6 L13.1 7.9" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="24" r="1.9" fill="#1E3A31"/><circle cx="15" cy="15" r="2.3" fill="#1E3A31"/></svg>
+            <h3 data-en="The repetitive tasks that eat your hours today, done on their own.">Las tareas repetitivas que hoy te comen horas, hechas solas.</h3>
+            <p data-en="We connect your tools and build the flows that handle the repetitive work on their own: moving data between systems, triggering follow-ups on time, and building reports, without anyone doing it by hand.">Conectamos tus herramientas y montamos los flujos que hacen solo el trabajo repetitivo: mover datos entre sistemas, disparar seguimientos a tiempo y armar reportes, sin que nadie tenga que hacerlo a mano.</p>
+            <p class="card__tag" data-en="Process automation">Automatización de procesos</p>
+          </div>
+
+          <div class="card reveal">
+            <!-- Agente de IA: un núcleo inteligente que emite señales / responde 24/7 -->
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="12" cy="16" r="4.2" stroke="#1E3A31" stroke-width="1.5"/><circle cx="12" cy="16" r="1.4" fill="#1E3A31"/><path d="M18.5 11.4 C21.3 13.8 21.3 18.2 18.5 20.6" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><path d="M21.4 8.8 C25.6 12.4 25.6 19.6 21.4 23.2" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="6.6" r="2.2" fill="#1E3A31"/></svg>
+            <h3 data-en="An assistant that answers and follows up even after you've closed for the day.">Un asistente que atiende y da seguimiento aunque tú ya cerraste.</h3>
+            <p data-en="It answers, books and follows up with your prospects 24/7, without dropping anyone.">Responde, agenda y hace seguimiento a tus prospectos las 24 horas, sin dejar caer a nadie.</p>
+            <p class="card__tag" data-en="AI agents">Agentes de IA</p>
+          </div>
+
+          <div class="card reveal">
+            <!-- Marketing: varias fuentes que fluyen de forma constante hacia un resultado -->
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M6 23 C11 21.5 14 16 19.5 11" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 17 C10 16.6 14.5 14.5 18.8 11.4" stroke="#1E3A31" stroke-width="1.5" stroke-linecap="round"/><circle cx="5.6" cy="23.4" r="1.8" stroke="#1E3A31" stroke-width="1.5"/><circle cx="5.9" cy="16.7" r="1.6" stroke="#1E3A31" stroke-width="1.5"/><circle cx="20.5" cy="10" r="2.4" fill="#1E3A31"/></svg>
+            <h3 data-en="Clients that arrive predictably.">Clientes que llegan de forma predecible.</h3>
+            <p data-en="Campaigns and presence that bring you qualified prospects steadily, month after month.">Campañas y presencia que te traen prospectos calificados de forma constante, mes a mes.</p>
+            <p class="card__tag" data-en="Marketing / lead generation">Marketing / captación</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         POR QUÉ ARRAVIVA
+         ===================================================================== -->
+    <section class="section section--cream">
+      <div class="container">
+        <p class="kicker reveal" data-en="Why Arraviva">Por qué Arraviva</p>
+        <h2 class="section-title reveal" style="max-width:24ch" data-en="Business judgment, with hands in the soil.">Criterio de negocio, con las manos en la tierra.</h2>
+
+        <div class="porque__grid">
+          <div class="porque__item porque__item--tierra reveal">
+            <h3 data-en="I speak the owner's language">Hablo el idioma del dueño</h3>
+            <p data-en="Business first, technology second.">Criterio de negocio primero, tecnología después.</p>
+          </div>
+          <div class="porque__item porque__item--luz reveal">
+            <h3 data-en="We diagnose before we sell">Diagnosticamos antes de vender</h3>
+            <p data-en="We start with an honest audit; if something isn't right for you, we say so. No smoke, no invented numbers.">Empezamos con una auditoría honesta; si algo no te conviene, te lo decimos. Nada de humo ni cifras inventadas.</p>
+          </div>
+          <div class="porque__item porque__item--savia reveal">
+            <h3 data-en="Real integration of all three fronts">Integración real de los tres frentes</h3>
+            <p data-en="Marketing, processes and AI integrated under one growth logic.">Marketing, procesos e IA integrados bajo una sola lógica de crecimiento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         HISTORIA (sección oscura — el único "momento oscuro" de la home)
+         ===================================================================== -->
+    <section class="historia wipe" id="historia">
+      <div class="container">
+        <div class="historia__grid">
+          <div class="reveal">
+            <p class="kicker kicker--luz" data-en="The name · the story">El nombre · la historia</p>
+            <h2 class="historia__title" data-en-html="Arra<span class='viva'>viva</span>: <em>living root</em>.">Arra<span class="viva">viva</span>: <em>raíz viva</em>.</h2>
+            <p class="historia__intro" data-en="From the Spanish 'arraigar' (to take root) + 'viva' (alive). Two words, one conviction.">Arraigar + viva. Dos palabras, una convicción.</p>
+            <div class="historia__body">
+              <p data-en="I left Colombia and put down roots in the United States. I know what it is to start over: learning the terrain, sowing without guarantees, and holding up what you build with your own hands.">Dejé Colombia y eché raíz en Estados Unidos. Sé lo que es empezar de nuevo: aprender el terreno, sembrar sin garantías y sostener lo que uno construye con las manos.</p>
+              <p data-en="That's where Arraviva comes from: the certainty that everything that truly grows begins with a living root. It's what I did with my own company, and what I do today with yours.">De ahí viene Arraviva: la certeza de que todo lo que crece de verdad empieza por una raíz viva. Es lo que hice con mi propia empresa, y es lo que hago hoy con la tuya.</p>
+            </div>
+            <div class="historia__author">
+              <div>
+                <strong data-en="Santiago Londoño V.">Santiago Londoño V.</strong>
+                <span data-en="Founder, Arraviva">Fundador, Arraviva</span>
+              </div>
+            </div>
+          </div>
+          <div class="historia__photo reveal">
+            <picture>
+              <source srcset="santiago-historia.webp" type="image/webp">
+              <img src="santiago-historia.jpg" alt="Santiago Londoño V., fundador de Arraviva" width="800" height="1000" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PREGUNTAS FRECUENTES (acordeón plegable)
+         Cada pregunta es un <button> (accesible con teclado) y su respuesta
+         un panel que se despliega con animación suave desde script.js.
+         ===================================================================== -->
+    <section class="section section--white" id="faq">
+      <div class="container">
+        <p class="kicker reveal" data-en="Frequently asked questions">Preguntas frecuentes</p>
+        <h2 class="section-title reveal" style="max-width:20ch" data-en="Let's talk straight before we start.">Hablemos claro antes de empezar.</h2>
+
+        <div class="faq reveal">
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p1">
+                <span data-en="How do we start?">¿Cómo empezamos?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p1">
+              <p data-en="It all starts with a short, no-commitment call where I understand your business and we see if we're a fit. If it makes sense to work together, the first step is an in-depth diagnosis: the foundation everything else is built on.">Todo empieza con una llamada corta, sin compromiso, donde entiendo tu negocio y vemos si encajamos. Si tiene sentido trabajar juntos, el primer paso es un diagnóstico a fondo: la base sobre la que se construye todo lo demás.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p2">
+                <span data-en="My business isn't that organized and I don't have a technical team. Can we still do this?">Mi negocio no está tan ordenado ni tengo un equipo técnico. ¿Podemos hacer esto igual?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p2">
+              <p data-en="Yes, in fact that's the normal starting point. You don't need to have anything figured out or technical people: that's what I'm here for. We start by organizing whatever there is, with what you have today.">Sí, de hecho ese es el punto de partida normal. No necesitas tener nada resuelto ni gente técnica: para eso estoy yo. Empezamos por ordenar lo que haya, con lo que tengas hoy.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p3">
+                <span data-en="I've tried technology before and it didn't work. Why would this be different?">Ya probé tecnología antes y no funcionó. ¿Por qué esto sería distinto?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p3">
+              <p data-en="Because I don't start with the tool, I start with your business. Most attempts fail from installing technology on a disorganized base. I organize the root first; automation comes later, on something firm.">Porque no empiezo por la herramienta, empiezo por tu negocio. La mayoría falla por instalar tecnología sobre una base desordenada. Yo primero ordeno la raíz; la automatización viene después, sobre algo firme.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p4">
+                <span data-en="Do you lock me into a long-term contract?">¿Me amarras a un contrato de permanencia?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p4">
+              <p data-en="No. I'd rather earn your loyalty with results. You stay with me because you want to, not because you're obligated.">No. Prefiero ganarme tu permanencia con resultados. Sigues conmigo porque quieres, no porque estás obligado.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p5">
+                <span data-en="How much does it cost and how do you charge?">¿Cuánto cuesta y cómo cobras?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p5">
+              <p data-en="It depends on your business and what you actually need, so I diagnose first and then propose an investment that fits the goal. I don't charge for isolated tasks, but for the outcome.">Depende de tu negocio y de lo que de verdad necesites, por eso primero diagnostico y después propongo una inversión coherente con el objetivo. No cobro por tareas sueltas, sino por el resultado.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <h3 class="faq__q">
+              <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p6">
+                <span data-en="Is my information secure?">¿Mi información está segura?</span>
+                <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-p6">
+              <p data-en="Before the audit we sign a mutual confidentiality agreement: everything you share stays protected and only between us.">Antes del diagnóstico firmamos un acuerdo de confidencialidad mutuo: todo lo que compartas queda protegido y solo entre nosotros.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CTA FINAL + FORMULARIO DE CONTACTO (fondo oscuro)
+         El formulario usa Netlify Forms: el destino (email de notificación) se
+         configura en el panel de Netlify, no aquí. TODO: link de calendario y
+         número de WhatsApp reales.
+         ===================================================================== -->
+    <section class="cta section--dark wipe" id="cta">
+      <div class="container reveal">
+        <div class="contact__grid">
+          <div class="contact__intro">
+            <p class="kicker" data-en="Start with the root">Empieza por la raíz</p>
+            <h2 class="cta__title" data-en="Ready to grow on a firm base?">¿Listo para crecer sobre una base firme?</h2>
+            <p class="cta__sub" data-en="An honest conversation about where your business stands and where the biggest opportunity is. No strings attached.">Una conversación honesta sobre dónde está tu negocio y dónde está la oportunidad más grande. Sin compromiso.</p>
+            <p class="contact__after" data-en="Less time putting out fires, more time on what actually grows your business.">Menos tiempo apagando incendios, más tiempo en lo que de verdad hace crecer tu negocio.</p>
+          </div>
+
+          <form class="contact__form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contacto">
+            <p class="contact__hp"><label>No llenar si eres humano: <input name="bot-field"></label></p>
+            <div class="field">
+              <label for="c-nombre"><span data-en="Name">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="c-nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="c-negocio"><span data-en="Business">Negocio</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="c-negocio" name="negocio" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="c-cargo"><span data-en="Job title">Cargo</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="c-cargo" name="cargo" type="text" autocomplete="organization-title" required>
+            </div>
+            <div class="field">
+              <label for="c-email"><span data-en="Email">Email</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="c-tel" data-en="Phone (optional)">Teléfono (opcional)</label>
+              <input id="c-tel" name="telefono" type="tel" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="c-msg"><span data-en="How can we help you?">¿Cómo podemos ayudarte?</span> <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="c-msg" name="mensaje" rows="3" required></textarea>
+            </div>
+            <label class="check">
+              <input type="checkbox" name="consentimiento" required>
+              <span data-en-html="I have read and accept the <a href='privacidad.html'>Privacy Policy</a>.">He leído y acepto la <a href="privacidad.html">Política de Privacidad</a>.</span>
+            </label>
+            <button class="btn btn--primary contact__submit" type="submit" data-en="Send <span class='arrow'>&rarr;</span>">Enviar <span class="arrow">&rarr;</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         FOOTER
+         ===================================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__top">
+          <div>
+            <a class="brand" href="#top" aria-label="Arraviva — inicio">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/>
+              </svg>
+              <span class="brand__name" style="font-size:19px">Arra<span class="viva">viva</span></span>
+            </a>
+            <p class="footer__tagline" data-en="Growth technology partner. Roots that grow.">Partner tecnológico de crecimiento. Raíz que crece.</p>
+          </div>
+
+          <nav class="footer__nav">
+            <a href="#metodo" data-en="Method">Método</a>
+            <a href="#servicios" data-en="Services">Servicios</a>
+            <a href="#historia" data-en="Story">Historia</a>
+          </nav>
+
+          <div class="footer__right">
+            <a class="footer__social" href="#" data-en="@arraviva">@arraviva</a>
+            <div class="lang" role="group" aria-label="Idioma / Language">
+              <button type="button" class="lang__btn is-active" data-lang="es">ES</button>
+              <button type="button" class="lang__btn" data-lang="en">EN</button>
+            </div>
+          </div>
+        </div>
+        <p class="footer__legal">© 2026 Arraviva · <a href="aviso-legal.html" data-en="Legal notice">Aviso legal</a> · <a href="privacidad.html" data-en="Privacy">Privacidad</a></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

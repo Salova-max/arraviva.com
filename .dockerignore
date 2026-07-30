@@ -1,0 +1,8 @@
+# No copiar a la web archivos que no son del sitio
+Dockerfile
+.dockerignore
+.git
+.gitignore
+Arraviva_Textos_Legales.md
+Fotos placeholder.zip
+*.zip

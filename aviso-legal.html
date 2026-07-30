@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aviso Legal — Arraviva</title>
+  <meta name="description" content="Aviso legal de Arraviva: titular del sitio, condiciones de uso y propiedad intelectual.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F6F1E8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="legal-nav">
+    <a class="brand" href="index.html" aria-label="Arraviva — inicio">
+      <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/>
+      </svg>
+      <span class="brand__name">Arra<span class="viva">viva</span></span>
+    </a>
+    <div class="legal-nav__right">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang__btn is-active" data-legal-lang="es">ES</button>
+        <button type="button" class="lang__btn" data-legal-lang="en">EN</button>
+      </div>
+      <a class="legal-back" href="index.html" data-legal-back>← Volver</a>
+    </div>
+  </header>
+
+  <main class="legal-main">
+
+    <!-- ===================== ESPAÑOL ===================== -->
+    <article class="legal-doc" data-lang-block="es">
+      <h1>Aviso Legal</h1>
+      <p class="legal-updated">Última actualización: 29 de julio de 2026</p>
+
+      <h2>1. Titular</h2>
+      <ul>
+        <li><strong>Titular del sitio:</strong> Santiago Londoño Valencia</li>
+        <li><strong>Domicilio:</strong> Rionegro, Antioquia, Colombia</li>
+        <li><strong>Contacto:</strong> salova5ster@gmail.com</li>
+      </ul>
+
+      <h2>2. Objeto</h2>
+      <p>Este sitio web informa sobre los servicios de Arraviva (consultoría tecnológica: orden de procesos, automatización e inteligencia artificial para el crecimiento de negocios).</p>
+
+      <h2>3. Propiedad intelectual</h2>
+      <p>El nombre «Arraviva», el logo, los textos, el diseño y demás contenidos de este sitio son propiedad de Santiago Londoño Valencia, salvo indicación en contrario. No se permite su reproducción o uso sin autorización previa.</p>
+
+      <h2>4. Responsabilidad</h2>
+      <p>La información se ofrece con fines informativos y no constituye una garantía de resultados específicos. Arraviva no se responsabiliza por el contenido de sitios de terceros enlazados desde esta web.</p>
+
+      <h2>5. Ley aplicable</h2>
+      <p>Este aviso se rige por las leyes de Colombia. Cualquier controversia se someterá a los tribunales competentes de dicha jurisdicción.</p>
+
+      <h2>6. Contacto</h2>
+      <p>Para cualquier consulta: salova5ster@gmail.com.</p>
+
+    </article>
+
+    <!-- ===================== ENGLISH ===================== -->
+    <article class="legal-doc" data-lang-block="en" hidden>
+      <h1>Legal Notice</h1>
+      <p class="legal-updated">Last updated: July 29, 2026</p>
+
+      <h2>1. Owner</h2>
+      <ul>
+        <li><strong>Site owner:</strong> Santiago Londoño Valencia</li>
+        <li><strong>Address:</strong> Rionegro, Antioquia, Colombia</li>
+        <li><strong>Contact:</strong> salova5ster@gmail.com</li>
+      </ul>
+
+      <h2>2. Purpose</h2>
+      <p>This website provides information about Arraviva's services (technology consulting: process order, automation, and AI for business growth).</p>
+
+      <h2>3. Intellectual property</h2>
+      <p>The name “Arraviva”, the logo, texts, design, and other content on this site are the property of Santiago Londoño Valencia unless otherwise stated. Reproduction or use without prior authorization is not permitted.</p>
+
+      <h2>4. Liability</h2>
+      <p>Information is provided for informational purposes and does not guarantee specific results. Arraviva is not responsible for the content of third-party sites linked from this website.</p>
+
+      <h2>5. Governing law</h2>
+      <p>This notice is governed by the laws of Colombia. Any dispute will be submitted to the competent courts of that jurisdiction.</p>
+
+      <h2>6. Contact</h2>
+      <p>For any inquiry: salova5ster@gmail.com.</p>
+
+    </article>
+  </main>
+
+  <script>
+    (function () {
+      var btns = document.querySelectorAll("[data-legal-lang]");
+      var blocks = document.querySelectorAll("[data-lang-block]");
+      var back = document.querySelector("[data-legal-back]");
+      function set(lang) {
+        if (lang !== "es" && lang !== "en") lang = "es";
+        blocks.forEach(function (b) { b.hidden = b.getAttribute("data-lang-block") !== lang; });
+        btns.forEach(function (x) { x.classList.toggle("is-active", x.getAttribute("data-legal-lang") === lang); });
+        if (back) back.textContent = lang === "en" ? "← Back" : "← Volver";
+        document.documentElement.lang = lang;
+        document.title = (lang === "en" ? "Legal Notice" : "Aviso Legal") + " — Arraviva";
+        try { localStorage.setItem("arraviva-lang", lang); } catch (e) {}
+      }
+      btns.forEach(function (x) {
+        x.addEventListener("click", function () { set(x.getAttribute("data-legal-lang")); });
+      });
+      var saved; try { saved = localStorage.getItem("arraviva-lang"); } catch (e) {}
+      set(saved === "en" ? "en" : "es");
+    })();
+  </script>
+</body>
+</html>
