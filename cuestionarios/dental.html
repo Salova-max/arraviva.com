@@ -162,11 +162,12 @@
       <li data-es="Administración, facturación y cumplimiento" data-en="Admin, invoicing and compliance">Administración, facturación y cumplimiento</li>
       <li data-es="Herramientas y automatización" data-en="Tools and automation">Herramientas y automatización</li>
       <li data-es="Objetivos y expectativas" data-en="Goals and expectations">Objetivos y expectativas</li>
+      <li data-es="Accesos, seguridad y respaldo" data-en="Access, security and backup">Accesos, seguridad y respaldo</li>
     </ul>
   </div>
 
   <div class="progress-wrapper">
-    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 12</span></div>
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 13</span></div>
     <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
   </div>
 
@@ -194,8 +195,25 @@
       <div class="field"><label class="field-label"><span data-es="Correo de contacto" data-en="Contact email">Correo de contacto</span> <span class="required">*</span></label>
         <input class="input" type="email" name="Correo de contacto" required data-es-ph="Ej: gerencia@suclinica.com" data-en-ph="e.g. manager@yourclinic.com"></div>
 
+      <div class="field"><label class="field-label"><span data-es="Teléfono / WhatsApp de la clínica" data-en="Clinic phone / WhatsApp">Teléfono / WhatsApp de la clínica</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Teléfono / WhatsApp" required data-es-ph="Ej: +57 300 123 4567" data-en-ph="e.g. +1 305 123 4567"></div>
+
       <div class="field"><label class="field-label" data-es="Ciudad y número de sedes" data-en="City and number of locations">Ciudad y número de sedes</label>
         <input class="input" type="text" name="Ciudad y sedes" data-es-ph="Ej: Medellín, 1 sede / Bogotá, 2 sedes" data-en-ph="e.g. Medellín, 1 location / Bogotá, 2 locations"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hace cuántos años funciona la clínica?" data-en="How many years has the clinic been open?">¿Hace cuántos años funciona la clínica?</label>
+        <input class="input" type="number" name="Años de funcionamiento" placeholder="Ej: 12"></div>
+
+      <div class="field"><label class="field-label" data-es="Enlaces de la clínica" data-en="Clinic links">Enlaces de la clínica</label>
+        <span class="field-hint" data-es="Péguelos tal cual. Nos permiten ver sus reseñas y su presencia real, no una suposición. Si no tienen alguno, déjelo vacío." data-en="Paste them as they are. They let us see your real reviews and presence, not a guess. Leave blank any you don't have.">Péguelos tal cual. Nos permiten ver sus reseñas y su presencia real, no una suposición. Si no tienen alguno, déjelo vacío.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Ficha de Google / Maps" data-en="Google Business / Maps">Ficha de Google / Maps</span><input class="input" type="text" name="Link Google Maps" placeholder="https://maps.app.goo.gl/..."></div>
+          <div class="input-group"><span class="input-group-label" data-es="Instagram" data-en="Instagram">Instagram</span><input class="input" type="text" name="Link Instagram" placeholder="@suclinica"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Facebook" data-en="Facebook">Facebook</span><input class="input" type="text" name="Link Facebook" placeholder="facebook.com/suclinica"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Página web" data-en="Website">Página web</span><input class="input" type="text" name="Link página web" placeholder="www.suclinica.com"></div>
+          <div class="input-group"><span class="input-group-label" data-es="TikTok (si tienen)" data-en="TikTok (if any)">TikTok (si tienen)</span><input class="input" type="text" name="Link TikTok" placeholder="@suclinica"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Doctoralia u otro directorio" data-en="Doctoralia or other directory">Doctoralia u otro directorio</span><input class="input" type="text" name="Link directorio médico" placeholder="doctoralia.com/..."></div>
+        </div></div>
 
       <div class="field"><label class="field-label" data-es="Tu rol en la clínica" data-en="Your role in the clinic">Tu rol en la clínica</label>
         <select class="select" name="Rol">
@@ -220,6 +238,14 @@
       <div class="field"><label class="field-label" data-es="¿Cuántas unidades odontológicas (sillas) tienen?" data-en="How many dental chairs do you have?">¿Cuántas unidades odontológicas (sillas) tienen?</label>
         <input class="input" type="number" name="Número de unidades odontológicas" placeholder="Ej: 4"></div>
 
+      <div class="field"><label class="field-label" data-es="Horario de atención" data-en="Opening hours">Horario de atención</label>
+        <span class="field-hint" data-es="Con esto y el número de sillas calculamos cuánta capacidad tienen y cuánta se está quedando sin usar." data-en="With this and the number of chairs we calculate your real capacity and how much of it is going unused.">Con esto y el número de sillas calculamos cuánta capacidad tienen y cuánta se está quedando sin usar.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Días que atienden por semana" data-en="Days open per week">Días que atienden por semana</span><input class="input" type="number" name="Días de atención por semana" placeholder="Ej: 6"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Hora de apertura" data-en="Opening time">Hora de apertura</span><input class="input" type="text" name="Hora de apertura" placeholder="Ej: 8:00 am"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Hora de cierre" data-en="Closing time">Hora de cierre</span><input class="input" type="text" name="Hora de cierre" placeholder="Ej: 6:00 pm"></div>
+        </div></div>
+
       <div class="field"><label class="field-label" data-es="¿Qué tratamientos ofrecen?" data-en="Which treatments do you offer?">¿Qué tratamientos ofrecen?</label>
         <span class="field-hint" data-es="Marca todos los que apliquen" data-en="Check all that apply">Marca todos los que apliquen</span>
         <div class="checkbox-list">
@@ -238,9 +264,33 @@
       <div class="field"><label class="field-label" data-es="¿Cuál es el tratamiento que más ingresos genera?" data-en="Which treatment generates the most revenue?">¿Cuál es el tratamiento que más ingresos genera?</label>
         <input class="input" type="text" name="Tratamiento más rentable" data-es-ph="Ej: Ortodoncia con alineadores, implantes..." data-en-ph="e.g. Aligner orthodontics, implants..."></div>
 
-      <div class="field"><label class="field-label" data-es="Valor promedio por paciente (ticket medio)" data-en="Average value per patient">Valor promedio por paciente (ticket medio)</label>
-        <span class="field-hint" data-es="En la moneda que seleccionaron arriba. Un estimado está bien." data-en="In the currency selected above. An estimate is fine.">En la moneda que seleccionaron arriba. Un estimado está bien.</span>
-        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Ticket medio por paciente" placeholder="Ej: 800000"></div></div>
+      <div class="info-callout"><p data-es="Los siguientes números son los más importantes de todo el cuestionario. Sin ellos no podemos calcular cuánto dinero se está quedando sobre la mesa. Un estimado honesto vale más que un número exacto que no tienen a la mano." data-en="The following numbers are the most important in the whole questionnaire. Without them we cannot calculate how much money is being left on the table. An honest estimate is worth more than an exact figure you don't have at hand.">Los siguientes números son los más importantes de todo el cuestionario. Sin ellos no podemos calcular cuánto dinero se está quedando sobre la mesa. Un estimado honesto vale más que un número exacto que no tienen a la mano.</p></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Cuánto factura la clínica al mes?" data-en="What is the clinic's monthly revenue?">¿Cuánto factura la clínica al mes?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="En la moneda seleccionada arriba. Si varía mucho de un mes a otro, denos los tres números y trabajamos con el rango." data-en="In the currency selected above. If it varies a lot month to month, give us the three figures and we'll work with the range.">En la moneda seleccionada arriba. Si varía mucho de un mes a otro, denos los tres números y trabajamos con el rango.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Un mes flojo" data-en="A slow month">Un mes flojo</span><input class="input" type="number" name="Facturación mes flojo" placeholder="Ej: 20000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes normal" data-en="An average month">Un mes normal</span><input class="input" type="number" name="Facturación mes normal" placeholder="Ej: 30000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes bueno" data-en="A good month">Un mes bueno</span><input class="input" type="number" name="Facturación mes bueno" placeholder="Ej: 40000000"></div>
+        </div></div>
+
+      <div class="info-callout"><p data-es="Ojo con las dos preguntas que siguen: NO son lo mismo. Una es lo que deja una silla en una sola sesión; la otra es lo que deja un paciente completo a lo largo de todo su tratamiento. Un paciente de ortodoncia puede dejar $4.000.000 en total, repartidos en 20 citas de $200.000. Confundirlas nos haría calcular mal todo el informe." data-en="Careful with the next two questions: they are NOT the same. One is what a chair earns in a single session; the other is what a full patient leaves across their entire treatment. An orthodontics patient may leave $4,000 in total, spread over 20 visits of $200. Mixing them up would make us miscalculate the whole report.">Ojo con las dos preguntas que siguen: <strong>NO son lo mismo</strong>. Una es lo que deja una silla en una sola sesión; la otra es lo que deja un paciente completo a lo largo de todo su tratamiento. Un paciente de ortodoncia puede dejar $4.000.000 en total, repartidos en 20 citas de $200.000. Confundirlas nos haría calcular mal todo el informe.</p></div>
+
+      <div class="field"><label class="field-label" data-es="1) Valor promedio de UNA cita o sesión" data-en="1) Average value of ONE appointment or session">1) Valor promedio de UNA cita o sesión</label>
+        <span class="field-hint" data-es="Lo que entra en caja, en promedio, cada vez que un paciente se sienta en la silla una vez. Este es el número con el que valoramos cada inasistencia." data-en="What comes in, on average, each time a patient sits in the chair once. This is the figure we use to value every no-show.">Lo que entra en caja, en promedio, cada vez que un paciente se sienta en la silla una vez. Este es el número con el que valoramos cada inasistencia.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Valor promedio por cita o sesión" placeholder="Ej: 220000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="2) Valor promedio del PLAN DE TRATAMIENTO completo por paciente" data-en="2) Average value of the COMPLETE TREATMENT PLAN per patient">2) Valor promedio del PLAN DE TRATAMIENTO completo por paciente</label>
+        <span class="field-hint" data-es="Lo que deja un paciente sumando todas sus citas, de principio a fin. Este es el número con el que valoramos cada paciente nuevo que se capta." data-en="What a patient leaves adding up all their visits, start to finish. This is the figure we use to value each new patient acquired.">Lo que deja un paciente sumando todas sus citas, de principio a fin. Este es el número con el que valoramos cada paciente nuevo que se capta.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Valor promedio del plan de tratamiento" placeholder="Ej: 1800000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="Precio de sus tratamientos más pedidos" data-en="Price of your most requested treatments">Precio de sus tratamientos más pedidos</label>
+        <span class="field-hint" data-es="Nos sirve para comparar sus precios con los de la competencia de su zona." data-en="We use this to compare your prices against competitors in your area.">Nos sirve para comparar sus precios con los de la competencia de su zona.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Limpieza / Profilaxis" data-en="Cleaning / Prophylaxis">Limpieza / Profilaxis</span><input class="input" type="number" name="Precio limpieza" placeholder="Ej: 150000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Ortodoncia completa" data-en="Full orthodontics">Ortodoncia completa</span><input class="input" type="number" name="Precio ortodoncia" placeholder="Ej: 4000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Implante unitario" data-en="Single implant">Implante unitario</span><input class="input" type="number" name="Precio implante" placeholder="Ej: 3000000"></div>
+        </div></div>
 
       <div class="field"><label class="field-label" data-es="¿Qué depende de UNA SOLA persona?" data-en="What depends on a SINGLE person?">¿Qué depende de UNA SOLA persona?</label>
         <span class="field-hint" data-es="Si esa persona se enferma o se va, ¿qué se detiene en la clínica?" data-en="If that person gets sick or leaves, what stops at the clinic?">Si esa persona se enferma o se va, ¿qué se detiene en la clínica?</span>
@@ -272,12 +322,16 @@
         </div></div>
 
       <div class="field"><label class="field-label" data-es="Volumen de pacientes" data-en="Patient volume">Volumen de pacientes</label>
-        <span class="field-hint" data-es="Un estimado está bien" data-en="An estimate is fine">Un estimado está bien</span>
+        <span class="field-hint" data-es="Un estimado está bien. Fíjense que pedimos las citas agendadas y las atendidas por separado: la diferencia entre las dos es justamente lo que se está perdiendo." data-en="An estimate is fine. Note we ask for booked and attended appointments separately: the gap between the two is exactly what's being lost.">Un estimado está bien. Fíjense que pedimos las citas agendadas y las atendidas por separado: la diferencia entre las dos es justamente lo que se está perdiendo.</span>
         <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Consultas recibidas / mes" data-en="Enquiries received / month">Consultas recibidas / mes</span><input class="input" type="number" name="Consultas recibidas por mes" placeholder="Ej: 120"></div>
           <div class="input-group"><span class="input-group-label" data-es="Pacientes nuevos / mes" data-en="New patients / month">Pacientes nuevos / mes</span><input class="input" type="number" name="Pacientes nuevos por mes" placeholder="Ej: 40"></div>
-          <div class="input-group"><span class="input-group-label" data-es="Citas atendidas / semana" data-en="Appointments / week">Citas atendidas / semana</span><input class="input" type="number" name="Citas por semana" placeholder="Ej: 120"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Citas AGENDADAS / semana" data-en="Appointments BOOKED / week">Citas AGENDADAS / semana</span><input class="input" type="number" name="Citas agendadas por semana" placeholder="Ej: 150"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Citas ATENDIDAS / semana" data-en="Appointments ATTENDED / week">Citas ATENDIDAS / semana</span><input class="input" type="number" name="Citas atendidas por semana" placeholder="Ej: 120"></div>
           <div class="input-group"><span class="input-group-label" data-es="Pacientes activos (total)" data-en="Active patients (total)">Pacientes activos (total)</span><input class="input" type="number" name="Pacientes activos" placeholder="Ej: 900"></div>
         </div></div>
+
+      <div class="info-callout"><p data-es="«Consultas recibidas» es toda persona que escribió, llamó o preguntó — aunque nunca haya agendado. Casi ninguna clínica lleva ese número, pero es el que revela cuántos pacientes se están perdiendo antes de entrar. Si no lo tienen, pongan su mejor estimado." data-en="'Enquiries received' means everyone who wrote, called or asked — even if they never booked. Almost no clinic tracks this number, but it's the one that reveals how many patients are lost before they even walk in. If you don't have it, give your best estimate.">«Consultas recibidas» es toda persona que escribió, llamó o preguntó — aunque nunca haya agendado. Casi ninguna clínica lleva ese número, pero es el que revela cuántos pacientes se están perdiendo antes de entrar. Si no lo tienen, pongan su mejor estimado.</p></div>
 
       <div class="field"><label class="field-label" data-es="¿Qué canal les trae los MEJORES pacientes?" data-en="Which channel brings the BEST patients?">¿Qué canal les trae los MEJORES pacientes?</label>
         <span class="field-hint" data-es="No el que más trae, sino el que trae los que aceptan mejores tratamientos" data-en="Not the one that brings the most, but the one that brings those who accept bigger treatments">No el que más trae, sino el que trae los que aceptan mejores tratamientos</span>
@@ -613,8 +667,29 @@
           <label class="radio-box"><input type="radio" name="Miden atribución" value="No"><span class="radio-label-text" data-es="No tenemos idea" data-en="We have no idea">No tenemos idea</span></label>
         </div></div>
 
-      <div class="field"><label class="field-label" data-es="¿Tienen página web? ¿Cómo está hoy?" data-en="Do you have a website? How is it today?">¿Tienen página web? ¿Cómo está hoy?</label>
-        <input class="input" type="text" name="Página web" data-es-ph="Ej: www.clinicasonrisa.com, está desactualizada / No tenemos" data-en-ph="e.g. www.smileclinic.com, it's outdated / We don't have one"></div>
+      <div class="field"><label class="field-label" data-es="Si tienen página web, ¿cómo está hoy?" data-en="If you have a website, how is it today?">Si tienen página web, ¿cómo está hoy?</label>
+        <span class="field-hint" data-es="La dirección ya nos la dieron arriba. Aquí queremos su opinión sincera sobre ella." data-en="You already gave us the address above. Here we want your honest opinion about it.">La dirección ya nos la dieron arriba. Aquí queremos su opinión sincera sobre ella.</span>
+        <input class="input" type="text" name="Estado de la página web" data-es-ph="Ej: Está desactualizada, no la tocamos hace 3 años / No tenemos" data-en-ph="e.g. It's outdated, we haven't touched it in 3 years / We don't have one"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cada cuánto publican en redes sociales?" data-en="How often do you post on social media?">¿Cada cuánto publican en redes sociales?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Diaria"><span class="radio-label-text" data-es="Casi a diario" data-en="Almost daily">Casi a diario</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Semanal"><span class="radio-label-text" data-es="Varias veces por semana" data-en="Several times a week">Varias veces por semana</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Esporádica"><span class="radio-label-text" data-es="Cuando nos acordamos" data-en="When we remember">Cuando nos acordamos</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Inactivo"><span class="radio-label-text" data-es="Están abandonadas" data-en="They're abandoned">Están abandonadas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen fotos de casos propios (antes y después)?" data-en="Do you have photos of your own cases (before and after)?">¿Tienen fotos de casos propios (antes y después)?</label>
+        <span class="field-hint" data-es="Sin material propio no se puede hacer buen contenido. Y sin permiso firmado del paciente, no se puede publicar aunque exista." data-en="Without your own material there's no good content. And without the patient's signed consent, it can't be published even if it exists.">Sin material propio no se puede hacer buen contenido. Y sin permiso firmado del paciente, no se puede publicar aunque exista.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fotos de casos" value="Sí con permiso"><span class="radio-label-text" data-es="Sí, y con permiso del paciente" data-en="Yes, and with patient consent">Sí, y con permiso del paciente</span></label>
+          <label class="radio-box"><input type="radio" name="Fotos de casos" value="Sí sin permiso"><span class="radio-label-text" data-es="Sí, pero sin permiso firmado" data-en="Yes, but without signed consent">Sí, pero sin permiso firmado</span></label>
+          <label class="radio-box"><input type="radio" name="Fotos de casos" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have any">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿A quiénes consideran su competencia directa?" data-en="Who do you consider your direct competitors?">¿A quiénes consideran su competencia directa?</label>
+        <span class="field-hint" data-es="Dos o tres nombres. Nos interesa a quién ven ustedes como rival, que no siempre coincide con lo que dice Google." data-en="Two or three names. We want to know who you see as a rival, which isn't always what Google says.">Dos o tres nombres. Nos interesa a quién ven ustedes como rival, que no siempre coincide con lo que dice Google.</span>
+        <textarea class="textarea" name="Competidores percibidos" data-es-ph="Ej: Clínica Dental Norte (a dos cuadras, siempre llena), Sonrisa Perfecta (hacen mucha publicidad en Instagram)..." data-en-ph="e.g. North Dental Clinic (two blocks away, always full), Perfect Smile (they advertise heavily on Instagram)..."></textarea></div>
     </div>
 
     <!-- ===== 09 ===== -->
@@ -664,6 +739,35 @@
           <label class="radio-box"><input type="radio" name="Protección de datos" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have one">No tenemos</span></label>
         </div></div>
 
+      <div class="field"><label class="field-label" data-es="¿Los procesos de la clínica están escritos en alguna parte?" data-en="Are the clinic's procedures written down anywhere?">¿Los procesos de la clínica están escritos en alguna parte?</label>
+        <span class="field-hint" data-es="Por ejemplo: un manual de cómo recibir a un paciente nuevo, cómo cobrar, cómo agendar. Si entra alguien nuevo mañana, ¿tiene algo que leer o aprende mirando?" data-en="For example: a manual on how to receive a new patient, how to charge, how to book. If someone new starts tomorrow, do they have something to read or do they learn by watching?">Por ejemplo: un manual de cómo recibir a un paciente nuevo, cómo cobrar, cómo agendar. Si entra alguien nuevo mañana, ¿tiene algo que leer o aprende mirando?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Documentados"><span class="radio-label-text" data-es="Sí, están documentados" data-en="Yes, they're documented">Sí, están documentados</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Algunos"><span class="radio-label-text" data-es="Algunos sí, otros no" data-en="Some yes, some no">Algunos sí, otros no</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="No"><span class="radio-label-text" data-es="No, están en la cabeza de cada quien" data-en="No, they live in people's heads">No, están en la cabeza de cada quien</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo se aprueban los descuentos, los planes grandes y las compras?" data-en="How are discounts, large treatment plans and purchases approved?">¿Cómo se aprueban los descuentos, los planes grandes y las compras?</label>
+        <span class="field-hint" data-es="Quién da el visto bueno y cómo queda registrado." data-en="Who signs off and how it's recorded.">Quién da el visto bueno y cómo queda registrado.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Digital"><span class="radio-label-text" data-es="Queda registro digital" data-en="Digital record is kept">Queda registro digital</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Verbal"><span class="radio-label-text" data-es="De palabra, sin registro" data-en="Verbally, no record">De palabra, sin registro</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Sin regla"><span class="radio-label-text" data-es="No hay una regla clara" data-en="There's no clear rule">No hay una regla clara</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué números revisan hoy para saber cómo va la clínica?" data-en="Which numbers do you review today to know how the clinic is doing?">¿Qué números revisan hoy para saber cómo va la clínica?</label>
+        <span class="field-hint" data-es="Marca los que miran de verdad, no los que les gustaría mirar" data-en="Check the ones you actually look at, not the ones you'd like to">Marca los que miran de verdad, no los que les gustaría mirar</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ingresos"><span class="checkbox-text" data-es="Ingresos del mes" data-en="Monthly revenue">Ingresos del mes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Pacientes nuevos"><span class="checkbox-text" data-es="Pacientes nuevos" data-en="New patients">Pacientes nuevos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Inasistencias"><span class="checkbox-text" data-es="Inasistencias" data-en="No-shows">Inasistencias</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ocupación"><span class="checkbox-text" data-es="Ocupación de la agenda" data-en="Schedule occupancy">Ocupación de la agenda</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Aceptación"><span class="checkbox-text" data-es="Aceptación de presupuestos" data-en="Treatment plan acceptance">Aceptación de presupuestos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Cartera"><span class="checkbox-text" data-es="Cartera / Cuentas por cobrar" data-en="Outstanding payments">Cartera / Cuentas por cobrar</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Reseñas"><span class="checkbox-text" data-es="Reseñas y calificación de Google" data-en="Google reviews and rating">Reseñas y calificación de Google</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ninguno"><span class="checkbox-text" data-es="Ninguno de forma constante" data-en="None on a regular basis">Ninguno de forma constante</span></label>
+        </div></div>
+
       <div class="field"><label class="field-label" data-es="¿Qué tareas administrativas les consumen más tiempo?" data-en="Which administrative tasks consume the most time?">¿Qué tareas administrativas les consumen más tiempo?</label>
         <textarea class="textarea" name="Tareas administrativas pesadas" data-es-ph="Ej:
 • Llamar uno por uno para confirmar las citas del día siguiente
@@ -704,6 +808,10 @@
           <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Agenda de papel"><span class="checkbox-text" data-es="Agenda de papel" data-en="Paper agenda">Agenda de papel</span></label>
         </div></div>
 
+      <div class="field"><label class="field-label" data-es="¿Cuánto pagan al mes por todo el software que usan?" data-en="How much do you pay monthly for all the software you use?">¿Cuánto pagan al mes por todo el software que usan?</label>
+        <span class="field-hint" data-es="Sumen licencias del software odontológico, facturación, almacenamiento en la nube y cualquier suscripción. Sin este dato no podemos decirles si lo que pagan hoy se justifica." data-en="Add up dental software licences, invoicing, cloud storage and any subscription. Without this we can't tell you whether what you pay today is justified.">Sumen licencias del software odontológico, facturación, almacenamiento en la nube y cualquier suscripción. Sin este dato no podemos decirles si lo que pagan hoy se justifica.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual de software" placeholder="Ej: 450000"></div></div>
+
       <div class="field"><label class="field-label" data-es="¿Las herramientas están conectadas entre sí?" data-en="Are the tools connected to each other?">¿Las herramientas están conectadas entre sí?</label>
         <span class="field-hint" data-es="Por ejemplo: que al agendar una cita se cree sola la factura o el recordatorio" data-en="For example: booking an appointment automatically creates the invoice or reminder">Por ejemplo: que al agendar una cita se cree sola la factura o el recordatorio</span>
         <div class="radio-grid radio-grid-3">
@@ -719,8 +827,7 @@
         </div></div>
 
       <div class="conditional" data-show-when="Tiene automatización=Sí">
-        <div class="conditional-title" data-es="¿Qué tienen automatizado?" data-en="What is automated?">¿Qué tienen automatizado?</div>
-        <div class="field"><div class="checkbox-list">
+        <div class="field"><label class="field-label" data-es="¿Qué tienen automatizado?" data-en="What is automated?">¿Qué tienen automatizado?</label><div class="checkbox-list">
           <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Recordatorio de citas"><span class="checkbox-text" data-es="Recordatorios de citas" data-en="Appointment reminders">Recordatorios de citas</span></label>
           <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Confirmación automática"><span class="checkbox-text" data-es="Confirmación automática de citas" data-en="Automatic appointment confirmation">Confirmación automática de citas</span></label>
           <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Respuestas automáticas"><span class="checkbox-text" data-es="Respuestas automáticas en WhatsApp" data-en="Automatic WhatsApp replies">Respuestas automáticas en WhatsApp</span></label>
@@ -731,8 +838,7 @@
       </div>
 
       <div class="conditional" data-show-when="Tiene automatización=No">
-        <div class="conditional-title" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</div>
-        <div class="field"><div class="checkbox-list">
+        <div class="field"><label class="field-label" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</label><div class="checkbox-list">
           <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Tiempo"><span class="checkbox-text" data-es="Falta de tiempo" data-en="Lack of time">Falta de tiempo</span></label>
           <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No sabemos"><span class="checkbox-text" data-es="No sabemos cómo" data-en="We don't know how">No sabemos cómo</span></label>
           <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Presupuesto"><span class="checkbox-text" data-es="Por presupuesto" data-en="Budget">Por presupuesto</span></label>
@@ -785,12 +891,20 @@
       <div class="field"><label class="field-label" data-es="¿Cuál es su meta para los próximos 12 meses?" data-en="What is your goal for the next 12 months?">¿Cuál es su meta para los próximos 12 meses?</label>
         <textarea class="textarea" name="Meta a 12 meses" data-es-ph="Ej: Llenar la agenda de los dos odontólogos nuevos, abrir una segunda sede, subir la aceptación de ortodoncia..." data-en-ph="e.g. Fill the schedule of the two new dentists, open a second location, increase orthodontics acceptance..."></textarea></div>
 
+      <div class="field"><label class="field-label" data-es="Esa meta, ¿en cuánto se traduce al mes?" data-en="What does that goal translate to per month?">Esa meta, ¿en cuánto se traduce al mes?</label>
+        <span class="field-hint" data-es="Cuánto querrían estar facturando dentro de un año. Con este número podemos decirles si la meta es alcanzable con la capacidad que tienen hoy." data-en="How much you'd like to be billing a year from now. With this figure we can tell you whether the goal is reachable with your current capacity.">Cuánto querrían estar facturando dentro de un año. Con este número podemos decirles si la meta es alcanzable con la capacidad que tienen hoy.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Meta de facturación mensual a 12 meses" placeholder="Ej: 50000000"></div></div>
+
       <div class="field"><label class="field-label" data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define the success of this audit?">¿Cómo definirían el éxito de este diagnóstico?</label>
         <textarea class="textarea" name="Criterios de éxito" data-es-ph="Ej: Bajar las inasistencias a la mitad, que no se nos quede ningún mensaje sin responder, saber por fin de dónde llegan los pacientes..." data-en-ph="e.g. Cut no-shows in half, never leave a message unanswered, finally know where patients come from..."></textarea></div>
 
       <div class="field"><label class="field-label" data-es="¿Cuánto podrían invertir al mes en mejorar esto?" data-en="How much could you invest monthly to improve this?">¿Cuánto podrían invertir al mes en mejorar esto?</label>
         <span class="field-hint" data-es="En la moneda seleccionada arriba. Nos ayuda a proponerles algo realista." data-en="In the currency selected above. It helps us propose something realistic.">En la moneda seleccionada arriba. Nos ayuda a proponerles algo realista.</span>
         <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Presupuesto mensual para mejoras" placeholder="Ej: 2000000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué NO están dispuestos a automatizar o cambiar?" data-en="What are you NOT willing to automate or change?">¿Qué NO están dispuestos a automatizar o cambiar?</label>
+        <span class="field-hint" data-es="Dígannoslo desde ahora. Preferimos saber sus límites antes de proponerles algo que no van a aceptar." data-en="Tell us up front. We'd rather know your limits before proposing something you won't accept.">Dígannoslo desde ahora. Preferimos saber sus límites antes de proponerles algo que no van a aceptar.</span>
+        <textarea class="textarea" name="Qué no automatizar" data-es-ph="Ej: No quiero que un robot le hable a mis pacientes, la primera respuesta siempre la da una persona. No quiero cambiar de software odontológico. No quiero descuentos automáticos..." data-en-ph="e.g. I don't want a robot talking to my patients, a person always answers first. I don't want to change dental software. No automatic discounts..."></textarea></div>
 
       <div class="field"><label class="field-label" data-es="¿Cómo reacciona el equipo ante cambios y herramientas nuevas?" data-en="How does the team react to change and new tools?">¿Cómo reacciona el equipo ante cambios y herramientas nuevas?</label>
         <div class="radio-grid">
@@ -799,6 +913,83 @@
           <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Hay resistencia"><span class="radio-label-text" data-es="Hay resistencia" data-en="There's resistance">Hay resistencia</span></label>
           <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="No lo sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
         </div></div>
+    </div>
+
+    <!-- ===== 12 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">12</span>
+        <div class="card-title">
+          <h2 data-es="Accesos, Seguridad y Respaldo" data-en="Access, Security and Backup">Accesos, Seguridad y Respaldo</h2>
+          <p data-es="Quién controla las cuentas y qué pasaría si algo falla" data-en="Who controls the accounts and what would happen if something failed">Quién controla las cuentas y qué pasaría si algo falla</p></div></div>
+
+      <div class="info-callout"><p data-es="Esta sección no es un trámite. En una clínica viven las historias clínicas, la agenda y los datos de miles de pacientes. Antes de proponerles cualquier mejora necesitamos saber qué se puede tocar sin ponerlos en riesgo. Si no saben la respuesta a algo, «no sé» también es una respuesta útil." data-en="This section isn't a formality. A clinic holds medical records, the schedule and the data of thousands of patients. Before proposing any improvement we need to know what can be touched without putting you at risk. If you don't know an answer, 'I don't know' is a useful answer too.">Esta sección no es un trámite. En una clínica viven las historias clínicas, la agenda y los datos de miles de pacientes. Antes de proponerles cualquier mejora necesitamos saber qué se puede tocar sin ponerlos en riesgo. Si no saben la respuesta a algo, «no sé» también es una respuesta útil.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?" data-en="Which of these accounts do you currently have the username and password for?">¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?</label>
+        <span class="field-hint" data-es="Marca solo las que realmente podrían abrir hoy mismo" data-en="Check only the ones you could actually open right now">Marca solo las que realmente podrían abrir hoy mismo</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Google Business"><span class="checkbox-text" data-es="Perfil de Google Business" data-en="Google Business Profile">Perfil de Google Business</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Instagram"><span class="checkbox-text" data-es="Instagram" data-en="Instagram">Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Facebook"><span class="checkbox-text" data-es="Facebook" data-en="Facebook">Facebook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp de la clínica" data-en="Clinic WhatsApp">WhatsApp de la clínica</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Cuenta publicitaria"><span class="checkbox-text" data-es="Cuenta publicitaria de Meta / Google Ads" data-en="Meta / Google Ads account">Cuenta publicitaria de Meta / Google Ads</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Dominio y hosting"><div class="checkbox-content"><span class="checkbox-text" data-es="Dominio y hosting de la web" data-en="Website domain and hosting">Dominio y hosting de la web</span><span class="checkbox-desc" data-es="Dónde está registrada y alojada la página" data-en="Where the site is registered and hosted">Dónde está registrada y alojada la página</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Software odontológico"><span class="checkbox-text" data-es="Software odontológico (cuenta de administrador)" data-en="Dental software (admin account)">Software odontológico (cuenta de administrador)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Ninguna"><span class="checkbox-text" data-es="Ninguna, las maneja alguien externo" data-en="None, someone external manages them">Ninguna, las maneja alguien externo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿A nombre de quién están esas cuentas?" data-en="Whose name are those accounts under?">¿A nombre de quién están esas cuentas?</label>
+        <span class="field-hint" data-es="Si están a nombre de un ex empleado o de una agencia anterior, es importante saberlo ya." data-en="If they're under a former employee's or a previous agency's name, it's important to know now.">Si están a nombre de un ex empleado o de una agencia anterior, es importante saberlo ya.</span>
+        <textarea class="textarea" name="Titular de las cuentas" data-es-ph="Ej: Todas a nombre de la doctora dueña, con su correo personal. La web la montó un primo y no sabemos dónde está el dominio..." data-en-ph="e.g. All under the owner dentist's personal email. The website was built by a cousin and we don't know where the domain is..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay más de una persona con acceso de administrador a esas cuentas?" data-en="Is there more than one person with admin access to those accounts?">¿Hay más de una persona con acceso de administrador a esas cuentas?</label>
+        <span class="field-hint" data-es="Si solo hay una y esa persona no está disponible, la clínica se queda sin control de su presencia digital." data-en="If there's only one and that person isn't available, the clinic loses control of its digital presence.">Si solo hay una y esa persona no está disponible, la clínica se queda sin control de su presencia digital.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Sí"><span class="radio-label-text" data-es="Sí, hay varios" data-en="Yes, there are several">Sí, hay varios</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Solo una"><span class="radio-label-text" data-es="No, solo una persona" data-en="No, just one person">No, solo una persona</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Comparten contraseñas entre el equipo?" data-en="Do you share passwords across the team?">¿Comparten contraseñas entre el equipo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Gestor"><span class="radio-label-text" data-es="No, cada quien tiene la suya" data-en="No, everyone has their own">No, cada quien tiene la suya</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Algunas"><span class="radio-label-text" data-es="Algunas se comparten" data-en="Some are shared">Algunas se comparten</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Todas"><span class="radio-label-text" data-es="Sí, son las mismas para todos" data-en="Yes, the same for everyone">Sí, son las mismas para todos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿El software odontológico tiene copia de seguridad?" data-en="Does the dental software have a backup?">¿El software odontológico tiene copia de seguridad?</label>
+        <span class="field-hint" data-es="Que esté «en la nube» no significa que esté respaldado. La pregunta real es si alguien ha comprobado alguna vez que los datos se pueden recuperar." data-en="Being 'in the cloud' doesn't mean it's backed up. The real question is whether anyone has ever verified the data can be restored.">Que esté «en la nube» no significa que esté respaldado. La pregunta real es si alguien ha comprobado alguna vez que los datos se pueden recuperar.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Copia de seguridad del software" value="Sí probada"><span class="radio-label-text" data-es="Sí, y se ha probado" data-en="Yes, and it's been tested">Sí, y se ha probado</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad del software" value="Suponemos"><span class="radio-label-text" data-es="Suponemos que sí, nunca se ha probado" data-en="We assume so, never tested">Suponemos que sí, nunca se ha probado</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad del software" value="No sé"><span class="radio-label-text" data-es="No lo sabemos" data-en="We don't know">No lo sabemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Si dejaran de pagar ese software, ¿podrían sacar sus propios datos?" data-en="If you stopped paying for that software, could you export your own data?">Si dejaran de pagar ese software, ¿podrían sacar sus propios datos?</label>
+        <span class="field-hint" data-es="Historias clínicas, agenda y base de pacientes. Es la pregunta que casi nadie le hace al proveedor hasta que es tarde." data-en="Clinical records, schedule and patient base. It's the question almost nobody asks the provider until it's too late.">Historias clínicas, agenda y base de pacientes. Es la pregunta que casi nadie le hace al proveedor hasta que es tarde.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="Sí"><span class="radio-label-text" data-es="Sí, se pueden exportar" data-en="Yes, they can be exported">Sí, se pueden exportar</span></label>
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="No"><span class="radio-label-text" data-es="No, quedarían allí" data-en="No, they'd stay there">No, quedarían allí</span></label>
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="No sé"><span class="radio-label-text" data-es="Nunca lo hemos preguntado" data-en="We've never asked">Nunca lo hemos preguntado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Está activada la copia de seguridad del WhatsApp de la clínica?" data-en="Is the backup enabled on the clinic's WhatsApp?">¿Está activada la copia de seguridad del WhatsApp de la clínica?</label>
+        <span class="field-hint" data-es="Si ese teléfono se pierde o se daña, las conversaciones con los pacientes se van con él." data-en="If that phone is lost or breaks, the conversations with patients go with it.">Si ese teléfono se pierde o se daña, las conversaciones con los pacientes se van con él.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="Sí"><span class="radio-label-text" data-es="Sí, está activada" data-en="Yes, it's enabled">Sí, está activada</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No sé"><span class="radio-label-text" data-es="No lo sabemos" data-en="We don't know">No lo sabemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="El consentimiento que firman los pacientes, ¿autoriza enviarles comunicaciones?" data-en="Does the consent patients sign authorize sending them communications?">El consentimiento que firman los pacientes, ¿autoriza enviarles comunicaciones?</label>
+        <span class="field-hint" data-es="Guardar los datos para atender a un paciente y usarlos para invitarlo a volver son cosas distintas ante la ley. De esto depende que podamos proponerles recordatorios de control y campañas de reactivación." data-en="Storing data to treat a patient and using it to invite them back are legally different things. Whether we can propose recall reminders and reactivation campaigns depends on this.">Guardar los datos para atender a un paciente y usarlos para invitarlo a volver son cosas distintas ante la ley. De esto depende que podamos proponerles recordatorios de control y campañas de reactivación.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="Sí"><span class="radio-label-text" data-es="Sí, lo contempla" data-en="Yes, it covers it">Sí, lo contempla</span></label>
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="No"><span class="radio-label-text" data-es="No lo contempla" data-en="It doesn't cover it">No lo contempla</span></label>
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="No sé"><span class="radio-label-text" data-es="No lo hemos revisado" data-en="We haven't checked">No lo hemos revisado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién puede autorizar que un proveedor externo tenga acceso a sus sistemas?" data-en="Who can authorize an external provider to access your systems?">¿Quién puede autorizar que un proveedor externo tenga acceso a sus sistemas?</label>
+        <input class="input" type="text" name="Quién autoriza accesos" data-es-ph="Ej: Solo la doctora dueña / La administradora también puede" data-en-ph="e.g. Only the owner dentist / The administrator can too"></div>
     </div>
 
     <!-- ===== EXTRA ===== -->
