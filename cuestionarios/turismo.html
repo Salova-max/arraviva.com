@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Cuestionario Empresa de Turismo · Diagnóstico</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+  /* =========================================================
+     DIAGNÓSTICO PARA EMPRESAS DE TURISMO
+     Tours, experiencias y alojamiento
+     Branding Arraviva · Bilingüe ES/EN · Envío simple
+     Config abajo del todo: EMAIL_DESTINO
+     ========================================================= */
+  :root{
+    --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+    --text:#17201b; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+    --ok:#2F6B4F; --req:#2F6B4F; --tierra:#2F6B4F; --savia:#2F6B4F; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.6;}
+  h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-weight:600;}
+  .wrap{max-width:840px; margin:0 auto; padding:22px 18px 90px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 26px; flex-wrap:wrap}
+  .brand-name{font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:20px; color:var(--text); letter-spacing:.2px}
+  .header-right{display:flex; align-items:center; gap:10px}
+  .tag{font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--card)}
+  .lang-toggle button{border:none; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; cursor:pointer}
+  .lang-toggle button.active{background:var(--accent); color:#fff}
+  .hero-badge{display:inline-block; font-size:12px; font-weight:700; color:var(--tierra); background:#EAF0EB; padding:6px 12px; border-radius:999px; margin-bottom:14px}
+  h1{font-size:31px; margin:0 0 10px; letter-spacing:-.01em}
+  .subtitle{color:var(--muted); margin:0 0 22px; font-size:16px}
+  .intro-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px}
+  .intro-box h3{margin:0 0 8px; font-size:17px}
+  .intro-box p{margin:0 0 12px; color:var(--muted); font-size:14px}
+  .intro-list{display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; margin:0; padding:0; list-style:none}
+  .intro-list li{color:var(--muted); font-size:13px; padding-left:16px; position:relative}
+  .intro-list li::before{content:"›"; position:absolute; left:0; color:var(--accent); font-weight:700}
+  @media(max-width:560px){.intro-list{grid-template-columns:1fr}}
+  .progress-wrapper{margin:6px 0 24px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5}
+  .progress-info{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:6px}
+  .progress-track{height:8px; background:var(--card-2); border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+  .form-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:16px}
+  .card-header{display:flex; gap:14px; align-items:flex-start; margin-bottom:6px}
+  .card-number{min-width:42px; height:42px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; font-weight:800; font-size:15px}
+  .card-title h2{margin:0; font-size:19px}
+  .card-title p{margin:3px 0 0; color:var(--muted); font-size:14px}
+  .field{margin-top:18px}
+  .field-label{display:block; font-weight:600; margin-bottom:4px}
+  .required{color:var(--req)}
+  .field-hint{display:block; color:var(--muted); font-size:13px; margin-bottom:8px}
+  .input,.textarea,.select{width:100%; background:var(--card-2); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:12px 13px; font-size:15px; font-family:inherit}
+  .textarea{min-height:96px; resize:vertical}
+  .input:focus,.textarea:focus,.select:focus{outline:2px solid var(--accent); border-color:var(--accent)}
+  .radio-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .radio-grid-2{grid-template-columns:1fr 1fr}
+  .radio-grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:560px){.radio-grid,.radio-grid-2,.radio-grid-3{grid-template-columns:1fr 1fr}}
+  .radio-box{display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:14px 10px; cursor:pointer; transition:.15s}
+  .radio-box:hover{border-color:var(--accent)}
+  .radio-box input{display:none}
+  .radio-box:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .radio-label-text{font-weight:600; font-size:14px}
+  .radio-desc{font-size:12px; color:var(--muted)}
+  .checkbox-list{display:grid; gap:10px}
+  .checkbox-option{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:13px 14px; cursor:pointer; transition:.15s}
+  .checkbox-option:hover{border-color:var(--accent)}
+  .checkbox-option:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .checkbox-option input{margin-top:3px; width:18px; height:18px; accent-color:var(--accent); flex:none}
+  .checkbox-text{font-weight:600; display:block}
+  .checkbox-desc{font-size:12px; color:var(--muted); display:block; margin-top:2px}
+  .info-callout{background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:14px; margin:14px 0 4px; color:var(--muted); font-size:14px}
+  .info-callout p{margin:0}
+  .input-grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  @media(max-width:560px){.input-grid-3{grid-template-columns:1fr}}
+  .input-group-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+  .icon-input{display:flex; align-items:center; background:var(--card-2); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+  .icon-input:focus-within{outline:2px solid var(--accent); border-color:var(--accent)}
+  .cur-symbol{padding:0 12px; color:var(--muted); font-weight:700}
+  .icon-input .input{border:none; background:transparent; outline:none}
+  .toolbar{display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:16px}
+  .toolbar label{font-weight:600; font-size:14px}
+  .toolbar .select{max-width:240px}
+  .conditional{display:none; border-left:2px solid var(--accent); padding-left:14px; margin-top:10px}
+  .conditional.show{display:block}
+  .conditional-title{font-size:13px; font-weight:700; color:var(--accent); margin-top:8px}
+  .submit-section{margin-top:12px}
+  .submit-btn{width:100%; border:none; cursor:pointer; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:16px; border-radius:12px; font-family:inherit}
+  .submit-btn:hover{opacity:.93}
+  .result{display:none; text-align:center; padding:10px 0}
+  .result.show{display:block}
+  .result .check{width:66px; height:66px; margin:0 auto 14px; border-radius:50%; background:var(--ok); display:grid; place-items:center; color:#fff; font-size:34px}
+  .result h2{margin:0 0 6px}
+  .result p{color:var(--muted); max-width:540px; margin:0 auto 18px}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:18px}
+  .btn{border:1px solid var(--border); background:var(--card-2); color:var(--text); padding:12px 18px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; font-family:inherit}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn:hover{opacity:.9}
+  .preview{text-align:left; background:var(--card-2); border:1px solid var(--border); border-radius:10px; padding:14px; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:13px; max-height:320px; overflow:auto; color:var(--muted)}
+</style>
+<style>
+#q-gate{position:fixed;inset:0;z-index:99999;background:#f6f1e8;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif}
+#q-gate.q-unlocked{display:none}
+.q-gate__card{width:100%;max-width:380px;background:#fff;border:1px solid #e2dccf;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 1px 2px rgba(23,32,27,.04),0 12px 28px -16px rgba(23,32,27,.2)}
+.q-gate__logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px}
+.q-gate__logo .brand-name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#1e3a31}
+.q-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1e3a31;margin:0 0 8px}
+.q-gate__sub{font-size:14.5px;line-height:1.5;color:#47544A;margin:0 0 22px}
+#q-gate__input{width:100%;box-sizing:border-box;background:#fbf8f1;border:1px solid #e2dccf;border-radius:10px;padding:13px 15px;font-size:15px;font-family:inherit;color:#17201b;text-align:center}
+#q-gate__input:focus{outline:none;border-color:#2F6B4F}
+#q-gate__btn{width:100%;margin-top:12px;border:none;cursor:pointer;background:#1e3a31;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:10px;font-family:inherit}
+#q-gate__btn:hover{background:#2F6B4F}
+#q-gate__error{margin:14px 0 0;font-size:13px;color:#2F6B4F;font-weight:600}
+.viva{color:#2F6B4F}
+</style>
+</head>
+<body>
+<div id="q-gate">
+  <div class="q-gate__card">
+    <div class="q-gate__logo"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name">Arra<span class="viva">viva</span></span></div>
+    <h1 class="q-gate__title">Cuestionario privado</h1>
+    <p class="q-gate__sub">Introduce la clave de acceso que te compartimos para continuar.</p>
+    <form id="q-gate__form" autocomplete="off">
+      <input id="q-gate__input" type="password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+      <button id="q-gate__btn" type="submit">Entrar &rarr;</button>
+      <p id="q-gate__error" hidden>Clave incorrecta. Vuelve a intentarlo.</p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-slot" style="display:flex;align-items:center;gap:9px"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#1e3a31">Arra<span class="viva">viva</span></span></div>
+    <div class="header-right">
+      <span class="tag" data-es="Fase de Incorporación" data-en="Onboarding Phase">Fase de Incorporación</span>
+      <div class="lang-toggle">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <span class="hero-badge" data-es="Diagnóstico" data-en="Audit">Diagnóstico</span>
+  <h1 data-es="Diagnóstico para Empresas de Turismo" data-en="Tourism Business Audit">Diagnóstico para Empresas de Turismo</h1>
+  <p class="subtitle" data-es="Este cuestionario nos permite entender cómo funciona su operación hoy: cómo llegan los viajeros, cómo se reserva, cómo se manejan los cupos entre plataformas, cómo se entrega la experiencia y dónde se está perdiendo tiempo o dinero. Con eso preparamos un plan concreto de mejora y automatización." data-en="This questionnaire helps us understand how your operation works today: how travellers find you, how they book, how availability is managed across platforms, how the experience is delivered and where time or money is being lost. With that we prepare a concrete improvement and automation plan.">Este cuestionario nos permite entender cómo funciona su operación hoy: cómo llegan los viajeros, cómo se reserva, cómo se manejan los cupos entre plataformas, cómo se entrega la experiencia y dónde se está perdiendo tiempo o dinero. Con eso preparamos un plan concreto de mejora y automatización.</p>
+
+  <div class="intro-box">
+    <h3 data-es="¿Qué información necesitamos?" data-en="What information do we need?">¿Qué información necesitamos?</h3>
+    <p data-es="No hay respuestas correctas ni incorrectas. Entre más honesto sea, mejor será el diagnóstico. Si algo no lo sabe con exactitud, ponga un estimado — es preferible a dejarlo vacío." data-en="There are no right or wrong answers. The more honest you are, the better the diagnosis. If you don't know something exactly, give an estimate — that's better than leaving it blank.">No hay respuestas correctas ni incorrectas. Entre más honesto sea, mejor será el diagnóstico. Si algo no lo sabe con exactitud, ponga un estimado — es preferible a dejarlo vacío.</p>
+    <ul class="intro-list">
+      <li data-es="Datos del negocio y equipo" data-en="Business details and team">Datos del negocio y equipo</li>
+      <li data-es="Experiencias, capacidad y números" data-en="Experiences, capacity and numbers">Experiencias, capacidad y números</li>
+      <li data-es="Canales y plataformas de venta" data-en="Sales channels and platforms">Canales y plataformas de venta</li>
+      <li data-es="Calendario y disponibilidad" data-en="Calendar and availability">Calendario y disponibilidad</li>
+      <li data-es="Primer contacto y reservas" data-en="First contact and bookings">Primer contacto y reservas</li>
+      <li data-es="Pagos, anticipos y cancelaciones" data-en="Payments, deposits and cancellations">Pagos, anticipos y cancelaciones</li>
+      <li data-es="Alojamiento (si aplica)" data-en="Accommodation (if applicable)">Alojamiento (si aplica)</li>
+      <li data-es="El día de la experiencia" data-en="The day of the experience">El día de la experiencia</li>
+      <li data-es="Marketing, contenido y reseñas" data-en="Marketing, content and reviews">Marketing, contenido y reseñas</li>
+      <li data-es="Administración y normativa turística" data-en="Admin and tourism regulations">Administración y normativa turística</li>
+      <li data-es="Herramientas y automatización" data-en="Tools and automation">Herramientas y automatización</li>
+      <li data-es="Objetivos y expectativas" data-en="Goals and expectations">Objetivos y expectativas</li>
+      <li data-es="Accesos, seguridad y respaldo" data-en="Access, security and backup">Accesos, seguridad y respaldo</li>
+    </ul>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 14</span></div>
+    <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+  </div>
+
+  <form id="form">
+
+    <div class="toolbar">
+      <label for="currency" data-es="Moneda con la que trabajan:" data-en="Currency you work with:">Moneda con la que trabajan:</label>
+      <select class="select" id="currency" name="Moneda">
+        <option value="COP" data-es="COP — Peso colombiano ($)" data-en="COP — Colombian Peso ($)">COP — Peso colombiano ($)</option>
+        <option value="USD" data-es="USD — Dólar ($)" data-en="USD — Dollar ($)">USD — Dólar ($)</option>
+        <option value="EUR" data-es="EUR — Euro (€)" data-en="EUR — Euro (€)">EUR — Euro (€)</option>
+      </select>
+    </div>
+
+    <!-- ===== 01 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">01</span>
+        <div class="card-title">
+          <h2 data-es="Datos del Negocio y Equipo" data-en="Business Details and Team">Datos del Negocio y Equipo</h2>
+          <p data-es="Información básica para entender el tamaño y la estructura" data-en="Basic information to understand size and structure">Información básica para entender el tamaño y la estructura</p></div></div>
+
+      <div class="field"><label class="field-label"><span data-es="Nombre del negocio" data-en="Business name">Nombre del negocio</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Nombre del negocio" required data-es-ph="Ej: Monte y Panela" data-en-ph="e.g. Monte y Panela"></div>
+
+      <div class="field"><label class="field-label"><span data-es="Correo de contacto" data-en="Contact email">Correo de contacto</span> <span class="required">*</span></label>
+        <input class="input" type="email" name="Correo de contacto" required data-es-ph="Ej: info@sunegocio.com" data-en-ph="e.g. info@yourbusiness.com"></div>
+
+      <div class="field"><label class="field-label"><span data-es="Teléfono / WhatsApp" data-en="Phone / WhatsApp">Teléfono / WhatsApp</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Teléfono / WhatsApp" required data-es-ph="Ej: +57 322 211 2378" data-en-ph="e.g. +57 322 211 2378"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde operan?" data-en="Where do you operate?">¿Dónde operan?</label>
+        <span class="field-hint" data-es="Ciudad base, y dónde ocurre la experiencia si es en otro lugar" data-en="Home city, and where the experience takes place if elsewhere">Ciudad base, y dónde ocurre la experiencia si es en otro lugar</span>
+        <input class="input" type="text" name="Zona de operación" data-es-ph="Ej: Base en Medellín, la finca está en San Antonio de Prado a 50 min" data-en-ph="e.g. Based in Medellín, the farm is in San Antonio de Prado, 50 min away"></div>
+
+      <div class="field"><label class="field-label" data-es="Su rol en el negocio" data-en="Your role in the business">Su rol en el negocio</label>
+        <select class="select" name="Rol">
+          <option value="" disabled selected data-es="Selecciona tu rol" data-en="Select your role">Selecciona tu rol</option>
+          <option value="Propietario" data-es="Propietario / Fundador" data-en="Owner / Founder">Propietario / Fundador</option>
+          <option value="Director" data-es="Director / Gerente" data-en="Director / Manager">Director / Gerente</option>
+          <option value="Administrador" data-es="Administrador" data-en="Administrator">Administrador</option>
+          <option value="Reservas" data-es="Encargado de reservas" data-en="Bookings manager">Encargado de reservas</option>
+          <option value="Guía" data-es="Guía / Anfitrión" data-en="Guide / Host">Guía / Anfitrión</option>
+          <option value="Marketing" data-es="Marketing" data-en="Marketing">Marketing</option>
+          <option value="Otro" data-es="Otro" data-en="Other">Otro</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hace cuántos años funciona el negocio?" data-en="How many years has the business been running?">¿Hace cuántos años funciona el negocio?</label>
+        <input class="input" type="number" name="Años de funcionamiento" placeholder="Ej: 3"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas personas trabajan en el negocio?" data-en="How many people work in the business?">¿Cuántas personas trabajan en el negocio?</label>
+        <span class="field-hint" data-es="Un número aproximado por cada grupo, contando fijos y por días" data-en="An approximate number for each group, counting full-time and per-day staff">Un número aproximado por cada grupo, contando fijos y por días</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Guías / Anfitriones" data-en="Guides / Hosts">Guías / Anfitriones</span><input class="input" type="number" name="Número de guías" placeholder="Ej: 2"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Conductores" data-en="Drivers">Conductores</span><input class="input" type="number" name="Número de conductores" placeholder="Ej: 1"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Cocina / Finca / Servicio" data-en="Kitchen / Farm / Service">Cocina / Finca / Servicio</span><input class="input" type="number" name="Número de personal de servicio" placeholder="Ej: 2"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Reservas / Administración" data-en="Bookings / Admin">Reservas / Administración</span><input class="input" type="number" name="Número de administrativos" placeholder="Ej: 1"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué idiomas atienden a los viajeros?" data-en="In which languages do you serve travellers?">¿En qué idiomas atienden a los viajeros?</label>
+        <span class="field-hint" data-es="Y si hay alguien que no hable inglés, díganos quién — importa para saber quién puede responder mensajes" data-en="And if someone doesn't speak English, tell us who — it matters to know who can answer messages">Y si hay alguien que no hable inglés, díganos quién — importa para saber quién puede responder mensajes</span>
+        <input class="input" type="text" name="Idiomas de atención" data-es-ph="Ej: Español y buen inglés (solo Juan), portugués básico" data-en-ph="e.g. Spanish and good English (only Juan), basic Portuguese"></div>
+
+      <div class="field"><label class="field-label" data-es="Enlaces del negocio" data-en="Business links">Enlaces del negocio</label>
+        <span class="field-hint" data-es="Péguelos tal cual. Nos permiten ver su presencia y sus reseñas reales, no una suposición. Deje vacío lo que no tengan." data-en="Paste them as they are. They let us see your real presence and reviews, not a guess. Leave blank what you don't have.">Péguelos tal cual. Nos permiten ver su presencia y sus reseñas reales, no una suposición. Deje vacío lo que no tengan.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Página web" data-en="Website">Página web</span><input class="input" type="text" name="Link página web" placeholder="www.sunegocio.com"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Instagram" data-en="Instagram">Instagram</span><input class="input" type="text" name="Link Instagram" placeholder="@sunegocio"></div>
+          <div class="input-group"><span class="input-group-label" data-es="TikTok" data-en="TikTok">TikTok</span><input class="input" type="text" name="Link TikTok" placeholder="@sunegocio"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Ficha de Google / Maps" data-en="Google Business / Maps">Ficha de Google / Maps</span><input class="input" type="text" name="Link Google Maps" placeholder="https://maps.app.goo.gl/..."></div>
+          <div class="input-group"><span class="input-group-label" data-es="TripAdvisor" data-en="TripAdvisor">TripAdvisor</span><input class="input" type="text" name="Link TripAdvisor" placeholder="tripadvisor.com/..."></div>
+          <div class="input-group"><span class="input-group-label" data-es="Otras plataformas" data-en="Other platforms">Otras plataformas</span><input class="input" type="text" name="Link otras plataformas" placeholder="Viator, GetYourGuide, Airbnb..."></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué depende de UNA SOLA persona?" data-en="What depends on a SINGLE person?">¿Qué depende de UNA SOLA persona?</label>
+        <span class="field-hint" data-es="Si esa persona se enferma o se va de viaje, ¿qué se detiene en el negocio?" data-en="If that person gets sick or travels, what stops in the business?">Si esa persona se enferma o se va de viaje, ¿qué se detiene en el negocio?</span>
+        <textarea class="textarea" name="Dependencia de una persona" data-es-ph="Ej: Solo yo respondo los mensajes y manejo los calendarios de las plataformas. Si no estoy, nadie sabe qué cupos quedan libres. Solo un guía habla inglés bien..." data-en-ph="e.g. Only I answer messages and manage the platform calendars. If I'm away, nobody knows what slots are free. Only one guide speaks good English..."></textarea></div>
+    </div>
+
+    <!-- ===== 02 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">02</span>
+        <div class="card-title">
+          <h2 data-es="Experiencias, Capacidad y Números" data-en="Experiences, Capacity and Numbers">Experiencias, Capacidad y Números</h2>
+          <p data-es="Qué venden, cuánto caben y cuánto entra" data-en="What you sell, how many fit and how much comes in">Qué venden, cuánto caben y cuánto entra</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tipo de servicios ofrecen?" data-en="What kind of services do you offer?">¿Qué tipo de servicios ofrecen?</label>
+        <span class="field-hint" data-es="Marca todos los que apliquen" data-en="Check all that apply">Marca todos los que apliquen</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Tour medio día"><span class="checkbox-text" data-es="Tours de medio día" data-en="Half-day tours">Tours de medio día</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Tour día completo"><span class="checkbox-text" data-es="Tours de día completo" data-en="Full-day tours">Tours de día completo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Tour varios días"><span class="checkbox-text" data-es="Tours de varios días" data-en="Multi-day tours">Tours de varios días</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Tour privado"><div class="checkbox-content"><span class="checkbox-text" data-es="Experiencias privadas o a la medida" data-en="Private or custom experiences">Experiencias privadas o a la medida</span><span class="checkbox-desc" data-es="Grupos cerrados, parejas, empresas" data-en="Closed groups, couples, companies">Grupos cerrados, parejas, empresas</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Alojamiento"><span class="checkbox-text" data-es="Alojamiento (cabaña, glamping, habitaciones)" data-en="Accommodation (cabin, glamping, rooms)">Alojamiento (cabaña, glamping, habitaciones)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Transporte"><span class="checkbox-text" data-es="Transporte / Traslados" data-en="Transport / Transfers">Transporte / Traslados</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Alimentación"><span class="checkbox-text" data-es="Alimentación / Restaurante" data-en="Food / Restaurant">Alimentación / Restaurante</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Eventos"><span class="checkbox-text" data-es="Eventos, bodas o retiros" data-en="Events, weddings or retreats">Eventos, bodas o retiros</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tipo de servicios" value="Venta de productos"><div class="checkbox-content"><span class="checkbox-text" data-es="Venta de productos" data-en="Product sales">Venta de productos</span><span class="checkbox-desc" data-es="Café, artesanías, souvenirs" data-en="Coffee, crafts, souvenirs">Café, artesanías, souvenirs</span></div></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Enumere las experiencias que venden hoy" data-en="List the experiences you sell today">Enumere las experiencias que venden hoy</label>
+        <span class="field-hint" data-es="Nombre, duración y qué incluye cada una" data-en="Name, duration and what each includes">Nombre, duración y qué incluye cada una</span>
+        <textarea class="textarea" name="Catálogo de experiencias" data-es-ph="Ej:
+• Half-day Experience — 7am a 2pm — transporte, café, ordeño, desayuno, cabalgata
+• Tour privado para parejas — 5 horas — igual pero sin grupo
+• Noche en la cabaña — desde 2026" data-en-ph="e.g.:
+• Half-day Experience — 7am to 2pm — transport, coffee, milking, breakfast, horse ride
+• Private couples tour — 5 hours — same but no group
+• Night at the cabin — from 2026"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Venden algo que NO esté publicado en la web ni en las plataformas?" data-en="Do you sell anything that is NOT listed on your website or the platforms?">¿Venden algo que NO esté publicado en la web ni en las plataformas?</label>
+        <span class="field-hint" data-es="Muchos negocios tienen servicios que solo ofrecen de palabra o a quien pregunta. Si no están publicados, nadie los puede comprar — y suele ser dinero fácil sobre la mesa." data-en="Many businesses have services they only offer verbally or to those who ask. If they aren't listed, nobody can buy them — and it's usually easy money left on the table.">Muchos negocios tienen servicios que solo ofrecen de palabra o a quien pregunta. Si no están publicados, nadie los puede comprar — y suele ser dinero fácil sobre la mesa.</span>
+        <textarea class="textarea" name="Servicios no publicados" data-es-ph="Ej: Tenemos un tour de tarde con fogata que no está en ninguna plataforma, solo se lo ofrecemos a quien nos escribe. También vendemos café empacado a los que vienen..." data-en-ph="e.g. We have an afternoon tour with a bonfire that isn't on any platform, we only offer it to people who message us. We also sell packaged coffee to visitors..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién es su viajero típico?" data-en="Who is your typical traveller?">¿Quién es su viajero típico?</label>
+        <span class="field-hint" data-es="Edad, de qué países, si viajan solos, en pareja, en familia. Sin esto no se puede segmentar nada de publicidad." data-en="Age, which countries, whether they travel alone, as a couple or family. Without this no advertising can be targeted.">Edad, de qué países, si viajan solos, en pareja, en familia. Sin esto no se puede segmentar nada de publicidad.</span>
+        <textarea class="textarea" name="Viajero típico" data-es-ph="Ej: Gringos y europeos de 25 a 40 años, casi siempre en pareja o con un amigo. Mochileros que se quedan en El Poblado y buscan algo de un día..." data-en-ph="e.g. Americans and Europeans aged 25 to 40, usually as a couple or with a friend. Backpackers staying in El Poblado looking for a day trip..."></textarea></div>
+
+      <div class="info-callout"><p data-es="Los números que siguen son los más importantes de todo el cuestionario. Con ellos calculamos cuánta capacidad se está quedando sin vender y cuánto dinero representa. Un estimado honesto vale más que un número exacto que no tienen a la mano." data-en="The numbers that follow are the most important in the whole questionnaire. With them we calculate how much capacity is going unsold and how much money that represents. An honest estimate is worth more than an exact figure you don't have at hand.">Los números que siguen son los más importantes de todo el cuestionario. Con ellos calculamos cuánta capacidad se está quedando sin vender y cuánto dinero representa. Un estimado honesto vale más que un número exacto que no tienen a la mano.</p></div>
+
+      <div class="field"><label class="field-label" data-es="Capacidad y operación" data-en="Capacity and operation">Capacidad y operación</label>
+        <span class="field-hint" data-es="El cupo máximo es el techo real del negocio: por más marketing que se haga, no se puede vender más que eso." data-en="Maximum capacity is the real ceiling of the business: no matter how much marketing you do, you can't sell more than that.">El cupo máximo es el techo real del negocio: por más marketing que se haga, no se puede vender más que eso.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Cupos máximos por día" data-en="Maximum slots per day">Cupos máximos por día</span><input class="input" type="number" name="Cupos máximos por día" placeholder="Ej: 8"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Mínimo para que salga" data-en="Minimum to run">Mínimo para que salga</span><input class="input" type="number" name="Cupo mínimo para operar" placeholder="Ej: 2"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Días que operan / semana" data-en="Days operating / week">Días que operan / semana</span><input class="input" type="number" name="Días de operación por semana" placeholder="Ej: 6"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Volumen real de los últimos meses" data-en="Actual volume in recent months">Volumen real de los últimos meses</label>
+        <span class="field-hint" data-es="Cuánto están vendiendo de verdad, no cuánto podrían" data-en="How much you're actually selling, not how much you could">Cuánto están vendiendo de verdad, no cuánto podrían</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Viajeros atendidos / mes" data-en="Travellers served / month">Viajeros atendidos / mes</span><input class="input" type="number" name="Viajeros por mes" placeholder="Ej: 90"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Reservas cerradas / mes" data-en="Bookings closed / month">Reservas cerradas / mes</span><input class="input" type="number" name="Reservas por mes" placeholder="Ej: 40"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Días que NO sale ningún tour / mes" data-en="Days with NO tour running / month">Días que NO sale ningún tour / mes</span><input class="input" type="number" name="Días sin operación por mes" placeholder="Ej: 8"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Precio por persona" data-en="Price per person">Precio por persona</label>
+        <span class="field-hint" data-es="En la moneda seleccionada arriba. Si cobran distinto según la plataforma, ponga aquí el precio de su web o el directo." data-en="In the currency selected above. If you charge differently per platform, put your website or direct price here.">En la moneda seleccionada arriba. Si cobran distinto según la plataforma, ponga aquí el precio de su web o el directo.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Experiencia más económica" data-en="Cheapest experience">Experiencia más económica</span><input class="input" type="number" name="Precio experiencia económica" placeholder="Ej: 180000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="La que más venden" data-en="Best seller">La que más venden</span><input class="input" type="number" name="Precio experiencia más vendida" placeholder="Ej: 250000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="La más cara" data-en="Most expensive">La más cara</span><input class="input" type="number" name="Precio experiencia más cara" placeholder="Ej: 450000"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Cuánto factura el negocio al mes?" data-en="What is the business's monthly revenue?">¿Cuánto factura el negocio al mes?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="En la moneda seleccionada arriba. El turismo varía mucho entre temporadas: denos los tres números y trabajamos con el rango." data-en="In the currency selected above. Tourism varies a lot between seasons: give us the three figures and we'll work with the range.">En la moneda seleccionada arriba. El turismo varía mucho entre temporadas: denos los tres números y trabajamos con el rango.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Un mes flojo" data-en="A slow month">Un mes flojo</span><input class="input" type="number" name="Facturación mes flojo" placeholder="Ej: 6000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes normal" data-en="An average month">Un mes normal</span><input class="input" type="number" name="Facturación mes normal" placeholder="Ej: 12000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes bueno" data-en="A good month">Un mes bueno</span><input class="input" type="number" name="Facturación mes bueno" placeholder="Ej: 20000000"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál servicio les deja más margen?" data-en="Which service gives you the best margin?">¿Cuál servicio les deja más margen?</label>
+        <span class="field-hint" data-es="No el que más venden, sino el que más ganancia deja después de costos" data-en="Not the one you sell most, but the one that leaves the most profit after costs">No el que más venden, sino el que más ganancia deja después de costos</span>
+        <input class="input" type="text" name="Servicio más rentable" data-es-ph="Ej: El tour privado, porque cobramos el doble y el costo es casi el mismo" data-en-ph="e.g. The private tour, because we charge double and the cost is almost the same"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo cambia la demanda a lo largo del año?" data-en="How does demand change through the year?">¿Cómo cambia la demanda a lo largo del año?</label>
+        <span class="field-hint" data-es="Temporadas altas y bajas, y de qué países llega la gente en cada una" data-en="High and low seasons, and which countries people come from in each">Temporadas altas y bajas, y de qué países llega la gente en cada una</span>
+        <textarea class="textarea" name="Estacionalidad" data-es-ph="Ej: Diciembre a febrero es lo más fuerte, llegan gringos y europeos. Abril y mayo son muertos. En julio suben los mochileros..." data-en-ph="e.g. December to February is strongest, Americans and Europeans arrive. April and May are dead. In July backpackers pick up..."></textarea></div>
+    </div>
+
+    <!-- ===== 03 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">03</span>
+        <div class="card-title">
+          <h2 data-es="Canales y Plataformas de Venta" data-en="Sales Channels and Platforms">Canales y Plataformas de Venta</h2>
+          <p data-es="Dónde están publicados y cuánto les cuesta cada canal" data-en="Where you're listed and what each channel costs you">Dónde están publicados y cuánto les cuesta cada canal</p></div></div>
+
+      <div class="info-callout"><p data-es="Cada plataforma cobra una comisión distinta. Saber qué porcentaje de las reservas entra por cada una — y cuánto se llevan — suele revelar que el canal que más vende no es el que más deja." data-en="Each platform charges a different commission. Knowing what share of bookings comes through each one — and how much they take — usually reveals that the channel that sells most isn't the one that earns most.">Cada plataforma cobra una comisión distinta. Saber qué porcentaje de las reservas entra por cada una — y cuánto se llevan — suele revelar que el canal que más vende no es el que más deja.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué plataformas están publicados?" data-en="Which platforms are you listed on?">¿En qué plataformas están publicados?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Viator"><span class="checkbox-text" data-es="Viator / TripAdvisor Experiences" data-en="Viator / TripAdvisor Experiences">Viator / TripAdvisor Experiences</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="GetYourGuide"><span class="checkbox-text" data-es="GetYourGuide" data-en="GetYourGuide">GetYourGuide</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Airbnb"><span class="checkbox-text" data-es="Airbnb (experiencias o alojamiento)" data-en="Airbnb (experiences or stays)">Airbnb (experiencias o alojamiento)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="TripAdvisor"><span class="checkbox-text" data-es="TripAdvisor (ficha del negocio)" data-en="TripAdvisor (business listing)">TripAdvisor (ficha del negocio)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Booking"><span class="checkbox-text" data-es="Booking.com" data-en="Booking.com">Booking.com</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Civitatis"><span class="checkbox-text" data-es="Civitatis" data-en="Civitatis">Civitatis</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Expedia"><span class="checkbox-text" data-es="Expedia / Despegar" data-en="Expedia / Despegar">Expedia / Despegar</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Hoteles y hostales"><div class="checkbox-content"><span class="checkbox-text" data-es="Hoteles y hostales que los recomiendan" data-en="Hotels and hostels that refer you">Hoteles y hostales que los recomiendan</span><span class="checkbox-desc" data-es="Recepcionistas que mandan huéspedes" data-en="Front desks sending guests">Recepcionistas que mandan huéspedes</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Agencias locales"><span class="checkbox-text" data-es="Agencias de viaje locales" data-en="Local travel agencies">Agencias de viaje locales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Plataformas" value="Venta directa"><span class="checkbox-text" data-es="Venta directa (web, WhatsApp, redes)" data-en="Direct sales (website, WhatsApp, social)">Venta directa (web, WhatsApp, redes)</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje de las reservas entra por cada canal?" data-en="What percentage of bookings comes through each channel?">¿Qué porcentaje de las reservas entra por cada canal?</label>
+        <span class="field-hint" data-es="Un estimado está bien. Lo importante es saber de cuál dependen más." data-en="An estimate is fine. What matters is knowing which one you depend on most.">Un estimado está bien. Lo importante es saber de cuál dependen más.</span>
+        <textarea class="textarea" name="Reparto de reservas por canal" data-es-ph="Ej: Viator 40%, GetYourGuide 25%, WhatsApp directo 20%, Airbnb 10%, hoteles 5%" data-en-ph="e.g. Viator 40%, GetYourGuide 25%, direct WhatsApp 20%, Airbnb 10%, hotels 5%"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué comisión les cobra cada plataforma?" data-en="What commission does each platform charge you?">¿Qué comisión les cobra cada plataforma?</label>
+        <span class="field-hint" data-es="Si no lo recuerdan con exactitud, un aproximado sirve" data-en="If you don't remember exactly, an approximation works">Si no lo recuerdan con exactitud, un aproximado sirve</span>
+        <textarea class="textarea" name="Comisiones por plataforma" data-es-ph="Ej: Viator se lleva el 25%, GetYourGuide como el 20%, Airbnb el 20%..." data-en-ph="e.g. Viator takes 25%, GetYourGuide about 20%, Airbnb 20%..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿El precio es el mismo en todas las plataformas?" data-en="Is the price the same across all platforms?">¿El precio es el mismo en todas las plataformas?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Precio uniforme" value="Igual"><span class="radio-label-text" data-es="Sí, el mismo en todas" data-en="Yes, the same everywhere">Sí, el mismo en todas</span></label>
+          <label class="radio-box"><input type="radio" name="Precio uniforme" value="Ajustado"><span class="radio-label-text" data-es="Lo subimos donde hay comisión" data-en="We raise it where there's commission">Lo subimos donde hay comisión</span></label>
+          <label class="radio-box"><input type="radio" name="Precio uniforme" value="Descontrolado"><span class="radio-label-text" data-es="Está desordenado, varía" data-en="It's messy, it varies">Está desordenado, varía</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Han intentado que la gente reserve directo en vez de por plataforma?" data-en="Have you tried getting people to book direct instead of via platforms?">¿Han intentado que la gente reserve directo en vez de por plataforma?</label>
+        <span class="field-hint" data-es="Cada reserva directa es entre un 20% y un 25% más de margen sobre el mismo trabajo." data-en="Every direct booking is 20–25% more margin for the same work.">Cada reserva directa es entre un 20% y un 25% más de margen sobre el mismo trabajo.</span>
+        <textarea class="textarea" name="Estrategia de venta directa" data-es-ph="Ej: No, nunca lo hemos intentado. La web ni siquiera tiene botón de reservar, solo manda a WhatsApp..." data-en-ph="e.g. No, we've never tried. The website doesn't even have a book button, it just sends you to WhatsApp..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen convenios con hoteles, hostales o agencias?" data-en="Do you have agreements with hotels, hostels or agencies?">¿Tienen convenios con hoteles, hostales o agencias?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Convenios" value="Varios"><span class="radio-label-text" data-es="Sí, varios" data-en="Yes, several">Sí, varios</span></label>
+          <label class="radio-box"><input type="radio" name="Convenios" value="Algunos"><span class="radio-label-text" data-es="Solo algunos" data-en="Only a few">Solo algunos</span></label>
+          <label class="radio-box"><input type="radio" name="Convenios" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have any">No tenemos</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Convenios=Varios|Algunos">
+        <div class="field"><label class="field-label" data-es="¿Con quiénes y cómo funciona el acuerdo?" data-en="With whom and how does the agreement work?">¿Con quiénes y cómo funciona el acuerdo?</label>
+          <textarea class="textarea" name="Detalle de convenios" data-es-ph="Ej: Tres hostales del Poblado nos mandan gente, les damos el 15%. El pago se cuadra a fin de mes por WhatsApp y a veces se nos pierde la cuenta..." data-en-ph="e.g. Three hostels in El Poblado send us people, we give them 15%. Payment is settled month-end over WhatsApp and sometimes we lose track..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="De todo lo relacionado con las plataformas, ¿qué es lo que más les molesta?" data-en="Of everything platform-related, what bothers you most?">De todo lo relacionado con las plataformas, ¿qué es lo que más les molesta?</label>
+        <textarea class="textarea" name="Frustraciones con plataformas" data-es-ph="Ej: Que se llevan una comisión altísima, que tardan en pagar, que hay que actualizar los cupos en cada una por separado..." data-en-ph="e.g. They take a huge commission, they're slow to pay, you have to update availability in each one separately..."></textarea></div>
+    </div>
+
+    <!-- ===== 04 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">04</span>
+        <div class="card-title">
+          <h2 data-es="Calendario y Disponibilidad" data-en="Calendar and Availability">Calendario y Disponibilidad</h2>
+          <p data-es="Cómo saben hoy qué cupos están libres y cuáles vendidos" data-en="How you know today which slots are free and which are sold">Cómo saben hoy qué cupos están libres y cuáles vendidos</p></div></div>
+
+      <div class="info-callout"><p data-es="Cuando se vende el mismo cupo en varios sitios a la vez, pasan dos cosas malas: o se vende dos veces y hay que cancelarle a alguien, o se bloquea de más por miedo y se deja de vender. Aquí solemos encontrar una de las mayores fugas de dinero." data-en="When the same slot is sold in several places at once, two bad things happen: either it's sold twice and someone has to be cancelled, or too much is blocked out of fear and sales are lost. This is usually one of the biggest money leaks.">Cuando se vende el mismo cupo en varios sitios a la vez, pasan dos cosas malas: o se vende dos veces y hay que cancelarle a alguien, o se bloquea de más por miedo y se deja de vender. Aquí solemos encontrar una de las mayores fugas de dinero.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde está hoy el calendario que dice la verdad?" data-en="Where is the calendar that tells the truth today?">¿Dónde está hoy el calendario que dice la verdad?</label>
+        <span class="field-hint" data-es="El lugar que consultan cuando quieren saber de verdad si hay cupo" data-en="The place you check when you really want to know if there's availability">El lugar que consultan cuando quieren saber de verdad si hay cupo</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="Google Calendar"><span class="checkbox-text" data-es="Google Calendar / Outlook" data-en="Google Calendar / Outlook">Google Calendar / Outlook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="Excel"><span class="checkbox-text" data-es="Excel / Google Sheets" data-en="Excel / Google Sheets">Excel / Google Sheets</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="En cada plataforma"><div class="checkbox-content"><span class="checkbox-text" data-es="En cada plataforma por separado" data-en="In each platform separately">En cada plataforma por separado</span><span class="checkbox-desc" data-es="Hay que abrir una por una para saber" data-en="You have to open them one by one to know">Hay que abrir una por una para saber</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="Software de reservas"><span class="checkbox-text" data-es="Un software de reservas" data-en="A booking software">Un software de reservas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="Cuaderno"><span class="checkbox-text" data-es="Cuaderno o agenda de papel" data-en="Notebook or paper diary">Cuaderno o agenda de papel</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde está el calendario" value="WhatsApp"><span class="checkbox-text" data-es="En el WhatsApp o de memoria" data-en="On WhatsApp or from memory">En el WhatsApp o de memoria</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Si usan un software de reservas, ¿cuál es?" data-en="If you use a booking software, which one?">Si usan un software de reservas, ¿cuál es?</label>
+        <span class="field-hint" data-es="Si no usan ninguno, escriban «ninguno»" data-en="If you don't use any, write 'none'">Si no usan ninguno, escriban «ninguno»</span>
+        <input class="input" type="text" name="Software de reservas" data-es-ph="Ej: Bókun, FareHarvest, Rezdy, Checkfront, ninguno..." data-en-ph="e.g. Bókun, FareHarbor, Rezdy, Checkfront, none..."></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo se enteran de que entró una reserva nueva?" data-en="How do you find out a new booking came in?">¿Cómo se enteran de que entró una reserva nueva?</label>
+        <textarea class="textarea" name="Cómo se enteran de una reserva" data-es-ph="Ej: Me llega un correo de Viator y una notificación de la app. Los de WhatsApp los anoto yo mismo. A veces se me pasa alguno hasta el día antes..." data-en-ph="e.g. I get an email from Viator and an app notification. WhatsApp ones I write down myself. Sometimes I miss one until the day before..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Cuando entra una reserva, ¿cuánto tardan en bloquear ese cupo en los demás canales?" data-en="When a booking comes in, how long until you block that slot on the other channels?">Cuando entra una reserva, ¿cuánto tardan en bloquear ese cupo en los demás canales?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiempo de bloqueo" value="Automático"><span class="radio-label-text" data-es="Es automático" data-en="It's automatic">Es automático</span><span class="radio-desc" data-es="Se sincroniza solo" data-en="It syncs by itself">Se sincroniza solo</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de bloqueo" value="Minutos"><span class="radio-label-text" data-es="En minutos, a mano" data-en="Within minutes, manually">En minutos, a mano</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de bloqueo" value="Horas"><span class="radio-label-text" data-es="Puede tardar horas" data-en="It can take hours">Puede tardar horas</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de bloqueo" value="Variable"><span class="radio-label-text" data-es="Cuando me acuerdo" data-en="When I remember">Cuando me acuerdo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Les ha pasado vender dos veces el mismo cupo?" data-en="Have you ever sold the same slot twice?">¿Les ha pasado vender dos veces el mismo cupo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Sobreventa" value="Nunca"><span class="radio-label-text" data-es="Nunca" data-en="Never">Nunca</span></label>
+          <label class="radio-box"><input type="radio" name="Sobreventa" value="Alguna vez"><span class="radio-label-text" data-es="Alguna vez" data-en="Once or twice">Alguna vez</span></label>
+          <label class="radio-box"><input type="radio" name="Sobreventa" value="Con frecuencia"><span class="radio-label-text" data-es="Pasa con frecuencia" data-en="It happens often">Pasa con frecuencia</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Sobreventa=Alguna vez|Con frecuencia">
+        <div class="field"><label class="field-label" data-es="¿Qué hacen cuando pasa y qué les ha costado?" data-en="What do you do when it happens and what has it cost you?">¿Qué hacen cuando pasa y qué les ha costado?</label>
+          <span class="field-hint" data-es="Nos interesa saber si ha terminado en reseñas malas o en penalizaciones de la plataforma" data-en="We want to know whether it has ended in bad reviews or platform penalties">Nos interesa saber si ha terminado en reseñas malas o en penalizaciones de la plataforma</span>
+          <textarea class="textarea" name="Consecuencias de la sobreventa" data-es-ph="Ej: Toca llamar y pedir disculpas, a veces regalamos el tour. Una vez nos dejaron una reseña de 1 estrella en Viator y bajamos de posición..." data-en-ph="e.g. We have to call and apologise, sometimes we give the tour for free. Once we got a 1-star review on Viator and dropped in ranking..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Bloquean cupos por precaución, aunque estén libres?" data-en="Do you block slots as a precaution, even when they're free?">¿Bloquean cupos por precaución, aunque estén libres?</label>
+        <span class="field-hint" data-es="Es lo que hace mucha gente para no arriesgarse a vender dos veces. El problema es que se deja de vender lo que sí se podía." data-en="It's what many people do to avoid double-selling. The problem is you stop selling what you actually could.">Es lo que hace mucha gente para no arriesgarse a vender dos veces. El problema es que se deja de vender lo que sí se podía.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Bloqueo preventivo" value="Sí"><span class="radio-label-text" data-es="Sí, seguido" data-en="Yes, often">Sí, seguido</span></label>
+          <label class="radio-box"><input type="radio" name="Bloqueo preventivo" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Bloqueo preventivo" value="No"><span class="radio-label-text" data-es="No, nunca" data-en="No, never">No, nunca</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto tiempo al día se les va manejando calendarios y cupos?" data-en="How much time a day goes into managing calendars and availability?">¿Cuánto tiempo al día se les va manejando calendarios y cupos?</label>
+        <select class="select" name="Tiempo diario en calendarios">
+          <option value="" disabled selected data-es="Selecciona un rango" data-en="Select a range">Selecciona un rango</option>
+          <option value="Menos de 30 min" data-es="Menos de 30 minutos" data-en="Under 30 minutes">Menos de 30 minutos</option>
+          <option value="30-60 min" data-es="Entre 30 minutos y 1 hora" data-en="Between 30 minutes and 1 hour">Entre 30 minutos y 1 hora</option>
+          <option value="1-2 horas" data-es="Entre 1 y 2 horas" data-en="Between 1 and 2 hours">Entre 1 y 2 horas</option>
+          <option value="Más de 2 horas" data-es="Más de 2 horas" data-en="More than 2 hours">Más de 2 horas</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="Si mañana pudieran arreglar UNA sola cosa del calendario, ¿cuál sería?" data-en="If you could fix just ONE thing about the calendar tomorrow, what would it be?">Si mañana pudieran arreglar UNA sola cosa del calendario, ¿cuál sería?</label>
+        <textarea class="textarea" name="Deseo sobre el calendario" data-es-ph="Ej: Que cuando alguien reserve por cualquier lado, se bloquee solo en todas las demás y yo no tenga que hacer nada..." data-en-ph="e.g. That when someone books anywhere, it blocks itself everywhere else and I don't have to do anything..."></textarea></div>
+    </div>
+
+    <!-- ===== 05 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">05</span>
+        <div class="card-title">
+          <h2 data-es="Primer Contacto y Reservas" data-en="First Contact and Bookings">Primer Contacto y Reservas</h2>
+          <p data-es="Qué pasa desde que alguien pregunta hasta que queda reservado" data-en="What happens from the first enquiry until the booking is confirmed">Qué pasa desde que alguien pregunta hasta que queda reservado</p></div></div>
+
+      <div class="info-callout"><p data-es="Un viajero que escribe está normalmente a pocos días de su viaje y escribiéndole a tres negocios a la vez. El que responde primero suele quedarse con la reserva." data-en="A traveller who writes is usually days away from their trip and messaging three businesses at once. Whoever answers first usually gets the booking.">Un viajero que escribe está normalmente a pocos días de su viaje y escribiéndole a tres negocios a la vez. El que responde primero suele quedarse con la reserva.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Por dónde les escriben los viajeros?" data-en="Where do travellers write to you?">¿Por dónde les escriben los viajeros?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp" data-en="WhatsApp">WhatsApp</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Instagram DM"><span class="checkbox-text" data-es="Mensajes directos de Instagram" data-en="Instagram direct messages">Mensajes directos de Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="TikTok"><span class="checkbox-text" data-es="Comentarios o mensajes de TikTok" data-en="TikTok comments or messages">Comentarios o mensajes de TikTok</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Chat de plataforma"><div class="checkbox-content"><span class="checkbox-text" data-es="Chat interno de las plataformas" data-en="Platform internal chat">Chat interno de las plataformas</span><span class="checkbox-desc" data-es="Viator, Airbnb, GetYourGuide tienen su propio buzón" data-en="Viator, Airbnb, GetYourGuide have their own inbox">Viator, Airbnb, GetYourGuide tienen su propio buzón</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Correo"><span class="checkbox-text" data-es="Correo electrónico" data-en="Email">Correo electrónico</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Formulario web"><span class="checkbox-text" data-es="Formulario de la página web" data-en="Website form">Formulario de la página web</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Llamada"><span class="checkbox-text" data-es="Llamada telefónica" data-en="Phone call">Llamada telefónica</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién responde los mensajes?" data-en="Who answers the messages?">¿Quién responde los mensajes?</label>
+        <textarea class="textarea" name="Quién responde" data-es-ph="Ej: Yo mismo, desde mi celular personal. Cuando estoy guiando un tour no puedo contestar y se acumulan..." data-en-ph="e.g. Me, from my personal phone. When I'm guiding a tour I can't reply and they pile up..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto se demoran normalmente en responder?" data-en="How long do you usually take to reply?">¿Cuánto se demoran normalmente en responder?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Inmediato"><span class="radio-label-text" data-es="Casi inmediato" data-en="Almost immediate">Casi inmediato</span><span class="radio-desc" data-es="menos de 15 minutos" data-en="under 15 minutes">menos de 15 minutos</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Pocas horas"><span class="radio-label-text" data-es="En pocas horas" data-en="Within a few hours">En pocas horas</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Mismo día"><span class="radio-label-text" data-es="El mismo día" data-en="Same day">El mismo día</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Variable"><span class="radio-label-text" data-es="Es muy variable" data-en="Very variable">Es muy variable</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué pasa con los mensajes que llegan de madrugada?" data-en="What happens with messages that arrive overnight?">¿Qué pasa con los mensajes que llegan de madrugada?</label>
+        <span class="field-hint" data-es="Con clientes extranjeros esto importa mucho: un viajero en Europa o Estados Unidos escribe cuando aquí es de noche." data-en="With foreign clients this matters a lot: a traveller in Europe or the US writes when it's night here.">Con clientes extranjeros esto importa mucho: un viajero en Europa o Estados Unidos escribe cuando aquí es de noche.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="No se responde"><span class="radio-label-text" data-es="Se responden al otro día" data-en="Answered the next day">Se responden al otro día</span></label>
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="Autorespuesta"><span class="radio-label-text" data-es="Hay mensaje automático" data-en="There's an auto-reply">Hay mensaje automático</span></label>
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="Alguien responde"><span class="radio-label-text" data-es="Alguien responde igual" data-en="Someone still replies">Alguien responde igual</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Del total de gente que pregunta, ¿cuántos terminan reservando?" data-en="Out of everyone who enquires, how many end up booking?">Del total de gente que pregunta, ¿cuántos terminan reservando?</label>
+        <span class="field-hint" data-es="Si no lo miden, pongan su percepción: «como la mitad», «3 de cada 10»..." data-en="If you don't measure it, give your impression: 'about half', '3 out of 10'...">Si no lo miden, pongan su percepción: «como la mitad», «3 de cada 10»...</span>
+        <input class="input" type="text" name="Tasa de conversión de consultas" data-es-ph="Ej: Como 3 de cada 10, muchos preguntan precio y desaparecen" data-en-ph="e.g. About 3 out of 10, many ask the price and vanish"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Sienten que pierden reservas por no alcanzar a responder?" data-en="Do you feel you lose bookings by not replying in time?">¿Sienten que pierden reservas por no alcanzar a responder?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Reservas perdidas" value="Nunca"><span class="radio-label-text" data-es="Nunca o casi nunca" data-en="Never or almost never">Nunca o casi nunca</span></label>
+          <label class="radio-box"><input type="radio" name="Reservas perdidas" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Reservas perdidas" value="Con frecuencia"><span class="radio-label-text" data-es="Con frecuencia" data-en="Frequently">Con frecuencia</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las preguntas que más les repiten?" data-en="Which questions do you get asked over and over?">¿Cuáles son las preguntas que más les repiten?</label>
+        <span class="field-hint" data-es="Estas son las que se pueden automatizar primero" data-en="These are the ones we can automate first">Estas son las que se pueden automatizar primero</span>
+        <textarea class="textarea" name="Preguntas repetidas" data-es-ph="Ej:
+• ¿Cuánto cuesta y qué incluye?
+• ¿Recogen en mi hotel?
+• ¿Hay cupo para el sábado?
+• ¿Se puede pagar con tarjeta o en dólares?
+• ¿Es apto para niños o para alguien mayor?" data-en-ph="e.g.:
+• How much is it and what's included?
+• Do you pick up at my hotel?
+• Is there space on Saturday?
+• Can I pay by card or in dollars?
+• Is it suitable for kids or older people?"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Con cuánta anticipación reservan normalmente?" data-en="How far in advance do people usually book?">¿Con cuánta anticipación reservan normalmente?</label>
+        <span class="field-hint" data-es="Nos dice cuánto tiempo tienen para llenar un cupo y con cuánta anticipación pueden planear la operación." data-en="It tells us how much time you have to fill a slot and how far ahead you can plan operations.">Nos dice cuánto tiempo tienen para llenar un cupo y con cuánta anticipación pueden planear la operación.</span>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Anticipación de reserva" value="Mismo día"><span class="radio-label-text" data-es="El mismo día o el anterior" data-en="Same day or the day before">El mismo día o el anterior</span></label>
+          <label class="radio-box"><input type="radio" name="Anticipación de reserva" value="Pocos días"><span class="radio-label-text" data-es="Pocos días antes" data-en="A few days before">Pocos días antes</span></label>
+          <label class="radio-box"><input type="radio" name="Anticipación de reserva" value="Semanas"><span class="radio-label-text" data-es="Una o dos semanas antes" data-en="One or two weeks before">Una o dos semanas antes</span></label>
+          <label class="radio-box"><input type="radio" name="Anticipación de reserva" value="Meses"><span class="radio-label-text" data-es="Con meses de anticipación" data-en="Months in advance">Con meses de anticipación</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Le hacen seguimiento a quien preguntó y no reservó?" data-en="Do you follow up with people who enquired but didn't book?">¿Le hacen seguimiento a quien preguntó y no reservó?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Seguimiento a no reservados" value="Sí"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Seguimiento a no reservados" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Seguimiento a no reservados" value="No"><span class="radio-label-text" data-es="No, ahí queda" data-en="No, that's the end of it">No, ahí queda</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 06 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">06</span>
+        <div class="card-title">
+          <h2 data-es="Pagos, Anticipos y Cancelaciones" data-en="Payments, Deposits and Cancellations">Pagos, Anticipos y Cancelaciones</h2>
+          <p data-es="Cómo entra la plata y qué pasa cuando alguien no llega" data-en="How the money comes in and what happens when someone doesn't show">Cómo entra la plata y qué pasa cuando alguien no llega</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo reciben los pagos?" data-en="How do you receive payments?">¿Cómo reciben los pagos?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="La plataforma cobra"><div class="checkbox-content"><span class="checkbox-text" data-es="La plataforma cobra y les gira después" data-en="The platform charges and pays you later">La plataforma cobra y les gira después</span><span class="checkbox-desc" data-es="Viator, GetYourGuide, Airbnb" data-en="Viator, GetYourGuide, Airbnb">Viator, GetYourGuide, Airbnb</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Transferencia"><span class="checkbox-text" data-es="Transferencia / Nequi / Daviplata" data-en="Bank transfer / local wallets">Transferencia / Nequi / Daviplata</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Pasarela"><span class="checkbox-text" data-es="Pasarela de pago propia (link, PSE, Wompi)" data-en="Own payment gateway (link, Stripe, PayPal)">Pasarela de pago propia (link, PSE, Wompi)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Efectivo"><span class="checkbox-text" data-es="Efectivo el día del tour" data-en="Cash on the day of the tour">Efectivo el día del tour</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Tarjeta"><span class="checkbox-text" data-es="Tarjeta (datáfono)" data-en="Card (POS terminal)">Tarjeta (datáfono)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Dólares"><span class="checkbox-text" data-es="Dólares en efectivo" data-en="Cash in dollars">Dólares en efectivo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Piden anticipo para separar el cupo?" data-en="Do you ask for a deposit to hold the slot?">¿Piden anticipo para separar el cupo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="Siempre"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="A veces"><span class="radio-label-text" data-es="Solo a veces" data-en="Only sometimes">Solo a veces</span></label>
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="No"><span class="radio-label-text" data-es="No pedimos" data-en="We don't">No pedimos</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Piden anticipo=Siempre|A veces">
+        <div class="field"><label class="field-label" data-es="¿De cuánto es el anticipo y cómo lo cobran?" data-en="How much is the deposit and how do you collect it?">¿De cuánto es el anticipo y cómo lo cobran?</label>
+          <textarea class="textarea" name="Detalle del anticipo" data-es-ph="Ej: El 30% por transferencia. A los extranjeros les cuesta pagar así y muchos prefieren reservar por la plataforma aunque nos cueste comisión..." data-en-ph="e.g. 30% by bank transfer. Foreigners find it hard to pay that way and many prefer booking via the platform even though it costs us commission..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen una política de cancelación escrita?" data-en="Do you have a written cancellation policy?">¿Tienen una política de cancelación escrita?</label>
+        <span class="field-hint" data-es="En su web no aparece ninguna. Si existe pero no está publicada, díganoslo — es distinto." data-en="None appears on your website. If it exists but isn't published, tell us — that's different.">En su web no aparece ninguna. Si existe pero no está publicada, díganoslo — es distinto.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Política de cancelación" value="Publicada"><span class="radio-label-text" data-es="Sí, y está publicada" data-en="Yes, and it's published">Sí, y está publicada</span></label>
+          <label class="radio-box"><input type="radio" name="Política de cancelación" value="Existe sin publicar"><span class="radio-label-text" data-es="Existe pero no está publicada" data-en="It exists but isn't published">Existe pero no está publicada</span></label>
+          <label class="radio-box"><input type="radio" name="Política de cancelación" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have one">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje de reservas se cancela o no se presenta?" data-en="What percentage of bookings cancel or don't show up?">¿Qué porcentaje de reservas se cancela o no se presenta?</label>
+        <span class="field-hint" data-es="Un estimado está bien: «2 de cada 10», «20%»..." data-en="An estimate is fine: '2 out of 10', '20%'...">Un estimado está bien: «2 de cada 10», «20%»...</span>
+        <input class="input" type="text" name="Porcentaje de cancelaciones y no-shows" data-es-ph="Ej: Como el 15%, casi siempre cancelan el día antes por lluvia" data-en-ph="e.g. About 15%, they almost always cancel the day before because of rain"></div>
+
+      <div class="field"><label class="field-label" data-es="Cuando se cae una reserva, ¿alcanzan a llenar ese cupo?" data-en="When a booking falls through, can you fill that slot?">Cuando se cae una reserva, ¿alcanzan a llenar ese cupo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Llenar cupos caídos" value="Sí lista de espera"><span class="radio-label-text" data-es="Sí, tenemos lista de espera" data-en="Yes, we have a waitlist">Sí, tenemos lista de espera</span></label>
+          <label class="radio-box"><input type="radio" name="Llenar cupos caídos" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Llenar cupos caídos" value="No"><span class="radio-label-text" data-es="No, se pierde" data-en="No, it's lost">No, se pierde</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto tardan las plataformas en pagarles?" data-en="How long do the platforms take to pay you?">¿Cuánto tardan las plataformas en pagarles?</label>
+        <span class="field-hint" data-es="Nos ayuda a entender si hay problemas de flujo de caja" data-en="Helps us understand whether there are cash-flow problems">Nos ayuda a entender si hay problemas de flujo de caja</span>
+        <input class="input" type="text" name="Plazos de pago de plataformas" data-es-ph="Ej: Viator paga a los 30 días, Airbnb al día siguiente del tour" data-en-ph="e.g. Viator pays after 30 days, Airbnb the day after the tour"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo llevan la cuenta de lo que les deben las plataformas?" data-en="How do you track what the platforms owe you?">¿Cómo llevan la cuenta de lo que les deben las plataformas?</label>
+        <textarea class="textarea" name="Control de cobros a plataformas" data-es-ph="Ej: La verdad no la llevamos. Confiamos en que lo que giran está bien, nunca lo hemos cuadrado contra las reservas..." data-en-ph="e.g. Honestly we don't. We trust that what they transfer is right, we've never reconciled it against the bookings..."></textarea></div>
+    </div>
+
+    <!-- ===== 07 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">07</span>
+        <div class="card-title">
+          <h2 data-es="Alojamiento" data-en="Accommodation">Alojamiento</h2>
+          <p data-es="Solo si tienen o están montando hospedaje" data-en="Only if you have or are setting up accommodation">Solo si tienen o están montando hospedaje</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen alojamiento o están montando uno?" data-en="Do you have accommodation or are you setting one up?">¿Tienen alojamiento o están montando uno?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Tiene alojamiento" value="Funcionando"><span class="radio-label-text" data-es="Sí, ya funciona" data-en="Yes, already running">Sí, ya funciona</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene alojamiento" value="En montaje"><span class="radio-label-text" data-es="Lo estamos montando" data-en="We're setting it up">Lo estamos montando</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene alojamiento" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have one">No tenemos</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene alojamiento=Funcionando|En montaje">
+        <div class="field"><label class="field-label" data-es="¿Qué tipo de alojamiento es y cuántas unidades tienen?" data-en="What type of accommodation is it and how many units?">¿Qué tipo de alojamiento es y cuántas unidades tienen?</label>
+          <input class="input" type="text" name="Tipo de alojamiento" data-es-ph="Ej: Una cabaña para 4 personas, con opción de una segunda el otro año" data-en-ph="e.g. One cabin for 4 people, with a second planned next year"></div>
+
+        <div class="field"><label class="field-label" data-es="Precio por noche y capacidad" data-en="Price per night and capacity">Precio por noche y capacidad</label>
+          <div class="input-grid-3">
+            <div class="input-group"><span class="input-group-label" data-es="Precio por noche" data-en="Price per night">Precio por noche</span><input class="input" type="number" name="Precio por noche" placeholder="Ej: 350000"></div>
+            <div class="input-group"><span class="input-group-label" data-es="Huéspedes máximos" data-en="Maximum guests">Huéspedes máximos</span><input class="input" type="number" name="Huéspedes máximos" placeholder="Ej: 4"></div>
+            <div class="input-group"><span class="input-group-label" data-es="Noches ocupadas / mes" data-en="Nights occupied / month">Noches ocupadas / mes</span><input class="input" type="number" name="Noches ocupadas por mes" placeholder="Ej: 8"></div>
+          </div></div>
+
+        <div class="field"><label class="field-label" data-es="¿Ya está publicado en alguna parte?" data-en="Is it listed anywhere yet?">¿Ya está publicado en alguna parte?</label>
+          <span class="field-hint" data-es="En su web todavía no aparece. Si está en Airbnb o Booking, díganos dónde." data-en="It doesn't appear on your website yet. If it's on Airbnb or Booking, tell us where.">En su web todavía no aparece. Si está en Airbnb o Booking, díganos dónde.</span>
+          <input class="input" type="text" name="Dónde está publicado el alojamiento" data-es-ph="Ej: Solo en Airbnb / Todavía en nada, se lo ofrecemos a los que vienen al tour" data-en-ph="e.g. Only on Airbnb / Nowhere yet, we offer it to tour guests"></div>
+
+        <div class="field"><label class="field-label" data-es="¿Cómo manejan el calendario del alojamiento?" data-en="How do you manage the accommodation calendar?">¿Cómo manejan el calendario del alojamiento?</label>
+          <span class="field-hint" data-es="¿Es el mismo del tour o va aparte? Aquí el riesgo de doble reserva es aún más caro." data-en="Is it the same as the tour calendar or separate? Here the double-booking risk is even more expensive.">¿Es el mismo del tour o va aparte? Aquí el riesgo de doble reserva es aún más caro.</span>
+          <textarea class="textarea" name="Calendario del alojamiento" data-es-ph="Ej: Va aparte, en el calendario de Airbnb. Si alguien me escribe por WhatsApp tengo que entrar a mirar..." data-en-ph="e.g. It's separate, in the Airbnb calendar. If someone writes on WhatsApp I have to go and check..."></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Quién se encarga del check-in, la limpieza y la atención al huésped?" data-en="Who handles check-in, cleaning and guest support?">¿Quién se encarga del check-in, la limpieza y la atención al huésped?</label>
+          <textarea class="textarea" name="Operación del alojamiento" data-es-ph="Ej: Mi mamá vive al lado y ella recibe. La limpieza la hace la misma señora de la finca entre huésped y huésped..." data-en-ph="e.g. My mother lives next door and she receives them. The same farm lady cleans between guests..."></textarea></div>
+
+        <div class="field"><label class="field-label" data-es="¿Ofrecen el tour a quien se hospeda, o el hospedaje a quien hace el tour?" data-en="Do you offer the tour to guests, or the stay to tour clients?">¿Ofrecen el tour a quien se hospeda, o el hospedaje a quien hace el tour?</label>
+          <span class="field-hint" data-es="Es la venta más fácil que existe: ya están ahí y ya confían en ustedes." data-en="It's the easiest sale there is: they're already there and they already trust you.">Es la venta más fácil que existe: ya están ahí y ya confían en ustedes.</span>
+          <textarea class="textarea" name="Venta cruzada alojamiento y tour" data-es-ph="Ej: No lo hacemos de forma organizada, a veces se lo menciono al final del tour si me acuerdo..." data-en-ph="e.g. We don't do it in an organised way, sometimes I mention it at the end of the tour if I remember..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- ===== 08 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">08</span>
+        <div class="card-title">
+          <h2 data-es="El Día de la Experiencia" data-en="The Day of the Experience">El Día de la Experiencia</h2>
+          <p data-es="Cómo se entrega lo que vendieron" data-en="How you deliver what you sold">Cómo se entrega lo que vendieron</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="Cuéntenos cómo es un día de tour, de principio a fin" data-en="Tell us what a tour day looks like, start to finish">Cuéntenos cómo es un día de tour, de principio a fin</label>
+        <span class="field-hint" data-es="Desde que se levantan hasta que dejan al último viajero. Entre más detalle, mejor dibujamos el proceso." data-en="From waking up to dropping off the last traveller. The more detail, the better we can map the process.">Desde que se levantan hasta que dejan al último viajero. Entre más detalle, mejor dibujamos el proceso.</span>
+        <textarea class="textarea" name="Proceso del día del tour" data-es-ph="Ej: A las 5am reviso quién viene hoy. A las 6 salgo a recoger por los hoteles, uno por uno. A las 7 arrancamos, café, ordeño, desayuno a las 9..." data-en-ph="e.g. At 5am I check who's coming today. At 6 I start hotel pickups, one by one. At 7 we begin, coffee, milking, breakfast at 9..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Confirman con el viajero antes del día del tour?" data-en="Do you confirm with the traveller before the tour day?">¿Confirman con el viajero antes del día del tour?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Confirman antes del tour" value="Automático"><span class="radio-label-text" data-es="Sí, automático" data-en="Yes, automatic">Sí, automático</span></label>
+          <label class="radio-box"><input type="radio" name="Confirman antes del tour" value="Manual"><span class="radio-label-text" data-es="Sí, uno por uno a mano" data-en="Yes, one by one manually">Sí, uno por uno a mano</span></label>
+          <label class="radio-box"><input type="radio" name="Confirman antes del tour" value="No"><span class="radio-label-text" data-es="No confirmamos" data-en="We don't confirm">No confirmamos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo le mandan al viajero la información previa?" data-en="How do you send travellers the pre-trip information?">¿Cómo le mandan al viajero la información previa?</label>
+        <span class="field-hint" data-es="Punto de encuentro, qué llevar, qué ropa, si hay restricciones de peso o salud" data-en="Meeting point, what to bring, what to wear, weight or health restrictions">Punto de encuentro, qué llevar, qué ropa, si hay restricciones de peso o salud</span>
+        <textarea class="textarea" name="Información previa al viajero" data-es-ph="Ej: Se lo escribo por WhatsApp el día antes, cada vez lo escribo de nuevo. A veces se me olvida decir lo del peso máximo..." data-en-ph="e.g. I write it on WhatsApp the day before, retyping it each time. Sometimes I forget to mention the weight limit..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué es lo que más se les complica el día del tour?" data-en="What gets most complicated on tour day?">¿Qué es lo que más se les complica el día del tour?</label>
+        <textarea class="textarea" name="Complicaciones del día" data-es-ph="Ej: Recoger en cinco hoteles distintos nos atrasa una hora. Si alguien no baja a tiempo, todos esperan..." data-en-ph="e.g. Picking up at five different hotels puts us an hour behind. If one person is late, everyone waits..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué hacen cuando algo sale mal?" data-en="What do you do when something goes wrong?">¿Qué hacen cuando algo sale mal?</label>
+        <span class="field-hint" data-es="Llueve, se daña el carro, se enferma el guía, un viajero se lastima" data-en="It rains, the vehicle breaks down, the guide gets sick, a traveller gets hurt">Llueve, se daña el carro, se enferma el guía, un viajero se lastima</span>
+        <textarea class="textarea" name="Plan ante imprevistos" data-es-ph="Ej: Si llueve el tour se hace igual pero sin cabalgata. Si me enfermo yo, se cancela porque no hay quién guíe en inglés..." data-en-ph="e.g. If it rains the tour still runs but without the horse ride. If I get sick, it's cancelled because there's no one else who guides in English..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿El proceso del tour está escrito en alguna parte?" data-en="Is the tour process written down anywhere?">¿El proceso del tour está escrito en alguna parte?</label>
+        <span class="field-hint" data-es="Si mañana entra un guía nuevo, ¿tiene algo que leer o aprende mirando?" data-en="If a new guide starts tomorrow, do they have something to read or do they learn by watching?">Si mañana entra un guía nuevo, ¿tiene algo que leer o aprende mirando?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Documentados"><span class="radio-label-text" data-es="Sí, está documentado" data-en="Yes, it's documented">Sí, está documentado</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Algunos"><span class="radio-label-text" data-es="Algunas cosas sí" data-en="Some parts yes">Algunas cosas sí</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="No"><span class="radio-label-text" data-es="No, se aprende haciéndolo" data-en="No, you learn by doing">No, se aprende haciéndolo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Miden la satisfacción del viajero?" data-en="Do you measure traveller satisfaction?">¿Miden la satisfacción del viajero?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="Sí formal"><span class="radio-label-text" data-es="Sí, con encuesta" data-en="Yes, with a survey">Sí, con encuesta</span></label>
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="Informal"><span class="radio-label-text" data-es="Solo preguntando" data-en="Just by asking">Solo preguntando</span></label>
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="No"><span class="radio-label-text" data-es="No medimos" data-en="We don't measure">No medimos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué pasa después de que el viajero se va?" data-en="What happens after the traveller leaves?">¿Qué pasa después de que el viajero se va?</label>
+        <span class="field-hint" data-es="¿Le escriben? ¿Le piden reseña? ¿Le mandan las fotos? ¿O ahí termina todo?" data-en="Do you write to them? Ask for a review? Send the photos? Or does it all end there?">¿Le escriben? ¿Le piden reseña? ¿Le mandan las fotos? ¿O ahí termina todo?</span>
+        <textarea class="textarea" name="Post-experiencia" data-es-ph="Ej: Ahí termina. A veces les mando las fotos por WhatsApp si me acuerdo, pero no siempre..." data-en-ph="e.g. It ends there. Sometimes I send them the photos on WhatsApp if I remember, but not always..."></textarea></div>
+    </div>
+
+    <!-- ===== 09 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">09</span>
+        <div class="card-title">
+          <h2 data-es="Marketing, Contenido y Reseñas" data-en="Marketing, Content and Reviews">Marketing, Contenido y Reseñas</h2>
+          <p data-es="Cómo los encuentran y qué dicen de ustedes" data-en="How people find you and what they say about you">Cómo los encuentran y qué dicen de ustedes</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Por dónde llegan los viajeros?" data-en="How do travellers find you?">¿Por dónde llegan los viajeros?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Videos de visitantes"><div class="checkbox-content"><span class="checkbox-text" data-es="Videos que publican los propios visitantes" data-en="Videos posted by visitors themselves">Videos que publican los propios visitantes</span><span class="checkbox-desc" data-es="Alguien graba su experiencia y se vuelve viral" data-en="Someone films their experience and it goes viral">Alguien graba su experiencia y se vuelve viral</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Instagram"><span class="checkbox-text" data-es="Instagram (contenido propio)" data-en="Instagram (own content)">Instagram (contenido propio)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="TikTok"><span class="checkbox-text" data-es="TikTok (contenido propio)" data-en="TikTok (own content)">TikTok (contenido propio)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Plataformas"><span class="checkbox-text" data-es="Búsquedas dentro de las plataformas" data-en="Searches inside the platforms">Búsquedas dentro de las plataformas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Google"><span class="checkbox-text" data-es="Google / Google Maps" data-en="Google / Google Maps">Google / Google Maps</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Recomendación de hotel"><span class="checkbox-text" data-es="Recomendación de hoteles y hostales" data-en="Hotel and hostel recommendations">Recomendación de hoteles y hostales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Voz a voz"><span class="checkbox-text" data-es="Voz a voz entre viajeros" data-en="Word of mouth between travellers">Voz a voz entre viajeros</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Influencers"><span class="checkbox-text" data-es="Influencers o creadores invitados" data-en="Invited influencers or creators">Influencers o creadores invitados</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Publicidad pagada"><span class="checkbox-text" data-es="Publicidad pagada" data-en="Paid advertising">Publicidad pagada</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Saben cuántos viajeros les llegan por cada canal?" data-en="Do you know how many travellers come from each channel?">¿Saben cuántos viajeros les llegan por cada canal?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="Sí"><span class="radio-label-text" data-es="Sí, lo medimos" data-en="Yes, we measure it">Sí, lo medimos</span></label>
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="Más o menos"><span class="radio-label-text" data-es="Más o menos" data-en="More or less">Más o menos</span></label>
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="No"><span class="radio-label-text" data-es="No tenemos idea" data-en="We have no idea">No tenemos idea</span></label>
+        </div></div>
+
+      <div class="info-callout"><p data-es="Si buena parte de sus clientes llega por videos que graban los propios viajeros, ese contenido es su activo más valioso — y casi siempre está desaprovechado, porque no se pide, no se guarda y no se reutiliza." data-en="If a good share of your clients arrives through videos filmed by travellers themselves, that content is your most valuable asset — and it's almost always wasted, because it isn't requested, saved or reused.">Si buena parte de sus clientes llega por videos que graban los propios viajeros, ese contenido es su activo más valioso — y casi siempre está desaprovechado, porque no se pide, no se guarda y no se reutiliza.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Los viajeros graban y publican su experiencia?" data-en="Do travellers film and post their experience?">¿Los viajeros graban y publican su experiencia?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Viajeros publican contenido" value="Casi todos"><span class="radio-label-text" data-es="Casi todos" data-en="Almost all of them">Casi todos</span></label>
+          <label class="radio-box"><input type="radio" name="Viajeros publican contenido" value="Algunos"><span class="radio-label-text" data-es="Algunos" data-en="Some">Algunos</span></label>
+          <label class="radio-box"><input type="radio" name="Viajeros publican contenido" value="Pocos"><span class="radio-label-text" data-es="Muy pocos" data-en="Very few">Muy pocos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Les piden que los etiqueten? ¿Guardan ese contenido?" data-en="Do you ask them to tag you? Do you save that content?">¿Les piden que los etiqueten? ¿Guardan ese contenido?</label>
+        <span class="field-hint" data-es="Y si lo reutilizan, ¿piden permiso? Sin permiso no se puede usar en publicidad pagada." data-en="And if you reuse it, do you ask permission? Without permission it can't be used in paid ads.">Y si lo reutilizan, ¿piden permiso? Sin permiso no se puede usar en publicidad pagada.</span>
+        <textarea class="textarea" name="Gestión del contenido de visitantes" data-es-ph="Ej: A veces les digo que nos etiqueten pero no siempre. Cuando alguien sube algo bueno lo repostiamos, pero no lo guardamos en ninguna parte y después se pierde..." data-en-ph="e.g. Sometimes I ask them to tag us but not always. When someone posts something good we repost it, but we don't save it anywhere and later it's lost..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cada cuánto publican contenido propio?" data-en="How often do you post your own content?">¿Cada cuánto publican contenido propio?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Diaria"><span class="radio-label-text" data-es="Casi a diario" data-en="Almost daily">Casi a diario</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Semanal"><span class="radio-label-text" data-es="Varias veces por semana" data-en="Several times a week">Varias veces por semana</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Esporádica"><span class="radio-label-text" data-es="Cuando nos acordamos" data-en="When we remember">Cuando nos acordamos</span></label>
+          <label class="radio-box"><input type="radio" name="Frecuencia de publicación" value="Inactivo"><span class="radio-label-text" data-es="Están abandonadas" data-en="They're abandoned">Están abandonadas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién crea el contenido?" data-en="Who creates the content?">¿Quién crea el contenido?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Quién crea contenido" value="El dueño"><span class="radio-label-text" data-es="El dueño, entre tour y tour" data-en="The owner, between tours">El dueño, entre tour y tour</span></label>
+          <label class="radio-box"><input type="radio" name="Quién crea contenido" value="Alguien del equipo"><span class="radio-label-text" data-es="Alguien del equipo" data-en="Someone on the team">Alguien del equipo</span></label>
+          <label class="radio-box"><input type="radio" name="Quién crea contenido" value="Externo"><span class="radio-label-text" data-es="Alguien externo" data-en="Someone external">Alguien externo</span></label>
+          <label class="radio-box"><input type="radio" name="Quién crea contenido" value="Nadie"><span class="radio-label-text" data-es="Nadie en concreto" data-en="No one in particular">Nadie en concreto</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto invierten al mes en publicidad?" data-en="How much do you invest monthly in advertising?">¿Cuánto invierten al mes en publicidad?</label>
+        <span class="field-hint" data-es="Solo la pauta. Si no invierten nada, pongan 0." data-en="Ad spend only. If you don't invest anything, put 0.">Solo la pauta. Si no invierten nada, pongan 0.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Inversión mensual en publicidad" placeholder="Ej: 0"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo están hoy en reseñas?" data-en="How are your reviews today?">¿Cómo están hoy en reseñas?</label>
+        <span class="field-hint" data-es="Cuántas y con qué nota, en cada sitio donde tengan" data-en="How many and what rating, on each site where you have them">Cuántas y con qué nota, en cada sitio donde tengan</span>
+        <textarea class="textarea" name="Estado de las reseñas" data-es-ph="Ej: TripAdvisor 4.9 con 120 reseñas, Google 5.0 con 30, Viator 4.8 con 85. En Airbnb apenas 6..." data-en-ph="e.g. TripAdvisor 4.9 with 120 reviews, Google 5.0 with 30, Viator 4.8 with 85. On Airbnb only 6..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Les piden reseñas a los viajeros de forma sistemática?" data-en="Do you ask travellers for reviews systematically?">¿Les piden reseñas a los viajeros de forma sistemática?</label>
+        <span class="field-hint" data-es="En turismo la reseña es el motor: sube su posición dentro de las plataformas y hace que los encuentren más." data-en="In tourism reviews are the engine: they raise your ranking inside the platforms and get you found more.">En turismo la reseña es el motor: sube su posición dentro de las plataformas y hace que los encuentren más.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="Sistemático"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="No"><span class="radio-label-text" data-es="No pedimos" data-en="We don't ask">No pedimos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Responden las reseñas que les dejan?" data-en="Do you reply to the reviews you receive?">¿Responden las reseñas que les dejan?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Responden reseñas" value="Todas"><span class="radio-label-text" data-es="Sí, todas" data-en="Yes, all of them">Sí, todas</span></label>
+          <label class="radio-box"><input type="radio" name="Responden reseñas" value="Solo malas"><span class="radio-label-text" data-es="Solo las malas" data-en="Only the bad ones">Solo las malas</span></label>
+          <label class="radio-box"><input type="radio" name="Responden reseñas" value="No"><span class="radio-label-text" data-es="No respondemos" data-en="We don't reply">No respondemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿A quiénes consideran su competencia?" data-en="Who do you consider your competition?">¿A quiénes consideran su competencia?</label>
+        <span class="field-hint" data-es="Dos o tres nombres. Nos interesa a quién ven ustedes como rival." data-en="Two or three names. We want to know who you see as a rival.">Dos o tres nombres. Nos interesa a quién ven ustedes como rival.</span>
+        <textarea class="textarea" name="Competidores percibidos" data-es-ph="Ej: Otras dos fincas cafeteras que salen primero en Viator y cobran más barato..." data-en-ph="e.g. Two other coffee farms that rank first on Viator and charge less..."></textarea></div>
+    </div>
+
+    <!-- ===== 10 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">10</span>
+        <div class="card-title">
+          <h2 data-es="Administración y Normativa Turística" data-en="Admin and Tourism Regulations">Administración y Normativa Turística</h2>
+          <p data-es="La parte de atrás: facturación, permisos y seguros" data-en="The back office: invoicing, permits and insurance">La parte de atrás: facturación, permisos y seguros</p></div></div>
+
+      <div class="info-callout"><p data-es="En turismo hay requisitos que no aplican a otros negocios. No estar al día puede significar multas o quedar fuera de las plataformas, que los exigen cada vez más." data-en="Tourism has requirements other businesses don't face. Not being up to date can mean fines or being removed from platforms, which demand them more and more.">En turismo hay requisitos que no aplican a otros negocios. No estar al día puede significar multas o quedar fuera de las plataformas, que los exigen cada vez más.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen Registro Nacional de Turismo (RNT) vigente?" data-en="Do you have a valid National Tourism Registry (RNT)?">¿Tienen Registro Nacional de Turismo (RNT) vigente?</label>
+        <span class="field-hint" data-es="Es obligatorio en Colombia para prestadores de servicios turísticos, y se renueva cada año." data-en="It's mandatory in Colombia for tourism service providers, and renewed annually.">Es obligatorio en Colombia para prestadores de servicios turísticos, y se renueva cada año.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="RNT" value="Vigente"><span class="radio-label-text" data-es="Sí, vigente" data-en="Yes, current">Sí, vigente</span></label>
+          <label class="radio-box"><input type="radio" name="RNT" value="Vencido"><span class="radio-label-text" data-es="Lo tenemos pero vencido" data-en="We have it but it's expired">Lo tenemos pero vencido</span></label>
+          <label class="radio-box"><input type="radio" name="RNT" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have one">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué seguros tienen?" data-en="What insurance do you have?">¿Qué seguros tienen?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Seguros" value="Asistencia al viajero"><span class="checkbox-text" data-es="Seguro de asistencia al viajero" data-en="Traveller assistance insurance">Seguro de asistencia al viajero</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Seguros" value="Responsabilidad civil"><span class="checkbox-text" data-es="Responsabilidad civil" data-en="Civil liability">Responsabilidad civil</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Seguros" value="Vehículo"><span class="checkbox-text" data-es="Seguro del vehículo para transporte de pasajeros" data-en="Vehicle insurance for passenger transport">Seguro del vehículo para transporte de pasajeros</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Seguros" value="Accidentes"><span class="checkbox-text" data-es="Accidentes personales" data-en="Personal accident">Accidentes personales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Seguros" value="Ninguno"><span class="checkbox-text" data-es="Ninguno" data-en="None">Ninguno</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo están vinculados los guías y conductores?" data-en="How are guides and drivers engaged?">¿Cómo están vinculados los guías y conductores?</label>
+        <span class="field-hint" data-es="Contrato, prestación de servicios, por días sin papeles..." data-en="Employment contract, service agreement, day rate without paperwork...">Contrato, prestación de servicios, por días sin papeles...</span>
+        <input class="input" type="text" name="Vinculación del equipo" data-es-ph="Ej: Todos por días, sin contrato. El conductor es un amigo con su propio carro" data-en-ph="e.g. All by the day, no contract. The driver is a friend with his own vehicle"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo llevan la facturación?" data-en="How do you handle invoicing?">¿Cómo llevan la facturación?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Cómo facturan" value="Software facturación"><span class="checkbox-text" data-es="Software de facturación electrónica (Siigo, Alegra...)" data-en="E-invoicing software (Siigo, Alegra...)">Software de facturación electrónica (Siigo, Alegra...)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cómo facturan" value="Contador externo"><span class="checkbox-text" data-es="Lo maneja el contador externo" data-en="Handled by an external accountant">Lo maneja el contador externo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cómo facturan" value="Excel"><span class="checkbox-text" data-es="Excel o a mano" data-en="Excel or by hand">Excel o a mano</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cómo facturan" value="No facturamos"><span class="checkbox-text" data-es="Casi no facturamos" data-en="We barely invoice at all">Casi no facturamos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Están al día con la facturación electrónica?" data-en="Are you up to date with electronic invoicing?">¿Están al día con la facturación electrónica?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="Sí"><span class="radio-label-text" data-es="Sí, al día" data-en="Yes, up to date">Sí, al día</span></label>
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="Parcial"><span class="radio-label-text" data-es="Parcialmente" data-en="Partially">Parcialmente</span></label>
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="No sé"><span class="radio-label-text" data-es="No estoy seguro" data-en="I'm not sure">No estoy seguro</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas facturas emiten al mes?" data-en="How many invoices do you issue per month?">¿Cuántas facturas emiten al mes?</label>
+        <span class="field-hint" data-es="Un aproximado. Si le facturan a las plataformas y aparte a los clientes directos, cuenten las dos." data-en="An approximation. If you invoice the platforms and direct clients separately, count both.">Un aproximado. Si le facturan a las plataformas y aparte a los clientes directos, cuenten las dos.</span>
+        <input class="input" type="number" name="Facturas emitidas por mes" placeholder="Ej: 25"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo se aprueban los descuentos, los gastos y las compras?" data-en="How are discounts, expenses and purchases approved?">¿Cómo se aprueban los descuentos, los gastos y las compras?</label>
+        <span class="field-hint" data-es="Quién da el visto bueno y si queda registrado en alguna parte." data-en="Who signs off and whether it's recorded anywhere.">Quién da el visto bueno y si queda registrado en alguna parte.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Digital"><span class="radio-label-text" data-es="Queda registro digital" data-en="Digital record is kept">Queda registro digital</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Verbal"><span class="radio-label-text" data-es="De palabra, sin registro" data-en="Verbally, no record">De palabra, sin registro</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Sin regla"><span class="radio-label-text" data-es="No hay una regla clara" data-en="There's no clear rule">No hay una regla clara</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen política de tratamiento de datos personales?" data-en="Do you have a personal data protection policy?">¿Tienen política de tratamiento de datos personales?</label>
+        <span class="field-hint" data-es="Manejan datos de extranjeros: pasaportes, correos, teléfonos. Eso tiene reglas." data-en="You handle foreigners' data: passports, emails, phone numbers. That has rules.">Manejan datos de extranjeros: pasaportes, correos, teléfonos. Eso tiene reglas.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="Sí formal"><span class="radio-label-text" data-es="Sí, formalizada" data-en="Yes, formalized">Sí, formalizada</span></label>
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="Básica"><span class="radio-label-text" data-es="Algo básico" data-en="Something basic">Algo básico</span></label>
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="No"><span class="radio-label-text" data-es="No tenemos" data-en="We don't have one">No tenemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué números revisan hoy para saber cómo va el negocio?" data-en="Which numbers do you review today to know how the business is doing?">¿Qué números revisan hoy para saber cómo va el negocio?</label>
+        <span class="field-hint" data-es="Marca los que miran de verdad, no los que les gustaría mirar" data-en="Check the ones you actually look at, not the ones you'd like to">Marca los que miran de verdad, no los que les gustaría mirar</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ingresos"><span class="checkbox-text" data-es="Ingresos del mes" data-en="Monthly revenue">Ingresos del mes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ocupación"><span class="checkbox-text" data-es="Ocupación de los cupos" data-en="Slot occupancy">Ocupación de los cupos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Reservas por canal"><span class="checkbox-text" data-es="Reservas por cada canal" data-en="Bookings per channel">Reservas por cada canal</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Comisiones"><span class="checkbox-text" data-es="Cuánto se llevan las plataformas" data-en="How much the platforms take">Cuánto se llevan las plataformas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Cancelaciones"><span class="checkbox-text" data-es="Cancelaciones y no-shows" data-en="Cancellations and no-shows">Cancelaciones y no-shows</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Reseñas"><span class="checkbox-text" data-es="Reseñas y calificación" data-en="Reviews and rating">Reseñas y calificación</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ninguno"><span class="checkbox-text" data-es="Ninguno de forma constante" data-en="None on a regular basis">Ninguno de forma constante</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tareas administrativas les consumen más tiempo?" data-en="Which administrative tasks consume the most time?">¿Qué tareas administrativas les consumen más tiempo?</label>
+        <textarea class="textarea" name="Tareas administrativas pesadas" data-es-ph="Ej:
+• Actualizar los cupos en cada plataforma
+• Escribir la misma información previa a cada viajero
+• Cuadrar lo que giran las plataformas
+• Coordinar con el conductor a quién se recoge y dónde" data-en-ph="e.g.:
+• Updating availability on each platform
+• Writing the same pre-trip info to every traveller
+• Reconciling platform payouts
+• Coordinating with the driver who to pick up and where"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas horas a la semana se van en tareas administrativas manuales?" data-en="How many hours a week go into manual admin tasks?">¿Cuántas horas a la semana se van en tareas administrativas manuales?</label>
+        <select class="select" name="Horas semanales administrativas">
+          <option value="" disabled selected data-es="Selecciona un rango" data-en="Select a range">Selecciona un rango</option>
+          <option value="1-5" data-es="1 - 5 horas" data-en="1 - 5 hours">1 - 5 horas</option>
+          <option value="6-15" data-es="6 - 15 horas" data-en="6 - 15 hours">6 - 15 horas</option>
+          <option value="16-30" data-es="16 - 30 horas" data-en="16 - 30 hours">16 - 30 horas</option>
+          <option value="30+" data-es="Más de 30 horas" data-en="More than 30 hours">Más de 30 horas</option>
+        </select></div>
+    </div>
+
+    <!-- ===== 11 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">11</span>
+        <div class="card-title">
+          <h2 data-es="Herramientas y Automatización" data-en="Tools and Automation">Herramientas y Automatización</h2>
+          <p data-es="Con qué trabajan hoy y qué tienen automatizado" data-en="What you work with today and what's automated">Con qué trabajan hoy y qué tienen automatizado</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas usan en el día a día?" data-en="Which tools do you use day to day?">¿Qué herramientas usan en el día a día?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="WhatsApp Business"><span class="checkbox-text" data-es="WhatsApp Business" data-en="WhatsApp Business">WhatsApp Business</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="WhatsApp normal"><span class="checkbox-text" data-es="WhatsApp normal (personal)" data-en="Regular WhatsApp (personal)">WhatsApp normal (personal)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Google Calendar"><span class="checkbox-text" data-es="Google Calendar" data-en="Google Calendar">Google Calendar</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Excel"><span class="checkbox-text" data-es="Excel / Google Sheets" data-en="Excel / Google Sheets">Excel / Google Sheets</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Software de reservas"><span class="checkbox-text" data-es="Software de reservas" data-en="Booking software">Software de reservas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="CRM"><span class="checkbox-text" data-es="CRM" data-en="CRM">CRM</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Software facturación"><span class="checkbox-text" data-es="Software de facturación" data-en="Invoicing software">Software de facturación</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Perfil de Google"><span class="checkbox-text" data-es="Perfil de Google Business" data-en="Google Business Profile">Perfil de Google Business</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Cuaderno"><span class="checkbox-text" data-es="Cuaderno de papel" data-en="Paper notebook">Cuaderno de papel</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto pagan al mes por todo el software que usan?" data-en="How much do you pay monthly for all the software you use?">¿Cuánto pagan al mes por todo el software que usan?</label>
+        <span class="field-hint" data-es="Sumen suscripciones, licencias y cualquier herramienta de pago. Si no pagan nada, pongan 0." data-en="Add up subscriptions, licences and any paid tool. If you pay nothing, put 0.">Sumen suscripciones, licencias y cualquier herramienta de pago. Si no pagan nada, pongan 0.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual de software" placeholder="Ej: 0"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tan digitalizado está el negocio?" data-en="How digitalized is the business?">¿Qué tan digitalizado está el negocio?</label>
+        <span class="field-hint" data-es="Cuánto de lo que hacen queda registrado en un sistema, y cuánto vive en papel, en el celular o en la cabeza de alguien." data-en="How much of what you do is recorded in a system, and how much lives on paper, on a phone or in someone's head.">Cuánto de lo que hacen queda registrado en un sistema, y cuánto vive en papel, en el celular o en la cabeza de alguien.</span>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Nivel de digitalización" value="Casi todo digital"><span class="radio-label-text" data-es="Casi todo es digital" data-en="Almost everything is digital">Casi todo es digital</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de digitalización" value="Mitad y mitad"><span class="radio-label-text" data-es="Mitad y mitad" data-en="Half and half">Mitad y mitad</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de digitalización" value="Poco"><span class="radio-label-text" data-es="Poco, casi todo manual" data-en="Little, almost all manual">Poco, casi todo manual</span></label>
+          <label class="radio-box"><input type="radio" name="Nivel de digitalización" value="Nada"><span class="radio-label-text" data-es="Nada, todo en papel o de memoria" data-en="Nothing, all paper or memory">Nada, todo en papel o de memoria</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Las herramientas están conectadas entre sí?" data-en="Are the tools connected to each other?">¿Las herramientas están conectadas entre sí?</label>
+        <span class="field-hint" data-es="Por ejemplo: que al entrar una reserva se cree sola en el calendario y se mande la confirmación" data-en="For example: a booking automatically creating the calendar entry and sending the confirmation">Por ejemplo: que al entrar una reserva se cree sola en el calendario y se mande la confirmación</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Conectadas"><span class="radio-label-text" data-es="Sí, conectadas" data-en="Yes, connected">Sí, conectadas</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Algunas"><span class="radio-label-text" data-es="Algunas" data-en="Some">Algunas</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Separadas"><span class="radio-label-text" data-es="No, cada una por su lado" data-en="No, each one separate">No, cada una por su lado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen algo automatizado hoy?" data-en="Do you have anything automated today?">¿Tienen algo automatizado hoy?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="Sí"><span class="radio-label-text" data-es="Sí, algo" data-en="Yes, something">Sí, algo</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="No"><span class="radio-label-text" data-es="No, todo es manual" data-en="No, everything is manual">No, todo es manual</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene automatización=Sí">
+        <div class="field"><label class="field-label" data-es="¿Qué tienen automatizado?" data-en="What is automated?">¿Qué tienen automatizado?</label><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Confirmación de reserva"><span class="checkbox-text" data-es="Confirmación automática de reserva" data-en="Automatic booking confirmation">Confirmación automática de reserva</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Recordatorio previo"><span class="checkbox-text" data-es="Recordatorio antes del tour" data-en="Reminder before the tour">Recordatorio antes del tour</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Respuestas automáticas"><span class="checkbox-text" data-es="Respuestas automáticas en WhatsApp" data-en="Automatic WhatsApp replies">Respuestas automáticas en WhatsApp</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Sincronización de calendarios"><span class="checkbox-text" data-es="Sincronización de calendarios entre plataformas" data-en="Calendar sync across platforms">Sincronización de calendarios entre plataformas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Solicitud de reseñas"><span class="checkbox-text" data-es="Solicitud automática de reseñas" data-en="Automatic review requests">Solicitud automática de reseñas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Cobro automático"><span class="checkbox-text" data-es="Cobro o link de pago automático" data-en="Automatic payment link or charge">Cobro o link de pago automático</span></label>
+        </div></div>
+      </div>
+
+      <div class="conditional" data-show-when="Tiene automatización=No">
+        <div class="field"><label class="field-label" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</label><div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Tiempo"><span class="checkbox-text" data-es="Falta de tiempo" data-en="Lack of time">Falta de tiempo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No sabemos"><span class="checkbox-text" data-es="No sabemos cómo" data-en="We don't know how">No sabemos cómo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Presupuesto"><span class="checkbox-text" data-es="Por presupuesto" data-en="Budget">Por presupuesto</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="No era prioridad"><span class="checkbox-text" data-es="No era prioridad" data-en="Not a priority">No era prioridad</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Desconfianza"><span class="checkbox-text" data-es="Nos da desconfianza que falle" data-en="We're worried it might fail">Nos da desconfianza que falle</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Razón sin automatización" value="Trato personal"><span class="checkbox-text" data-es="Queremos que el trato siga siendo personal" data-en="We want to keep the personal touch">Queremos que el trato siga siendo personal</span></label>
+        </div></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Usan inteligencia artificial en algo?" data-en="Do you use AI for anything?">¿Usan inteligencia artificial en algo?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Usa IA" value="Sí"><span class="radio-label-text" data-es="Sí" data-en="Yes">Sí</span></label>
+          <label class="radio-box"><input type="radio" name="Usa IA" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Usa IA=Sí">
+        <div class="field"><label class="field-label" data-es="¿Para qué la usan?" data-en="What do you use it for?">¿Para qué la usan?</label>
+          <textarea class="textarea" name="Uso de IA" data-es-ph="Ej: ChatGPT para traducir mensajes al inglés y escribir las descripciones de las plataformas..." data-en-ph="e.g. ChatGPT to translate messages into English and write platform descriptions..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles de estas tareas hacen a mano todos los días?" data-en="Which of these tasks do you do by hand every day?">¿Cuáles de estas tareas hacen a mano todos los días?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Responder lo mismo"><span class="checkbox-text" data-es="Responder las mismas preguntas (precio, qué incluye, cupos)" data-en="Answering the same questions (price, what's included, availability)">Responder las mismas preguntas (precio, qué incluye, cupos)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Actualizar cupos"><span class="checkbox-text" data-es="Actualizar cupos en cada plataforma" data-en="Updating availability on each platform">Actualizar cupos en cada plataforma</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Confirmar"><span class="checkbox-text" data-es="Confirmar a cada viajero uno por uno" data-en="Confirming with each traveller one by one">Confirmar a cada viajero uno por uno</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Mandar info previa"><span class="checkbox-text" data-es="Escribir la información previa del tour" data-en="Writing the pre-trip information">Escribir la información previa del tour</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Coordinar recogida"><span class="checkbox-text" data-es="Coordinar las recogidas con el conductor" data-en="Coordinating pickups with the driver">Coordinar las recogidas con el conductor</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Traducir"><span class="checkbox-text" data-es="Traducir mensajes a otro idioma" data-en="Translating messages into another language">Traducir mensajes a otro idioma</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Pedir reseñas"><span class="checkbox-text" data-es="Pedir reseñas" data-en="Asking for reviews">Pedir reseñas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Publicar redes"><span class="checkbox-text" data-es="Publicar en redes sociales" data-en="Posting on social media">Publicar en redes sociales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Cuadrar pagos"><span class="checkbox-text" data-es="Cuadrar los pagos de las plataformas" data-en="Reconciling platform payouts">Cuadrar los pagos de las plataformas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué es lo que MÁS los frustra del día a día?" data-en="What frustrates you MOST day to day?">¿Qué es lo que MÁS los frustra del día a día?</label>
+        <textarea class="textarea" name="Frustraciones" data-es-ph="Ej: Estar pegado del celular todo el día respondiendo lo mismo. Que si me descuido dos horas se me cae una reserva..." data-en-ph="e.g. Being glued to the phone all day answering the same thing. That if I look away for two hours I lose a booking..."></textarea></div>
+    </div>
+
+    <!-- ===== 12 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">12</span>
+        <div class="card-title">
+          <h2 data-es="Objetivos y Expectativas" data-en="Goals and Expectations">Objetivos y Expectativas</h2>
+          <p data-es="A dónde quieren llegar y qué esperan de nosotros" data-en="Where you want to go and what you expect from us">A dónde quieren llegar y qué esperan de nosotros</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieran clonar a alguien para hacer UNA sola tarea 24/7, ¿cuál sería?" data-en="If you could clone someone to do ONE task 24/7, which would it be?">Si pudieran clonar a alguien para hacer UNA sola tarea 24/7, ¿cuál sería?</label>
+        <textarea class="textarea" name="Tarea a clonar" data-es-ph="Ej: Alguien que responda los mensajes en inglés a toda hora y me diga solo cuando ya está cerrada la reserva..." data-en-ph="e.g. Someone to answer messages in English at all hours and only tell me once the booking is closed..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si mañana llegaran el DOBLE de reservas, ¿qué se rompería?" data-en="If DOUBLE the bookings arrived tomorrow, what would break?">Si mañana llegaran el DOBLE de reservas, ¿qué se rompería?</label>
+        <textarea class="textarea" name="Límite de capacidad" data-es-ph="Ej: No hay más cupos que 8 al día, tocaría abrir un segundo grupo y no tenemos otro guía que hable inglés..." data-en-ph="e.g. There's no more than 8 slots a day, we'd have to open a second group and we don't have another English-speaking guide..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es su meta para los próximos 12 meses?" data-en="What is your goal for the next 12 months?">¿Cuál es su meta para los próximos 12 meses?</label>
+        <textarea class="textarea" name="Meta a 12 meses" data-es-ph="Ej: Llenar los 8 cupos todos los días, terminar la cabaña y empezar a vender noches, no depender tanto de Viator..." data-en-ph="e.g. Fill all 8 slots every day, finish the cabin and start selling nights, depend less on Viator..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Esa meta, ¿en cuánto se traduce al mes?" data-en="What does that goal translate to per month?">Esa meta, ¿en cuánto se traduce al mes?</label>
+        <span class="field-hint" data-es="Cuánto querrían estar facturando dentro de un año. Con este número podemos decirles si la meta cabe en la capacidad que tienen." data-en="How much you'd like to be billing a year from now. With this figure we can tell you whether the goal fits your current capacity.">Cuánto querrían estar facturando dentro de un año. Con este número podemos decirles si la meta cabe en la capacidad que tienen.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Meta de facturación mensual a 12 meses" placeholder="Ej: 30000000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieran empezar de cero, ¿cómo sería el proceso ideal?" data-en="If you could start from scratch, what would the ideal process look like?">Si pudieran empezar de cero, ¿cómo sería el proceso ideal?</label>
+        <span class="field-hint" data-es="Desde que alguien los descubre hasta que se va y deja su reseña. Sin pensar en lo que hoy es posible — díganos cómo debería ser." data-en="From someone discovering you to leaving and posting their review. Don't think about what's possible today — tell us how it should be.">Desde que alguien los descubre hasta que se va y deja su reseña. Sin pensar en lo que hoy es posible — díganos cómo debería ser.</span>
+        <textarea class="textarea" name="Proceso ideal" data-es-ph="Ej: Que la persona vea el video, entre a la web, vea los cupos reales, pague ahí mismo y le llegue todo automático. Yo solo me entero de que tengo 6 personas el sábado..." data-en-ph="e.g. The person sees the video, goes to the website, sees real availability, pays right there and everything arrives automatically. I just find out I have 6 people on Saturday..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si tuvieran una pantalla con los números del negocio, ¿qué querrían ver?" data-en="If you had one screen with the business numbers, what would you want to see?">Si tuvieran una pantalla con los números del negocio, ¿qué querrían ver?</label>
+        <span class="field-hint" data-es="Lo primero que mirarían al abrirla en la mañana" data-en="The first thing you'd look at when opening it in the morning">Lo primero que mirarían al abrirla en la mañana</span>
+        <textarea class="textarea" name="Tablero ideal" data-es-ph="Ej: Cuánta gente viene hoy y mañana, cuántos cupos me quedan libres esta semana, cuánto llevo facturado en el mes y cuánto me deben las plataformas..." data-en-ph="e.g. How many people are coming today and tomorrow, how many slots are free this week, how much I've billed this month and how much the platforms owe me..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define the success of this audit?">¿Cómo definirían el éxito de este diagnóstico?</label>
+        <textarea class="textarea" name="Criterios de éxito" data-es-ph="Ej: Tener un solo calendario que funcione solo, dejar de vivir pegado al WhatsApp y saber por fin de dónde llega la gente..." data-en-ph="e.g. Have one calendar that works by itself, stop living glued to WhatsApp and finally know where people come from..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto podrían invertir al mes en mejorar esto?" data-en="How much could you invest monthly to improve this?">¿Cuánto podrían invertir al mes en mejorar esto?</label>
+        <span class="field-hint" data-es="En la moneda seleccionada arriba. Nos ayuda a proponerles algo realista." data-en="In the currency selected above. It helps us propose something realistic.">En la moneda seleccionada arriba. Nos ayuda a proponerles algo realista.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Presupuesto mensual para mejoras" placeholder="Ej: 1500000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué NO están dispuestos a automatizar o cambiar?" data-en="What are you NOT willing to automate or change?">¿Qué NO están dispuestos a automatizar o cambiar?</label>
+        <span class="field-hint" data-es="Dígannoslo desde ahora. En turismo el trato humano es parte del producto, y preferimos saber sus límites antes de proponerles algo que no van a aceptar." data-en="Tell us up front. In tourism the human touch is part of the product, and we'd rather know your limits before proposing something you won't accept.">Dígannoslo desde ahora. En turismo el trato humano es parte del producto, y preferimos saber sus límites antes de proponerles algo que no van a aceptar.</span>
+        <textarea class="textarea" name="Qué no automatizar" data-es-ph="Ej: No quiero que un bot le hable a los viajeros, la gente viene por el trato personal. Tampoco quiero salir de Viator aunque cobren caro..." data-en-ph="e.g. I don't want a bot talking to travellers, people come for the personal touch. I also don't want to leave Viator even if they charge a lot..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo reacciona el equipo ante cambios y herramientas nuevas?" data-en="How does the team react to change and new tools?">¿Cómo reacciona el equipo ante cambios y herramientas nuevas?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Muy abiertos"><span class="radio-label-text" data-es="Muy abiertos" data-en="Very open">Muy abiertos</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Se adaptan"><span class="radio-label-text" data-es="Les cuesta pero se adaptan" data-en="It's hard but they adapt">Les cuesta pero se adaptan</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Hay resistencia"><span class="radio-label-text" data-es="Hay resistencia" data-en="There's resistance">Hay resistencia</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="No lo sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 13 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">13</span>
+        <div class="card-title">
+          <h2 data-es="Accesos, Seguridad y Respaldo" data-en="Access, Security and Backup">Accesos, Seguridad y Respaldo</h2>
+          <p data-es="Quién controla las cuentas y qué pasaría si algo falla" data-en="Who controls the accounts and what would happen if something failed">Quién controla las cuentas y qué pasaría si algo falla</p></div></div>
+
+      <div class="info-callout"><p data-es="En turismo las cuentas de las plataformas SON el negocio: ahí viven las reseñas acumuladas durante años y el posicionamiento. Perder el acceso a una cuenta de Viator con cien reseñas es perder el activo más valioso que tienen. Si no saben la respuesta a algo, «no sé» también es una respuesta útil." data-en="In tourism the platform accounts ARE the business: that's where years of accumulated reviews and ranking live. Losing access to a Viator account with a hundred reviews means losing the most valuable asset you have. If you don't know an answer, 'I don't know' is a useful answer too.">En turismo las cuentas de las plataformas <strong>SON</strong> el negocio: ahí viven las reseñas acumuladas durante años y el posicionamiento. Perder el acceso a una cuenta de Viator con cien reseñas es perder el activo más valioso que tienen. Si no saben la respuesta a algo, «no sé» también es una respuesta útil.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?" data-en="Which of these accounts do you currently have the username and password for?">¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?</label>
+        <span class="field-hint" data-es="Marca solo las que realmente podrían abrir hoy mismo" data-en="Check only the ones you could actually open right now">Marca solo las que realmente podrían abrir hoy mismo</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Plataformas de reserva"><span class="checkbox-text" data-es="Viator / GetYourGuide / Airbnb" data-en="Viator / GetYourGuide / Airbnb">Viator / GetYourGuide / Airbnb</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="TripAdvisor"><span class="checkbox-text" data-es="TripAdvisor" data-en="TripAdvisor">TripAdvisor</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Google Business"><span class="checkbox-text" data-es="Perfil de Google Business" data-en="Google Business Profile">Perfil de Google Business</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Instagram"><span class="checkbox-text" data-es="Instagram" data-en="Instagram">Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="TikTok"><span class="checkbox-text" data-es="TikTok" data-en="TikTok">TikTok</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp del negocio" data-en="Business WhatsApp">WhatsApp del negocio</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Dominio y hosting"><div class="checkbox-content"><span class="checkbox-text" data-es="Dominio y hosting de la web" data-en="Website domain and hosting">Dominio y hosting de la web</span><span class="checkbox-desc" data-es="Dónde está registrada y alojada la página" data-en="Where the site is registered and hosted">Dónde está registrada y alojada la página</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Ninguna"><span class="checkbox-text" data-es="Ninguna, las maneja alguien externo" data-en="None, someone external manages them">Ninguna, las maneja alguien externo</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿A nombre de quién están esas cuentas?" data-en="Whose name are those accounts under?">¿A nombre de quién están esas cuentas?</label>
+        <span class="field-hint" data-es="Si alguna está a nombre de un ex socio, un ex empleado o una agencia anterior, es importante saberlo ya." data-en="If any is under a former partner's, employee's or agency's name, it's important to know now.">Si alguna está a nombre de un ex socio, un ex empleado o una agencia anterior, es importante saberlo ya.</span>
+        <textarea class="textarea" name="Titular de las cuentas" data-es-ph="Ej: Todas con mi correo personal. La de Viator la abrió un socio que ya no está y el correo es el de él..." data-en-ph="e.g. All under my personal email. The Viator one was opened by a partner who's gone and the email is his..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay más de una persona con acceso de administrador?" data-en="Is there more than one person with admin access?">¿Hay más de una persona con acceso de administrador?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Sí"><span class="radio-label-text" data-es="Sí, hay varios" data-en="Yes, there are several">Sí, hay varios</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Solo una"><span class="radio-label-text" data-es="No, solo una persona" data-en="No, just one person">No, solo una persona</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Comparten contraseñas entre el equipo?" data-en="Do you share passwords across the team?">¿Comparten contraseñas entre el equipo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Gestor"><span class="radio-label-text" data-es="No, cada quien tiene la suya" data-en="No, everyone has their own">No, cada quien tiene la suya</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Algunas"><span class="radio-label-text" data-es="Algunas se comparten" data-en="Some are shared">Algunas se comparten</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Todas"><span class="radio-label-text" data-es="Sí, son las mismas para todos" data-en="Yes, the same for everyone">Sí, son las mismas para todos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde está guardada la lista de reservas y los datos de los viajeros?" data-en="Where is the list of bookings and traveller data stored?">¿Dónde está guardada la lista de reservas y los datos de los viajeros?</label>
+        <span class="field-hint" data-es="Y si ese lugar desapareciera mañana — se pierde el celular, se borra el Excel — ¿habría copia?" data-en="And if that place vanished tomorrow — the phone is lost, the spreadsheet deleted — would there be a copy?">Y si ese lugar desapareciera mañana — se pierde el celular, se borra el Excel — ¿habría copia?</span>
+        <textarea class="textarea" name="Dónde están los datos de reservas" data-es-ph="Ej: En un Excel en mi computador y en los chats de WhatsApp. Copia de seguridad no tenemos..." data-en-ph="e.g. In a spreadsheet on my computer and in the WhatsApp chats. We have no backup..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Está activada la copia de seguridad del WhatsApp del negocio?" data-en="Is the backup enabled on the business WhatsApp?">¿Está activada la copia de seguridad del WhatsApp del negocio?</label>
+        <span class="field-hint" data-es="Si ese teléfono se pierde o se daña, las conversaciones y las reservas pendientes se van con él." data-en="If that phone is lost or breaks, the conversations and pending bookings go with it.">Si ese teléfono se pierde o se daña, las conversaciones y las reservas pendientes se van con él.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="Sí"><span class="radio-label-text" data-es="Sí, está activada" data-en="Yes, it's enabled">Sí, está activada</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No sé"><span class="radio-label-text" data-es="No lo sabemos" data-en="We don't know">No lo sabemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Le piden permiso al viajero para usar sus fotos y videos?" data-en="Do you ask travellers' permission to use their photos and videos?">¿Le piden permiso al viajero para usar sus fotos y videos?</label>
+        <span class="field-hint" data-es="Si su marketing depende del contenido que graban los visitantes, esto deja de ser un detalle: sin permiso no se puede usar en publicidad." data-en="If your marketing depends on content filmed by visitors, this stops being a detail: without permission it can't be used in advertising.">Si su marketing depende del contenido que graban los visitantes, esto deja de ser un detalle: sin permiso no se puede usar en publicidad.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Permiso de imagen" value="Sí firmado"><span class="radio-label-text" data-es="Sí, queda por escrito" data-en="Yes, in writing">Sí, queda por escrito</span></label>
+          <label class="radio-box"><input type="radio" name="Permiso de imagen" value="De palabra"><span class="radio-label-text" data-es="Se lo pedimos de palabra" data-en="We ask verbally">Se lo pedimos de palabra</span></label>
+          <label class="radio-box"><input type="radio" name="Permiso de imagen" value="No"><span class="radio-label-text" data-es="No lo pedimos" data-en="We don't ask">No lo pedimos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién puede autorizar que un proveedor externo tenga acceso a sus cuentas?" data-en="Who can authorize an external provider to access your accounts?">¿Quién puede autorizar que un proveedor externo tenga acceso a sus cuentas?</label>
+        <input class="input" type="text" name="Quién autoriza accesos" data-es-ph="Ej: Solo yo / Mi socio también puede" data-en-ph="e.g. Only me / My partner can too"></div>
+    </div>
+
+    <!-- ===== EXTRA ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">+</span>
+        <div class="card-title">
+          <h2 data-es="Comentarios Adicionales" data-en="Additional Comments">Comentarios Adicionales</h2>
+          <p data-es="Cualquier cosa que consideren importante que sepamos" data-en="Anything you think we should know">Cualquier cosa que consideren importante que sepamos</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es hoy su mayor dolor de cabeza?" data-en="What is your biggest headache today?">¿Cuál es hoy su mayor dolor de cabeza?</label>
+        <textarea class="textarea" name="Mayor dolor" data-es-ph="Ej: Que trabajo todos los días desde las 5am y la plata no alcanza porque las plataformas se llevan un cuarto de todo..." data-en-ph="e.g. I work every day from 5am and the money doesn't add up because the platforms take a quarter of everything..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay algo que quieran hacer y no han podido?" data-en="Is there something you want to do and haven't been able to?">¿Hay algo que quieran hacer y no han podido?</label>
+        <span class="field-hint" data-es="Una idea que tienen guardada, un servicio nuevo, un mercado al que quieren llegar" data-en="An idea you have parked, a new service, a market you want to reach">Una idea que tienen guardada, un servicio nuevo, un mercado al que quieren llegar</span>
+        <textarea class="textarea" name="Ideas pendientes" data-es-ph="Ej: Quiero hacer tours de dos días con noche en la cabaña, y venderle a agencias de Estados Unidos, pero no sé por dónde empezar..." data-en-ph="e.g. I want to run two-day tours with a night in the cabin, and sell to US agencies, but I don't know where to start..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué esperan conseguir con este diagnóstico?" data-en="What do you hope to achieve with this audit?">¿Qué esperan conseguir con este diagnóstico?</label>
+        <textarea class="textarea" name="Expectativas del diagnóstico" data-es-ph="Ej: Saber exactamente qué arreglar primero y cuánto me puede rendir..." data-en-ph="e.g. Know exactly what to fix first and how much it could pay off..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Algo más que debamos saber?" data-en="Anything else we should know?">¿Algo más que debamos saber?</label>
+        <textarea class="textarea" name="Comentarios adicionales" data-es-ph="Ej: Estamos terminando la cabaña, entró un socio nuevo, estamos pensando en comprar otro carro..." data-en-ph="e.g. We're finishing the cabin, a new partner joined, we're thinking of buying another vehicle..."></textarea></div>
+    </div>
+
+    <div class="submit-section">
+      <button type="submit" class="submit-btn" data-es="Enviar cuestionario →" data-en="Submit questionnaire →">Enviar cuestionario →</button>
+    </div>
+  </form>
+
+  <div class="result" id="result">
+    <div class="check">✓</div>
+    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <p data-es="Gracias. Por favor toque «Descargar archivo» y envíenos ese archivo por correo — así nos llegan todas las respuestas completas." data-en="Thank you. Please tap “Download file” and send us that file by email — that way all your answers arrive complete.">Gracias. Por favor toque «Descargar archivo» y envíenos ese archivo por correo — así nos llegan todas las respuestas completas.</p>
+    <div class="actions">
+      <button class="btn primary" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+      <button class="btn" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+  /* ===== CONFIG (edita esto) ===== */
+  const EMAIL_DESTINO = "salova5ster@gmail.com";
+  const TITULO = {es:"Diagnóstico Empresa de Turismo", en:"Tourism Business Audit"};
+  /* =============================== */
+
+  const form = document.getElementById('form');
+  const sections = document.querySelectorAll('[data-section]');
+  const bar = document.getElementById('bar');
+  const progressCount = document.getElementById('progressCount');
+  const currency = document.getElementById('currency');
+  let lang = 'es';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langEs').classList.toggle('active', l==='es');
+    document.getElementById('langEn').classList.toggle('active', l==='en');
+    document.querySelectorAll('[data-es]').forEach(el=>{ const v=el.getAttribute('data-'+l); if(v!=null) el.textContent=v; });
+    document.querySelectorAll('[data-es-ph]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-ph'); if(v!=null) el.placeholder=v; });
+  }
+  window.setLang = setLang;
+
+  function updateCurrency(){
+    const map = {USD:'$', COP:'$', EUR:'€'};
+    const sym = map[currency.value] || '$';
+    document.querySelectorAll('.cur-symbol').forEach(s => s.textContent = sym);
+  }
+  currency.addEventListener('change', updateCurrency);
+
+  document.querySelectorAll('[data-show-when]').forEach(cond=>{
+    const [name, valuesStr] = cond.dataset.showWhen.split('=');
+    const values = valuesStr.split('|');
+    const inputs = form.querySelectorAll('input[name="'+name+'"]');
+    function check(){ const sel=[...inputs].find(i=>i.checked); cond.classList.toggle('show', !!(sel && values.includes(sel.value))); }
+    inputs.forEach(i=> i.addEventListener('change', check));
+    check();
+  });
+
+  function updateProgress(){
+    let done = 0;
+    sections.forEach(sec=>{
+      let filled=false;
+      sec.querySelectorAll('input,textarea,select').forEach(f=>{
+        if(f.closest('.conditional') && !f.closest('.conditional').classList.contains('show')) return;
+        if(f.type==='checkbox'||f.type==='radio'){ if(f.checked) filled=true; }
+        else if(f.value && f.value.trim() && !f.readOnly) filled=true;
+      });
+      if(filled) done++;
+    });
+    bar.style.width = (done/sections.length*100)+'%';
+    progressCount.textContent = done+' / '+sections.length;
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
+  function labelOf(input){
+    const box = input.closest('label');
+    const t = box && box.querySelector('.radio-label-text, .checkbox-text');
+    return t ? t.textContent.trim() : input.value;
+  }
+  function recogerRespuestas(){
+    const datos = [];
+    const curOpt = currency.options[currency.selectedIndex];
+    datos.push([lang==='es'?'Moneda':'Currency', curOpt.textContent.trim()]);
+
+    document.querySelectorAll('.form-card .field').forEach(field=>{
+      const cond = field.closest('.conditional');
+      if(cond && !cond.classList.contains('show')) return;
+      const labelEl = field.querySelector('.field-label');
+      const question = labelEl ? labelEl.textContent.replace(/\*/g,'').trim() : '';
+
+      const radios = field.querySelectorAll('input[type=radio]:checked');
+      const checks = field.querySelectorAll('input[type=checkbox]:checked');
+      const groups = field.querySelectorAll('.input-group');
+      let answer = '';
+
+      if(radios.length){ answer = [...radios].map(labelOf).join(', '); }
+      else if(checks.length){ answer = [...checks].map(labelOf).join(', '); }
+      else if(groups.length){
+        const parts=[];
+        groups.forEach(g=>{ const inp=g.querySelector('input'); if(inp && inp.value.trim()){ const gl=g.querySelector('.input-group-label'); parts.push((gl?gl.textContent.trim():'')+': '+inp.value.trim()); } });
+        answer = parts.join(' | ');
+      } else {
+        const parts=[];
+        field.querySelectorAll('input[type=text],input[type=number],input[type=email],textarea,select').forEach(t=>{
+          if(t.readOnly || !t.value || !t.value.trim()) return;
+          let v = t.tagName==='SELECT' ? t.options[t.selectedIndex].textContent.trim() : t.value.trim();
+          if(t.closest('.icon-input')){ const s=t.closest('.icon-input').querySelector('.cur-symbol'); v=(s?s.textContent:'')+v; }
+          parts.push(v);
+        });
+        answer = parts.join(' | ');
+      }
+      if(answer) datos.push([question, answer]);
+    });
+
+    let t = TITULO[lang]+"\n";
+    t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-CO':'en-US')+"\n";
+    t += "----------------------------------------\n\n";
+    datos.forEach(([k,v])=>{ t += k+":\n"+v+"\n\n"; });
+    return t;
+  }
+
+  let RESPUESTAS = "";
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    RESPUESTAS = recogerRespuestas();
+    document.getElementById('preview').textContent = RESPUESTAS;
+    form.style.display='none';
+    document.getElementById('result').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
+  document.getElementById('btnDownload').addEventListener('click', function(){
+    const blob = new Blob([RESPUESTAS], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=(lang==='es'?'Respuestas-Turismo':'Answers-Tourism')+'.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang])+"&body="+encodeURIComponent(RESPUESTAS);
+  });
+
+  setLang('es');
+</script>
+<script>
+(function(){
+  var HASH="a816ebde8084f1838ea70889deccff2c3dabbbd45f39af1aecca435fa4fbe215";
+  function sha256(ascii){function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount));}var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';var words=[],asciiBitLength=ascii[lengthProperty]*8;var hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],primeCounter=k[lengthProperty];var isComposite={};for(var candidate=2;primeCounter<64;candidate++){if(!isComposite[candidate]){for(i=0;i<313;i+=candidate){isComposite[i]=candidate;}hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;}}ascii+='\x80';while(ascii[lengthProperty]%64-56)ascii+='\x00';for(i=0;i<ascii[lengthProperty];i++){j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);words[words[lengthProperty]]=(asciiBitLength);for(j=0;j<words[lengthProperty];){var w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2];var a=hash[0],e=hash[4];var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));hash=[(temp1+temp2)|0].concat(hash);hash[4]=(hash[4]+temp1)|0;}for(i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16);}}return result;}
+  var gate=document.getElementById('q-gate');
+  var form=document.getElementById('q-gate__form');
+  var input=document.getElementById('q-gate__input');
+  var err=document.getElementById('q-gate__error');
+  function unlock(){ gate.classList.add('q-unlocked'); try{sessionStorage.setItem('arraviva-q','1');}catch(e){} }
+  try{ if(sessionStorage.getItem('arraviva-q')==='1'){ unlock(); } }catch(e){}
+  if(input){ try{input.focus();}catch(e){} }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(input.value||'').trim();
+    var utf8=unescape(encodeURIComponent(v));
+    if(sha256(utf8)===HASH){ unlock(); }
+    else{ err.hidden=false; input.value=''; input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>
