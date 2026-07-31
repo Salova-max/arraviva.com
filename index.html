@@ -407,9 +407,9 @@
             <p class="contact__after" data-en="Less time putting out fires, more time on what actually grows your business.">Menos tiempo apagando incendios, más tiempo en lo que de verdad hace crecer tu negocio.</p>
           </div>
 
-          <form class="contact__form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="contacto">
-            <p class="contact__hp"><label>No llenar si eres humano: <input name="bot-field"></label></p>
+          <form class="contact__form" id="contactForm" name="contacto" method="POST" novalidate>
+            <input type="hidden" name="form_name" value="contacto-web">
+            <p class="contact__hp"><label>No llenar si eres humano: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <div class="field">
               <label for="c-nombre"><span data-en="Name">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
               <input id="c-nombre" name="nombre" type="text" autocomplete="name" required>
@@ -439,6 +439,7 @@
               <span data-en-html="I have read and accept the <a href='privacidad.html'>Privacy Policy</a>.">He leído y acepto la <a href="privacidad.html">Política de Privacidad</a>.</span>
             </label>
             <button class="btn btn--primary contact__submit" type="submit" data-en="Send <span class='arrow'>&rarr;</span>">Enviar <span class="arrow">&rarr;</span></button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
           </form>
         </div>
       </div>

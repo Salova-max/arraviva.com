@@ -759,3 +759,20 @@ a { color: var(--acento); text-decoration: none; }
   .footer__top { gap: 28px; }
   .footer__right { align-items: flex-start; }
 }
+
+/* =========================================================================
+   Estado del formulario de contacto (vive sobre fondo --raiz)
+   ========================================================================= */
+.form-status {
+  margin: 14px 0 0;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  border: 1px solid var(--raiz-borde);
+  background: var(--raiz-trama);
+  color: var(--raiz-texto);
+}
+.form-status--sending { opacity: .8; }
+.form-status--ok      { border-color: var(--acento-dark); color: var(--raiz-texto); }
+.form-status--error   { border-color: #C98A2B; color: #F2DCC0; }

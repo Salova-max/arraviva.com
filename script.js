@@ -274,3 +274,141 @@
     });
   }
 })();
+
+/* =========================================================================
+   CAPTURA DE LEADS — formulario de contacto → webhook n8n → Airtable
+   -------------------------------------------------------------------------
+   CONFIGURAR: pega abajo la URL del webhook de producción de n8n.
+   Mientras esté vacía, el formulario avisa al visitante y ofrece el correo.
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  /* ===== CONFIG ===== */
+  var WEBHOOK_URL = "https://proyecto-1-ensayo-n8n.o5q4ky.easypanel.host/webhook/lead-arraviva";
+  var EMAIL_FALLBACK = "salova5ster@gmail.com";  // se muestra solo si el envío falla
+  /* ================== */
+
+  var form = document.getElementById("contactForm");
+  if (!form) return;
+
+  var statusEl = document.getElementById("formStatus");
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var btnHTML = submitBtn ? submitBtn.innerHTML : "";
+
+  function isEN() {
+    return document.documentElement.lang === "en";
+  }
+
+  function setStatus(msg, tipo) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = "form-status form-status--" + tipo;
+    statusEl.hidden = false;
+  }
+
+  /* --- Tracking: se captura al cargar y sobrevive la navegación --- */
+  function capturarTracking() {
+    var guardado = null;
+    try {
+      guardado = JSON.parse(sessionStorage.getItem("arraviva-tracking") || "null");
+    } catch (e) { /* sessionStorage bloqueado */ }
+
+    var params = new URLSearchParams(window.location.search);
+    var actual = {
+      utm_source: params.get("utm_source") || "",
+      utm_content: params.get("utm_content") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_medium: params.get("utm_medium") || "",
+      full_url: window.location.href,
+      referrer: document.referrer || ""
+    };
+
+    // La primera visita manda: no sobrescribir la fuente original con una navegación interna
+    if (guardado && guardado.utm_source) return guardado;
+    if (!actual.utm_source && guardado) return guardado;
+
+    try {
+      sessionStorage.setItem("arraviva-tracking", JSON.stringify(actual));
+    } catch (e) { /* ignorar */ }
+    return actual;
+  }
+
+  var tracking = capturarTracking();
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Honeypot: si viene relleno es un bot. Fingimos éxito y no enviamos nada.
+    var hp = form.querySelector('[name="bot-field"]');
+    if (hp && hp.value.trim() !== "") {
+      setStatus(isEN() ? "Thank you." : "Gracias.", "ok");
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (!WEBHOOK_URL) {
+      setStatus(
+        isEN()
+          ? "Form not configured yet. Please write to " + EMAIL_FALLBACK
+          : "El formulario aún no está configurado. Escríbenos a " + EMAIL_FALLBACK,
+        "error"
+      );
+      return;
+    }
+
+    var datos = {};
+    new FormData(form).forEach(function (valor, clave) {
+      datos[clave] = typeof valor === "string" ? valor.trim() : valor;
+    });
+    delete datos["bot-field"];
+
+    // El flujo de n8n espera 'empresa'; en la web el campo se llama 'negocio'
+    datos.empresa = datos.negocio || "";
+    datos.consentimiento = form.querySelector('[name="consentimiento"]').checked;
+    datos.idioma = isEN() ? "en" : "es";
+    datos.utm_source = tracking.utm_source;
+    datos.utm_content = tracking.utm_content;
+    datos.utm_campaign = tracking.utm_campaign;
+    datos["Tracking Data"] = JSON.stringify(tracking);
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = isEN() ? "Sending…" : "Enviando…";
+    }
+    setStatus(isEN() ? "Sending…" : "Enviando…", "sending");
+
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        form.reset();
+        setStatus(
+          isEN()
+            ? "Thanks. We'll get back to you within 24 hours."
+            : "Gracias. Te respondemos en menos de 24 horas.",
+          "ok"
+        );
+        if (submitBtn) submitBtn.innerHTML = btnHTML;
+      })
+      .catch(function () {
+        setStatus(
+          isEN()
+            ? "Something went wrong. Please write to " + EMAIL_FALLBACK
+            : "Algo falló al enviar. Escríbenos a " + EMAIL_FALLBACK,
+          "error"
+        );
+        if (submitBtn) submitBtn.innerHTML = btnHTML;
+      })
+      .finally(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      });
+  });
+})();
