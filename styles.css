@@ -776,3 +776,5 @@ a { color: var(--acento); text-decoration: none; }
 .form-status--sending { opacity: .8; }
 .form-status--ok      { border-color: var(--acento-dark); color: var(--raiz-texto); }
 .form-status--error   { border-color: #C98A2B; color: #F2DCC0; }
+.form-status--error a { color: #F2DCC0; text-decoration: underline; font-weight: 600; }
+.form-status--error a:hover { color: #fff; }

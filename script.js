@@ -300,11 +300,17 @@
     return document.documentElement.lang === "en";
   }
 
-  function setStatus(msg, tipo) {
+  function setStatus(msg, tipo, conEnlace) {
     if (!statusEl) return;
-    statusEl.textContent = msg;
+    // conEnlace solo se usa en mensajes propios, nunca con texto del visitante
+    if (conEnlace) statusEl.innerHTML = msg;
+    else statusEl.textContent = msg;
     statusEl.className = "form-status form-status--" + tipo;
     statusEl.hidden = false;
+  }
+
+  function enlaceCorreo() {
+    return '<a href="mailto:' + EMAIL_FALLBACK + '">' + EMAIL_FALLBACK + "</a>";
   }
 
   /* --- Tracking: se captura al cargar y sobrevive la navegación --- */
@@ -354,9 +360,10 @@
     if (!WEBHOOK_URL) {
       setStatus(
         isEN()
-          ? "Form not configured yet. Please write to " + EMAIL_FALLBACK
-          : "El formulario aún no está configurado. Escríbenos a " + EMAIL_FALLBACK,
-        "error"
+          ? "Form not configured yet. Please write to " + enlaceCorreo()
+          : "El formulario aún no está configurado. Escríbenos a " + enlaceCorreo(),
+        "error",
+        true
       );
       return;
     }
@@ -401,9 +408,10 @@
       .catch(function () {
         setStatus(
           isEN()
-            ? "Something went wrong. Please write to " + EMAIL_FALLBACK
-            : "Algo falló al enviar. Escríbenos a " + EMAIL_FALLBACK,
-          "error"
+            ? "Something went wrong. Please write to " + enlaceCorreo()
+            : "Algo falló al enviar. Escríbenos a " + enlaceCorreo(),
+          "error",
+          true
         );
         if (submitBtn) submitBtn.innerHTML = btnHTML;
       })
