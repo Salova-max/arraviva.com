@@ -957,7 +957,7 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
 </div>
 
 <script>
-  const EMAIL_DESTINO = "tucorreo@ejemplo.com";
+  const EMAIL_DESTINO = "founder@arraviva.com";
   const TITULO = {es:"Diagnóstico del Área de Entrega del Servicio", en:"Service Delivery Area Audit"};
 
   const form = document.getElementById('form');
@@ -1080,7 +1080,8 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
     URL.revokeObjectURL(url);
   });
   document.getElementById('btnEmail').addEventListener('click', function(){
-    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(RESPUESTAS);
+    var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Descargar archivo; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Download file button; without it the answers do not arrive.";
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(aviso);
   });
 
   setLang('es');

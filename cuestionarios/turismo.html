@@ -1118,7 +1118,7 @@
 
 <script>
   /* ===== CONFIG (edita esto) ===== */
-  const EMAIL_DESTINO = "salova5ster@gmail.com";
+  const EMAIL_DESTINO = "founder@arraviva.com";
   const TITULO = {es:"Diagnóstico Empresa de Turismo", en:"Tourism Business Audit"};
   /* =============================== */
 
@@ -1236,7 +1236,8 @@
     URL.revokeObjectURL(url);
   });
   document.getElementById('btnEmail').addEventListener('click', function(){
-    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang])+"&body="+encodeURIComponent(RESPUESTAS);
+    var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Descargar archivo; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Download file button; without it the answers do not arrive.";
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang])+"&body="+encodeURIComponent(aviso);
   });
 
   setLang('es');

@@ -286,7 +286,7 @@
 
   /* ===== CONFIG ===== */
   var WEBHOOK_URL = "https://proyecto-1-ensayo-n8n.o5q4ky.easypanel.host/webhook/lead-arraviva";
-  var EMAIL_FALLBACK = "salova5ster@gmail.com";  // se muestra solo si el envío falla
+  var EMAIL_FALLBACK = "founder@arraviva.com";  // se muestra solo si el envío falla
   /* ================== */
 
   var form = document.getElementById("contactForm");
