@@ -1152,6 +1152,117 @@
     window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang])+"&body="+encodeURIComponent(aviso);
   });
 
+  /* =======================================================================
+     AUTOGUARDADO — el progreso sobrevive a cerrar la pestaña
+     Guarda en el navegador de quien rellena. No viaja a ningún sitio.
+     ======================================================================= */
+  (function(){
+    var CLAVE = 'arraviva-q-' + (location.pathname.split('/').pop() || 'form');
+    var guardando = null;
+
+    function recoger(){
+      var datos = {};
+      form.querySelectorAll('input,textarea,select').forEach(function(el){
+        if(!el.name || el.type === 'submit' || el.type === 'button') return;
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          if(el.checked){
+            if(!datos[el.name]) datos[el.name] = [];
+            datos[el.name].push(el.value);
+          }
+        } else if(el.value && el.value.trim()){
+          datos[el.name] = el.value;
+        }
+      });
+      if(currency) datos['__moneda'] = currency.value;
+      return datos;
+    }
+
+    function guardar(){
+      clearTimeout(guardando);
+      guardando = setTimeout(function(){
+        try{
+          var datos = recoger();
+          if(Object.keys(datos).length <= 1) return;   // solo la moneda: nada que guardar
+          localStorage.setItem(CLAVE, JSON.stringify({ fecha: Date.now(), datos: datos }));
+        }catch(e){ /* modo privado o sin espacio */ }
+      }, 600);
+    }
+
+    function restaurar(datos){
+      if(datos['__moneda'] && currency){
+        currency.value = datos['__moneda'];
+        updateCurrency();
+      }
+      form.querySelectorAll('input,textarea,select').forEach(function(el){
+        if(!el.name || !(el.name in datos)) return;
+        var v = datos[el.name];
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          if(Array.isArray(v) && v.indexOf(el.value) !== -1) el.checked = true;
+        } else if(!Array.isArray(v)){
+          el.value = v;
+        }
+      });
+      // Reevaluar los bloques condicionales y la barra de progreso
+      form.querySelectorAll('input[type=radio]').forEach(function(i){
+        i.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      updateProgress();
+    }
+
+    function borrar(){
+      try{ localStorage.removeItem(CLAVE); }catch(e){}
+    }
+
+    function cuandoFue(ms){
+      var min = Math.round((Date.now() - ms) / 60000);
+      if(min < 1)    return lang==='es' ? 'hace un momento' : 'a moment ago';
+      if(min < 60)   return lang==='es' ? 'hace ' + min + ' minutos' : min + ' minutes ago';
+      var h = Math.round(min/60);
+      if(h < 24)     return lang==='es' ? 'hace ' + h + (h===1?' hora':' horas') : h + (h===1?' hour':' hours') + ' ago';
+      var d = Math.round(h/24);
+      return lang==='es' ? 'hace ' + d + (d===1?' día':' días') : d + (d===1?' day':' days') + ' ago';
+    }
+
+    // ---- ¿Hay algo guardado de una vez anterior? ----
+    var previo = null;
+    try{ previo = JSON.parse(localStorage.getItem(CLAVE) || 'null'); }catch(e){}
+
+    if(previo && previo.datos){
+      var aviso = document.createElement('div');
+      aviso.style.cssText = 'background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:16px 18px;margin-bottom:18px';
+      aviso.innerHTML =
+        '<p style="margin:0 0 4px;font-weight:600">' +
+          (lang==='es' ? 'Tienes respuestas guardadas' : 'You have saved answers') +
+        '</p>' +
+        '<p style="margin:0 0 12px;font-size:14px;color:var(--muted)">' +
+          (lang==='es'
+            ? 'Guardamos lo que escribiste ' + cuandoFue(previo.fecha) + ' en este navegador. Puedes seguir donde lo dejaste.'
+            : 'We saved your answers ' + cuandoFue(previo.fecha) + ' in this browser. You can pick up where you left off.') +
+        '</p>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+          '<button type="button" id="qContinuar" class="btn primary" style="padding:10px 18px">' +
+            (lang==='es' ? 'Continuar' : 'Continue') + '</button>' +
+          '<button type="button" id="qEmpezar" class="btn" style="padding:10px 18px">' +
+            (lang==='es' ? 'Empezar de nuevo' : 'Start over') + '</button>' +
+        '</div>';
+      form.parentNode.insertBefore(aviso, form);
+
+      document.getElementById('qContinuar').addEventListener('click', function(){
+        restaurar(previo.datos);
+        aviso.remove();
+      });
+      document.getElementById('qEmpezar').addEventListener('click', function(){
+        borrar();
+        aviso.remove();
+      });
+    }
+
+    form.addEventListener('input', guardar);
+    form.addEventListener('change', guardar);
+    form.addEventListener('submit', borrar);   // enviado: ya no hace falta el borrador
+  })();
+
+
   setLang('es');
 </script>
 <script>
