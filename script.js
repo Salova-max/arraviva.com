@@ -396,6 +396,20 @@
     })
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
+
+        /* Conversión: avisamos a Analytics de que este visitante pidió la
+           llamada. Sin esto solo se verían visitas, que es el dato que menos
+           dice. Con esto se ve cuántos de los que entran acaban pidiéndola, y
+           de qué canal venían — las UTMs ya viajan en el formulario.
+           `generate_lead` es el nombre que GA4 reconoce como objetivo. */
+        if (typeof gtag === "function") {
+          gtag("event", "generate_lead", {
+            origen: tracking.utm_source || "directo",
+            campana: tracking.utm_campaign || "(ninguna)",
+            idioma: isEN() ? "en" : "es"
+          });
+        }
+
         form.reset();
         setStatus(
           isEN()
