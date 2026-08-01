@@ -1317,6 +1317,38 @@
   })();
 
   /* =======================================================================
+     PRE-LLENADO desde el enlace personalizado
+     El correo que envia Arraviva trae ?n=negocio&e=correo&t=telefono, asi que
+     el cliente no tiene que reescribir sus datos en cada cuestionario. Eso
+     evita ademas que un correo mal tecleado duplique el contacto en el CRM.
+     Solo rellena campos vacios: nunca pisa lo que la persona ya haya escrito.
+     ======================================================================= */
+  window.addEventListener('load', function(){
+    try{
+      var p = new URLSearchParams(location.search);
+      var grupos = [
+        [['Nombre de la empresa','Nombre del negocio','Nombre de la clínica'], p.get('n')],
+        [['Correo de contacto','Email de contacto'],                              p.get('e')],
+        [['Teléfono / WhatsApp','Teléfono','WhatsApp'],                          p.get('t')]
+      ];
+      grupos.forEach(function(g){
+        var valor = g[1];
+        if(!valor || !String(valor).trim()) return;
+        for(var i=0;i<g[0].length;i++){
+          var el = form.querySelector('[name="'+g[0][i]+'"]');
+          if(el){
+            if(!el.value || !el.value.trim()){
+              el.value = String(valor).trim();
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            break;
+          }
+        }
+      });
+    }catch(e){ /* enlace sin parametros: se rellena a mano, como siempre */ }
+  });
+
+  /* =======================================================================
      AUTOGUARDADO — el progreso sobrevive a cerrar la pestaña
      Guarda en el navegador de quien rellena. No viaja a ningún sitio.
      ======================================================================= */
