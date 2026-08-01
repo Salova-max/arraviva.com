@@ -16,7 +16,7 @@
   --raiz:   #1E3A31; /* verde profundo — anchor, botones, títulos, fondos oscuros */
   --acento: #2F6B4F; /* verde profundo — ÚNICO acento (enlaces, kickers, hovers) */
   /* Tokens antiguos (conservados por compatibilidad; ya no se usan como acento) */
-  --savia:  #35A46A; /* (retirado) verde vivo */
+  --savia:  #35A46A; /* verde vivo — RELLENO DEL BOTÓN PRINCIPAL (siempre con texto --tinta) */
   --tierra: #C16A45; /* (retirado) terracota */
   --luz:    #E6B15A; /* (retirado) ámbar */
   --arena:  #F6F1E8; /* crema — fondo de secciones cálidas */
@@ -106,16 +106,20 @@ a { color: var(--acento); text-decoration: none; }
 /* Botones ------------------------------------------------------------------ */
 .btn {
   display: inline-block;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 16px 26px;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 18px 32px;
   border-radius: 999px;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
 }
 /* Botón principal: fondo raíz, hover a savia */
-.btn--primary { background: var(--raiz); color: var(--arena); }
-.btn--primary:hover { background: var(--acento); color: var(--arena); }
+/* Botón principal: verde vivo con texto tinta. El texto oscuro es obligatorio —
+   sobre --savia el blanco no alcanza el contraste AA. */
+.btn--primary { background: var(--savia); color: var(--tinta); box-shadow: 0 1px 2px rgba(23,32,27,.10), 0 8px 20px -10px rgba(53,164,106,.55); }
+.btn--primary:hover { background: #2C9159; color: var(--tinta); transform: translateY(-1px); }
+/* Sobre fondos oscuros mantiene el mismo verde: ahí también contrasta bien. */
+.section--dark .btn--primary, .hero .btn--primary, .cta .btn--primary { background: var(--savia); color: var(--tinta); }
 /* Enlace-CTA secundario: terracota */
 .btn--ghost {
   display: inline-flex;
@@ -398,7 +402,7 @@ a { color: var(--acento); text-decoration: none; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  align-items: end;
+  align-items: stretch;
   margin-top: 64px;
   position: relative;
 }
@@ -650,8 +654,10 @@ a { color: var(--acento); text-decoration: none; }
 .contact__wa a:hover .arrow { transform: translateX(5px); }
 
 /* Botones sobre secciones oscuras: claros (crema) para contraste */
-.section--dark .btn--primary { background: var(--arena); color: var(--raiz); }
-.section--dark .btn--primary:hover { background: var(--acento); color: var(--arena); }
+/* Sobre fondo oscuro el botón mantiene el verde vivo: contrasta bien con el
+   verde raíz del fondo y así el CTA es el mismo en toda la página. */
+.section--dark .btn--primary { background: var(--savia); color: var(--tinta); }
+.section--dark .btn--primary:hover { background: #46B87B; color: var(--tinta); }
 .section--dark .btn--ghost { color: var(--raiz-texto); }
 .section--dark .btn--ghost:hover { color: var(--arena); }
 
@@ -778,3 +784,185 @@ a { color: var(--acento); text-decoration: none; }
 .form-status--error   { border-color: #C98A2B; color: #F2DCC0; }
 .form-status--error a { color: #F2DCC0; text-decoration: underline; font-weight: 600; }
 .form-status--error a:hover { color: #fff; }
+
+/* =========================================================================
+   BLOQUES NUEVOS (2026-08) — diagnóstico, entregable, resultado y encaje
+   ========================================================================= */
+
+/* --- Micro-prueba bajo el botón del hero --- */
+.hero__micro {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  color: var(--raiz-texto2);
+  max-width: 46ch;
+}
+
+/* --- Línea de "qué gana el cliente" en cada paso del método --- */
+.step__gana {
+  margin: 10px 0 0;
+  font-weight: 600;
+  color: var(--acento);
+  font-size: 14.5px;
+}
+
+/* --- Manifiesto: ahora tres columnas en vez de dos --- */
+.quote__cols--tres { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 860px) { .quote__cols--tres { grid-template-columns: 1fr; } }
+
+/* --- CTA de sección, repetido a lo largo de la página --- */
+.seccion-cta { margin-top: 46px; text-align: center; }
+.seccion-cta__micro {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  color: var(--musgo-suave);
+}
+
+/* --- El Diagnóstico: qué recibes --- */
+.diag__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 34px;
+  margin-top: 42px;
+}
+@media (max-width: 760px) { .diag__grid { grid-template-columns: 1fr; } }
+.diag__item {
+  position: relative;
+  padding: 26px 26px 24px;
+  background: var(--arena-card);
+  border: 1px solid var(--linea);
+  border-radius: 16px;
+}
+.diag__num {
+  display: block;
+  font-family: var(--serif, "Fraunces", Georgia, serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--savia);
+  margin-bottom: 10px;
+}
+.diag__item h3 { margin: 0 0 8px; font-size: 18px; }
+.diag__item p  { margin: 0; color: var(--musgo); font-size: 15px; }
+
+/* --- Así se ve el informe: abanico de hojas superpuestas --- */
+.informe__abanico {
+  position: relative;
+  margin: 46px auto 0;
+  max-width: 780px;
+  height: 430px;
+}
+.informe__hoja {
+  position: absolute;
+  width: 62%;
+  height: 320px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 10px;
+  border: 1px solid var(--linea);
+  box-shadow: 0 2px 6px rgba(23,32,27,.08), 0 22px 44px -22px rgba(23,32,27,.42);
+  background: var(--blanco);
+  transition: transform .35s ease;
+}
+.informe__hoja--1 { left: 0;    top: 40px; transform: rotate(-5deg);   z-index: 1; }
+.informe__hoja--2 { left: 19%;  top: 0;    transform: rotate(1.5deg);  z-index: 2; }
+.informe__hoja--3 { right: 0;   top: 62px; transform: rotate(5.5deg);  z-index: 3; }
+.informe__abanico:hover .informe__hoja--1 { transform: rotate(-7deg) translateX(-12px); }
+.informe__abanico:hover .informe__hoja--3 { transform: rotate(7.5deg) translateX(12px); }
+@media (max-width: 700px) {
+  .informe__abanico { height: auto; display: grid; gap: 16px; }
+  .informe__hoja { position: static; width: 100%; height: 200px; transform: none !important; }
+}
+
+/* --- El par de diagramas antes / después --- */
+.informe__bpmn { margin-top: 58px; }
+.informe__bpmn-title { font-size: 19px; margin: 0 0 20px; }
+.informe__bpmn-par { display: grid; gap: 22px; }
+.informe__bpmn-fig { margin: 0; }
+.informe__bpmn-fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  background: var(--blanco);
+}
+.informe__bpmn-fig figcaption { margin-top: 10px; }
+.etiqueta {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+.etiqueta--antes   { background: #F5E3E0; color: #B23A2E; }
+.etiqueta--despues { background: #E4EDE7; color: var(--acento); }
+.informe__pie {
+  margin-top: 20px;
+  font-size: 14.5px;
+  color: var(--musgo);
+  max-width: 58ch;
+}
+
+/* --- Con qué sales de aquí --- */
+.sales__lista {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  max-width: 62ch;
+}
+.sales__lista li {
+  position: relative;
+  padding: 18px 0 18px 40px;
+  border-bottom: 1px solid var(--linea);
+  font-size: 16.5px;
+}
+.sales__lista li:first-child { border-top: 1px solid var(--linea); }
+.sales__lista li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 26px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--savia);
+}
+.sales__nota {
+  margin-top: 26px;
+  font-size: 14px;
+  color: var(--musgo-suave);
+  font-style: italic;
+}
+
+/* --- Para quién sí / para quién no --- */
+.encaje__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 42px;
+}
+@media (max-width: 760px) { .encaje__grid { grid-template-columns: 1fr; } }
+.encaje__col {
+  padding: 28px 28px 26px;
+  border-radius: 16px;
+  border: 1px solid var(--linea);
+  background: var(--blanco);
+}
+.encaje__col h3 { margin: 0 0 16px; font-size: 18px; }
+.encaje__col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.encaje__col li { position: relative; padding-left: 28px; color: var(--musgo); font-size: 15.5px; }
+.encaje__col li::before {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.encaje__col--si  { border-left: 3px solid var(--savia); }
+.encaje__col--si  li::before { content: "✓"; color: var(--savia); }
+.encaje__col--no  { border-left: 3px solid var(--linea); background: var(--arena-card); }
+.encaje__col--no  li::before { content: "✗"; color: var(--musgo-suave); }

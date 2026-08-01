@@ -7,16 +7,46 @@
   <!-- SEO básico ------------------------------------------------------------
        El título y la descripción se actualizan también por JS al cambiar de
        idioma (ver script.js). Estos son los valores por defecto (español). -->
-  <title>Arraviva — Partner tecnológico de crecimiento</title>
-  <meta name="description" content="Arraviva ayuda a tu empresa a echar raíz, con orden, procesos y datos firmes, y desde ahí crecer con marketing, automatización e IA. No somos una agencia de IA: somos tu partner de crecimiento.">
+  <title>Arraviva · Descubre cuánto tiempo y dinero puede recuperar tu negocio</title>
+  <meta name="description" content="Diagnóstico de operación para tu negocio. Descubre dónde se te va el tiempo, qué se puede automatizar y en qué orden arreglarlo. Empieza con una llamada de 15 minutos.">
   <meta name="theme-color" content="#1E3A31">
+
+  <link rel="canonical" href="https://arraviva.com/">
+  <link rel="alternate" hreflang="es" href="https://arraviva.com/">
+  <link rel="alternate" hreflang="en" href="https://arraviva.com/">
+  <link rel="alternate" hreflang="x-default" href="https://arraviva.com/">
+
+  <!-- Favicon: el mismo isotipo de raíz que brota, en SVG inline -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 18 V8' stroke='%231E3A31' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 9 C10 6 12 5 14 4' stroke='%231E3A31' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 12 C10 10 8 9 6 8.5' stroke='%231E3A31' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='14.6' cy='3.6' r='1.6' fill='%2335A46A'/%3E%3C/svg%3E">
 
   <!-- Open Graph (previsualización al compartir en redes) -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Arraviva — Partner tecnológico de crecimiento">
-  <meta property="og:description" content="Echa raíz y crece: orden, procesos, automatización e IA sobre una base firme.">
+  <meta property="og:url" content="https://arraviva.com/">
+  <meta property="og:title" content="Descubre cuánto tiempo y dinero puede recuperar tu negocio">
+  <meta property="og:description" content="Diagnóstico de operación. Sales sabiendo dónde se te va el tiempo y en qué orden arreglarlo.">
+  <meta property="og:image" content="https://arraviva.com/img/informe-semaforo.png">
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Ficha de negocio para Google y los buscadores de IA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Arraviva",
+    "url": "https://arraviva.com/",
+    "description": "Diagnóstico de operación y automatización para negocios que quieren ordenar y escalar.",
+    "email": "founder@arraviva.com",
+    "founder": { "@type": "Person", "name": "Santiago Londoño V." },
+    "areaServed": [ { "@type": "Country", "name": "Colombia" }, { "@type": "Country", "name": "United States" } ],
+    "availableLanguage": ["es", "en"],
+    "slogan": "Raíz que crece"
+  }
+  </script>
+
+  <!-- TODO: pegar aquí el fragmento de Google Analytics 4 cuando exista la propiedad.
+       Va justo aquí, antes de las tipografías, para que mida desde la primera visita. -->
 
   <!-- Tipografías (Fraunces para títulos, Inter para cuerpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +63,7 @@
        reemplazar más adelante por el logo definitivo.
        ===================================================================== -->
   <header class="nav">
-    <a class="brand" href="#top" aria-label="Arraviva — inicio">
+    <a class="brand" href="#top" aria-label="Arraviva, inicio">
       <!-- Símbolo: raíz que brota; la punta ámbar es la "chispa" de crecimiento -->
       <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
@@ -48,7 +78,7 @@
       <a class="nav__link" href="#metodo" data-en="Method">Método</a>
       <a class="nav__link" href="#servicios" data-en="Services">Servicios</a>
       <a class="nav__link" href="#historia" data-en="Story">Historia</a>
-      <a class="btn btn--primary btn--sm" href="#cta" data-en="Let's start with a call">Empecemos por una llamada</a>
+      <a class="btn btn--primary btn--sm" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
 
       <!-- Selector de idioma: dos botones que activan ES o EN -->
       <div class="lang" role="group" aria-label="Idioma / Language">
@@ -71,32 +101,19 @@
     <section class="hero section--dark">
       <div class="hero__grid">
         <div class="hero__copy reveal">
-          <p class="kicker" data-en="We're not an AI agency">No somos una agencia de IA</p>
-          <h1 class="hero__title" data-en="Put your operation in order and grow with technology<span class='hero__accent'>.</span>">Ordena tu operación y crece con tecnología<span class="hero__accent">.</span></h1>
-          <p class="hero__sub" data-en="We're your growth partner: we bring order, automate what eats your hours, and add AI where it truly multiplies, so your business grows on a firm foundation.">Somos tu partner de crecimiento: ponemos orden, automatizamos lo que te quita horas y sumamos IA donde de verdad multiplica, para que tu negocio crezca sobre una base firme.</p>
+          <p class="kicker" data-en="Operation diagnosis">Diagnóstico de operación</p>
+          <h1 class="hero__title" data-en="Find out how much time and money your business can win back<span class='hero__accent'>.</span>">Descubre cuánto tiempo y cuánto dinero puede recuperar tu negocio<span class="hero__accent">.</span></h1>
+          <p class="hero__sub" data-en="For businesses that already bill, but whose operation depends on someone always being on top of it. In two weeks you walk away with the map: where the time goes, what can run on its own, and in what order to fix it.">Para negocios que ya facturan, pero cuya operación depende de que alguien esté siempre encima. En dos semanas sales con el mapa: dónde se va el tiempo, qué puede funcionar solo y en qué orden arreglarlo.</p>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="#cta" data-en="Let's start with a call">Empecemos por una llamada</a>
-            <a class="btn--ghost" href="#metodo" data-en="How we work <span class='arrow'>&rarr;</span>">Cómo trabajamos <span class="arrow">&rarr;</span></a>
+            <a class="btn btn--primary" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
+            <a class="btn--ghost" href="#diagnostico" data-en="What the diagnosis includes <span class='arrow'>&rarr;</span>">Qué incluye el diagnóstico <span class="arrow">&rarr;</span></a>
           </div>
+          <p class="hero__micro" data-en="No commitment · Confidentiality signed before we start">Sin compromiso · Confidencialidad firmada antes de empezar</p>
         </div>
 
       </div>
     </section>
 
-    <!-- =====================================================================
-         CINTA ANIMADA (marquee): beneficios que se deslizan en loop.
-         Dos grupos idénticos para un bucle continuo; se pausa al pasar el mouse.
-         ===================================================================== -->
-    <div class="marquee" aria-hidden="true">
-      <!-- 4 copias idénticas: cada mitad de la pista (2 copias) es más ancha
-           que el viewport, así el loop translateX(0→-50%) nunca deja huecos. -->
-      <div class="marquee__track">
-        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span class="marquee__group" data-en="ORDERED PROCESSES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TASKS THAT RUN THEMSELVES&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTS ON DUTY 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;GROWTH WITH ROOTS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;">PROCESOS ORDENADOS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;TAREAS QUE SE HACEN SOLAS&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;AGENTES QUE ATIENDEN 24/7&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;CRECIMIENTO CON RAÍZ&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      </div>
-    </div>
 
     <!-- =====================================================================
          EL PROBLEMA
@@ -152,14 +169,18 @@
         <!-- data-en-html porque la frase incluye cursiva (<em>) y el resalte de "viva" -->
         <p class="quote__big reveal"
            data-en-html="&laquo;They install tools; <em>Arra<span class='viva'>viva</span> grows roots</em>.&raquo;">&laquo;Ellos instalan herramientas; <em>Arra<span class="viva">viva</span> echa raíces</em>.&raquo;</p>
-        <div class="quote__cols reveal">
+        <div class="quote__cols quote__cols--tres reveal">
           <div class="quote__col">
-            <h3 data-en="We're not an AI agency">No somos una agencia de IA</h3>
-            <p data-en="AI is a means, not the end. Nobody hires technology: they hire business results.">La IA es un medio, no el fin. Nadie contrata tecnología: contrata resultados de negocio.</p>
+            <h3 data-en="I speak the owner's language">Hablo el idioma del dueño</h3>
+            <p data-en="Business judgment first, technology second. Nobody hires technology: they hire results.">Criterio de negocio primero, tecnología después. Nadie contrata tecnología: contrata resultados.</p>
           </div>
           <div class="quote__col quote__col--savia">
-            <h3 data-en="We're your growth partner">Somos tu partner de crecimiento</h3>
-            <p data-en="Order first, grow after: marketing, automation and AI on a well-run operation.">Ordenamos primero, crecemos después: marketing, automatización e IA sobre una operación ordenada.</p>
+            <h3 data-en="We diagnose before we sell">Diagnosticamos antes de vender</h3>
+            <p data-en="We start with an honest audit; if something isn't right for you, we say so. No smoke, no invented numbers.">Empezamos con una auditoría honesta; si algo no te conviene, te lo decimos. Nada de humo ni cifras inventadas.</p>
+          </div>
+          <div class="quote__col">
+            <h3 data-en="Order first, growth after">Ordenamos primero, crecemos después</h3>
+            <p data-en="Marketing, automation and AI on top of an operation that already works.">Marketing, automatización e IA sobre una operación que ya funciona.</p>
           </div>
         </div>
       </div>
@@ -187,6 +208,7 @@
             <h3 class="step__name" data-en="Raíz">Raíz</h3>
             <p class="step__tag step__tag--tierra" data-en="Audit">Diagnóstico</p>
             <p data-en="Before touching anything, we understand how your business works today and where the biggest opportunity is. From there comes your plan: built for your operation.">Antes de tocar nada, entendemos cómo funciona tu negocio hoy y dónde está la oportunidad más grande. De ahí sale tu plan: hecho para tu operación.</p>
+            <p class="step__gana" data-en="You end up knowing exactly where you are losing.">Sales sabiendo exactamente dónde estás perdiendo.</p>
           </div>
           <div class="step step--2">
             <span class="step__ghost" aria-hidden="true">02</span>
@@ -196,6 +218,7 @@
             <h3 class="step__name" data-en="Arraigar">Arraigar</h3>
             <p class="step__tag step__tag--luz" data-en="Order &amp; processes">Orden y procesos</p>
             <p data-en="We order and document how your team works, so knowledge belongs to the business and not just one person's head.">Ordenamos y documentamos cómo trabaja tu equipo, para que el conocimiento sea del negocio y no viva en la cabeza de una sola persona.</p>
+            <p class="step__gana" data-en="Your team can run without you on top of everything.">Tu equipo puede funcionar sin que estés encima.</p>
           </div>
           <div class="step step--3">
             <span class="step__ghost" aria-hidden="true">03</span>
@@ -205,7 +228,113 @@
             <h3 class="step__name" data-en="Crecer">Crecer</h3>
             <p class="step__tag step__tag--savia" data-en="Automation + AI">Automatización + IA</p>
             <p data-en="We automate the repetitive and add AI agents where they multiply, on what's already in order.">Automatizamos lo repetitivo y sumamos agentes de IA donde multiplican, sobre lo ya ordenado.</p>
+            <p class="step__gana" data-en="You win back the hours that go into repetitive work today.">Recuperas las horas que hoy se van en tareas repetidas.</p>
           </div>
+        </div>
+
+        <div class="seccion-cta reveal">
+          <a class="btn btn--primary" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
+          <p class="seccion-cta__micro" data-en="That's how we work. If it fits you, let's talk.">Así trabajamos. Si te encaja, hablemos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         EL DIAGNÓSTICO — el producto de entrada, con su value stack
+         ===================================================================== -->
+    <section class="section section--white" id="diagnostico">
+      <div class="container">
+        <p class="kicker reveal" data-en="The starting point">El punto de partida</p>
+        <h2 class="section-title reveal" style="max-width:24ch" data-en="The Raíz Diagnosis">El Diagnóstico Raíz</h2>
+        <p class="lead reveal" style="max-width:52ch;margin-top:18px" data-en="Raíz is the first stage of the method, and the starting point for everything else. Two weeks, and you walk away with a map of your operation you can use even if we never work together again.">Raíz es la primera etapa del método, y el punto de partida de todo lo demás. Dos semanas, y sales con un mapa de tu operación que puedes usar aunque no sigas conmigo.</p>
+
+        <div class="diag__grid">
+          <div class="diag__item reveal">
+            <span class="diag__num" aria-hidden="true">01</span>
+            <h3 data-en="A 10-section report">Un informe de 10 secciones</h3>
+            <p data-en="Traffic-light of indicators, your business figures, what works and what doesn't. In plain language, not consultant-speak.">Semáforo de indicadores, los números de tu negocio, qué funciona y qué no. En lenguaje claro, no de consultor.</p>
+          </div>
+          <div class="diag__item reveal">
+            <span class="diag__num" aria-hidden="true">02</span>
+            <h3 data-en="Your processes, drawn">Tus procesos, dibujados</h3>
+            <p data-en="How you work today and how it would look afterwards. Seeing it drawn is what makes the problem obvious.">Cómo trabajas hoy y cómo quedaría después. Verlo dibujado es lo que hace evidente el problema.</p>
+          </div>
+          <div class="diag__item reveal">
+            <span class="diag__num" aria-hidden="true">03</span>
+            <h3 data-en="A prioritised plan">Un plan priorizado</h3>
+            <p data-en="What to do first, what it costs and how many hours each improvement wins back. Ordered by impact, not by what's easiest to sell you.">Qué hacer primero, cuánto cuesta y cuántas horas recupera cada mejora. Ordenado por impacto, no por lo que sea más fácil venderte.</p>
+          </div>
+          <div class="diag__item reveal">
+            <span class="diag__num" aria-hidden="true">04</span>
+            <h3 data-en="A risk review">Una revisión de riesgos</h3>
+            <p data-en="What your business depends on and what happens if it fails: accounts that aren't in your name, data you can't recover, one person holding every key.">De qué depende tu negocio y qué pasa si algo falla: cuentas que no están a tu nombre, datos que no puedes recuperar, una sola persona con todas las llaves.</p>
+          </div>
+        </div>
+
+        <div class="seccion-cta reveal">
+          <a class="btn btn--primary" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
+          <p class="seccion-cta__micro" data-en="First we talk. If it makes sense, we start.">Primero hablamos. Si tiene sentido, empezamos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ASÍ SE VE EL INFORME
+         Piezas reales de un diagnóstico entregado. El contenido va difuminado
+         a propósito: es información confidencial de un cliente. Se enseña la
+         estructura y la profundidad, no sus hallazgos.
+         ===================================================================== -->
+    <section class="section section--cream" id="informe">
+      <div class="container">
+        <p class="kicker reveal" data-en="The deliverable">El entregable</p>
+        <h2 class="section-title reveal" style="max-width:20ch" data-en="This is what you receive.">Esto es lo que recibes.</h2>
+        <p class="lead reveal" style="max-width:50ch;margin-top:18px" data-en="Not a template PDF. Pieces from a real delivered diagnosis, and the content is blurred because it belongs to a client.">No es un PDF de plantilla. Son piezas de un diagnóstico real entregado, y el contenido va difuminado porque es de un cliente.</p>
+
+        <div class="informe__abanico reveal">
+          <img class="informe__hoja informe__hoja--1" src="img/informe-mejoras.png" alt="Tabla de mejoras priorizadas del informe" loading="lazy" decoding="async" width="1470" height="1725">
+          <img class="informe__hoja informe__hoja--2" src="img/informe-horas.png" alt="Resumen de horas recuperadas del informe" loading="lazy" decoding="async" width="1470" height="1320">
+          <img class="informe__hoja informe__hoja--3" src="img/informe-semaforo.png" alt="Semáforo de indicadores del informe" loading="lazy" decoding="async" width="1470" height="1050">
+        </div>
+
+        <div class="informe__bpmn reveal">
+          <h3 class="informe__bpmn-title" data-en="And your process, before and after">Y tu proceso, antes y después</h3>
+          <div class="informe__bpmn-par">
+            <figure class="informe__bpmn-fig">
+              <img src="img/informe-bpmn-antes.png" alt="Diagrama del proceso actual, antes del diagnóstico" loading="lazy" decoding="async">
+              <figcaption><span class="etiqueta etiqueta--antes" data-en="Before">Antes</span></figcaption>
+            </figure>
+            <figure class="informe__bpmn-fig">
+              <img src="img/informe-bpmn-despues.png" alt="Diagrama del proceso propuesto, después del diagnóstico" loading="lazy" decoding="async">
+              <figcaption><span class="etiqueta etiqueta--despues" data-en="After">Después</span></figcaption>
+            </figure>
+          </div>
+          <p class="informe__pie" data-en="The same process. Above, every point where something is lost. Below, what it looks like once it runs on its own.">El mismo proceso. Arriba, cada punto donde se pierde algo. Abajo, cómo queda cuando funciona solo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CON QUÉ SALES DE AQUÍ
+         Prueba por resultado del propio diagnóstico — no por caso de cliente.
+         Es una promesa sobre el trabajo propio, no sobre cifras ajenas.
+         ===================================================================== -->
+    <section class="section section--white" id="resultado">
+      <div class="container">
+        <p class="kicker reveal" data-en="What you leave with">Con qué sales</p>
+        <h2 class="section-title reveal" style="max-width:22ch" data-en="What you know when we finish.">Lo que sabes cuando terminamos.</h2>
+
+        <ul class="sales__lista reveal">
+          <li data-en="How many hours a week your team loses on work that could run on its own, and which of them can actually be recovered.">Cuántas horas a la semana pierde tu equipo en trabajo que podría hacerse solo, y cuáles de ellas se pueden recuperar de verdad.</li>
+          <li data-en="Where exactly you lose clients: how many ask and never get an answer in time.">En qué punto exacto pierdes clientes: cuántos preguntan y nunca reciben respuesta a tiempo.</li>
+          <li data-en="What your operation depends on that nobody has written down, and what would stop if that person left tomorrow.">De qué depende tu operación que nadie ha escrito, y qué se detendría si esa persona se fuera mañana.</li>
+          <li data-en="Which accounts aren't in your name, and what you'd lose the day you change provider.">Qué cuentas no están a tu nombre, y qué perderías el día que cambies de proveedor.</li>
+          <li data-en="What to automate first, what to leave for later, and what isn't worth automating at all.">Qué automatizar primero, qué dejar para después, y qué no vale la pena automatizar.</li>
+        </ul>
+
+        <p class="sales__nota reveal" data-en="All of it with your own numbers. Nothing invented: what can't be verified is flagged as pending.">Todo con tus propios números. Nada inventado: lo que no se puede verificar queda señalado como pendiente.</p>
+
+        <div class="seccion-cta reveal">
+          <a class="btn btn--primary" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
         </div>
       </div>
     </section>
@@ -213,7 +342,7 @@
     <!-- =====================================================================
          SERVICIOS
          ===================================================================== -->
-    <section class="section section--white" id="servicios">
+    <section class="section section--cream" id="servicios">
       <div class="container">
         <p class="kicker reveal" data-en="What we do for you">Qué hacemos por ti</p>
         <h2 class="section-title reveal" style="max-width:22ch" data-en="Results, not tools.">Resultados, no herramientas.</h2>
@@ -248,26 +377,39 @@
     </section>
 
     <!-- =====================================================================
-         POR QUÉ ARRAVIVA
+         PARA QUIÉN SÍ / PARA QUIÉN NO — filtro de encaje
+         Sube la calidad de las llamadas: decir "no es para todos" filtra
+         curiosos y aumenta el deseo de quien sí encaja.
          ===================================================================== -->
-    <section class="section section--cream">
+    <section class="section section--white" id="encaje">
       <div class="container">
-        <p class="kicker reveal" data-en="Why Arraviva">Por qué Arraviva</p>
-        <h2 class="section-title reveal" style="max-width:24ch" data-en="Business judgment, with hands in the soil.">Criterio de negocio, con las manos en la tierra.</h2>
+        <p class="kicker reveal" data-en="Fit">Encaje</p>
+        <h2 class="section-title reveal" style="max-width:22ch" data-en="This isn't for everyone.">Esto no es para todos.</h2>
 
-        <div class="porque__grid">
-          <div class="porque__item porque__item--tierra reveal">
-            <h3 data-en="I speak the owner's language">Hablo el idioma del dueño</h3>
-            <p data-en="Business first, technology second.">Criterio de negocio primero, tecnología después.</p>
+        <div class="encaje__grid">
+          <div class="encaje__col encaje__col--si reveal">
+            <h3 data-en="This is for you if…">Esto es para ti si…</h3>
+            <ul>
+              <li data-en="Your business already bills and works, but the operation has you trapped">Tu negocio ya factura y funciona, pero la operación te tiene atrapado</li>
+              <li data-en="You know there's disorder and you'd rather someone told you straight">Sabes que hay desorden y prefieres que alguien te lo diga claro</li>
+              <li data-en="You can invest in fixing it, not just in knowing about it">Puedes invertir en arreglarlo, no solo en saberlo</li>
+              <li data-en="You want your team to work without you on top of everything">Quieres que tu equipo funcione sin que estés encima de todo</li>
+            </ul>
           </div>
-          <div class="porque__item porque__item--luz reveal">
-            <h3 data-en="We diagnose before we sell">Diagnosticamos antes de vender</h3>
-            <p data-en="We start with an honest audit; if something isn't right for you, we say so. No smoke, no invented numbers.">Empezamos con una auditoría honesta; si algo no te conviene, te lo decimos. Nada de humo ni cifras inventadas.</p>
+          <div class="encaje__col encaje__col--no reveal">
+            <h3 data-en="This is not for you if…">Esto no es para ti si…</h3>
+            <ul>
+              <li data-en="You're looking for someone to 'run your social media'">Buscas a alguien que «te maneje las redes»</li>
+              <li data-en="You want a tool installed without changing how you work">Quieres una herramienta instalada sin cambiar cómo trabajas</li>
+              <li data-en="You want someone to execute without asking questions about your business">Quieres que alguien ejecute sin hacer preguntas sobre tu negocio</li>
+              <li data-en="You're after a quick fix rather than a real one">Buscas un arreglo rápido más que uno de verdad</li>
+            </ul>
           </div>
-          <div class="porque__item porque__item--savia reveal">
-            <h3 data-en="Real integration of all three fronts">Integración real de los tres frentes</h3>
-            <p data-en="Marketing, processes and AI integrated under one growth logic.">Marketing, procesos e IA integrados bajo una sola lógica de crecimiento.</p>
-          </div>
+        </div>
+
+        <div class="seccion-cta reveal">
+          <a class="btn btn--primary" href="#cta" data-en="Book your 15-minute call">Agenda tu llamada de 15 minutos</a>
+          <p class="seccion-cta__micro" data-en="Still have questions? Let's solve them on the call.">¿Te quedó alguna duda? Resolvámosla en la llamada.</p>
         </div>
       </div>
     </section>
@@ -318,12 +460,12 @@
           <div class="faq__item">
             <h3 class="faq__q">
               <button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-p1">
-                <span data-en="How do we start?">¿Cómo empezamos?</span>
+                <span data-en="How much of my time will this take?">¿Cuánto tiempo me va a quitar esto?</span>
                 <svg class="faq__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 L8 10.5 L12.5 6" stroke="#1E3A31" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </h3>
             <div class="faq__panel" id="faq-p1">
-              <p data-en="It all starts with a short, no-commitment call where I understand your business and we see if we're a fit. If it makes sense to work together, the first step is an in-depth diagnosis: the foundation everything else is built on.">Todo empieza con una llamada corta, sin compromiso, donde entiendo tu negocio y vemos si encajamos. Si tiene sentido trabajar juntos, el primer paso es un diagnóstico a fondo: la base sobre la que se construye todo lo demás.</p>
+              <p data-en="The call is 15 minutes. If we move forward, the diagnosis asks for about 3 hours spread over two weeks: a questionnaire you fill in at your own pace and a conversation with whoever runs each part of the business. I do the rest.">La llamada son 15 minutos. Si avanzamos, el diagnóstico te pide unas 3 horas repartidas en dos semanas: un cuestionario que llenas a tu ritmo y una conversación con quien lleva cada parte del negocio. El resto lo hago yo.</p>
             </div>
           </div>
 
@@ -431,7 +573,7 @@
               <input id="c-tel" name="telefono" type="tel" autocomplete="tel">
             </div>
             <div class="field">
-              <label for="c-msg"><span data-en="How can we help you?">¿Cómo podemos ayudarte?</span> <span class="req" aria-hidden="true">*</span></label>
+              <label for="c-msg"><span data-en="What is holding your business back?">¿Qué te está frenando?</span> <span class="req" aria-hidden="true">*</span></label>
               <textarea id="c-msg" name="mensaje" rows="3" required></textarea>
             </div>
             <label class="check">
@@ -452,7 +594,7 @@
       <div class="container">
         <div class="footer__top">
           <div>
-            <a class="brand" href="#top" aria-label="Arraviva — inicio">
+            <a class="brand" href="#top" aria-label="Arraviva, inicio">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
                 <path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/>
