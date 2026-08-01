@@ -29,14 +29,14 @@
 
   var META = {
     es: {
-      title: "Arraviva — Partner tecnológico de crecimiento",
+      title: "Arraviva · Descubre cuánto tiempo y dinero puede recuperar tu negocio",
       description:
-        "Arraviva ordena tu operación, automatiza lo repetitivo y suma IA para que tu negocio crezca sin depender de nadie."
+        "Diagnóstico de operación para tu negocio. Descubre dónde se te va el tiempo, qué se puede automatizar y en qué orden arreglarlo. Empieza con una llamada de 15 minutos."
     },
     en: {
-      title: "Arraviva — Growth technology partner",
+      title: "Arraviva · Find out how much time and money your business can win back",
       description:
-        "Arraviva organizes your operation, automates the repetitive and adds AI so your business grows without depending on anyone."
+        "An operation diagnosis for your business. Find out where your time goes, what can run on its own and in what order to fix it. Start with a 15-minute call."
     }
   };
 
@@ -397,18 +397,9 @@
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
 
-        /* Conversión: avisamos a Analytics de que este visitante pidió la
-           llamada. Sin esto solo se verían visitas, que es el dato que menos
-           dice. Con esto se ve cuántos de los que entran acaban pidiéndola, y
-           de qué canal venían — las UTMs ya viajan en el formulario.
-           `generate_lead` es el nombre que GA4 reconoce como objetivo. */
-        if (typeof gtag === "function") {
-          gtag("event", "generate_lead", {
-            origen: tracking.utm_source || "directo",
-            campana: tracking.utm_campaign || "(ninguna)",
-            idioma: isEN() ? "en" : "es"
-          });
-        }
+        /* PENDIENTE: aquí va el evento de conversión cuando montemos Umami.
+           Las UTMs ya viajan en el formulario, así que el dato de origen no
+           se pierde mientras tanto. */
 
         form.reset();
         setStatus(
@@ -434,3 +425,4 @@
       });
   });
 })();
+
