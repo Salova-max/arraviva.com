@@ -684,7 +684,7 @@ FLOW 3 - Contract management:
   <div class="result" id="result">
     <div class="check">✓</div>
     <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
-    <p id="resultMsg" data-es="Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo.</p>
+    <p id="resultMsg" data-es="Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo.</p>
     <div class="actions">
       <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
       <button class="btn" id="btnDownload" data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
@@ -884,7 +884,7 @@ FLOW 3 - Contract management:
         btn.textContent = texto('✓ Enviado','✓ Sent');
         btn.disabled = true;
         if(msg) msg.textContent = texto(
-          'Recibido. Gracias — nos pondremos en contacto con usted en breve.',
+          'Recibido. Gracias — nos pondremos en contacto contigo en breve.',
           'Received. Thank you — we will get back to you shortly.');
         try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
       })
@@ -892,7 +892,7 @@ FLOW 3 - Contract management:
         btn.disabled = false;
         btn.textContent = texto('↻ Reintentar envío','↻ Retry');
         if(msg) msg.textContent = texto(
-          'No pudimos enviarlo automáticamente. Inténtelo otra vez o use «Guardar una copia» y mándenosla por correo.',
+          'No pudimos enviarlo automáticamente. Inténtalo otra vez o usa «Guardar una copia» y mándanosla por correo.',
           'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
         if(fallback) fallback.hidden = false;
       });
