@@ -1017,10 +1017,13 @@
   <div class="result" id="result">
     <div class="check">✓</div>
     <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
-    <p data-es="Gracias. Por favor toque «Descargar archivo» y envíenos ese archivo por correo — así nos llegan todas las respuestas completas." data-en="Thank you. Please tap “Download file” and send us that file by email — that way all your answers arrive complete.">Gracias. Por favor toque «Descargar archivo» y envíenos ese archivo por correo — así nos llegan todas las respuestas completas.</p>
+    <p id="resultMsg" data-es="Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo.</p>
     <div class="actions">
-      <button class="btn primary" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+      <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
       <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+    </div>
+    <div class="actions" id="fallbackBox" hidden>
       <button class="btn" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
     </div>
     <div class="preview" id="preview"></div>
@@ -1124,6 +1127,8 @@
       if(answer) datos.push([question, answer]);
     });
 
+    RESPUESTAS_PARES = datos;
+
     let t = TITULO[lang]+"\n";
     t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-CO':'en-US')+"\n";
     t += "----------------------------------------\n\n";
@@ -1132,6 +1137,7 @@
   }
 
   let RESPUESTAS = "";
+  let RESPUESTAS_PARES = [];
   form.addEventListener('submit', e=>{
     e.preventDefault();
     RESPUESTAS = recogerRespuestas();
@@ -1148,9 +1154,79 @@
     URL.revokeObjectURL(url);
   });
   document.getElementById('btnEmail').addEventListener('click', function(){
-    var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Descargar archivo; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Download file button; without it the answers do not arrive.";
+    var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Guardar una copia; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Save a copy button; without it the answers do not arrive.";
     window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang])+"&body="+encodeURIComponent(aviso);
   });
+
+  /* =======================================================================
+     ENVÍO AUTOMÁTICO — las respuestas viajan solas a Arraviva
+     Si falla, se muestra el envío manual por correo como respaldo.
+     ======================================================================= */
+  (function(){
+    var ENVIO_URL   = "https://proyecto-1-ensayo-n8n.o5q4ky.easypanel.host/webhook/cuestionario";
+    var ENVIO_CLAVE = "arraviva-q-2026-7f3a";
+    var CUESTIONARIO = "dental";
+
+    var btn = document.getElementById('btnSend');
+    var msg = document.getElementById('resultMsg');
+    var fallback = document.getElementById('fallbackBox');
+    if(!btn) return;
+
+    function valorDe(nombres){
+      for(var i=0;i<nombres.length;i++){
+        var el = form.querySelector('[name="'+nombres[i]+'"]');
+        if(el && el.value && el.value.trim()) return el.value.trim();
+      }
+      return '';
+    }
+    function monedaActual(){
+      try { return currency.options[currency.selectedIndex].textContent.trim(); }
+      catch(e){ return ''; }
+    }
+    function texto(es,en){ return lang==='es' ? es : en; }
+
+    btn.addEventListener('click', function(){
+      btn.disabled = true;
+      btn.textContent = texto('Enviando…','Sending…');
+
+      var payload = {
+        clave: ENVIO_CLAVE,
+        cuestionario: CUESTIONARIO,
+        titulo: TITULO[lang],
+        idioma: lang,
+        moneda: monedaActual(),
+        contacto: {
+          nombre_negocio: valorDe(['Nombre de la clínica','Nombre del negocio','Nombre de la empresa']),
+          email:          valorDe(['Correo de contacto','Email de contacto','Email']),
+          telefono:       valorDe(['Teléfono / WhatsApp','Teléfono','WhatsApp'])
+        },
+        respuestas: RESPUESTAS_PARES
+      };
+
+      fetch(ENVIO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(){
+        btn.textContent = texto('✓ Enviado','✓ Sent');
+        btn.disabled = true;
+        if(msg) msg.textContent = texto(
+          'Recibido. Gracias — nos pondremos en contacto con usted en breve.',
+          'Received. Thank you — we will get back to you shortly.');
+        try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = texto('↻ Reintentar envío','↻ Retry');
+        if(msg) msg.textContent = texto(
+          'No pudimos enviarlo automáticamente. Inténtelo otra vez o use «Guardar una copia» y mándenosla por correo.',
+          'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
+        if(fallback) fallback.hidden = false;
+      });
+    });
+  })();
 
   /* =======================================================================
      AUTOGUARDADO — el progreso sobrevive a cerrar la pestaña
