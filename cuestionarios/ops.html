@@ -200,6 +200,12 @@ h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-we
         <span class="field-hint" data-es="Indica el nombre legal o comercial de tu empresa" data-en="Enter your company's legal or trade name">Indica el nombre legal o comercial de tu empresa</span>
         <input class="input" type="text" name="Nombre de la empresa" required data-es-ph="Ej: Acme Solutions S.A.S." data-en-ph="e.g. Acme Solutions LLC" placeholder="Ej: Acme Solutions S.A.S."></div>
 
+      <div class="field"><label class="field-label"><span data-es="Correo de contacto" data-en="Contact email">Correo de contacto</span> <span class="required">*</span></label>
+        <input class="input" type="email" name="Correo de contacto" required data-es-ph="Ej: gerencia@suempresa.com" data-en-ph="e.g. manager@yourcompany.com" placeholder="Ej: gerencia@suempresa.com"></div>
+
+      <div class="field"><label class="field-label"><span data-es="Teléfono / WhatsApp" data-en="Phone / WhatsApp">Teléfono / WhatsApp</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Teléfono / WhatsApp" required data-es-ph="Ej: +57 300 123 4567" data-en-ph="e.g. +1 305 123 4567" placeholder="Ej: +57 300 123 4567"></div>
+
       <div class="field"><label class="field-label" data-es="Área a auditar" data-en="Area being audited">Área a auditar</label>
         <span class="field-hint" data-es="Este cuestionario está diseñado específicamente para auditar el área de operaciones" data-en="This questionnaire is designed specifically to audit the operations area">Este cuestionario está diseñado específicamente para auditar el área de operaciones</span>
         <input class="input readonly" type="text" name="Área a auditar" value="Operaciones" data-es-val="Operaciones" data-en-val="Operations" readonly></div>
@@ -678,11 +684,14 @@ FLOW 3 - Contract management:
   <div class="result" id="result">
     <div class="check">✓</div>
     <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
-    <p data-es="Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico." data-en="Thank you. Now send them to us with any of these buttons so we can prepare your diagnosis.">Gracias. Ahora envíanoslas con cualquiera de estos botones para preparar tu diagnóstico.</p>
+    <p id="resultMsg" data-es="Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revise el resumen de abajo y pulse «Enviar respuestas». Nos llegan directamente — no tiene que adjuntar ningún archivo.</p>
     <div class="actions">
-      <button class="btn primary" id="btnEmail" data-es="✉ Enviar por email" data-en="✉ Send by email">✉ Enviar por email</button>
+      <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
       <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
-      <button class="btn" id="btnDownload" data-es="⬇ Descargar archivo" data-en="⬇ Download file">⬇ Descargar archivo</button>
+    </div>
+    <div class="actions" id="fallbackBox" hidden>
+      <button class="btn" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
     </div>
     <div class="preview" id="preview"></div>
   </div>
@@ -789,6 +798,8 @@ FLOW 3 - Contract management:
       if(answer) datos.push([question, answer]);
     });
 
+    RESPUESTAS_PARES = datos;
+
     let t = TITULO[lang]+"\n";
     t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-419':'en-US')+"\n";
     t += "----------------------------------------\n\n";
@@ -797,6 +808,7 @@ FLOW 3 - Contract management:
   }
 
   let RESPUESTAS = "";
+  let RESPUESTAS_PARES = [];
   form.addEventListener('submit', e=>{
     e.preventDefault();
     RESPUESTAS = recogerRespuestas();
@@ -816,6 +828,76 @@ FLOW 3 - Contract management:
     var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Descargar archivo; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Download file button; without it the answers do not arrive.";
     window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(aviso);
   });
+
+  /* =======================================================================
+     ENVÍO AUTOMÁTICO — las respuestas viajan solas a Arraviva
+     Si falla, se muestra el envío manual por correo como respaldo.
+     ======================================================================= */
+  (function(){
+    var ENVIO_URL   = "https://proyecto-1-ensayo-n8n.o5q4ky.easypanel.host/webhook/cuestionario";
+    var ENVIO_CLAVE = "arraviva-q-2026-7f3a";
+    var CUESTIONARIO = "ops";
+
+    var btn = document.getElementById('btnSend');
+    var msg = document.getElementById('resultMsg');
+    var fallback = document.getElementById('fallbackBox');
+    if(!btn) return;
+
+    function valorDe(nombres){
+      for(var i=0;i<nombres.length;i++){
+        var el = form.querySelector('[name="'+nombres[i]+'"]');
+        if(el && el.value && el.value.trim()) return el.value.trim();
+      }
+      return '';
+    }
+    function monedaActual(){
+      try { return currency.options[currency.selectedIndex].textContent.trim(); }
+      catch(e){ return ''; }
+    }
+    function texto(es,en){ return lang==='es' ? es : en; }
+
+    btn.addEventListener('click', function(){
+      btn.disabled = true;
+      btn.textContent = texto('Enviando…','Sending…');
+
+      var payload = {
+        clave: ENVIO_CLAVE,
+        cuestionario: CUESTIONARIO,
+        titulo: TITULO[lang],
+        idioma: lang,
+        moneda: monedaActual(),
+        contacto: {
+          nombre_negocio: valorDe(['Nombre de la empresa','Nombre del negocio','Nombre de la clínica']),
+          email:          valorDe(['Correo de contacto','Email de contacto']),
+          telefono:       valorDe(['Teléfono / WhatsApp','Teléfono','WhatsApp'])
+        },
+        respuestas: RESPUESTAS_PARES
+      };
+
+      fetch(ENVIO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(){
+        btn.textContent = texto('✓ Enviado','✓ Sent');
+        btn.disabled = true;
+        if(msg) msg.textContent = texto(
+          'Recibido. Gracias — nos pondremos en contacto con usted en breve.',
+          'Received. Thank you — we will get back to you shortly.');
+        try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = texto('↻ Reintentar envío','↻ Retry');
+        if(msg) msg.textContent = texto(
+          'No pudimos enviarlo automáticamente. Inténtelo otra vez o use «Guardar una copia» y mándenosla por correo.',
+          'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
+        if(fallback) fallback.hidden = false;
+      });
+    });
+  })();
 
   /* =======================================================================
      AUTOGUARDADO — el progreso sobrevive a cerrar la pestaña
