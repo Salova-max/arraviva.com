@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario de Diagnóstico · Arraviva</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+  /* =========================================================
+     DIAGNÓSTICO GENERAL DE NEGOCIO — Arraviva
+     Para negocios de un solo flujo (sin áreas diferenciadas).
+     La especialización por sector entra en el INFORME, vía preset.
+     ========================================================= */
+  :root{
+    --bg:#f6f1e8; --card:#fbf8f1; --card-2:#ffffff; --border:#e2dccf;
+    --text:#17201b; --muted:#47544A; --accent:#1e3a31; --accent-soft:#eaf2ec;
+    --ok:#2F6B4F; --req:#2F6B4F; --tierra:#2F6B4F; --savia:#2F6B4F; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.6;}
+  h1,h2,.card-title h2,.intro-box h3{font-family:'Fraunces',Georgia,serif; font-weight:600;}
+  .wrap{max-width:840px; margin:0 auto; padding:22px 18px 90px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 26px; flex-wrap:wrap}
+  .brand-name{font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:20px; color:var(--text); letter-spacing:.2px}
+  .header-right{display:flex; align-items:center; gap:10px}
+  .tag{font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--card)}
+  .lang-toggle button{border:none; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; cursor:pointer}
+  .lang-toggle button.active{background:var(--accent); color:#fff}
+  .hero-badge{display:inline-block; font-size:12px; font-weight:700; color:var(--tierra); background:#EAF0EB; padding:6px 12px; border-radius:999px; margin-bottom:14px}
+  h1{font-size:31px; margin:0 0 10px; letter-spacing:-.01em}
+  .subtitle{color:var(--muted); margin:0 0 22px; font-size:16px}
+  .intro-box{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px}
+  .intro-box h3{margin:0 0 8px; font-size:17px}
+  .intro-box p{margin:0 0 12px; color:var(--muted); font-size:14px}
+  .intro-list{display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; margin:0; padding:0; list-style:none}
+  .intro-list li{color:var(--muted); font-size:13px; padding-left:16px; position:relative}
+  .intro-list li::before{content:"›"; position:absolute; left:0; color:var(--accent); font-weight:700}
+  @media(max-width:560px){.intro-list{grid-template-columns:1fr}}
+  .progress-wrapper{margin:6px 0 24px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5}
+  .progress-info{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:6px}
+  .progress-track{height:8px; background:var(--card-2); border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+  .form-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:16px}
+  .card-header{display:flex; gap:14px; align-items:flex-start; margin-bottom:6px}
+  .card-number{min-width:42px; height:42px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; font-weight:800; font-size:15px}
+  .card-title h2{margin:0; font-size:19px}
+  .card-title p{margin:3px 0 0; color:var(--muted); font-size:14px}
+  .field{margin-top:18px}
+  .field-label{display:block; font-weight:600; margin-bottom:4px}
+  .required{color:var(--req)}
+  .field-hint{display:block; color:var(--muted); font-size:13px; margin-bottom:8px}
+  .input,.textarea,.select{width:100%; background:var(--card-2); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:12px 13px; font-size:15px; font-family:inherit}
+  .textarea{min-height:96px; resize:vertical}
+  .input:focus,.textarea:focus,.select:focus{outline:2px solid var(--accent); border-color:var(--accent)}
+  .radio-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .radio-grid-2{grid-template-columns:1fr 1fr}
+  .radio-grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:560px){.radio-grid,.radio-grid-2,.radio-grid-3{grid-template-columns:1fr 1fr}}
+  .radio-box{display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:14px 10px; cursor:pointer; transition:.15s}
+  .radio-box:hover{border-color:var(--accent)}
+  .radio-box input{display:none}
+  .radio-box:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .radio-label-text{font-weight:600; font-size:14px}
+  .radio-desc{font-size:12px; color:var(--muted)}
+  .checkbox-list{display:grid; gap:10px}
+  .checkbox-option{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); background:var(--card-2); border-radius:12px; padding:13px 14px; cursor:pointer; transition:.15s}
+  .checkbox-option:hover{border-color:var(--accent)}
+  .checkbox-option:has(input:checked){border-color:var(--accent); background:var(--accent-soft)}
+  .checkbox-option input{margin-top:3px; width:18px; height:18px; accent-color:var(--accent); flex:none}
+  .checkbox-text{font-weight:600; display:block}
+  .checkbox-desc{font-size:12px; color:var(--muted); display:block; margin-top:2px}
+  .info-callout{background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:14px; margin:14px 0 4px; color:var(--muted); font-size:14px}
+  .info-callout p{margin:0}
+  .input-grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  @media(max-width:560px){.input-grid-3{grid-template-columns:1fr}}
+  .input-group-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+  .icon-input{display:flex; align-items:center; background:var(--card-2); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+  .icon-input:focus-within{outline:2px solid var(--accent); border-color:var(--accent)}
+  .cur-symbol{padding:0 12px; color:var(--muted); font-weight:700}
+  .icon-input .input{border:none; background:transparent; outline:none}
+  .toolbar{display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:16px}
+  .toolbar label{font-weight:600; font-size:14px}
+  .toolbar .select{max-width:240px}
+  .conditional{display:none; border-left:2px solid var(--accent); padding-left:14px; margin-top:10px}
+  .conditional.show{display:block}
+  .conditional-title{font-size:13px; font-weight:700; color:var(--accent); margin-top:8px}
+  .submit-section{margin-top:12px}
+  .submit-btn{width:100%; border:none; cursor:pointer; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:16px; border-radius:12px; font-family:inherit}
+  .submit-btn:hover{opacity:.93}
+  .result{display:none; text-align:center; padding:10px 0}
+  .result.show{display:block}
+  .result .check{width:66px; height:66px; margin:0 auto 14px; border-radius:50%; background:var(--ok); display:grid; place-items:center; color:#fff; font-size:34px}
+  .result h2{margin:0 0 6px}
+  .result p{color:var(--muted); max-width:540px; margin:0 auto 18px}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:18px}
+  .btn{border:1px solid var(--border); background:var(--card-2); color:var(--text); padding:12px 18px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; font-family:inherit}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn:hover{opacity:.9}
+  .preview{text-align:left; background:var(--card-2); border:1px solid var(--border); border-radius:10px; padding:14px; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:13px; max-height:320px; overflow:auto; color:var(--muted)}
+</style>
+<style>
+#q-gate{position:fixed;inset:0;z-index:99999;background:#f6f1e8;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif}
+#q-gate.q-unlocked{display:none}
+.q-gate__card{width:100%;max-width:380px;background:#fff;border:1px solid #e2dccf;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 1px 2px rgba(23,32,27,.04),0 12px 28px -16px rgba(23,32,27,.2)}
+.q-gate__logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px}
+.q-gate__logo .brand-name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#1e3a31}
+.q-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1e3a31;margin:0 0 8px}
+.q-gate__sub{font-size:14.5px;line-height:1.5;color:#47544A;margin:0 0 22px}
+#q-gate__input{width:100%;box-sizing:border-box;background:#fbf8f1;border:1px solid #e2dccf;border-radius:10px;padding:13px 15px;font-size:15px;font-family:inherit;color:#17201b;text-align:center}
+#q-gate__input:focus{outline:none;border-color:#2F6B4F}
+#q-gate__btn{width:100%;margin-top:12px;border:none;cursor:pointer;background:#1e3a31;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:10px;font-family:inherit}
+#q-gate__btn:hover{background:#2F6B4F}
+#q-gate__error{margin:14px 0 0;font-size:13px;color:#2F6B4F;font-weight:600}
+.viva{color:#2F6B4F}
+</style>
+</head>
+<body>
+<div id="q-gate">
+  <div class="q-gate__card">
+    <div class="q-gate__logo"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name">Arra<span class="viva">viva</span></span></div>
+    <h1 class="q-gate__title">Cuestionario privado</h1>
+    <p class="q-gate__sub">Introduce la clave de acceso que te compartimos para continuar.</p>
+    <form id="q-gate__form" autocomplete="off">
+      <input id="q-gate__input" type="password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+      <button id="q-gate__btn" type="submit">Entrar &rarr;</button>
+      <p id="q-gate__error" hidden>Clave incorrecta. Vuelve a intentarlo.</p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-slot" style="display:flex;align-items:center;gap:9px"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18 V8" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 9 C10 6 12 5 14 4" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><path d="M10 12 C10 10 8 9 6 8.5" stroke="#1E3A31" stroke-width="2" stroke-linecap="round"/><circle cx="14.6" cy="3.6" r="1.6" fill="#1E3A31"/></svg><span class="brand-name" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#1e3a31">Arra<span class="viva">viva</span></span></div>
+    <div class="header-right">
+      <span class="tag" data-es="Fase de Incorporación" data-en="Onboarding Phase">Fase de Incorporación</span>
+      <div class="lang-toggle">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <span class="hero-badge" data-es="Diagnóstico" data-en="Audit">Diagnóstico</span>
+  <h1 data-es="Diagnóstico de tu Negocio" data-en="Your Business Audit">Diagnóstico de tu Negocio</h1>
+  <p class="subtitle" data-es="Este cuestionario nos permite entender cómo funciona su negocio hoy: cómo llegan los clientes, cómo se atiende, cómo se entrega el servicio y dónde se está perdiendo tiempo o dinero. Con eso preparamos un plan concreto de mejora y automatización." data-en="This questionnaire helps us understand how your business works today: how clients arrive, how they're handled, how the service is delivered and where time or money is being lost. With that we prepare a concrete improvement and automation plan.">Este cuestionario nos permite entender cómo funciona su negocio hoy: cómo llegan los clientes, cómo se atiende, cómo se entrega el servicio y dónde se está perdiendo tiempo o dinero. Con eso preparamos un plan concreto de mejora y automatización.</p>
+
+  <div class="intro-box">
+    <h3 data-es="¿Qué información necesitamos?" data-en="What information do we need?">¿Qué información necesitamos?</h3>
+    <p data-es="No hay respuestas correctas ni incorrectas. Entre más honesto sea, mejor será el diagnóstico. Si algo no lo sabe con exactitud, ponga un estimado. Los ejemplos que verá son de sectores distintos: tome el que se parezca más a lo suyo." data-en="There are no right or wrong answers. The more honest you are, the better the diagnosis. If you don't know something exactly, give an estimate. The examples you'll see come from different industries: use whichever is closest to yours.">No hay respuestas correctas ni incorrectas. Entre más honesto sea, mejor será el diagnóstico. Si algo no lo sabe con exactitud, ponga un estimado. Los ejemplos que verá son de sectores distintos: tome el que se parezca más a lo suyo.</p>
+    <ul class="intro-list">
+      <li data-es="Datos y equipo del negocio" data-en="Business details and team">Datos y equipo del negocio</li>
+      <li data-es="Qué vende, capacidad y números" data-en="What you sell, capacity and figures">Qué vende, capacidad y números</li>
+      <li data-es="Cómo llegan los clientes" data-en="How clients arrive">Cómo llegan los clientes</li>
+      <li data-es="Primer contacto y respuesta" data-en="First contact and response">Primer contacto y respuesta</li>
+      <li data-es="Agenda, citas o pedidos" data-en="Schedule, appointments or orders">Agenda, citas o pedidos</li>
+      <li data-es="Presupuestos, cierre y cobro" data-en="Quotes, closing and payment">Presupuestos, cierre y cobro</li>
+      <li data-es="Cómo entregan el servicio" data-en="How you deliver the service">Cómo entregan el servicio</li>
+      <li data-es="Después de la venta" data-en="After the sale">Después de la venta</li>
+      <li data-es="Administración y cumplimiento" data-en="Admin and compliance">Administración y cumplimiento</li>
+      <li data-es="Herramientas y automatización" data-en="Tools and automation">Herramientas y automatización</li>
+      <li data-es="Horas y tareas manuales" data-en="Hours and manual tasks">Horas y tareas manuales</li>
+      <li data-es="Objetivos y expectativas" data-en="Goals and expectations">Objetivos y expectativas</li>
+      <li data-es="Accesos, seguridad y respaldo" data-en="Access, security and backup">Accesos, seguridad y respaldo</li>
+    </ul>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-info"><span data-es="Progreso del cuestionario" data-en="Questionnaire progress">Progreso del cuestionario</span><span id="progressCount">0 / 14</span></div>
+    <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+  </div>
+
+  <form id="form">
+
+    <div class="toolbar">
+      <label for="currency" data-es="Moneda con la que trabajan:" data-en="Currency you work with:">Moneda con la que trabajan:</label>
+      <select class="select" id="currency" name="Moneda">
+        <option value="COP" data-es="COP — Peso colombiano ($)" data-en="COP — Colombian Peso ($)">COP — Peso colombiano ($)</option>
+        <option value="USD" data-es="USD — Dólar ($)" data-en="USD — Dollar ($)">USD — Dólar ($)</option>
+        <option value="EUR" data-es="EUR — Euro (€)" data-en="EUR — Euro (€)">EUR — Euro (€)</option>
+      </select>
+    </div>
+
+    <!-- ===== 01 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">01</span>
+        <div class="card-title">
+          <h2 data-es="Datos del Negocio y Equipo" data-en="Business Details and Team">Datos del Negocio y Equipo</h2>
+          <p data-es="Información básica para entender el tamaño y la estructura" data-en="Basic information to understand size and structure">Información básica para entender el tamaño y la estructura</p></div></div>
+
+      <div class="field"><label class="field-label"><span data-es="Nombre del negocio" data-en="Business name">Nombre del negocio</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Nombre del negocio" required data-es-ph="Ej: Peluquería Estudio Norte / Taller El Roble / Veterinaria Patitas" data-en-ph="e.g. Estudio Norte Salon / El Roble Auto Shop / Patitas Vet Clinic"></div>
+
+      <div class="field"><label class="field-label"><span data-es="Correo de contacto" data-en="Contact email">Correo de contacto</span> <span class="required">*</span></label>
+        <input class="input" type="email" name="Correo de contacto" required data-es-ph="Ej: gerencia@tunegocio.com" data-en-ph="e.g. manager@yourbusiness.com"></div>
+
+      <div class="field"><label class="field-label"><span data-es="Teléfono / WhatsApp" data-en="Phone / WhatsApp">Teléfono / WhatsApp</span> <span class="required">*</span></label>
+        <input class="input" type="text" name="Teléfono / WhatsApp" required data-es-ph="Ej: +57 300 123 4567" data-en-ph="e.g. +1 305 123 4567"></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿A qué se dedica el negocio?" data-en="What does the business do?">¿A qué se dedica el negocio?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="En una frase, como se lo explicaría a un vecino. Esto nos permite comparar sus números con los de su sector." data-en="In one sentence, as you'd explain it to a neighbour. This lets us compare your figures against your industry.">En una frase, como se lo explicaría a un vecino. Esto nos permite comparar sus números con los de su sector.</span>
+        <input class="input" type="text" name="A qué se dedica" required data-es-ph="Ej: peluquería y barbería · taller mecánico · veterinaria · gimnasio · restaurante · gestoría · academia de idiomas · distribuidora de alimentos" data-en-ph="e.g. hair salon · auto repair shop · vet clinic · gym · restaurant · accounting firm · language school · food distributor"></div>
+
+      <div class="field"><label class="field-label" data-es="Ciudad y número de locales o sedes" data-en="City and number of locations">Ciudad y número de locales o sedes</label>
+        <input class="input" type="text" name="Ciudad y sedes" data-es-ph="Ej: Medellín, 1 local / Bogotá, 3 sedes / Envigado, local + servicio a domicilio" data-en-ph="e.g. Medellín, 1 location / Bogotá, 3 branches / Envigado, shop + home service"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hace cuántos años funciona el negocio?" data-en="How many years has the business been open?">¿Hace cuántos años funciona el negocio?</label>
+        <input class="input" type="number" name="Años de funcionamiento" placeholder="Ej: 8"></div>
+
+      <div class="field"><label class="field-label" data-es="Enlaces del negocio" data-en="Business links">Enlaces del negocio</label>
+        <span class="field-hint" data-es="Péguelos tal cual. Nos permiten ver sus reseñas y su presencia real, no una suposición. Si no tienen alguno, déjelo vacío." data-en="Paste them as they are. They let us see your real reviews and presence, not a guess. Leave blank any you don't have.">Péguelos tal cual. Nos permiten ver sus reseñas y su presencia real, no una suposición. Si no tienen alguno, déjelo vacío.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Ficha de Google / Maps" data-en="Google Business / Maps">Ficha de Google / Maps</span><input class="input" type="text" name="Link Google Maps" placeholder="https://maps.app.goo.gl/..."></div>
+          <div class="input-group"><span class="input-group-label" data-es="Página web" data-en="Website">Página web</span><input class="input" type="text" name="Link página web" placeholder="www.tunegocio.com"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Instagram" data-en="Instagram">Instagram</span><input class="input" type="text" name="Link Instagram" placeholder="@tunegocio"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Facebook" data-en="Facebook">Facebook</span><input class="input" type="text" name="Link Facebook" placeholder="facebook.com/tunegocio"></div>
+          <div class="input-group"><span class="input-group-label" data-es="TikTok (si tienen)" data-en="TikTok (if any)">TikTok (si tienen)</span><input class="input" type="text" name="Link TikTok" placeholder="@tunegocio"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Plataforma de su sector" data-en="Industry platform">Plataforma de su sector</span><input class="input" type="text" name="Link plataforma del sector" placeholder="Booksy, Doctoralia, TripAdvisor..."></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Tu rol en el negocio" data-en="Your role in the business">Tu rol en el negocio</label>
+        <select class="select" name="Rol">
+          <option value="" disabled selected data-es="Selecciona tu rol" data-en="Select your role">Selecciona tu rol</option>
+          <option value="Propietario" data-es="Propietario / Dueño" data-en="Owner">Propietario / Dueño</option>
+          <option value="Director" data-es="Director / Gerente" data-en="Director / Manager">Director / Gerente</option>
+          <option value="Administrador" data-es="Administrador" data-en="Administrator">Administrador</option>
+          <option value="Encargado" data-es="Encargado del local / Jefe de turno" data-en="Store manager / Shift lead">Encargado del local / Jefe de turno</option>
+          <option value="Atención al cliente" data-es="Recepción / Atención al cliente" data-en="Front desk / Customer service">Recepción / Atención al cliente</option>
+          <option value="Marketing" data-es="Marketing" data-en="Marketing">Marketing</option>
+          <option value="Otro" data-es="Otro" data-en="Other">Otro</option>
+        </select></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántas personas trabajan en el negocio?" data-en="How many people work at the business?">¿Cuántas personas trabajan en el negocio?</label>
+        <span class="field-hint" data-es="Un número aproximado por cada grupo. Si una persona hace de todo, cuéntela donde más tiempo pasa." data-en="An approximate number for each group. If someone does everything, count them where they spend most time.">Un número aproximado por cada grupo. Si una persona hace de todo, cuéntela donde más tiempo pasa.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Atienden o venden" data-en="Serve or sell">Atienden o venden</span><input class="input" type="number" name="Personas que atienden" placeholder="Ej: 4"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Hacen el trabajo / servicio" data-en="Do the work / service">Hacen el trabajo / servicio</span><input class="input" type="number" name="Personas que ejecutan" placeholder="Ej: 6"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Administración" data-en="Admin">Administración</span><input class="input" type="number" name="Personas en administración" placeholder="Ej: 2"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Horario de atención — el de la mayoría de los días" data-en="Opening hours — most days">Horario de atención — el de la mayoría de los días</label>
+        <span class="field-hint" data-es="Con esto y su capacidad calculamos cuánto puede atender y cuánto se está quedando sin usar. Si los sábados u otro día abren distinto, eso va en la pregunta siguiente." data-en="With this and your capacity we calculate how much you can handle and how much goes unused. If Saturdays or another day differ, that goes in the next question.">Con esto y su capacidad calculamos cuánto puede atender y cuánto se está quedando sin usar. Si los sábados u otro día abren distinto, eso va en la pregunta siguiente.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Qué días" data-en="Which days">Qué días</span><input class="input" type="text" name="Horario principal días" data-es-ph="Ej: lunes a viernes" data-en-ph="e.g. Monday to Friday"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Abre" data-en="Opens">Abre</span><input class="input" type="text" name="Horario principal abre" placeholder="Ej: 8:00 am"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Cierra" data-en="Closes">Cierra</span><input class="input" type="text" name="Horario principal cierra" placeholder="Ej: 7:00 pm"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay días con horario distinto?" data-en="Are there days with different hours?">¿Hay días con horario distinto?</label>
+        <span class="field-hint" data-es="Lo típico es el sábado, que suele ser más corto. Si todos los días abren igual, deje esto vacío." data-en="Typically Saturday, which is usually shorter. If every day is the same, leave this blank.">Lo típico es el sábado, que suele ser más corto. Si todos los días abren igual, deje esto vacío.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Qué días (horario distinto)" data-en="Which days (different hours)">Qué días (horario distinto)</span><input class="input" type="text" name="Horario distinto días" data-es-ph="Ej: sábados" data-en-ph="e.g. Saturdays"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Abre (ese día)" data-en="Opens (that day)">Abre (ese día)</span><input class="input" type="text" name="Horario distinto abre" placeholder="Ej: 9:00 am"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Cierra (ese día)" data-en="Closes (that day)">Cierra (ese día)</span><input class="input" type="text" name="Horario distinto cierra" placeholder="Ej: 2:00 pm"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cierran a mediodía o hay alguna otra excepción de horario?" data-en="Do you close at midday or is there any other exception?">¿Cierran a mediodía o hay alguna otra excepción de horario?</label>
+        <input class="input" type="text" name="Excepciones de horario" data-es-ph="Ej: cerramos de 1 a 3 para almorzar · domingos cerrado · en diciembre abrimos hasta las 9 · el lunes solo por la tarde" data-en-ph="e.g. we close 1-3 for lunch · closed Sundays · in December we stay open until 9 · Mondays afternoons only"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué depende de UNA SOLA persona?" data-en="What depends on a SINGLE person?">¿Qué depende de UNA SOLA persona?</label>
+        <span class="field-hint" data-es="Si esa persona se enferma o se va, ¿qué se detiene en el negocio?" data-en="If that person gets sick or leaves, what stops at the business?">Si esa persona se enferma o se va, ¿qué se detiene en el negocio?</span>
+        <textarea class="textarea" name="Dependencia de una persona" data-es-ph="Ej: Solo la dueña sabe cuadrar la caja y hacer los pedidos a proveedores. Solo el jefe de taller da los presupuestos. Solo una persona sabe manejar el programa de facturación..." data-en-ph="e.g. Only the owner knows how to balance the till and order from suppliers. Only the shop foreman quotes jobs. Only one person knows the invoicing software..."></textarea></div>
+    </div>
+
+    <!-- ===== 02 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">02</span>
+        <div class="card-title">
+          <h2 data-es="Qué Vende, Capacidad y Números" data-en="What You Sell, Capacity and Figures">Qué Vende, Capacidad y Números</h2>
+          <p data-es="Lo que ofrece y cuánto deja" data-en="What you offer and what it earns">Lo que ofrece y cuánto deja</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué vende exactamente?" data-en="What exactly do you sell?">¿Qué vende exactamente?</label>
+        <span class="field-hint" data-es="Sus servicios o productos principales, con sus propias palabras" data-en="Your main services or products, in your own words">Sus servicios o productos principales, con sus propias palabras</span>
+        <textarea class="textarea" name="Qué vende" data-es-ph="Ej: cortes, color, mechas y tratamientos capilares · revisión, frenos, chapa y pintura · consultas, vacunas, cirugía y peluquería canina · clases grupales, entrenador personal y planes de nutrición" data-en-ph="e.g. cuts, color, highlights and hair treatments · service, brakes, bodywork and paint · check-ups, vaccines, surgery and pet grooming · group classes, personal training and nutrition plans"></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién es su cliente típico?" data-en="Who is your typical client?">¿Quién es su cliente típico?</label>
+        <input class="input" type="text" name="Cliente típico" data-es-ph="Ej: mujeres de 25-45 del barrio · flotas pequeñas de empresa · familias con mascota · estudiantes universitarios · pymes de la zona" data-en-ph="e.g. women 25-45 from the neighbourhood · small company fleets · families with pets · university students · local small businesses"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es su capacidad máxima por día?" data-en="What is your maximum daily capacity?">¿Cuál es su capacidad máxima por día?</label>
+        <span class="field-hint" data-es="Cuánta gente o cuántos trabajos puede atender en un día lleno, y en qué lo mide. Nos sirve para calcular cuánta capacidad se queda sin usar." data-en="How many people or jobs you can handle on a full day, and the unit you measure it in. We use it to calculate unused capacity.">Cuánta gente o cuántos trabajos puede atender en un día lleno, y en qué lo mide. Nos sirve para calcular cuánta capacidad se queda sin usar.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Cantidad máxima al día" data-en="Max per day">Cantidad máxima al día</span><input class="input" type="number" name="Capacidad máxima por día" placeholder="Ej: 24"></div>
+          <div class="input-group" style="grid-column:span 2"><span class="input-group-label" data-es="¿En qué lo mide?" data-en="Unit you measure it in">¿En qué lo mide?</span><input class="input" type="text" name="Unidad de capacidad" data-es-ph="Ej: sillones, citas, mesas, cupos, coches, pedidos, clases" data-en-ph="e.g. chairs, appointments, tables, slots, cars, orders, classes"></div>
+        </div></div>
+
+      <div class="info-callout"><p data-es="Los siguientes números son los más importantes de todo el cuestionario. Sin ellos no podemos calcular cuánto dinero se está quedando sobre la mesa. Un estimado honesto vale más que un número exacto que no tienen a la mano." data-en="The following numbers are the most important in the whole questionnaire. Without them we cannot calculate how much money is being left on the table. An honest estimate is worth more than an exact figure you don't have at hand.">Los siguientes números son los más importantes de todo el cuestionario. Sin ellos no podemos calcular cuánto dinero se está quedando sobre la mesa. Un estimado honesto vale más que un número exacto que no tienen a la mano.</p></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Cuánto factura el negocio al mes?" data-en="What is the monthly revenue?">¿Cuánto factura el negocio al mes?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="En la moneda seleccionada arriba. Si varía mucho de un mes a otro, denos los tres números y trabajamos con el rango." data-en="In the currency selected above. If it varies a lot month to month, give us the three figures and we'll work with the range.">En la moneda seleccionada arriba. Si varía mucho de un mes a otro, denos los tres números y trabajamos con el rango.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Un mes flojo" data-en="A slow month">Un mes flojo</span><input class="input" type="number" name="Facturación mes flojo" placeholder="Ej: 18000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes normal" data-en="An average month">Un mes normal</span><input class="input" type="number" name="Facturación mes normal" placeholder="Ej: 26000000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Un mes bueno" data-en="A good month">Un mes bueno</span><input class="input" type="number" name="Facturación mes bueno" placeholder="Ej: 34000000"></div>
+        </div></div>
+
+      <div class="info-callout"><p data-es="Ojo con las dos preguntas que siguen: NO son lo mismo. Una es lo que deja el cliente CADA VEZ que viene; la otra es lo que deja EN TOTAL mientras sea su cliente. En una peluquería pueden ser $60.000 por visita y $1.400.000 al año. En un taller, $400.000 por reparación y $1.200.000 en tres años. Confundirlas nos haría calcular mal todo el informe." data-en="Careful with the next two questions: they are NOT the same. One is what a client leaves EACH TIME they come; the other is what they leave IN TOTAL while they remain your client. Mixing them up would make us miscalculate the whole report.">Ojo con las dos preguntas que siguen: <strong>NO son lo mismo</strong>. Una es lo que deja el cliente CADA VEZ que viene; la otra es lo que deja EN TOTAL mientras sea su cliente. En una peluquería pueden ser $60.000 por visita y $1.400.000 al año. En un taller, $400.000 por reparación y $1.200.000 en tres años. Confundirlas nos haría calcular mal todo el informe.</p></div>
+
+      <div class="field"><label class="field-label" data-es="1) Valor promedio de UNA venta o visita" data-en="1) Average value of ONE sale or visit">1) Valor promedio de UNA venta o visita</label>
+        <span class="field-hint" data-es="Lo que entra en caja, en promedio, cada vez que un cliente compra o es atendido una vez. Este es el número con el que valoramos cada hueco vacío y cada cliente que no llega." data-en="What comes in, on average, each time a client buys or is served once. This is the figure we use to value every empty slot and every no-show.">Lo que entra en caja, en promedio, cada vez que un cliente compra o es atendido una vez. Este es el número con el que valoramos cada hueco vacío y cada cliente que no llega.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Valor promedio por venta o visita" placeholder="Ej: 65000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="2) Valor total de un cliente mientras lo es" data-en="2) Total value of a client while they remain one">2) Valor total de un cliente mientras lo es</label>
+        <span class="field-hint" data-es="Lo que deja un cliente sumando todas sus compras o visitas, de principio a fin. Este es el número con el que valoramos cada cliente nuevo que se capta y cada cliente que se pierde." data-en="What a client leaves adding up all their purchases or visits, start to finish. This is the figure we use to value each new client acquired and each one lost.">Lo que deja un cliente sumando todas sus compras o visitas, de principio a fin. Este es el número con el que valoramos cada cliente nuevo que se capta y cada cliente que se pierde.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Valor total del cliente" placeholder="Ej: 1400000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="Precio de sus tres servicios o productos más pedidos" data-en="Price of your three most requested services or products">Precio de sus tres servicios o productos más pedidos</label>
+        <span class="field-hint" data-es="Nos sirve para comparar sus precios con los de la competencia de su zona. Escriba el nombre y el precio." data-en="We use this to compare your prices against competitors in your area. Write the name and the price.">Nos sirve para comparar sus precios con los de la competencia de su zona. Escriba el nombre y el precio.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="El más pedido" data-en="Most requested">El más pedido</span><input class="input" type="text" name="Precio servicio 1" data-es-ph="Ej: Corte — 45.000" data-en-ph="e.g. Haircut — 45,000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="El segundo" data-en="Second">El segundo</span><input class="input" type="text" name="Precio servicio 2" data-es-ph="Ej: Color — 180.000" data-en-ph="e.g. Color — 180,000"></div>
+          <div class="input-group"><span class="input-group-label" data-es="El tercero" data-en="Third">El tercero</span><input class="input" type="text" name="Precio servicio 3" data-es-ph="Ej: Tratamiento — 120.000" data-en-ph="e.g. Treatment — 120,000"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál servicio o producto les deja más margen?" data-en="Which service or product gives you the best margin?">¿Cuál servicio o producto les deja más margen?</label>
+        <span class="field-hint" data-es="No el que más venden, sino el que más ganancia deja" data-en="Not the one you sell most, but the one that leaves the most profit">No el que más venden, sino el que más ganancia deja</span>
+        <input class="input" type="text" name="Servicio de mayor margen" data-es-ph="Ej: el color deja más que el corte · la mecánica rápida más que la chapa · los planes anuales más que la consulta suelta" data-en-ph="e.g. color beats cuts · quick service beats bodywork · annual plans beat one-off visits"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay temporadas con más o menos clientes?" data-en="Are there busier or slower seasons?">¿Hay temporadas con más o menos clientes?</label>
+        <textarea class="textarea" name="Estacionalidad" data-es-ph="Ej: Diciembre y mayo se disparan por fiestas y día de la madre. Enero es muy flojo. En vacaciones escolares baja a la mitad. Los lunes casi no viene nadie..." data-en-ph="e.g. December and May spike for holidays and Mother's Day. January is very slow. School holidays cut it in half. Mondays are almost empty..."></textarea></div>
+    </div>
+
+    <!-- ===== 03 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">03</span>
+        <div class="card-title">
+          <h2 data-es="Cómo Llegan los Clientes" data-en="How Clients Arrive">Cómo Llegan los Clientes</h2>
+          <p data-es="Canales de captación, volumen y marketing" data-en="Acquisition channels, volume and marketing">Canales de captación, volumen y marketing</p></div></div>
+
+      <div class="info-callout"><p data-es="Saber por dónde llegan los clientes (y cuáles son los mejores) nos permite enfocar la inversión donde realmente rinde." data-en="Knowing where clients come from (and which are the best) lets us focus investment where it really pays off.">Saber por dónde llegan los clientes (y cuáles son los mejores) nos permite enfocar la inversión donde realmente rinde.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Por dónde llegan los clientes al negocio?" data-en="How do clients find the business?">¿Por dónde llegan los clientes al negocio?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Referidos"><div class="checkbox-content"><span class="checkbox-text" data-es="Referidos / Voz a voz" data-en="Referrals / Word of mouth">Referidos / Voz a voz</span><span class="checkbox-desc" data-es="Clientes que recomiendan a familiares y amigos" data-en="Clients recommending family and friends">Clientes que recomiendan a familiares y amigos</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Google Maps"><div class="checkbox-content"><span class="checkbox-text" data-es="Google Maps / Perfil de Google" data-en="Google Maps / Google Business Profile">Google Maps / Perfil de Google</span><span class="checkbox-desc" data-es="Buscan «[su servicio] cerca de mí» y los encuentran" data-en="They search '[your service] near me' and find you">Buscan «[su servicio] cerca de mí» y los encuentran</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Instagram"><span class="checkbox-text" data-es="Instagram" data-en="Instagram">Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Facebook"><span class="checkbox-text" data-es="Facebook" data-en="Facebook">Facebook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="TikTok"><span class="checkbox-text" data-es="TikTok" data-en="TikTok">TikTok</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Publicidad pagada"><div class="checkbox-content"><span class="checkbox-text" data-es="Publicidad pagada (Meta Ads / Google Ads)" data-en="Paid ads (Meta Ads / Google Ads)">Publicidad pagada (Meta Ads / Google Ads)</span><span class="checkbox-desc" data-es="Campañas por las que pagan actualmente" data-en="Campaigns you currently pay for">Campañas por las que pagan actualmente</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Plataformas del sector"><div class="checkbox-content"><span class="checkbox-text" data-es="Plataformas o directorios de su sector" data-en="Industry platforms or directories">Plataformas o directorios de su sector</span><span class="checkbox-desc" data-es="Booksy, Doctoralia, TripAdvisor, Rappi, portales del gremio..." data-en="Booksy, Doctoralia, TripAdvisor, delivery apps, trade portals...">Booksy, Doctoralia, TripAdvisor, Rappi, portales del gremio...</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Convenios"><div class="checkbox-content"><span class="checkbox-text" data-es="Convenios con empresas o aseguradoras" data-en="Corporate or insurance agreements">Convenios con empresas o aseguradoras</span><span class="checkbox-desc" data-es="Clientes que llegan por un acuerdo con un tercero" data-en="Clients arriving through a third-party agreement">Clientes que llegan por un acuerdo con un tercero</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Página web"><span class="checkbox-text" data-es="Página web propia" data-en="Own website">Página web propia</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Pasan por el local"><span class="checkbox-text" data-es="Pasan por el local y entran" data-en="They walk by and come in">Pasan por el local y entran</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de captación" value="Otro"><span class="checkbox-text" data-es="Otro" data-en="Other">Otro</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Volumen de clientes" data-en="Client volume">Volumen de clientes</label>
+        <span class="field-hint" data-es="Un estimado está bien. Fíjense que pedimos las consultas y las ventas por separado: la diferencia entre las dos es justamente lo que se está perdiendo." data-en="An estimate is fine. Note we ask for enquiries and sales separately: the gap between the two is exactly what's being lost.">Un estimado está bien. Fíjense que pedimos las consultas y las ventas por separado: la diferencia entre las dos es justamente lo que se está perdiendo.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Consultas recibidas / mes" data-en="Enquiries received / month">Consultas recibidas / mes</span><input class="input" type="number" name="Consultas recibidas por mes" placeholder="Ej: 180"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Clientes nuevos / mes" data-en="New clients / month">Clientes nuevos / mes</span><input class="input" type="number" name="Clientes nuevos por mes" placeholder="Ej: 55"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Ventas o servicios / semana" data-en="Sales or jobs / week">Ventas o servicios / semana</span><input class="input" type="number" name="Ventas por semana" placeholder="Ej: 90"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Clientes activos (total)" data-en="Active clients (total)">Clientes activos (total)</span><input class="input" type="number" name="Clientes activos" placeholder="Ej: 700"></div>
+        </div></div>
+
+      <div class="info-callout"><p data-es="«Consultas recibidas» es toda persona que escribió, llamó o preguntó — aunque nunca haya comprado. Casi ningún negocio lleva ese número, pero es el que revela cuántos clientes se están perdiendo antes de entrar. Si no lo tienen, pongan su mejor estimado." data-en="'Enquiries received' means everyone who wrote, called or asked — even if they never bought. Almost no business tracks this number, but it's the one that reveals how many clients are lost before they even walk in. If you don't have it, give your best estimate.">«Consultas recibidas» es toda persona que escribió, llamó o preguntó — aunque nunca haya comprado. Casi ningún negocio lleva ese número, pero es el que revela cuántos clientes se están perdiendo antes de entrar. Si no lo tienen, pongan su mejor estimado.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué canal les trae los MEJORES clientes?" data-en="Which channel brings the BEST clients?">¿Qué canal les trae los MEJORES clientes?</label>
+        <span class="field-hint" data-es="No el que más trae, sino el que trae los que más gastan o los que vuelven" data-en="Not the one that brings the most, but the one that brings those who spend most or come back">No el que más trae, sino el que trae los que más gastan o los que vuelven</span>
+        <input class="input" type="text" name="Mejor canal" data-es-ph="Ej: Google Maps trae muchos pero de una sola vez; los referidos gastan más y vuelven" data-en-ph="e.g. Google Maps brings many one-offs; referrals spend more and come back"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Saben cuántos clientes les llegan por cada canal?" data-en="Do you know how many clients come from each channel?">¿Saben cuántos clientes les llegan por cada canal?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="Sí"><span class="radio-label-text" data-es="Sí, lo medimos" data-en="Yes, we measure it">Sí, lo medimos</span></label>
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="Más o menos"><span class="radio-label-text" data-es="Más o menos" data-en="More or less">Más o menos</span></label>
+          <label class="radio-box"><input type="radio" name="Miden atribución" value="No"><span class="radio-label-text" data-es="No sabemos" data-en="We don't know">No sabemos</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién maneja el marketing del negocio?" data-en="Who handles the marketing?">¿Quién maneja el marketing del negocio?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Quién maneja marketing" value="Interno"><span class="radio-label-text" data-es="Alguien del equipo" data-en="Someone in-house">Alguien del equipo</span></label>
+          <label class="radio-box"><input type="radio" name="Quién maneja marketing" value="Agencia"><span class="radio-label-text" data-es="Una agencia" data-en="An agency">Una agencia</span></label>
+          <label class="radio-box"><input type="radio" name="Quién maneja marketing" value="Freelance"><span class="radio-label-text" data-es="Un freelance" data-en="A freelancer">Un freelance</span></label>
+          <label class="radio-box"><input type="radio" name="Quién maneja marketing" value="Nadie"><span class="radio-label-text" data-es="Nadie en concreto" data-en="Nobody in particular">Nadie en concreto</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Quién maneja marketing=Agencia|Freelance">
+        <div class="conditional-title" data-es="Detalle del proveedor externo" data-en="External provider details">Detalle del proveedor externo</div>
+        <div class="field"><label class="field-label" data-es="¿Quién es y qué hace exactamente?" data-en="Who are they and what exactly do they do?">¿Quién es y qué hace exactamente?</label>
+          <textarea class="textarea" name="Detalle del proveedor de marketing" data-es-ph="Ej: Una agencia local lleva Instagram y Facebook, publica 3 veces por semana y gestiona la pauta. No tocan la web ni el Google. Llevamos 8 meses con ellos..." data-en-ph="e.g. A local agency runs Instagram and Facebook, posts 3 times a week and manages ads. They don't touch the website or Google. We've been with them 8 months..."></textarea></div>
+        <div class="field"><label class="field-label" data-es="Costo mensual del proveedor" data-en="Monthly cost of the provider">Costo mensual del proveedor</label>
+          <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual del proveedor de marketing" placeholder="Ej: 1500000"></div></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto invierten al mes en publicidad?" data-en="How much do you spend on ads per month?">¿Cuánto invierten al mes en publicidad?</label>
+        <span class="field-hint" data-es="Solo lo que se va en anuncios, sin contar lo que le pagan a quien los gestiona" data-en="Only the ad spend itself, not what you pay whoever manages it">Solo lo que se va en anuncios, sin contar lo que le pagan a quien los gestiona</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Inversión mensual en publicidad" placeholder="Ej: 800000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿A quiénes consideran su competencia directa?" data-en="Who do you consider your direct competition?">¿A quiénes consideran su competencia directa?</label>
+        <span class="field-hint" data-es="Nombres o enlaces. Los analizamos y los comparamos con ustedes en el informe." data-en="Names or links. We analyse them and compare them against you in the report.">Nombres o enlaces. Los analizamos y los comparamos con ustedes en el informe.</span>
+        <textarea class="textarea" name="Competencia directa" data-es-ph="Ej: El local de la esquina que abrió hace un año y cobra más barato. Una cadena que llegó al centro comercial. Un competidor que anuncia mucho en Instagram..." data-en-ph="e.g. The shop on the corner that opened a year ago and charges less. A chain that opened in the mall. A competitor that advertises heavily on Instagram..."></textarea></div>
+    </div>
+
+    <!-- ===== 04 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">04</span>
+        <div class="card-title">
+          <h2 data-es="Primer Contacto y Respuesta" data-en="First Contact and Response">Primer Contacto y Respuesta</h2>
+          <p data-es="Qué pasa desde que alguien pregunta hasta que se le atiende" data-en="What happens from the first enquiry until they're served">Qué pasa desde que alguien pregunta hasta que se le atiende</p></div></div>
+
+      <div class="info-callout"><p data-es="Aquí es donde más clientes se pierden en cualquier negocio: alguien escribe interesado y nadie alcanza a responder a tiempo." data-en="This is where any business loses the most clients: someone reaches out interested and no one replies in time.">Aquí es donde más clientes se pierden en cualquier negocio: alguien escribe interesado y nadie alcanza a responder a tiempo.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién responde los mensajes y las llamadas?" data-en="Who answers messages and calls?">¿Quién responde los mensajes y las llamadas?</label>
+        <textarea class="textarea" name="Quién responde" data-es-ph="Ej: La recepcionista de turno responde WhatsApp y teléfono; cuando está cobrando se quedan mensajes sin responder. El dueño contesta desde su móvil personal por la noche. Los fines de semana no responde nadie..." data-en-ph="e.g. The receptionist on duty answers WhatsApp and phone; when she's at the till messages go unanswered. The owner replies from his personal phone at night. Nobody answers at weekends..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Por dónde les escriben o llaman los clientes?" data-en="Where do clients write or call you?">¿Por dónde les escriben o llaman los clientes?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp" data-en="WhatsApp">WhatsApp</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Llamada"><span class="checkbox-text" data-es="Llamada telefónica" data-en="Phone call">Llamada telefónica</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Instagram DM"><span class="checkbox-text" data-es="Mensajes directos de Instagram" data-en="Instagram direct messages">Mensajes directos de Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Facebook"><span class="checkbox-text" data-es="Messenger de Facebook" data-en="Facebook Messenger">Messenger de Facebook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Formulario web"><span class="checkbox-text" data-es="Formulario de la página web" data-en="Website form">Formulario de la página web</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Correo"><span class="checkbox-text" data-es="Correo electrónico" data-en="Email">Correo electrónico</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Chat de plataforma"><span class="checkbox-text" data-es="Chat de una plataforma externa" data-en="External platform chat">Chat de una plataforma externa</span><span class="checkbox-desc" data-es="Booksy, Rappi, TripAdvisor, portales del gremio..." data-en="Booksy, delivery apps, TripAdvisor, trade portals...">Booksy, Rappi, TripAdvisor, portales del gremio...</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Canales de contacto" value="Presencial"><span class="checkbox-text" data-es="Presencial, entrando al local" data-en="In person, walking in">Presencial, entrando al local</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto se demoran normalmente en responder?" data-en="How long do you usually take to reply?">¿Cuánto se demoran normalmente en responder?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Inmediato"><span class="radio-label-text" data-es="Casi inmediato" data-en="Almost immediate">Casi inmediato</span><span class="radio-desc" data-es="menos de 5 minutos" data-en="under 5 minutes">menos de 5 minutos</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Menos de 1 hora"><span class="radio-label-text" data-es="Menos de 1 hora" data-en="Under 1 hour">Menos de 1 hora</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Mismo día"><span class="radio-label-text" data-es="El mismo día" data-en="Same day">El mismo día</span></label>
+          <label class="radio-box"><input type="radio" name="Tiempo de respuesta" value="Variable"><span class="radio-label-text" data-es="Es muy variable" data-en="Very variable">Es muy variable</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué pasa cuando escriben fuera del horario?" data-en="What happens when they write outside business hours?">¿Qué pasa cuando escriben fuera del horario?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="No se responde"><span class="radio-label-text" data-es="No se responde hasta el otro día" data-en="No reply until the next day">No se responde hasta el otro día</span></label>
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="Autorespuesta"><span class="radio-label-text" data-es="Hay mensaje automático" data-en="There's an auto-reply">Hay mensaje automático</span></label>
+          <label class="radio-box"><input type="radio" name="Fuera de horario" value="Alguien responde"><span class="radio-label-text" data-es="Alguien responde igual" data-en="Someone still replies">Alguien responde igual</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Sienten que pierden clientes por no alcanzar a responder?" data-en="Do you feel you lose clients by not replying in time?">¿Sienten que pierden clientes por no alcanzar a responder?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Clientes perdidos" value="Nunca"><span class="radio-label-text" data-es="Nunca o casi nunca" data-en="Never or almost never">Nunca o casi nunca</span></label>
+          <label class="radio-box"><input type="radio" name="Clientes perdidos" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Clientes perdidos" value="Con frecuencia"><span class="radio-label-text" data-es="Con frecuencia" data-en="Frequently">Con frecuencia</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="De cada 10 personas que preguntan, ¿cuántas terminan comprando?" data-en="Out of every 10 people who ask, how many end up buying?">De cada 10 personas que preguntan, ¿cuántas terminan comprando?</label>
+        <span class="field-hint" data-es="Un estimado está bien. Este número nos dice cuánto se gana solo con mejorar la atención, sin traer un cliente más." data-en="An estimate is fine. This number tells us how much can be gained just by improving how you handle enquiries, without bringing in a single extra client.">Un estimado está bien. Este número nos dice cuánto se gana solo con mejorar la atención, sin traer un cliente más.</span>
+        <input class="input" type="text" name="Tasa de conversión" data-es-ph="Ej: 4 de cada 10 · como el 40% · casi todos los que llaman" data-en-ph="e.g. 4 out of 10 · around 40% · almost everyone who calls"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las preguntas que más les repiten?" data-en="Which questions do clients repeat the most?">¿Cuáles son las preguntas que más les repiten?</label>
+        <span class="field-hint" data-es="Estas son las que se pueden automatizar primero" data-en="These are the ones we can automate first">Estas son las que se pueden automatizar primero</span>
+        <textarea class="textarea" name="Preguntas repetidas" data-es-ph="Ej:
+• ¿Cuánto cuesta?
+• ¿Tienen hueco hoy / esta semana?
+• ¿Dónde están y hasta qué hora abren?
+• ¿Aceptan tarjeta? ¿Hay parqueadero?
+• ¿Ya está listo lo mío?" data-en-ph="e.g.:
+• How much is it?
+• Do you have an opening today / this week?
+• Where are you and what are your hours?
+• Do you take cards? Is there parking?
+• Is my order ready yet?"></textarea></div>
+    </div>
+
+    <!-- ===== 05 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">05</span>
+        <div class="card-title">
+          <h2 data-es="Agenda, Citas o Pedidos" data-en="Schedule, Appointments or Orders">Agenda, Citas o Pedidos</h2>
+          <p data-es="Cómo organizan el trabajo y qué pasa cuando alguien no llega" data-en="How you organise the work and what happens when someone doesn't show">Cómo organizan el trabajo y qué pasa cuando alguien no llega</p></div></div>
+
+      <div class="info-callout"><p data-es="Cada hueco vacío por alguien que no llegó es dinero que no se recupera. Aquí solemos encontrar una de las mayores fugas de ingresos." data-en="Every empty slot from a no-show is money you can't recover. This is usually one of the biggest revenue leaks.">Cada hueco vacío por alguien que no llegó es dinero que no se recupera. Aquí solemos encontrar una de las mayores fugas de ingresos.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Trabajan con cita o reserva previa?" data-en="Do you work by appointment or booking?">¿Trabajan con cita o reserva previa?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Trabajan con reservas" value="Siempre"><span class="radio-label-text" data-es="Siempre con cita" data-en="Always by appointment">Siempre con cita</span></label>
+          <label class="radio-box"><input type="radio" name="Trabajan con reservas" value="Mixto"><span class="radio-label-text" data-es="Mixto" data-en="Mixed">Mixto</span><span class="radio-desc" data-es="con cita y sin cita" data-en="with and without booking">con cita y sin cita</span></label>
+          <label class="radio-box"><input type="radio" name="Trabajan con reservas" value="Sin cita"><span class="radio-label-text" data-es="Sin cita" data-en="Walk-in only">Sin cita</span><span class="radio-desc" data-es="por orden de llegada o por pedido" data-en="first come or by order">por orden de llegada o por pedido</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde llevan la agenda o los pedidos?" data-en="Where do you keep the schedule or orders?">¿Dónde llevan la agenda o los pedidos?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Dónde manejan la agenda" value="Software del sector"><div class="checkbox-content"><span class="checkbox-text" data-es="Un software propio del sector" data-en="Industry-specific software">Un software propio del sector</span><span class="checkbox-desc" data-es="Booksy, Qvet, Covermanager, un ERP, un programa de taller..." data-en="Booksy, Qvet, Covermanager, an ERP, a workshop program...">Booksy, Qvet, Covermanager, un ERP, un programa de taller...</span></div></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde manejan la agenda" value="Google Calendar"><span class="checkbox-text" data-es="Google Calendar / Outlook" data-en="Google Calendar / Outlook">Google Calendar / Outlook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde manejan la agenda" value="Excel"><span class="checkbox-text" data-es="Excel / Google Sheets" data-en="Excel / Google Sheets">Excel / Google Sheets</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde manejan la agenda" value="Agenda de papel"><span class="checkbox-text" data-es="Agenda de papel / Cuaderno" data-en="Paper diary / Notebook">Agenda de papel / Cuaderno</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Dónde manejan la agenda" value="WhatsApp"><span class="checkbox-text" data-es="En WhatsApp o de memoria" data-en="On WhatsApp or from memory">En WhatsApp o de memoria</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Confirman antes de que el cliente venga?" data-en="Do you confirm before the client comes?">¿Confirman antes de que el cliente venga?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Confirman citas" value="Automático"><span class="radio-label-text" data-es="Sí, automático" data-en="Yes, automatic">Sí, automático</span></label>
+          <label class="radio-box"><input type="radio" name="Confirman citas" value="Manual"><span class="radio-label-text" data-es="Sí, pero a mano" data-en="Yes, but manually">Sí, pero a mano</span></label>
+          <label class="radio-box"><input type="radio" name="Confirman citas" value="No"><span class="radio-label-text" data-es="No confirmamos" data-en="We don't confirm">No confirmamos</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Confirman citas=Automático|Manual">
+        <div class="conditional-title" data-es="Detalle de la confirmación" data-en="Confirmation details">Detalle de la confirmación</div>
+        <div class="field"><label class="field-label" data-es="¿Cómo, con cuánta anticipación, y cuánto tiempo les toma?" data-en="How, how far in advance, and how long does it take you?">¿Cómo, con cuánta anticipación, y cuánto tiempo les toma?</label>
+          <textarea class="textarea" name="Cómo confirman las citas" data-es-ph="Ej: La recepcionista manda WhatsApp uno por uno el día anterior por la tarde. Le toma cerca de 1 hora diaria. Si no contestan, no se insiste..." data-en-ph="e.g. The receptionist sends WhatsApp messages one by one the afternoon before. It takes about 1 hour a day. If they don't reply, we don't follow up..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje de clientes no llega o cancela tarde?" data-en="What percentage of clients don't show or cancel late?">¿Qué porcentaje de clientes no llega o cancela tarde?</label>
+        <span class="field-hint" data-es="Un estimado está bien: «2 de cada 10», «20%»…" data-en="An estimate is fine: '2 out of 10', '20%'...">Un estimado está bien: «2 de cada 10», «20%»…</span>
+        <input class="input" type="text" name="Porcentaje de ausencias" data-es-ph="Ej: 15%, como 1 o 2 de cada 10" data-en-ph="e.g. 15%, about 1 or 2 out of 10"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué hacen cuando un cliente no llega?" data-en="What do you do when a client doesn't show up?">¿Qué hacen cuando un cliente no llega?</label>
+        <textarea class="textarea" name="Qué hacen ante ausencia" data-es-ph="Ej: A veces se le llama para reagendar, pero muchas veces no queda tiempo y el cliente se pierde. No cobramos nada por no venir..." data-en-ph="e.g. Sometimes we call to rebook, but often there's no time and the client is lost. We don't charge anything for a no-show..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Cuando queda un hueco libre, ¿alcanzan a llenarlo?" data-en="When a slot opens up, can you fill it?">Cuando queda un hueco libre, ¿alcanzan a llenarlo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Llenar huecos" value="Sí lista de espera"><span class="radio-label-text" data-es="Sí, tenemos lista de espera" data-en="Yes, we have a waitlist">Sí, tenemos lista de espera</span></label>
+          <label class="radio-box"><input type="radio" name="Llenar huecos" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+          <label class="radio-box"><input type="radio" name="Llenar huecos" value="No"><span class="radio-label-text" data-es="No, se pierde la hora" data-en="No, the slot is lost">No, se pierde la hora</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué tan llena está la agenda o la capacidad normalmente?" data-en="How full is your schedule or capacity usually?">¿Qué tan llena está la agenda o la capacidad normalmente?</label>
+        <div class="radio-grid">
+          <label class="radio-box"><input type="radio" name="Ocupación" value="Llena"><span class="radio-label-text" data-es="Llena" data-en="Full">Llena</span><span class="radio-desc" data-es="casi no hay huecos" data-en="almost no gaps">casi no hay huecos</span></label>
+          <label class="radio-box"><input type="radio" name="Ocupación" value="70-90%"><span class="radio-label-text" data-es="70 - 90%" data-en="70 - 90%">70 - 90%</span></label>
+          <label class="radio-box"><input type="radio" name="Ocupación" value="40-70%"><span class="radio-label-text" data-es="40 - 70%" data-en="40 - 70%">40 - 70%</span></label>
+          <label class="radio-box"><input type="radio" name="Ocupación" value="Menos de 40%"><span class="radio-label-text" data-es="Menos del 40%" data-en="Under 40%">Menos del 40%</span><span class="radio-desc" data-es="hay mucha capacidad libre" data-en="lots of free capacity">hay mucha capacidad libre</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 06 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">06</span>
+        <div class="card-title">
+          <h2 data-es="Presupuestos, Cierre y Cobro" data-en="Quotes, Closing and Payment">Presupuestos, Cierre y Cobro</h2>
+          <p data-es="Del «me interesa» al «lo compro»" data-en="From 'I'm interested' to 'I'll take it'">Del «me interesa» al «lo compro»</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hacen presupuestos o cotizaciones personalizadas?" data-en="Do you make custom quotes?">¿Hacen presupuestos o cotizaciones personalizadas?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Hacen presupuestos" value="Siempre"><span class="radio-label-text" data-es="Sí, casi siempre" data-en="Yes, almost always">Sí, casi siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Hacen presupuestos" value="A veces"><span class="radio-label-text" data-es="Solo para trabajos grandes" data-en="Only for big jobs">Solo para trabajos grandes</span></label>
+          <label class="radio-box"><input type="radio" name="Hacen presupuestos" value="Precio fijo"><span class="radio-label-text" data-es="No, tenemos precio fijo" data-en="No, we have fixed prices">No, tenemos precio fijo</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Hacen presupuestos=Siempre|A veces">
+        <div class="conditional-title" data-es="Detalle de los presupuestos" data-en="Quote details">Detalle de los presupuestos</div>
+        <div class="field"><label class="field-label" data-es="¿Cómo los hacen y cuánto tardan en entregarlos?" data-en="How do you make them and how long do they take?">¿Cómo los hacen y cuánto tardan en entregarlos?</label>
+          <textarea class="textarea" name="Cómo hacen los presupuestos" data-es-ph="Ej: El jefe de taller lo calcula a mano en una libreta y lo pasa por WhatsApp; tarda 1 o 2 días porque tiene que consultar precios de repuestos. A veces se olvida de enviarlo..." data-en-ph="e.g. The foreman works it out by hand in a notebook and sends it via WhatsApp; it takes 1-2 days because he has to check parts prices. Sometimes he forgets to send it..."></textarea></div>
+        <div class="field"><label class="field-label" data-es="¿Le hacen seguimiento a quien pidió presupuesto y no compró?" data-en="Do you follow up on quotes that didn't convert?">¿Le hacen seguimiento a quien pidió presupuesto y no compró?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Seguimiento a no compradores" value="Sí"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+            <label class="radio-box"><input type="radio" name="Seguimiento a no compradores" value="A veces"><span class="radio-label-text" data-es="A veces" data-en="Sometimes">A veces</span></label>
+            <label class="radio-box"><input type="radio" name="Seguimiento a no compradores" value="No"><span class="radio-label-text" data-es="No, se quedan ahí" data-en="No, they just sit there">No, se quedan ahí</span></label>
+          </div></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Por qué creen que los clientes NO compran?" data-en="Why do you think clients DON'T buy?">¿Por qué creen que los clientes NO compran?</label>
+        <textarea class="textarea" name="Por qué no compran" data-es-ph="Ej: Por precio, aunque creo que es porque no explicamos bien lo que incluye. Porque se van a pedir otras cotizaciones y no volvemos a llamar. Porque tardamos en responder..." data-en-ph="e.g. Price, though I think it's because we don't explain what's included. They go get other quotes and we never call back. We take too long to reply..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Ofrecen financiación o pago por cuotas?" data-en="Do you offer financing or instalments?">¿Ofrecen financiación o pago por cuotas?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Financiación" value="Propia"><span class="radio-label-text" data-es="Sí, propia" data-en="Yes, our own">Sí, propia</span></label>
+          <label class="radio-box"><input type="radio" name="Financiación" value="Externa"><span class="radio-label-text" data-es="Sí, con un tercero" data-en="Yes, via a third party">Sí, con un tercero</span></label>
+          <label class="radio-box"><input type="radio" name="Financiación" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Financiación=Propia">
+        <div class="field"><label class="field-label" data-es="¿Cómo llevan el control de lo que les deben?" data-en="How do you track what clients owe you?">¿Cómo llevan el control de lo que les deben?</label>
+          <textarea class="textarea" name="Control de cartera" data-es-ph="Ej: En un cuaderno y en la cabeza de la dueña. En un Excel que se actualiza cuando alguien se acuerda. Hay clientes con saldos de hace meses que nadie ha cobrado..." data-en-ph="e.g. In a notebook and in the owner's head. In a spreadsheet updated when someone remembers. There are months-old balances nobody has chased..."></textarea></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo cobran?" data-en="How do you take payment?">¿Cómo cobran?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Efectivo"><span class="checkbox-text" data-es="Efectivo" data-en="Cash">Efectivo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Tarjeta"><span class="checkbox-text" data-es="Tarjeta (datáfono)" data-en="Card (terminal)">Tarjeta (datáfono)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Transferencia"><span class="checkbox-text" data-es="Transferencia / Nequi / Bizum" data-en="Bank transfer / instant payment app">Transferencia / Nequi / Bizum</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Pasarela online"><span class="checkbox-text" data-es="Pago en línea desde la web" data-en="Online payment from the website">Pago en línea desde la web</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Financiación"><span class="checkbox-text" data-es="Financiación o cuotas" data-en="Financing or instalments">Financiación o cuotas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Formas de pago" value="Cobra la plataforma"><span class="checkbox-text" data-es="Cobra una plataforma y luego nos paga" data-en="A platform charges and pays us later">Cobra una plataforma y luego nos paga</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Piden anticipo para reservar?" data-en="Do you take a deposit to hold the booking?">¿Piden anticipo para reservar?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="Siempre"><span class="radio-label-text" data-es="Siempre" data-en="Always">Siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="A veces"><span class="radio-label-text" data-es="Solo en trabajos grandes" data-en="Only for big jobs">Solo en trabajos grandes</span></label>
+          <label class="radio-box"><input type="radio" name="Piden anticipo" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 07 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">07</span>
+        <div class="card-title">
+          <h2 data-es="Cómo Entregan el Servicio" data-en="How You Deliver the Service">Cómo Entregan el Servicio</h2>
+          <p data-es="El recorrido completo, de principio a fin" data-en="The full journey, start to finish">El recorrido completo, de principio a fin</p></div></div>
+
+      <div class="info-callout"><p data-es="Este bloque es el más importante para el informe: con lo que escriban aquí dibujamos el mapa de su proceso actual y el de cómo quedaría después. Tómense su tiempo y escriban como hablan." data-en="This block matters most for the report: with what you write here we draw the map of your current process and how it would look afterwards. Take your time and write as you speak.">Este bloque es el más importante para el informe: con lo que escriban aquí dibujamos el mapa de su proceso actual y el de cómo quedaría después. Tómense su tiempo y escriban como hablan.</p></div>
+
+      <div class="field"><label class="field-label"><span data-es="Cuéntenos el proceso completo, paso a paso" data-en="Tell us the full process, step by step">Cuéntenos el proceso completo, paso a paso</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Desde que el cliente dice «sí, lo quiero» hasta que se va satisfecho. Como si se lo explicara a alguien que entra a trabajar mañana. No se salte los pasos obvios: esos son los que solemos encontrar rotos." data-en="From the moment the client says 'yes, I want it' until they leave satisfied. As if explaining it to someone starting tomorrow. Don't skip the obvious steps: those are the ones we usually find broken.">Desde que el cliente dice «sí, lo quiero» hasta que se va satisfecho. Como si se lo explicara a alguien que entra a trabajar mañana. No se salte los pasos obvios: esos son los que solemos encontrar rotos.</span>
+        <textarea class="textarea" name="Proceso de entrega paso a paso" required style="min-height:170px" data-es-ph="Ej (peluquería): La clienta llega, se anota en recepción, espera, pasa al lavado, luego a la silla del estilista, se le hace el servicio, se le ofrece producto, pasa a caja, se agenda la próxima cita si acepta.
+
+Ej (taller): Entra el coche, se hace la recepción con el cliente, se anota el kilometraje, pasa a diagnóstico, se llama al cliente con el presupuesto, si aprueba se pide el repuesto, se hace el trabajo, se prueba, se llama para que lo recoja, se factura y se entrega.
+
+Ej (veterinaria): Llega la cita, se pesa al animal, pasa a consulta, el veterinario examina y explica, se aplica tratamiento o se agenda cirugía, se cobra, se agenda control y se manda recordatorio de vacuna." data-en-ph="e.g. (salon): The client arrives, checks in at reception, waits, goes to the wash station, then the stylist's chair, gets the service, is offered a product, pays at the till, books the next appointment if she accepts.
+
+e.g. (auto shop): Car comes in, intake with the client, mileage noted, goes to diagnostics, client is called with the quote, if approved the part is ordered, work is done, tested, client called to collect, invoiced and handed over."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto tarda el proceso completo?" data-en="How long does the full process take?">¿Cuánto tarda el proceso completo?</label>
+        <input class="input" type="text" name="Duración del proceso" data-es-ph="Ej: 2 horas la clienta en el salón · de 1 a 5 días el coche en el taller · 30 minutos la consulta" data-en-ph="e.g. 2 hours for the client in the salon · 1 to 5 days for the car in the shop · 30 minutes per consultation"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay pasos que no están escritos pero se hacen siempre?" data-en="Are there steps that aren't written down but always happen?">¿Hay pasos que no están escritos pero se hacen siempre?</label>
+        <span class="field-hint" data-es="Lo que «todos saben» pero nadie explicó nunca. Suele ser lo primero que se rompe cuando entra alguien nuevo." data-en="What 'everyone knows' but nobody ever explained. It's usually the first thing to break when someone new joins.">Lo que «todos saben» pero nadie explicó nunca. Suele ser lo primero que se rompe cuando entra alguien nuevo.</span>
+        <textarea class="textarea" name="Pasos no escritos" data-es-ph="Ej: Siempre se le avisa al dueño antes de hacer un descuento, aunque no esté escrito. A los clientes de siempre se les atiende sin cita aunque haya agenda llena..." data-en-ph="e.g. The owner is always told before giving a discount, though it's not written anywhere. Long-standing clients are seen without an appointment even when we're full..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿En qué parte aparecen más problemas o retrasos?" data-en="Where do most problems or delays appear?">¿En qué parte aparecen más problemas o retrasos?</label>
+        <textarea class="textarea" name="Cuellos de botella" data-es-ph="Ej: En la espera del repuesto, que depende del proveedor. Cuando coinciden tres clientes a la misma hora. En el paso de recepción a producción, porque la nota se pierde..." data-en-ph="e.g. Waiting on parts from the supplier. When three clients overlap at the same time. Between reception and production, because the note gets lost..."></textarea></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Qué hacen cuando algo sale mal?" data-en="What do you do when something goes wrong?">¿Qué hacen cuando algo sale mal?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Necesitamos esto para dibujar bien el mapa: sin las excepciones el diagrama sale en línea recta y no enseña dónde se rompe de verdad el proceso." data-en="We need this to draw the map properly: without exceptions the diagram comes out as a straight line and doesn't show where the process really breaks.">Necesitamos esto para dibujar bien el mapa: sin las excepciones el diagrama sale en línea recta y no enseña dónde se rompe de verdad el proceso.</span>
+        <textarea class="textarea" name="Qué pasa cuando algo sale mal" required data-es-ph="Ej: Si el repuesto no llega, se llama al cliente y se reagenda; casi siempre lo hace el jefe de taller y a veces se le olvida. Si el cliente se queja, lo atiende la dueña personalmente. Si falta un empleado, se reparten sus citas entre los demás y algunas se cancelan..." data-en-ph="e.g. If the part doesn't arrive, we call the client and rebook; usually the foreman does it and sometimes forgets. If a client complains, the owner handles it personally. If a staff member is off, their appointments get split among the rest and some are cancelled..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen procesos distintos para ciertos clientes o servicios?" data-en="Do you have different processes for certain clients or services?">¿Tienen procesos distintos para ciertos clientes o servicios?</label>
+        <textarea class="textarea" name="Procesos diferenciados" data-es-ph="Ej: Los clientes de convenio pagan distinto y hay que mandar factura a la empresa. Los trabajos urgentes se saltan la cola. Las cirugías llevan consentimiento firmado y llamada previa..." data-en-ph="e.g. Corporate clients pay differently and we must invoice the company. Rush jobs skip the queue. Surgeries need a signed consent and a prior call..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿El proceso está escrito en alguna parte?" data-en="Is the process written down anywhere?">¿El proceso está escrito en alguna parte?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Bien documentados"><span class="radio-label-text" data-es="Sí, bien documentado" data-en="Yes, well documented">Sí, bien documentado</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Algunos"><span class="radio-label-text" data-es="Algunos pasos" data-en="Some steps">Algunos pasos</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="Informales"><span class="radio-label-text" data-es="Notas informales" data-en="Informal notes">Notas informales</span></label>
+          <label class="radio-box"><input type="radio" name="Procedimientos escritos" value="No"><span class="radio-label-text" data-es="No, está en la cabeza de cada uno" data-en="No, it's in everyone's head">No, está en la cabeza de cada uno</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Si usted fuera el cliente, ¿qué parte le parecería más lenta o confusa?" data-en="If you were the client, which part would feel slowest or most confusing?">Si usted fuera el cliente, ¿qué parte le parecería más lenta o confusa?</label>
+        <textarea class="textarea" name="Parte confusa para el cliente" data-es-ph="Ej: La espera sin saber cuánto falta. No enterarse de que ya está listo hasta que llama. No entender qué incluye el precio..." data-en-ph="e.g. Waiting without knowing how long is left. Not finding out it's ready until they call. Not understanding what the price includes..."></textarea></div>
+    </div>
+
+    <!-- ===== 08 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">08</span>
+        <div class="card-title">
+          <h2 data-es="Después de la Venta" data-en="After the Sale">Después de la Venta</h2>
+          <p data-es="Seguimiento, clientes que vuelven y reputación" data-en="Follow-up, returning clients and reputation">Seguimiento, clientes que vuelven y reputación</p></div></div>
+
+      <div class="info-callout"><p data-es="La base de clientes que ya les compró suele ser la mina de oro ignorada: es más barato hacer volver a uno que traer a uno nuevo." data-en="The client base that already bought from you is usually the ignored gold mine: bringing one back is cheaper than winning a new one.">La base de clientes que ya les compró suele ser la mina de oro ignorada: es más barato hacer volver a uno que traer a uno nuevo.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿Guardan los datos de contacto de todos los clientes?" data-en="Do you keep contact details for all clients?">¿Guardan los datos de contacto de todos los clientes?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Guardan datos de clientes" value="Completos"><span class="radio-label-text" data-es="Sí, completos y ordenados" data-en="Yes, complete and organised">Sí, completos y ordenados</span></label>
+          <label class="radio-box"><input type="radio" name="Guardan datos de clientes" value="Básicos"><span class="radio-label-text" data-es="Solo lo básico" data-en="Only the basics">Solo lo básico</span></label>
+          <label class="radio-box"><input type="radio" name="Guardan datos de clientes" value="Desorganizados"><span class="radio-label-text" data-es="Están, pero desordenados" data-en="They exist, but scattered">Están, pero desordenados</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuántos clientes inactivos calculan que tienen?" data-en="How many inactive clients do you estimate you have?">¿Cuántos clientes inactivos calculan que tienen?</label>
+        <span class="field-hint" data-es="Gente que les compró alguna vez y hace más de un año que no vuelve" data-en="People who bought once and haven't come back in over a year">Gente que les compró alguna vez y hace más de un año que no vuelve</span>
+        <input class="input" type="text" name="Clientes inactivos" data-es-ph="Ej: como 400 · ni idea, nunca lo hemos mirado · la mitad de la base" data-en-ph="e.g. around 400 · no idea, we've never looked · half the database"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué hacen para que los clientes vuelvan?" data-en="What do you do to bring clients back?">¿Qué hacen para que los clientes vuelvan?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Nada"><span class="checkbox-text" data-es="Nada en concreto" data-en="Nothing in particular">Nada en concreto</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Recordatorios"><span class="checkbox-text" data-es="Recordatorios de que toca volver" data-en="Reminders that it's time to come back">Recordatorios de que toca volver</span><span class="checkbox-desc" data-es="revisión, control, mantenimiento, retoque..." data-en="check-up, service, maintenance, touch-up...">revisión, control, mantenimiento, retoque...</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Promociones"><span class="checkbox-text" data-es="Promociones por WhatsApp o redes" data-en="Promos via WhatsApp or social">Promociones por WhatsApp o redes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Puntos"><span class="checkbox-text" data-es="Tarjeta de puntos o programa de fidelidad" data-en="Points card or loyalty programme">Tarjeta de puntos o programa de fidelidad</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Newsletter"><span class="checkbox-text" data-es="Correos o newsletter" data-en="Emails or newsletter">Correos o newsletter</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Cumpleaños"><span class="checkbox-text" data-es="Detalle de cumpleaños" data-en="Birthday gesture">Detalle de cumpleaños</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Fidelización" value="Agendar en el momento"><span class="checkbox-text" data-es="Se agenda la próxima antes de que se vaya" data-en="We book the next one before they leave">Se agenda la próxima antes de que se vaya</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Han hecho campañas para recuperar clientes antiguos?" data-en="Have you run campaigns to win back old clients?">¿Han hecho campañas para recuperar clientes antiguos?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Campañas de reactivación" value="Sí"><span class="radio-label-text" data-es="Sí, de forma regular" data-en="Yes, regularly">Sí, de forma regular</span></label>
+          <label class="radio-box"><input type="radio" name="Campañas de reactivación" value="Alguna vez"><span class="radio-label-text" data-es="Alguna vez" data-en="Once or twice">Alguna vez</span></label>
+          <label class="radio-box"><input type="radio" name="Campañas de reactivación" value="Nunca"><span class="radio-label-text" data-es="Nunca" data-en="Never">Nunca</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje de clientes repite?" data-en="What percentage of clients come back?">¿Qué porcentaje de clientes repite?</label>
+        <input class="input" type="text" name="Porcentaje de repetición" data-es-ph="Ej: 60% son clientes de siempre · la mayoría viene una sola vez · no lo sabemos" data-en-ph="e.g. 60% are regulars · most come only once · we don't know"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Le piden reseñas a los clientes?" data-en="Do you ask clients for reviews?">¿Le piden reseñas a los clientes?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="Sistemático"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="A veces"><span class="radio-label-text" data-es="A veces, si nos acordamos" data-en="Sometimes, if we remember">A veces, si nos acordamos</span></label>
+          <label class="radio-box"><input type="radio" name="Piden reseñas" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo están hoy en reseñas y quién las responde?" data-en="How are your reviews today and who replies to them?">¿Cómo están hoy en reseñas y quién las responde?</label>
+        <textarea class="textarea" name="Estado de las reseñas" data-es-ph="Ej: 4,6 en Google con unas 80 reseñas, pero no respondemos casi ninguna. En Booksy tenemos mejor nota. Hay dos malas de hace un año que nadie contestó..." data-en-ph="e.g. 4.6 on Google with about 80 reviews, but we barely reply to any. Our rating is better on Booksy. There are two bad ones from a year ago nobody answered..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Miden la satisfacción del cliente?" data-en="Do you measure client satisfaction?">¿Miden la satisfacción del cliente?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="Sí formal"><span class="radio-label-text" data-es="Sí, con encuesta" data-en="Yes, with a survey">Sí, con encuesta</span></label>
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="Informal"><span class="radio-label-text" data-es="Solo preguntando" data-en="Just by asking">Solo preguntando</span></label>
+          <label class="radio-box"><input type="radio" name="Miden satisfacción" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles son las quejas más frecuentes?" data-en="What are the most frequent complaints?">¿Cuáles son las quejas más frecuentes?</label>
+        <textarea class="textarea" name="Quejas frecuentes" data-es-ph="Ej: Que se demora mucho la espera. Que no avisamos cuando está listo. Que el precio final no fue el que se dijo. Que cuesta conseguir cita..." data-en-ph="e.g. The wait is too long. We don't let them know when it's ready. The final price wasn't the one quoted. It's hard to get an appointment..."></textarea></div>
+    </div>
+
+    <!-- ===== 09 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">09</span>
+        <div class="card-title">
+          <h2 data-es="Administración y Cumplimiento" data-en="Admin and Compliance">Administración y Cumplimiento</h2>
+          <p data-es="Facturación, orden interno y normativa" data-en="Invoicing, internal order and regulation">Facturación, orden interno y normativa</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo llevan la facturación?" data-en="How do you handle invoicing?">¿Cómo llevan la facturación?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Cómo facturan" value="Software facturación"><span class="radio-label-text" data-es="Con un programa de facturación" data-en="With invoicing software">Con un programa de facturación</span></label>
+          <label class="radio-box"><input type="radio" name="Cómo facturan" value="Desde el software del sector"><span class="radio-label-text" data-es="Desde el mismo programa del negocio" data-en="From the business software itself">Desde el mismo programa del negocio</span></label>
+          <label class="radio-box"><input type="radio" name="Cómo facturan" value="Contador externo"><span class="radio-label-text" data-es="Lo lleva el contador" data-en="The accountant handles it">Lo lleva el contador</span></label>
+          <label class="radio-box"><input type="radio" name="Cómo facturan" value="Excel"><span class="radio-label-text" data-es="Excel o a mano" data-en="Spreadsheet or by hand">Excel o a mano</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Volumen de papeleo al mes" data-en="Monthly paperwork volume">Volumen de papeleo al mes</label>
+        <span class="field-hint" data-es="Un estimado. Nos sirve para calcular cuánto se ahorra automatizando esta parte." data-en="An estimate. We use it to calculate how much is saved by automating this part.">Un estimado. Nos sirve para calcular cuánto se ahorra automatizando esta parte.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Facturas emitidas / mes" data-en="Invoices issued / month">Facturas emitidas / mes</span><input class="input" type="number" name="Facturas emitidas por mes" placeholder="Ej: 320"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Facturas recibidas / mes" data-en="Invoices received / month">Facturas recibidas / mes</span><input class="input" type="number" name="Facturas recibidas por mes" placeholder="Ej: 45"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Contratos o acuerdos activos" data-en="Active contracts">Contratos o acuerdos activos</span><input class="input" type="number" name="Contratos activos" placeholder="Ej: 12"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Están al día con la facturación electrónica?" data-en="Are you up to date with e-invoicing?">¿Están al día con la facturación electrónica?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="Sí"><span class="radio-label-text" data-es="Sí, todo en regla" data-en="Yes, all in order">Sí, todo en regla</span></label>
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="Parcial"><span class="radio-label-text" data-es="A medias" data-en="Partially">A medias</span></label>
+          <label class="radio-box"><input type="radio" name="Facturación electrónica" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué porcentaje del negocio está digitalizado?" data-en="What percentage of the business is digitised?">¿Qué porcentaje del negocio está digitalizado?</label>
+        <span class="field-hint" data-es="Cuánto de lo que hacen queda registrado en un programa, frente a lo que sigue en papel, en un cuaderno o en la memoria de alguien." data-en="How much of what you do is recorded in a program, versus what's still on paper, in a notebook or in someone's head.">Cuánto de lo que hacen queda registrado en un programa, frente a lo que sigue en papel, en un cuaderno o en la memoria de alguien.</span>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Digitalización" value="76-100%"><span class="radio-label-text" data-es="Casi todo digital" data-en="Almost all digital">Casi todo digital</span><span class="radio-desc">76 - 100%</span></label>
+          <label class="radio-box"><input type="radio" name="Digitalización" value="51-75%"><span class="radio-label-text" data-es="Más digital que papel" data-en="More digital than paper">Más digital que papel</span><span class="radio-desc">51 - 75%</span></label>
+          <label class="radio-box"><input type="radio" name="Digitalización" value="26-50%"><span class="radio-label-text" data-es="Mitad y mitad" data-en="Half and half">Mitad y mitad</span><span class="radio-desc">26 - 50%</span></label>
+          <label class="radio-box"><input type="radio" name="Digitalización" value="0-25%"><span class="radio-label-text" data-es="Casi todo en papel" data-en="Almost all on paper">Casi todo en papel</span><span class="radio-desc">0 - 25%</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay un solo sitio donde está la información buena?" data-en="Is there a single place where the good data lives?">¿Hay un solo sitio donde está la información buena?</label>
+        <span class="field-hint" data-es="Si alguien pregunta «¿cuántos clientes atendimos el mes pasado?», ¿hay un solo lugar con la respuesta o hay que juntar varios?" data-en="If someone asks 'how many clients did we serve last month?', is there one place with the answer or must you piece it together?">Si alguien pregunta «¿cuántos clientes atendimos el mes pasado?», ¿hay un solo lugar con la respuesta o hay que juntar varios?</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Centralizado"><span class="radio-label-text" data-es="Sí, todo en un sitio" data-en="Yes, all in one place">Sí, todo en un sitio</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Parcialmente"><span class="radio-label-text" data-es="En parte" data-en="Partly">En parte</span></label>
+          <label class="radio-box"><input type="radio" name="Fuente única de verdad" value="Dispersa"><span class="radio-label-text" data-es="Está repartida en muchos lados" data-en="Scattered in many places">Está repartida en muchos lados</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo se aprueban los descuentos, los gastos y las compras?" data-en="How are discounts, expenses and purchases approved?">¿Cómo se aprueban los descuentos, los gastos y las compras?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Digital"><span class="radio-label-text" data-es="Hay un proceso digital" data-en="There's a digital process">Hay un proceso digital</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Verbal"><span class="radio-label-text" data-es="Se pide permiso de palabra" data-en="Permission is asked verbally">Se pide permiso de palabra</span></label>
+          <label class="radio-box"><input type="radio" name="Aprobaciones" value="Sin regla"><span class="radio-label-text" data-es="No hay regla clara" data-en="There's no clear rule">No hay regla clara</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué normativas les aplican?" data-en="Which regulations apply to you?">¿Qué normativas les aplican?</label>
+        <span class="field-hint" data-es="Marque lo que sepa. Si no está seguro, marque la última opción — lo revisamos nosotros." data-en="Check what you know. If unsure, tick the last option — we'll review it.">Marque lo que sepa. Si no está seguro, marque la última opción — lo revisamos nosotros.</span>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Protección de datos"><span class="checkbox-text" data-es="Protección de datos personales" data-en="Personal data protection">Protección de datos personales</span><span class="checkbox-desc" data-es="Ley 1581 en Colombia, RGPD en Europa, HIPAA en salud en EE.UU." data-en="Colombia's Law 1581, GDPR in Europe, HIPAA for US healthcare">Ley 1581 en Colombia, RGPD en Europa, HIPAA en salud en EE.UU.</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Factura electrónica"><span class="checkbox-text" data-es="Factura electrónica obligatoria" data-en="Mandatory e-invoicing">Factura electrónica obligatoria</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Licencias del sector"><span class="checkbox-text" data-es="Licencias o registros propios del sector" data-en="Industry licences or registrations">Licencias o registros propios del sector</span><span class="checkbox-desc" data-es="sanidad, manipulación de alimentos, registro de turismo, colegiatura..." data-en="health, food handling, tourism registry, professional licence...">sanidad, manipulación de alimentos, registro de turismo, colegiatura...</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Seguros obligatorios"><span class="checkbox-text" data-es="Seguros obligatorios" data-en="Mandatory insurance">Seguros obligatorios</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="Seguridad laboral"><span class="checkbox-text" data-es="Seguridad y salud en el trabajo" data-en="Workplace health and safety">Seguridad y salud en el trabajo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Normativas" value="No seguro"><span class="checkbox-text" data-es="No estoy seguro de cuáles nos aplican" data-en="I'm not sure which apply to us">No estoy seguro de cuáles nos aplican</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen política de tratamiento de datos personales?" data-en="Do you have a personal data policy?">¿Tienen política de tratamiento de datos personales?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="Sí formal"><span class="radio-label-text" data-es="Sí, formal y firmada" data-en="Yes, formal and signed">Sí, formal y firmada</span></label>
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="Básica"><span class="radio-label-text" data-es="Algo básico" data-en="Something basic">Algo básico</span></label>
+          <label class="radio-box"><input type="radio" name="Protección de datos" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué números revisan hoy para saber cómo va el negocio?" data-en="Which numbers do you check today to see how the business is doing?">¿Qué números revisan hoy para saber cómo va el negocio?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ingresos"><span class="checkbox-text" data-es="Ingresos del mes" data-en="Monthly revenue">Ingresos del mes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ticket medio"><span class="checkbox-text" data-es="Cuánto gasta cada cliente" data-en="Average spend per client">Cuánto gasta cada cliente</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Clientes nuevos"><span class="checkbox-text" data-es="Clientes nuevos" data-en="New clients">Clientes nuevos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Repetición"><span class="checkbox-text" data-es="Cuántos vuelven" data-en="How many come back">Cuántos vuelven</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ocupación"><span class="checkbox-text" data-es="Ocupación de la agenda" data-en="Schedule occupancy">Ocupación de la agenda</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ausencias"><span class="checkbox-text" data-es="Ausencias y cancelaciones" data-en="No-shows and cancellations">Ausencias y cancelaciones</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Cartera"><span class="checkbox-text" data-es="Lo que nos deben" data-en="Outstanding balances">Lo que nos deben</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Reseñas"><span class="checkbox-text" data-es="Reseñas y reputación" data-en="Reviews and reputation">Reseñas y reputación</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Números que revisan" value="Ninguno"><span class="checkbox-text" data-es="Ninguno de forma regular" data-en="None on a regular basis">Ninguno de forma regular</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 10 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">10</span>
+        <div class="card-title">
+          <h2 data-es="Herramientas y Automatización" data-en="Tools and Automation">Herramientas y Automatización</h2>
+          <p data-es="Con qué trabajan hoy y qué se hace solo" data-en="What you work with today and what runs on its own">Con qué trabajan hoy y qué se hace solo</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué herramientas usan en el día a día?" data-en="Which tools do you use day to day?">¿Qué herramientas usan en el día a día?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Software del sector"><span class="checkbox-text" data-es="Un programa propio del sector" data-en="Industry-specific software">Un programa propio del sector</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="WhatsApp Business"><span class="checkbox-text" data-es="WhatsApp Business" data-en="WhatsApp Business">WhatsApp Business</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="WhatsApp normal"><span class="checkbox-text" data-es="WhatsApp normal (personal)" data-en="Regular WhatsApp (personal)">WhatsApp normal (personal)</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Excel"><span class="checkbox-text" data-es="Excel / Google Sheets" data-en="Excel / Google Sheets">Excel / Google Sheets</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="CRM"><span class="checkbox-text" data-es="Un CRM" data-en="A CRM">Un CRM</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Caja registradora"><span class="checkbox-text" data-es="Caja registradora o TPV" data-en="Till or POS">Caja registradora o TPV</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Software facturación"><span class="checkbox-text" data-es="Programa de facturación" data-en="Invoicing software">Programa de facturación</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Perfil de Google"><span class="checkbox-text" data-es="Perfil de Google del negocio" data-en="Google Business Profile">Perfil de Google del negocio</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Email marketing"><span class="checkbox-text" data-es="Una herramienta de correos" data-en="An email marketing tool">Una herramienta de correos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Herramientas" value="Papel"><span class="checkbox-text" data-es="Papel, cuaderno o carpetas" data-en="Paper, notebook or folders">Papel, cuaderno o carpetas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué programas usan exactamente?" data-en="Which programs exactly do you use?">¿Qué programas usan exactamente?</label>
+        <span class="field-hint" data-es="Los nombres tal cual. Si no usan ninguno, escriban «ninguno»." data-en="The names as they are. If you don't use any, write 'none'.">Los nombres tal cual. Si no usan ninguno, escriban «ninguno».</span>
+        <input class="input" type="text" name="Programas que usan" data-es-ph="Ej: Booksy y Siigo · Qvet y Alegra · Covermanager y un TPV · solo Excel y WhatsApp · ninguno" data-en-ph="e.g. Booksy and Siigo · Qvet and Alegra · Covermanager and a POS · just Excel and WhatsApp · none"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto pagan al mes por TODO el software que usan?" data-en="How much do you pay per month for ALL the software you use?">¿Cuánto pagan al mes por TODO el software que usan?</label>
+        <span class="field-hint" data-es="Sumando todas las suscripciones. Un estimado sirve. Nos permite comparar lo que gastan hoy contra lo que costaría hacerlo mejor." data-en="Adding up all subscriptions. An estimate is fine. It lets us compare what you spend today against what doing it better would cost.">Sumando todas las suscripciones. Un estimado sirve. Nos permite comparar lo que gastan hoy contra lo que costaría hacerlo mejor.</span>
+        <div class="icon-input"><span class="cur-symbol">$</span><input class="input" type="number" name="Costo mensual del software" placeholder="Ej: 450000"></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Las herramientas están conectadas entre sí?" data-en="Are the tools connected to each other?">¿Las herramientas están conectadas entre sí?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Conectadas"><span class="radio-label-text" data-es="Sí, se hablan entre ellas" data-en="Yes, they talk to each other">Sí, se hablan entre ellas</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Algunas"><span class="radio-label-text" data-es="Algunas sí, otras no" data-en="Some do, some don't">Algunas sí, otras no</span></label>
+          <label class="radio-box"><input type="radio" name="Integración de herramientas" value="Separadas"><span class="radio-label-text" data-es="Cada una por su lado" data-en="Each one on its own">Cada una por su lado</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay datos que tienen que escribir en varios sitios?" data-en="Is there data you have to enter in several places?">¿Hay datos que tienen que escribir en varios sitios?</label>
+        <textarea class="textarea" name="Datos duplicados" data-es-ph="Ej: El cliente se apunta en la agenda, luego hay que meterlo otra vez en el programa de facturación y otra vez en el Excel del mes. El mismo teléfono está en tres sitios y nunca coincide..." data-en-ph="e.g. The client is written into the diary, then re-entered into the invoicing program and again into the monthly spreadsheet. The same phone number is in three places and never matches..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Tienen algo automatizado hoy?" data-en="Do you have anything automated today?">¿Tienen algo automatizado hoy?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="Sí"><span class="radio-label-text" data-es="Sí, algo" data-en="Yes, something">Sí, algo</span></label>
+          <label class="radio-box"><input type="radio" name="Tiene automatización" value="No"><span class="radio-label-text" data-es="No, todo a mano" data-en="No, everything by hand">No, todo a mano</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Tiene automatización=Sí">
+        <div class="conditional-title" data-es="Detalle de lo que ya está automatizado" data-en="Details of what's already automated">Detalle de lo que ya está automatizado</div>
+        <div class="field"><label class="field-label" data-es="¿Qué tienen automatizado?" data-en="What do you have automated?">¿Qué tienen automatizado?</label>
+          <div class="checkbox-list">
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Confirmación de cita"><span class="checkbox-text" data-es="Confirmación de cita o pedido" data-en="Appointment or order confirmation">Confirmación de cita o pedido</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Recordatorios"><span class="checkbox-text" data-es="Recordatorios antes de la visita" data-en="Reminders before the visit">Recordatorios antes de la visita</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Respuestas automáticas"><span class="checkbox-text" data-es="Respuestas automáticas en WhatsApp o redes" data-en="Auto-replies on WhatsApp or social">Respuestas automáticas en WhatsApp o redes</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Reserva en línea"><span class="checkbox-text" data-es="Reserva o pedido en línea" data-en="Online booking or ordering">Reserva o pedido en línea</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Facturación automática"><span class="checkbox-text" data-es="Facturación automática" data-en="Automatic invoicing">Facturación automática</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Solicitud de reseñas"><span class="checkbox-text" data-es="Petición automática de reseñas" data-en="Automatic review requests">Petición automática de reseñas</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="Automatizaciones actuales" value="Correos automáticos"><span class="checkbox-text" data-es="Correos o campañas automáticas" data-en="Automatic emails or campaigns">Correos o campañas automáticas</span></label>
+          </div></div>
+        <div class="field"><label class="field-label" data-es="¿Funcionan bien? ¿Qué problemas les dan?" data-en="Do they work well? What problems do they cause?">¿Funcionan bien? ¿Qué problemas les dan?</label>
+          <textarea class="textarea" name="Problemas con las automatizaciones" data-es-ph="Ej: El recordatorio se manda, pero si el cliente responde nadie lo lee. La reserva en línea a veces duplica el horario. Se montó hace dos años y nadie sabe cómo cambiarlo..." data-en-ph="e.g. The reminder goes out, but if the client replies nobody reads it. Online booking sometimes double-books a slot. It was set up two years ago and nobody knows how to change it..."></textarea></div>
+        <div class="field"><label class="field-label" data-es="¿Alguien revisa lo que hacen esas automatizaciones?" data-en="Does anyone review what those automations do?">¿Alguien revisa lo que hacen esas automatizaciones?</label>
+          <div class="radio-grid radio-grid-3">
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="Siempre"><span class="radio-label-text" data-es="Sí, siempre" data-en="Yes, always">Sí, siempre</span></label>
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="Solo críticos"><span class="radio-label-text" data-es="Solo lo importante" data-en="Only the important bits">Solo lo importante</span></label>
+            <label class="radio-box"><input type="radio" name="Revisión humana" value="Nadie"><span class="radio-label-text" data-es="Nadie, va solo" data-en="Nobody, it runs alone">Nadie, va solo</span></label>
+          </div></div>
+      </div>
+
+      <div class="conditional" data-show-when="Tiene automatización=No">
+        <div class="conditional-title" data-es="¿Por qué no han automatizado?" data-en="Why haven't you automated?">¿Por qué no han automatizado?</div>
+        <div class="field"><label class="field-label" data-es="¿Cuál es la razón principal?" data-en="What's the main reason?">¿Cuál es la razón principal?</label>
+          <div class="radio-grid radio-grid-2">
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="Tiempo"><span class="radio-label-text" data-es="No hemos tenido tiempo" data-en="No time">No hemos tenido tiempo</span></label>
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="No sabemos"><span class="radio-label-text" data-es="No sabemos por dónde empezar" data-en="Don't know where to start">No sabemos por dónde empezar</span></label>
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="Presupuesto"><span class="radio-label-text" data-es="Nos parece caro" data-en="Seems expensive">Nos parece caro</span></label>
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="No era prioridad"><span class="radio-label-text" data-es="No era prioridad" data-en="Wasn't a priority">No era prioridad</span></label>
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="Trato personal"><span class="radio-label-text" data-es="Preferimos el trato personal" data-en="We prefer the personal touch">Preferimos el trato personal</span></label>
+            <label class="radio-box"><input type="radio" name="Razón sin automatización" value="Desconfianza"><span class="radio-label-text" data-es="Nos da desconfianza" data-en="We don't trust it">Nos da desconfianza</span></label>
+          </div></div>
+      </div>
+
+      <div class="field"><label class="field-label" data-es="¿Usan inteligencia artificial en algo?" data-en="Do you use artificial intelligence for anything?">¿Usan inteligencia artificial en algo?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Usa IA" value="Sí"><span class="radio-label-text" data-es="Sí" data-en="Yes">Sí</span></label>
+          <label class="radio-box"><input type="radio" name="Usa IA" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+        </div></div>
+
+      <div class="conditional" data-show-when="Usa IA=Sí">
+        <div class="field"><label class="field-label" data-es="¿Para qué la usan?" data-en="What do you use it for?">¿Para qué la usan?</label>
+          <input class="input" type="text" name="Usos de IA" data-es-ph="Ej: ChatGPT para escribir los textos de Instagram · para redactar respuestas a reseñas · para traducir" data-en-ph="e.g. ChatGPT to write Instagram captions · to draft review replies · to translate"></div>
+      </div>
+    </div>
+
+    <!-- ===== 11 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">11</span>
+        <div class="card-title">
+          <h2 data-es="Horas y Tareas Manuales" data-en="Hours and Manual Tasks">Horas y Tareas Manuales</h2>
+          <p data-es="Dónde se va el tiempo del equipo" data-en="Where the team's time goes">Dónde se va el tiempo del equipo</p></div></div>
+
+      <div class="info-callout"><p data-es="Este bloque es el que sostiene todo el cálculo del informe: con estas horas calculamos cuánto tiempo y cuánto dinero se recupera con cada mejora. Si no tienen el número exacto, pongan su mejor estimado — un estimado honesto vale más que un dato en blanco." data-en="This block underpins the whole calculation in the report: with these hours we work out how much time and money each improvement recovers. If you don't have the exact figure, give your best estimate — an honest estimate is worth more than a blank.">Este bloque es el que sostiene todo el cálculo del informe: con estas horas calculamos cuánto tiempo y cuánto dinero se recupera con cada mejora. Si no tienen el número exacto, pongan su mejor estimado — <strong>un estimado honesto vale más que un dato en blanco</strong>.</p></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Cuántas horas a la semana se van en cada cosa?" data-en="How many hours a week go into each of these?">¿Cuántas horas a la semana se van en cada cosa?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Sumando a todo el equipo, no solo a una persona. Si algo no aplica, déjelo en blanco o ponga 0." data-en="Adding up the whole team, not just one person. If something doesn't apply, leave it blank or put 0.">Sumando a todo el equipo, no solo a una persona. Si algo no aplica, déjelo en blanco o ponga 0.</span>
+        <div class="input-grid-3">
+          <div class="input-group"><span class="input-group-label" data-es="Responder mensajes y llamadas" data-en="Answering messages and calls">Responder mensajes y llamadas</span><input class="input" type="number" name="Horas responder mensajes" placeholder="Ej: 10"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Agendar y confirmar" data-en="Booking and confirming">Agendar y confirmar</span><input class="input" type="number" name="Horas agendar y confirmar" placeholder="Ej: 6"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Pasar datos de un sitio a otro" data-en="Moving data between places">Pasar datos de un sitio a otro</span><input class="input" type="number" name="Horas pasar datos" placeholder="Ej: 4"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Facturar y cobrar" data-en="Invoicing and collecting">Facturar y cobrar</span><input class="input" type="number" name="Horas facturar y cobrar" placeholder="Ej: 5"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Armar reportes o cuadrar números" data-en="Building reports or reconciling">Armar reportes o cuadrar números</span><input class="input" type="number" name="Horas reportes" placeholder="Ej: 3"></div>
+          <div class="input-group"><span class="input-group-label" data-es="Redes sociales y contenido" data-en="Social media and content">Redes sociales y contenido</span><input class="input" type="number" name="Horas redes sociales" placeholder="Ej: 4"></div>
+        </div></div>
+
+      <div class="field"><label class="field-label"><span data-es="En total, ¿cuántas horas a la semana se van en tareas manuales y administrativas?" data-en="In total, how many hours a week go into manual and admin tasks?">En total, ¿cuántas horas a la semana se van en tareas manuales y administrativas?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Sumando todo el equipo. Si el número no coincide exactamente con la suma de arriba, no pasa nada — nos quedamos con este." data-en="Across the whole team. If it doesn't exactly match the sum above, that's fine — we'll use this one.">Sumando todo el equipo. Si el número no coincide exactamente con la suma de arriba, no pasa nada — nos quedamos con este.</span>
+        <input class="input" type="number" name="Horas totales en tareas manuales" required placeholder="Ej: 32"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuáles de estas tareas hacen a mano todos los días?" data-en="Which of these do you do by hand every day?">¿Cuáles de estas tareas hacen a mano todos los días?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Responder lo mismo"><span class="checkbox-text" data-es="Responder una y otra vez lo mismo" data-en="Answering the same thing over and over">Responder una y otra vez lo mismo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Agendar"><span class="checkbox-text" data-es="Agendar citas o pedidos" data-en="Booking appointments or orders">Agendar citas o pedidos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Confirmar"><span class="checkbox-text" data-es="Confirmar uno por uno" data-en="Confirming one by one">Confirmar uno por uno</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Recordar al cliente"><span class="checkbox-text" data-es="Avisar al cliente de que ya está listo" data-en="Telling the client it's ready">Avisar al cliente de que ya está listo</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Pasar datos"><span class="checkbox-text" data-es="Copiar datos de un sitio a otro" data-en="Copying data from one place to another">Copiar datos de un sitio a otro</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Facturar"><span class="checkbox-text" data-es="Hacer facturas" data-en="Creating invoices">Hacer facturas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Cobrar pendientes"><span class="checkbox-text" data-es="Perseguir pagos pendientes" data-en="Chasing outstanding payments">Perseguir pagos pendientes</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Publicar redes"><span class="checkbox-text" data-es="Publicar en redes sociales" data-en="Posting on social media">Publicar en redes sociales</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Pedir reseñas"><span class="checkbox-text" data-es="Pedir reseñas" data-en="Asking for reviews">Pedir reseñas</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Tareas manuales" value="Cuadrar caja"><span class="checkbox-text" data-es="Cuadrar la caja o los números" data-en="Balancing the till or the books">Cuadrar la caja o los números</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué es lo que MÁS los frustra del día a día?" data-en="What frustrates you MOST day to day?">¿Qué es lo que MÁS los frustra del día a día?</label>
+        <textarea class="textarea" name="Mayor frustración" data-es-ph="Ej: Repetir el mismo precio veinte veces al día por WhatsApp. Llegar el lunes y no saber cómo fue la semana. Que se me olvide llamar a alguien y perder el trabajo..." data-en-ph="e.g. Repeating the same price twenty times a day on WhatsApp. Getting to Monday with no idea how the week went. Forgetting to call someone and losing the job..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde se atasca más el negocio?" data-en="Where does the business get stuck most?">¿Dónde se atasca más el negocio?</label>
+        <textarea class="textarea" name="Dónde se atasca" data-es-ph="Ej: En la recepción, que es un cuello de botella a primera hora. En la facturación de fin de mes, que paraliza a la administradora tres días..." data-en-ph="e.g. At reception, a bottleneck first thing in the morning. At month-end invoicing, which ties up the administrator for three days..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si mañana llegara el DOBLE de clientes, ¿qué se rompería primero?" data-en="If DOUBLE the clients arrived tomorrow, what would break first?">Si mañana llegara el DOBLE de clientes, ¿qué se rompería primero?</label>
+        <textarea class="textarea" name="Qué se rompería" data-es-ph="Ej: El WhatsApp, no damos abasto ya. La agenda, no hay más sillas. La administradora, que ya trabaja hasta tarde. La calidad, porque tendríamos que correr..." data-en-ph="e.g. WhatsApp, we can't keep up already. The schedule, there are no more chairs. The administrator, who already works late. Quality, because we'd have to rush..."></textarea></div>
+    </div>
+
+    <!-- ===== 12 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">12</span>
+        <div class="card-title">
+          <h2 data-es="Objetivos y Expectativas" data-en="Goals and Expectations">Objetivos y Expectativas</h2>
+          <p data-es="Adónde quieren llegar y con qué están dispuestos a trabajar" data-en="Where you want to get to and what you're willing to work with">Adónde quieren llegar y con qué están dispuestos a trabajar</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieran clonar a alguien para hacer UNA sola tarea 24/7, ¿cuál sería?" data-en="If you could clone someone to do ONE task 24/7, which would it be?">Si pudieran clonar a alguien para hacer UNA sola tarea 24/7, ¿cuál sería?</label>
+        <input class="input" type="text" name="Tarea a clonar" data-es-ph="Ej: Que alguien conteste el WhatsApp siempre · que alguien persiga los pagos · que alguien cuadre las cuentas" data-en-ph="e.g. Someone always answering WhatsApp · someone chasing payments · someone reconciling the books"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es su meta para los próximos 12 meses?" data-en="What's your goal for the next 12 months?">¿Cuál es su meta para los próximos 12 meses?</label>
+        <textarea class="textarea" name="Meta a 12 meses" data-es-ph="Ej: Abrir un segundo local. Subir la facturación un 30% sin contratar más gente. Poder tomarme vacaciones sin que se pare todo. Dejar de trabajar los sábados..." data-en-ph="e.g. Open a second location. Grow revenue 30% without hiring. Be able to take a holiday without everything stopping. Stop working Saturdays..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Esa meta, ¿en cuánto se traduce al mes?" data-en="What does that goal translate to per month?">Esa meta, ¿en cuánto se traduce al mes?</label>
+        <span class="field-hint" data-es="En dinero, en clientes o en horas — lo que le sirva a usted para medirla" data-en="In money, clients or hours — whatever you use to measure it">En dinero, en clientes o en horas — lo que le sirva a usted para medirla</span>
+        <input class="input" type="text" name="Meta mensual" data-es-ph="Ej: 8 millones más al mes · 30 clientes nuevos · 20 horas menos de trabajo mío" data-en-ph="e.g. 8 million more per month · 30 new clients · 20 fewer hours of my own work"></div>
+
+      <div class="field"><label class="field-label" data-es="Si pudieran empezar de cero, ¿cómo sería el proceso ideal?" data-en="If you could start from scratch, what would the ideal process look like?">Si pudieran empezar de cero, ¿cómo sería el proceso ideal?</label>
+        <textarea class="textarea" name="Proceso ideal" data-es-ph="Ej: Que el cliente reserve solo por internet, le llegue la confirmación y el recordatorio sin que nadie haga nada, y que al terminar se le pida la reseña automáticamente..." data-en-ph="e.g. The client books online, gets the confirmation and reminder without anyone lifting a finger, and is automatically asked for a review afterwards..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="Si tuvieran una pantalla con los números del negocio, ¿qué querrían ver?" data-en="If you had a screen with the business figures, what would you want to see?">Si tuvieran una pantalla con los números del negocio, ¿qué querrían ver?</label>
+        <textarea class="textarea" name="Tablero ideal" data-es-ph="Ej: Cuánto llevamos facturado este mes, cuántas citas hay mañana, cuánto nos deben, y cuántos clientes no han vuelto en 6 meses..." data-en-ph="e.g. Revenue so far this month, how many appointments tomorrow, what we're owed, and how many clients haven't returned in 6 months..."></textarea></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿Cómo definirían el éxito de este diagnóstico?" data-en="How would you define success for this audit?">¿Cómo definirían el éxito de este diagnóstico?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Con sus palabras: ¿qué tendría que pasar para que sientan que valió la pena?" data-en="In your own words: what would have to happen for it to feel worth it?">Con sus palabras: ¿qué tendría que pasar para que sientan que valió la pena?</span>
+        <textarea class="textarea" name="Definición de éxito" required data-es-ph="Ej: Que me digan claramente qué automatizar primero y cuánto me va a costar, sin humo. Que salga con un plan que pueda ejecutar aunque sea poco a poco..." data-en-ph="e.g. That someone tells me clearly what to automate first and what it will cost, with no fluff. That I come out with a plan I can execute even if slowly..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuánto podrían invertir al mes en mejorar esto?" data-en="How much could you invest per month in improving this?">¿Cuánto podrían invertir al mes en mejorar esto?</label>
+        <span class="field-hint" data-es="Un rango honesto. No sirve para cobrarle más: sirve para no proponerle cosas fuera de su alcance." data-en="An honest range. It's not used to charge you more: it's used to avoid proposing things out of your reach.">Un rango honesto. No sirve para cobrarle más: sirve para no proponerle cosas fuera de su alcance.</span>
+        <input class="input" type="text" name="Presupuesto mensual para mejoras" data-es-ph="Ej: entre 1 y 2 millones al mes · unos 300 € · depende de lo que ahorre" data-en-ph="e.g. between 1 and 2 million a month · around €300 · depends on what it saves"></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué NO están dispuestos a automatizar o cambiar?" data-en="What are you NOT willing to automate or change?">¿Qué NO están dispuestos a automatizar o cambiar?</label>
+        <span class="field-hint" data-es="Saber los límites de entrada nos evita proponerle algo que iba a rechazar" data-en="Knowing the limits up front stops us proposing something you'd reject">Saber los límites de entrada nos evita proponerle algo que iba a rechazar</span>
+        <textarea class="textarea" name="Qué no cambiarían" data-es-ph="Ej: El trato con el cliente lo quiero humano siempre. No quiero cambiar de programa, ya nos costó aprenderlo. No quiero despedir a nadie..." data-en-ph="e.g. Client contact must always stay human. I don't want to change software, it took us ages to learn. I don't want to let anyone go..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cómo reacciona el equipo ante cambios y herramientas nuevas?" data-en="How does the team react to change and new tools?">¿Cómo reacciona el equipo ante cambios y herramientas nuevas?</label>
+        <div class="radio-grid radio-grid-2">
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Muy abiertos"><span class="radio-label-text" data-es="Muy abiertos" data-en="Very open">Muy abiertos</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Se adaptan"><span class="radio-label-text" data-es="Se adaptan con tiempo" data-en="They adapt over time">Se adaptan con tiempo</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="Hay resistencia"><span class="radio-label-text" data-es="Hay resistencia" data-en="There's resistance">Hay resistencia</span></label>
+          <label class="radio-box"><input type="radio" name="Resistencia al cambio" value="No lo sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+    </div>
+
+    <!-- ===== 13 ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">13</span>
+        <div class="card-title">
+          <h2 data-es="Accesos, Seguridad y Respaldo" data-en="Access, Security and Backup">Accesos, Seguridad y Respaldo</h2>
+          <p data-es="De qué depende el negocio y qué pasaría si algo falla" data-en="What the business depends on and what would happen if something failed">De qué depende el negocio y qué pasaría si algo falla</p></div></div>
+
+      <div class="info-callout"><p data-es="Estas preguntas incomodan un poco, y por eso casi nadie las hace. Son las que revelan los riesgos que pueden costarle el negocio: cuentas que no están a su nombre, datos que no puede recuperar, o una sola persona con todas las llaves. No hay respuestas malas — solo información que necesitamos para protegerlo." data-en="These questions are a bit uncomfortable, which is why almost nobody asks them. They're the ones that reveal the risks that can cost you the business: accounts not in your name, data you can't recover, or a single person holding every key. There are no wrong answers — just information we need to protect you.">Estas preguntas incomodan un poco, y por eso casi nadie las hace. Son las que revelan los riesgos que pueden costarle el negocio: cuentas que no están a su nombre, datos que no puede recuperar, o una sola persona con todas las llaves. No hay respuestas malas — solo información que necesitamos para protegerlo.</p></div>
+
+      <div class="field"><label class="field-label" data-es="¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?" data-en="For which of these accounts do you have the username and password at hand today?">¿De cuáles de estas cuentas tienen hoy el usuario y la contraseña a la mano?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Google Business"><span class="checkbox-text" data-es="Perfil de Google del negocio" data-en="Google Business Profile">Perfil de Google del negocio</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Instagram"><span class="checkbox-text" data-es="Instagram" data-en="Instagram">Instagram</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Facebook"><span class="checkbox-text" data-es="Facebook" data-en="Facebook">Facebook</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="WhatsApp"><span class="checkbox-text" data-es="WhatsApp del negocio" data-en="Business WhatsApp">WhatsApp del negocio</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Cuenta publicitaria"><span class="checkbox-text" data-es="La cuenta publicitaria" data-en="The ad account">La cuenta publicitaria</span><span class="checkbox-desc" data-es="Meta Business, Google Ads — es la que guarda todo su histórico" data-en="Meta Business, Google Ads — this holds all your history">Meta Business, Google Ads — es la que guarda todo su histórico</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Dominio y hosting"><span class="checkbox-text" data-es="El dominio y el alojamiento de la web" data-en="The domain and web hosting">El dominio y el alojamiento de la web</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Software del negocio"><span class="checkbox-text" data-es="El programa principal del negocio" data-en="The main business software">El programa principal del negocio</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Plataformas de venta"><span class="checkbox-text" data-es="Las plataformas donde venden o reciben pedidos" data-en="The platforms where you sell or take orders">Las plataformas donde venden o reciben pedidos</span></label>
+          <label class="checkbox-option"><input type="checkbox" name="Cuentas controladas" value="Ninguna"><span class="checkbox-text" data-es="La verdad, ninguna a la mano" data-en="Honestly, none at hand">La verdad, ninguna a la mano</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label"><span data-es="¿A nombre de quién están esas cuentas?" data-en="Whose name are those accounts in?">¿A nombre de quién están esas cuentas?</span> <span class="required">*</span></label>
+        <span class="field-hint" data-es="Del negocio, del dueño, de un empleado, de la agencia que las creó, del sobrino que ayudó… Esta es la pregunta más importante del bloque: si la cuenta publicitaria está a nombre de un tercero, el día que se vayan pierden todo el histórico." data-en="The business, the owner, an employee, the agency that set them up, the nephew who helped… This is the most important question in this block: if the ad account is in someone else's name, the day they leave you lose all your history.">Del negocio, del dueño, de un empleado, de la agencia que las creó, del sobrino que ayudó… Esta es la pregunta más importante del bloque: si la cuenta publicitaria está a nombre de un tercero, el día que se vayan pierden todo el histórico.</span>
+        <textarea class="textarea" name="Titularidad de las cuentas" required data-es-ph="Ej: El Instagram lo abrió una chica que ya no trabaja aquí y sigue con su correo. La cuenta de anuncios la maneja la agencia y no sabemos entrar. El dominio lo compró mi cuñado. El Google sí es nuestro..." data-en-ph="e.g. Instagram was set up by someone who no longer works here and it's still on her email. The ad account is run by the agency and we can't get in. The domain was bought by my brother-in-law. Google is ours..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay más de una persona con acceso de administrador?" data-en="Is there more than one person with admin access?">¿Hay más de una persona con acceso de administrador?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Sí"><span class="radio-label-text" data-es="Sí, varias" data-en="Yes, several">Sí, varias</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="Solo una"><span class="radio-label-text" data-es="Solo una persona" data-en="Only one person">Solo una persona</span></label>
+          <label class="radio-box"><input type="radio" name="Administradores múltiples" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Comparten contraseñas entre el equipo?" data-en="Do you share passwords across the team?">¿Comparten contraseñas entre el equipo?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Gestor"><span class="radio-label-text" data-es="No, usamos un gestor" data-en="No, we use a password manager">No, usamos un gestor</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Algunas"><span class="radio-label-text" data-es="Algunas se comparten" data-en="Some are shared">Algunas se comparten</span></label>
+          <label class="radio-box"><input type="radio" name="Comparten contraseñas" value="Todas"><span class="radio-label-text" data-es="Sí, casi todas" data-en="Yes, almost all">Sí, casi todas</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Dónde está guardada la base de datos de clientes?" data-en="Where is the client database stored?">¿Dónde está guardada la base de datos de clientes?</label>
+        <span class="field-hint" data-es="Nombres, teléfonos, historial de compras. Si mañana se pierde, ¿qué pasa?" data-en="Names, phones, purchase history. If it were lost tomorrow, what happens?">Nombres, teléfonos, historial de compras. Si mañana se pierde, ¿qué pasa?</span>
+        <textarea class="textarea" name="Dónde están los datos de clientes" data-es-ph="Ej: En el programa de la agenda, que es en la nube. En un Excel en el computador de recepción, sin copia. En el WhatsApp del móvil de la dueña. En un cuaderno..." data-en-ph="e.g. In the booking software, which is in the cloud. In a spreadsheet on the front desk computer, no backup. In the owner's phone WhatsApp. In a notebook..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿El programa principal tiene copia de seguridad?" data-en="Does the main software have a backup?">¿El programa principal tiene copia de seguridad?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Copia de seguridad" value="Sí probada"><span class="radio-label-text" data-es="Sí, y la hemos probado" data-en="Yes, and we've tested it">Sí, y la hemos probado</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad" value="Suponemos"><span class="radio-label-text" data-es="Suponemos que sí" data-en="We assume so">Suponemos que sí</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Si dejaran de pagar ese programa, ¿podrían sacar sus propios datos?" data-en="If you stopped paying for that software, could you export your own data?">Si dejaran de pagar ese programa, ¿podrían sacar sus propios datos?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="Sí"><span class="radio-label-text" data-es="Sí, se pueden exportar" data-en="Yes, they can be exported">Sí, se pueden exportar</span></label>
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="No"><span class="radio-label-text" data-es="No, se quedarían ahí" data-en="No, they'd stay there">No, se quedarían ahí</span></label>
+          <label class="radio-box"><input type="radio" name="Portabilidad de datos" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Está activada la copia de seguridad del WhatsApp del negocio?" data-en="Is the business WhatsApp backup enabled?">¿Está activada la copia de seguridad del WhatsApp del negocio?</label>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="Sí"><span class="radio-label-text" data-es="Sí" data-en="Yes">Sí</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+          <label class="radio-box"><input type="radio" name="Copia de seguridad WhatsApp" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="Lo que firman o aceptan los clientes, ¿autoriza enviarles comunicaciones?" data-en="Does what clients sign or accept authorise sending them communications?">Lo que firman o aceptan los clientes, ¿autoriza enviarles comunicaciones?</label>
+        <span class="field-hint" data-es="De esto depende que podamos proponerle recordatorios, campañas de reactivación y promociones sin meterlo en un problema legal." data-en="Whether we can propose reminders, reactivation campaigns and promos without landing you in legal trouble depends on this.">De esto depende que podamos proponerle recordatorios, campañas de reactivación y promociones sin meterlo en un problema legal.</span>
+        <div class="radio-grid radio-grid-3">
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="Sí"><span class="radio-label-text" data-es="Sí, está contemplado" data-en="Yes, it's covered">Sí, está contemplado</span></label>
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="No"><span class="radio-label-text" data-es="No" data-en="No">No</span></label>
+          <label class="radio-box"><input type="radio" name="Consentimiento para comunicaciones" value="No sé"><span class="radio-label-text" data-es="No lo sé" data-en="I don't know">No lo sé</span></label>
+        </div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Quién puede autorizar que un proveedor externo entre a sus sistemas?" data-en="Who can authorise an external provider to access your systems?">¿Quién puede autorizar que un proveedor externo entre a sus sistemas?</label>
+        <input class="input" type="text" name="Quién autoriza accesos externos" data-es-ph="Ej: Solo el dueño · el dueño y la administradora · cualquiera del equipo, la verdad" data-en-ph="e.g. Only the owner · the owner and the manager · honestly, anyone on the team"></div>
+    </div>
+
+
+    <!-- ===== EXTRA ===== -->
+    <div class="form-card" data-section>
+      <div class="card-header"><span class="card-number">+</span>
+        <div class="card-title">
+          <h2 data-es="Comentarios Adicionales" data-en="Additional Comments">Comentarios Adicionales</h2>
+          <p data-es="Cualquier información extra relevante" data-en="Any extra relevant information">Cualquier información extra relevante</p></div></div>
+
+      <div class="field"><label class="field-label" data-es="¿Cuál es hoy su mayor dolor de cabeza?" data-en="What's your biggest headache today?">¿Cuál es hoy su mayor dolor de cabeza?</label>
+        <textarea class="textarea" name="Mayor dolor de cabeza" data-es-ph="Ej: Que todo pasa por mí y no puedo tomarme un día libre. Que el WhatsApp se llena y se pierden mensajes. Que no sé si estoy ganando o perdiendo hasta fin de mes..." data-en-ph="e.g. Everything goes through me and I can't take a day off. WhatsApp fills up and messages get lost. I don't know if I'm making or losing money until month-end..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Hay algo que quieran hacer y no han podido?" data-en="Is there anything you want to do and haven't been able to?">¿Hay algo que quieran hacer y no han podido?</label>
+        <textarea class="textarea" name="Pendientes del negocio" data-es-ph="Ej: Abrir un segundo local. Vender en línea. Dejar de atender el teléfono personalmente. Montar un programa de fidelización..." data-en-ph="e.g. Open a second location. Sell online. Stop answering the phone personally. Set up a loyalty programme..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Qué esperan conseguir con este diagnóstico?" data-en="What do you hope to achieve with this audit?">¿Qué esperan conseguir con este diagnóstico?</label>
+        <textarea class="textarea" name="Expectativas del diagnóstico" data-es-ph="Ej: Saber qué automatizar primero sin gastar de más. Entender por qué no crecemos si hay clientes. Tener los procesos escritos para poder delegar..." data-en-ph="e.g. Know what to automate first without overspending. Understand why we're not growing if there are clients. Have processes written down so I can delegate..."></textarea></div>
+
+      <div class="field"><label class="field-label" data-es="¿Algo más que debamos saber?" data-en="Anything else we should know?">¿Algo más que debamos saber?</label>
+        <textarea class="textarea" name="Comentarios adicionales" data-es-ph="Cualquier contexto adicional: apertura prevista, cambio de local, socio que entra o sale, cambio de software en curso..." data-en-ph="Any extra context: planned opening, moving premises, partner joining or leaving, software migration underway..."></textarea></div>
+    </div>
+
+    <div class="submit-section">
+      <button type="submit" class="submit-btn" data-es="Enviar cuestionario →" data-en="Submit questionnaire →">Enviar cuestionario →</button>
+    </div>
+  </form>
+
+  <div class="result" id="result">
+    <div class="check">✓</div>
+    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <p id="resultMsg" data-es="Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo.</p>
+    <div class="actions">
+      <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
+      <button class="btn" id="btnDownload" data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
+      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+    </div>
+    <div class="actions" id="fallbackBox" hidden>
+      <button class="btn" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+  const EMAIL_DESTINO = "founder@arraviva.com";
+  const TITULO = {es:"Diagnóstico de Negocio — Arraviva", en:"Business Audit — Arraviva"};
+
+  const form = document.getElementById('form');
+  const sections = document.querySelectorAll('[data-section]');
+  const bar = document.getElementById('bar');
+  const progressCount = document.getElementById('progressCount');
+  const currency = document.getElementById('currency');
+  let lang = 'es';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langEs').classList.toggle('active', l==='es');
+    document.getElementById('langEn').classList.toggle('active', l==='en');
+    document.querySelectorAll('[data-es]').forEach(el=>{ const v=el.getAttribute('data-'+l); if(v!=null) el.textContent=v; });
+    document.querySelectorAll('[data-es-ph]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-ph'); if(v!=null) el.placeholder=v; });
+    document.querySelectorAll('[data-es-val]').forEach(el=>{ const v=el.getAttribute('data-'+l+'-val'); if(v!=null) el.value=v; });
+  }
+  window.setLang = setLang;
+
+  function updateCurrency(){
+    const map = {USD:'$', COP:'$', EUR:'€'};
+    const sym = map[currency.value] || '$';
+    document.querySelectorAll('.cur-symbol').forEach(s => s.textContent = sym);
+  }
+  currency.addEventListener('change', updateCurrency);
+
+  document.querySelectorAll('[data-show-when]').forEach(cond=>{
+    const [name, valuesStr] = cond.dataset.showWhen.split('=');
+    const values = valuesStr.split('|');
+    const inputs = form.querySelectorAll('input[name="'+name+'"]');
+    function check(){ const sel=[...inputs].find(i=>i.checked); cond.classList.toggle('show', !!(sel && values.includes(sel.value))); }
+    inputs.forEach(i=> i.addEventListener('change', check));
+    check();
+  });
+
+  function updateProgress(){
+    let done = 0;
+    sections.forEach(sec=>{
+      let filled=false;
+      sec.querySelectorAll('input,textarea,select').forEach(f=>{
+        if(f.type==='range') return;
+        if(f.closest('.conditional') && !f.closest('.conditional').classList.contains('show')) return;
+        if(f.type==='checkbox'||f.type==='radio'){ if(f.checked) filled=true; }
+        else if(f.value && f.value.trim() && !f.readOnly) filled=true;
+      });
+      if(filled) done++;
+    });
+    bar.style.width = (done/sections.length*100)+'%';
+    progressCount.textContent = done+' / '+sections.length;
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
+  function labelOf(input){
+    const box = input.closest('label');
+    const t = box && box.querySelector('.radio-label-text, .checkbox-text');
+    return t ? t.textContent.trim() : input.value;
+  }
+  function recogerRespuestas(){
+    const datos = [];
+    const curOpt = currency.options[currency.selectedIndex];
+    datos.push([lang==='es'?'Moneda':'Currency', curOpt.textContent.trim()]);
+
+    document.querySelectorAll('.form-card .field').forEach(field=>{
+      const cond = field.closest('.conditional');
+      if(cond && !cond.classList.contains('show')) return;
+      const labelEl = field.querySelector('.field-label');
+      const question = labelEl ? labelEl.textContent.replace(/\*/g,'').trim() : '';
+
+      const radios = field.querySelectorAll('input[type=radio]:checked');
+      const checks = field.querySelectorAll('input[type=checkbox]:checked');
+      const groups = field.querySelectorAll('.input-group');
+      let answer = '';
+
+      if(radios.length){ answer = [...radios].map(labelOf).join(', '); }
+      else if(checks.length){ answer = [...checks].map(labelOf).join(', '); }
+      else if(groups.length){
+        const parts=[];
+        groups.forEach(g=>{ const inp=g.querySelector('input'); if(inp && inp.value.trim()){ const gl=g.querySelector('.input-group-label'); parts.push((gl?gl.textContent.trim():'')+': '+inp.value.trim()); } });
+        answer = parts.join(' | ');
+      } else {
+        const parts=[];
+        field.querySelectorAll('input[type=text],input[type=number],input[type=email],textarea,select').forEach(t=>{
+          if(t.readOnly) return;
+          if(!t.value || !t.value.trim()) return;
+          let v = t.tagName==='SELECT' ? t.options[t.selectedIndex].textContent.trim() : t.value.trim();
+          if(t.closest('.icon-input')){ const s=t.closest('.icon-input').querySelector('.cur-symbol'); v=(s?s.textContent:'')+v; }
+          parts.push(v);
+        });
+        answer = parts.join(' | ');
+      }
+      if(answer) datos.push([question, answer]);
+    });
+
+    RESPUESTAS_PARES = datos;
+
+    let t = TITULO[lang]+"\n";
+    t += (lang==='es'?"Fecha: ":"Date: ")+new Date().toLocaleString(lang==='es'?'es-419':'en-US')+"\n";
+    t += "----------------------------------------\n\n";
+    datos.forEach(([k,v])=>{ t += k+":\n"+v+"\n\n"; });
+    return t;
+  }
+
+  let RESPUESTAS = "";
+  let RESPUESTAS_PARES = [];
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    RESPUESTAS = recogerRespuestas();
+    document.getElementById('preview').textContent = RESPUESTAS;
+    form.style.display='none';
+    document.getElementById('result').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
+  document.getElementById('btnDownload').addEventListener('click', function(){
+    const blob = new Blob([RESPUESTAS], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=(lang==='es'?'Respuestas-Diagnostico':'Answers-Audit')+'.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Guardar una copia; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Save a copy button; without it the answers do not arrive.";
+    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(aviso);
+  });
+
+  /* =======================================================================
+     ENVÍO AUTOMÁTICO — las respuestas viajan solas a Arraviva
+     ======================================================================= */
+  (function(){
+    var ENVIO_URL   = "https://proyecto-1-ensayo-n8n.o5q4ky.easypanel.host/webhook/cuestionario";
+    var ENVIO_CLAVE = "arraviva-q-2026-7f3a";
+    var CUESTIONARIO = "negocio";
+
+    var btn = document.getElementById('btnSend');
+    var msg = document.getElementById('resultMsg');
+    var fallback = document.getElementById('fallbackBox');
+    if(!btn) return;
+
+    function valorDe(nombres){
+      for(var i=0;i<nombres.length;i++){
+        var el = form.querySelector('[name="'+nombres[i]+'"]');
+        if(el && el.value && el.value.trim()) return el.value.trim();
+      }
+      return '';
+    }
+    function monedaActual(){
+      try { return currency.options[currency.selectedIndex].textContent.trim(); }
+      catch(e){ return ''; }
+    }
+    function texto(es,en){ return lang==='es' ? es : en; }
+
+    btn.addEventListener('click', function(){
+      btn.disabled = true;
+      btn.textContent = texto('Enviando…','Sending…');
+
+      var payload = {
+        clave: ENVIO_CLAVE,
+        cuestionario: CUESTIONARIO,
+        titulo: TITULO[lang],
+        idioma: lang,
+        moneda: monedaActual(),
+        sector_declarado: valorDe(['A qué se dedica']),
+        contacto: {
+          nombre_negocio: valorDe(['Nombre del negocio','Nombre de la empresa']),
+          email:          valorDe(['Correo de contacto','Email de contacto']),
+          telefono:       valorDe(['Teléfono / WhatsApp','Teléfono','WhatsApp'])
+        },
+        respuestas: RESPUESTAS_PARES
+      };
+
+      fetch(ENVIO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(){
+        btn.textContent = texto('✓ Enviado','✓ Sent');
+        btn.disabled = true;
+        if(msg) msg.textContent = texto(
+          'Recibido. Gracias — nos pondremos en contacto contigo en breve.',
+          'Received. Thank you — we will get back to you shortly.');
+        try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = texto('↻ Reintentar envío','↻ Retry');
+        if(msg) msg.textContent = texto(
+          'No pudimos enviarlo automáticamente. Inténtalo otra vez o usa «Guardar una copia» y mándanosla por correo.',
+          'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
+        if(fallback) fallback.hidden = false;
+      });
+    });
+  })();
+
+  /* =======================================================================
+     PRE-LLENADO desde el enlace personalizado (?n=negocio&e=correo&t=telefono)
+     ======================================================================= */
+  window.addEventListener('load', function(){
+    try{
+      var p = new URLSearchParams(location.search);
+      var grupos = [
+        [['Nombre del negocio','Nombre de la empresa'], p.get('n')],
+        [['Correo de contacto','Email de contacto'],    p.get('e')],
+        [['Teléfono / WhatsApp','Teléfono','WhatsApp'], p.get('t')]
+      ];
+      grupos.forEach(function(g){
+        var valor = g[1];
+        if(!valor || !String(valor).trim()) return;
+        for(var i=0;i<g[0].length;i++){
+          var el = form.querySelector('[name="'+g[0][i]+'"]');
+          if(el){
+            if(!el.value || !el.value.trim()){
+              el.value = String(valor).trim();
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            break;
+          }
+        }
+      });
+    }catch(e){ /* enlace sin parametros: se rellena a mano, como siempre */ }
+  });
+
+  /* =======================================================================
+     AUTOGUARDADO — el progreso sobrevive a cerrar la pestaña
+     ======================================================================= */
+  (function(){
+    var CLAVE = 'arraviva-q-' + (location.pathname.split('/').pop() || 'form');
+    var guardando = null;
+
+    function recoger(){
+      var datos = {};
+      form.querySelectorAll('input,textarea,select').forEach(function(el){
+        if(!el.name || el.type === 'submit' || el.type === 'button') return;
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          if(el.checked){
+            if(!datos[el.name]) datos[el.name] = [];
+            datos[el.name].push(el.value);
+          }
+        } else if(el.value && el.value.trim()){
+          datos[el.name] = el.value;
+        }
+      });
+      if(currency) datos['__moneda'] = currency.value;
+      return datos;
+    }
+
+    function guardar(){
+      clearTimeout(guardando);
+      guardando = setTimeout(function(){
+        try{
+          var datos = recoger();
+          if(Object.keys(datos).length <= 1) return;
+          localStorage.setItem(CLAVE, JSON.stringify({ fecha: Date.now(), datos: datos }));
+        }catch(e){ /* modo privado o sin espacio */ }
+      }, 600);
+    }
+
+    function restaurar(datos){
+      if(datos['__moneda'] && currency){
+        currency.value = datos['__moneda'];
+        updateCurrency();
+      }
+      form.querySelectorAll('input,textarea,select').forEach(function(el){
+        if(!el.name || !(el.name in datos)) return;
+        var v = datos[el.name];
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          if(Array.isArray(v) && v.indexOf(el.value) !== -1) el.checked = true;
+        } else if(!Array.isArray(v)){
+          el.value = v;
+        }
+      });
+      form.querySelectorAll('input[type=radio]').forEach(function(i){
+        i.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      updateProgress();
+    }
+
+    function borrar(){
+      try{ localStorage.removeItem(CLAVE); }catch(e){}
+    }
+
+    function cuandoFue(ms){
+      var min = Math.round((Date.now() - ms) / 60000);
+      if(min < 1)    return lang==='es' ? 'hace un momento' : 'a moment ago';
+      if(min < 60)   return lang==='es' ? 'hace ' + min + ' minutos' : min + ' minutes ago';
+      var h = Math.round(min/60);
+      if(h < 24)     return lang==='es' ? 'hace ' + h + (h===1?' hora':' horas') : h + (h===1?' hour':' hours') + ' ago';
+      var d = Math.round(h/24);
+      return lang==='es' ? 'hace ' + d + (d===1?' día':' días') : d + (d===1?' day':' days') + ' ago';
+    }
+
+    var previo = null;
+    try{ previo = JSON.parse(localStorage.getItem(CLAVE) || 'null'); }catch(e){}
+
+    if(previo && previo.datos){
+      var aviso = document.createElement('div');
+      aviso.style.cssText = 'background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:16px 18px;margin-bottom:18px';
+      aviso.innerHTML =
+        '<p style="margin:0 0 4px;font-weight:600">' +
+          (lang==='es' ? 'Tienes respuestas guardadas' : 'You have saved answers') +
+        '</p>' +
+        '<p style="margin:0 0 12px;font-size:14px;color:var(--muted)">' +
+          (lang==='es'
+            ? 'Guardamos lo que escribiste ' + cuandoFue(previo.fecha) + ' en este navegador. Puedes seguir donde lo dejaste.'
+            : 'We saved your answers ' + cuandoFue(previo.fecha) + ' in this browser. You can pick up where you left off.') +
+        '</p>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+          '<button type="button" id="qContinuar" class="btn primary" style="padding:10px 18px">' +
+            (lang==='es' ? 'Continuar' : 'Continue') + '</button>' +
+          '<button type="button" id="qEmpezar" class="btn" style="padding:10px 18px">' +
+            (lang==='es' ? 'Empezar de nuevo' : 'Start over') + '</button>' +
+        '</div>';
+      form.parentNode.insertBefore(aviso, form);
+
+      document.getElementById('qContinuar').addEventListener('click', function(){
+        restaurar(previo.datos);
+        aviso.remove();
+      });
+      document.getElementById('qEmpezar').addEventListener('click', function(){
+        borrar();
+        aviso.remove();
+      });
+    }
+
+    form.addEventListener('input', guardar);
+    form.addEventListener('change', guardar);
+    form.addEventListener('submit', borrar);
+  })();
+
+
+  setLang('es');
+</script>
+<script>
+(function(){
+  var HASH="a816ebde8084f1838ea70889deccff2c3dabbbd45f39af1aecca435fa4fbe215";
+  function sha256(ascii){function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount));}var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';var words=[],asciiBitLength=ascii[lengthProperty]*8;var hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],primeCounter=k[lengthProperty];var isComposite={};for(var candidate=2;primeCounter<64;candidate++){if(!isComposite[candidate]){for(i=0;i<313;i+=candidate){isComposite[i]=candidate;}hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;}}ascii+='\x80';while(ascii[lengthProperty]%64-56)ascii+='\x00';for(i=0;i<ascii[lengthProperty];i++){j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);words[words[lengthProperty]]=(asciiBitLength);for(j=0;j<words[lengthProperty];){var w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2];var a=hash[0],e=hash[4];var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));hash=[(temp1+temp2)|0].concat(hash);hash[4]=(hash[4]+temp1)|0;}for(i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16);}}return result;}
+  var gate=document.getElementById('q-gate');
+  var form=document.getElementById('q-gate__form');
+  var input=document.getElementById('q-gate__input');
+  var err=document.getElementById('q-gate__error');
+  function unlock(){ gate.classList.add('q-unlocked'); try{sessionStorage.setItem('arraviva-q','1');}catch(e){} }
+  try{ if(sessionStorage.getItem('arraviva-q')==='1'){ unlock(); } }catch(e){}
+  if(input){ try{input.focus();}catch(e){} }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(input.value||'').trim();
+    var utf8=unescape(encodeURIComponent(v));
+    if(sha256(utf8)===HASH){ unlock(); }
+    else{ err.hidden=false; input.value=''; input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>
