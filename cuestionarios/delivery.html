@@ -949,11 +949,11 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
   </form>
 
   <div class="result" id="result">
-    <div class="check">✓</div>
-    <h2 data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
+    <div class="check" id="resultCheck">✓</div>
+    <h2 id="resultTitle" data-es="¡Respuestas listas!" data-en="Answers ready!">¡Respuestas listas!</h2>
     <p id="resultMsg" data-es="Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo.</p>
     <div class="actions">
-      <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
+      <button class="btn primary" id="btnSend" hidden data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
       <button class="btn" id="btnDownload" hidden data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
       <button class="btn" id="btnCopy" hidden data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
     </div>
@@ -1083,6 +1083,8 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
     form.style.display='none';
     document.getElementById('result').classList.add('show');
     window.scrollTo({top:0, behavior:'smooth'});
+    // Enviar es enviar: no hay un segundo boton que pulsar.
+    if(window.__arravivaEnviar) window.__arravivaEnviar();
   });
   document.getElementById('btnCopy').addEventListener('click', function(){ navigator.clipboard.writeText(RESPUESTAS).then(()=> this.textContent = lang==='es'?"✓ Copiado":"✓ Copied"); });
   document.getElementById('btnDownload').addEventListener('click', function(){
@@ -1092,8 +1094,12 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
     URL.revokeObjectURL(url);
   });
   document.getElementById('btnEmail').addEventListener('click', function(){
+    // Descarga primero: asi el archivo ya esta cuando se abre el correo y solo
+    // queda arrastrarlo. Pedirle que lo descargue despues no lo hace nadie.
+    var d = document.getElementById('btnDownload');
+    if(d) d.click();
     var aviso = lang==='es' ? "Hola, les envio mis respuestas del cuestionario. IMPORTANTE: adjunte a este correo el archivo que descargo con el boton Descargar archivo; sin ese archivo no llegan las respuestas." : "Hello, here are my questionnaire answers. IMPORTANT: please attach the file you downloaded with the Download file button; without it the answers do not arrive.";
-    window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(aviso);
+    setTimeout(function(){ window.location.href = "mailto:"+EMAIL_DESTINO+"?subject="+encodeURIComponent(TITULO[lang]+" - "+(lang==='es'?'respuestas':'answers'))+"&body="+encodeURIComponent(aviso); }, 500);
   });
 
   /* =======================================================================
@@ -1108,7 +1114,8 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
     var btn = document.getElementById('btnSend');
     var msg = document.getElementById('resultMsg');
     var fallback = document.getElementById('fallbackBox');
-    if(!btn) return;
+    var titulo   = document.getElementById('resultTitle');
+    var check    = document.getElementById('resultCheck');
 
     function valorDe(nombres){
       for(var i=0;i<nombres.length;i++){
@@ -1131,9 +1138,47 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
       });
     }
 
-    btn.addEventListener('click', function(){
-      btn.disabled = true;
-      btn.textContent = texto('Enviando…','Sending…');
+    // Cambia un texto de estado y deja al dia sus data-es/data-en, para que el
+    // conmutador de idioma no lo pise despues.
+    function ponerTexto(el, es, en){
+      if(!el) return;
+      el.setAttribute('data-es', es);
+      el.setAttribute('data-en', en);
+      el.textContent = texto(es, en);
+    }
+
+    function estadoEnviando(){
+      if(check) check.hidden = true;
+      ponerTexto(titulo, 'Enviando tus respuestas…', 'Sending your answers…');
+      ponerTexto(msg, 'Un momento, no cierres esta página.', 'One moment, please do not close this page.');
+      if(btn) btn.hidden = true;
+      if(fallback) fallback.hidden = true;
+    }
+
+    function estadoOk(){
+      if(check) check.hidden = false;
+      ponerTexto(titulo, '¡Recibido!', 'Received!');
+      ponerTexto(msg, 'Gracias. Ya tenemos tus respuestas — nos pondremos en contacto contigo en breve.',
+                      'Thank you. We have your answers — we will get back to you shortly.');
+      if(btn) btn.hidden = true;
+      if(fallback) fallback.hidden = true;
+      mostrarExtras();
+      try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
+    }
+
+    function estadoFallo(){
+      if(check) check.hidden = true;
+      ponerTexto(titulo, 'No pudimos enviarlo', 'We could not send it');
+      ponerTexto(msg, 'Revisa tu conexión y vuelve a intentarlo. Si sigue sin salir, usa «Enviar por correo»: te descargamos el archivo y te abrimos el mensaje para que lo adjuntes.',
+                      'Check your connection and try again. If it still fails, use “Send by email”: we will download the file and open a message for you to attach it.');
+      if(btn){ btn.hidden = false; btn.disabled = false; ponerTexto(btn, '↻ Reintentar envío', '↻ Retry'); }
+      if(fallback) fallback.hidden = false;
+      mostrarExtras();
+    }
+
+    function enviar(){
+      if(btn) btn.disabled = true;
+      estadoEnviando();
 
       var payload = {
         clave: ENVIO_CLAVE,
@@ -1155,25 +1200,12 @@ LOYALTY: Quarterly NPS survey, upselling proposal"></textarea></div>
         body: JSON.stringify(payload)
       })
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(){
-        btn.textContent = texto('✓ Enviado','✓ Sent');
-        btn.disabled = true;
-        if(msg) msg.textContent = texto(
-          'Recibido. Gracias — nos pondremos en contacto contigo en breve.',
-          'Received. Thank you — we will get back to you shortly.');
-        try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
-        mostrarExtras();
-      })
-      .catch(function(){
-        btn.disabled = false;
-        btn.textContent = texto('↻ Reintentar envío','↻ Retry');
-        if(msg) msg.textContent = texto(
-          'No pudimos enviarlo automáticamente. Inténtalo otra vez o usa «Guardar una copia» y mándanosla por correo.',
-          'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
-        if(fallback) fallback.hidden = false;
-        mostrarExtras();
-      });
-    });
+      .then(estadoOk)
+      .catch(estadoFallo);
+    }
+
+    if(btn) btn.addEventListener('click', enviar);   // el boton de reintentar
+    window.__arravivaEnviar = enviar;
   })();
 
   /* =======================================================================
