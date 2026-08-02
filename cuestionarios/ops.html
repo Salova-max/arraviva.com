@@ -687,8 +687,8 @@ FLOW 3 - Contract management:
     <p id="resultMsg" data-es="Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo." data-en="Review the summary below and tap “Submit answers”. They reach us directly — you don’t need to attach any file.">Revisa el resumen de abajo y pulsa «Enviar respuestas». Nos llegan directamente — no tienes que adjuntar ningún archivo.</p>
     <div class="actions">
       <button class="btn primary" id="btnSend" data-es="✓ Enviar respuestas" data-en="✓ Submit answers">✓ Enviar respuestas</button>
-      <button class="btn" id="btnDownload" data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
-      <button class="btn" id="btnCopy" data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
+      <button class="btn" id="btnDownload" hidden data-es="⬇ Guardar una copia" data-en="⬇ Save a copy">⬇ Guardar una copia</button>
+      <button class="btn" id="btnCopy" hidden data-es="⧉ Copiar respuestas" data-en="⧉ Copy answers">⧉ Copiar respuestas</button>
     </div>
     <div class="actions" id="fallbackBox" hidden>
       <button class="btn" id="btnEmail" data-es="✉ Enviar por correo" data-en="✉ Send by email">✉ Enviar por correo</button>
@@ -855,6 +855,14 @@ FLOW 3 - Contract management:
       catch(e){ return ''; }
     }
     function texto(es,en){ return lang==='es' ? es : en; }
+    // Los botones secundarios solo se ofrecen cuando ya no pueden confundir:
+    // despues de enviar, o si el envio ha fallado.
+    function mostrarExtras(){
+      ['btnDownload','btnCopy'].forEach(function(id){
+        var b = document.getElementById(id);
+        if(b) b.hidden = false;
+      });
+    }
 
     btn.addEventListener('click', function(){
       btn.disabled = true;
@@ -887,6 +895,7 @@ FLOW 3 - Contract management:
           'Recibido. Gracias — nos pondremos en contacto contigo en breve.',
           'Received. Thank you — we will get back to you shortly.');
         try{ localStorage.removeItem('arraviva-q-' + (location.pathname.split('/').pop() || 'form')); }catch(e){}
+        mostrarExtras();
       })
       .catch(function(){
         btn.disabled = false;
@@ -895,6 +904,7 @@ FLOW 3 - Contract management:
           'No pudimos enviarlo automáticamente. Inténtalo otra vez o usa «Guardar una copia» y mándanosla por correo.',
           'We could not send it automatically. Try again, or use “Save a copy” and email it to us.');
         if(fallback) fallback.hidden = false;
+        mostrarExtras();
       });
     });
   })();
